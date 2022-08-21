@@ -14,6 +14,7 @@ gem 'figaro'
 gem 'faraday'
 
 group :development do
+  gem 'listen'
   gem 'rubocop', require: false
   gem 'capistrano', '= 3.16.0', require: false
   gem 'capistrano-rvm',         require: false
