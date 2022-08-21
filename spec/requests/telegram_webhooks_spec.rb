@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'telegram/bot/rspec/integration/rails'
 
 RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
+  # include_context 'telegram/bot/updates_controller'
+
   let(:from) { { username: 'nikolay_stepanets' } }
 
   describe '#start!' do
@@ -110,5 +112,39 @@ DELIVEROO - 1049 грн, 20-8-2022
     let(:data) { "enter_expenses" }
 
     it { should respond_with_message("как заполнять?") }
+  end
+
+  describe '#metro_expenses' do
+    # let(:controller_class) { described_class }
+    # let(:controller) do
+    #   controller_class.new.tap do |x|
+    #     x.extend Telegram::Bot::UpdatesController::Testing
+    #   end
+    # end
+    # let(:session) { controller.send(:session) }
+    let(:data) { "metro_expenses" }
+
+#     let(:controller_class) do
+#       Class.new(Telegram::Bot::UpdatesController) do
+#         include Telegram::Bot::UpdatesController::Session
+#       end
+#     end
+
+    let(:controller_class) do
+      Class.new(Telegram::Bot::UpdatesController) do
+        include Telegram::Bot::UpdatesController::Session
+      end
+    end
+
+    before do
+      # binding.pry
+      # controller_class.build_session(key, *args)
+      # allow_any_instance
+      # session[:total_price_of_products_in_foreign_currency] = 0
+      # allow_any_instance_of(Telegram::Bot::UpdatesController::Session::SessionHash).to receive(:session).and_return({ total_price_of_products_in_foreign_currency: 0 })
+      # allow(::Telegram::Bot::UpdatesController::Session::SessionHash).to receive(:new).and_return({ total_price_of_products_in_foreign_currency: 0 })
+    end
+
+    # it { should respond_with_message("как заполнять?") }
   end
 end
