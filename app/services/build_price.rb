@@ -1,0 +1,36 @@
+class BuildPrice
+  include CallableService
+
+  def initialize(price, session_object)
+    @price = price
+    @session_object = session_object
+  end
+
+  def call
+    current_price = @price.to_f
+    price_to_put_in_sheets = current_price
+    price_to_calculate = current_price
+
+    if !@session_object[:foreigh_cash_amount].zero?
+      price_to_calculate = current_price
+      price_to_put_in_sheets = BuildCashForeignCurrencyFormulaPrice.call(current_price)
+    end
+
+    if @session_object[:is_metro]
+      price_to_calculate = current_price + current_price * 0.2
+      price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} + #{current_price.to_s.gsub(".", ",")} * #{0.2.to_s.gsub(".", ",")}"
+    end
+
+    if !@session_object[:receipt_foreign_currency_exchange_rate].nil?
+      price_to_calculate = @session_object[:receipt_foreign_currency_exchange_rate] * current_price
+      price_to_put_in_sheets = "=#{@session_object[:receipt_foreign_currency_exchange_rate].to_s.gsub(".", ",")} * #{current_price.to_s.gsub(".", ",")}"
+    end
+
+    if !@session_object[:receipt_dollar_foreign_currency_exchange_rate].nil?
+      price_to_calculate = current_price / @session_object[:receipt_dollar_foreign_currency_exchange_rate]
+      price_to_put_in_sheets = BuildDollarForeignCurrencyFormulaPrice.call(current_price, @session_object)
+    end
+
+    [price_to_put_in_sheets, price_to_calculate]
+  end
+end
