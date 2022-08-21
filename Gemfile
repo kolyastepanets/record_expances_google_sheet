@@ -15,11 +15,11 @@ gem 'faraday'
 
 group :development do
   gem 'rubocop', require: false
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano', '= 3.16.0', require: false
+  gem 'capistrano-rvm',         require: false
+  gem 'capistrano-rails',       require: false
+  gem 'capistrano-bundler',     require: false
+  gem 'capistrano3-puma',       require: false
 end
 
 group :development, :test do
