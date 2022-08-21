@@ -1,0 +1,37 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '2.7.0'
+
+gem 'rails', '~> 6.0.0'
+gem 'puma', '~> 3.11'
+gem "bootsnap", require: false
+gem 'telegram-bot'
+gem 'google-apis-sheets_v4', '= 0.10.0'
+gem 'redis'
+gem 'rake'
+gem 'figaro'
+gem 'faraday'
+
+group :development do
+  gem 'rubocop', require: false
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'faker'
+end
+
+group :test do
+  gem 'vcr', '2.9.3', require: false
+  gem 'webmock', '3.13.0', require: false
+  gem 'timecop', '0.9.4', require: false
+end
