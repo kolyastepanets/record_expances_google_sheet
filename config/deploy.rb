@@ -2,7 +2,7 @@
 lock "~> 3.16.0"
 
 # Change these
-server '167.99.224.148', port: 22, roles: [:web, :app, :db], primary: true
+server '167.99.224.148', port: 22, roles: [:web, :app], primary: true
 
 set :repo_url,        'git@github.com:kolyastepanets/record_expances_google_sheet.git'
 set :application,     'record_expenses_google_sheet'
