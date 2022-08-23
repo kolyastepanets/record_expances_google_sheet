@@ -4,6 +4,7 @@ class BuildDollarForeignCurrencyFormulaPrice
   CURRENCY_TO_CODE = {
     'UAH' => 980,
     'USD' => 840,
+    'EUR' => 978,
   }.freeze
 
   def initialize(price, session_object)
