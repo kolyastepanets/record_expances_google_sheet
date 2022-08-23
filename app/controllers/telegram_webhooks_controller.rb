@@ -14,6 +14,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'UAH на monobank', callback_data: 'get_current_mono_balance_from_monobank' }],
           [{ text: 'USD FOP на gsheets', callback_data: 'get_usd_fop_from_google_sheet' }],
           [{ text: 'USD FOP на monobank', callback_data: 'get_usd_fop_from_monobank' }],
+          [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
           [{ text: 'Продал валюту c ФОПа', callback_data: 'sold_dollars_from_fop' }],
@@ -43,6 +44,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_usd_fop_from_google_sheet
     when 'get_usd_fop_from_monobank'
       get_usd_fop_from_monobank
+    when 'total_saved_money_from_google_sheet'
+      total_saved_money_from_google_sheet
     when 'get_last_3_expenses_in_google_sheet'
       get_last_3_expenses_in_google_sheet
     when 'get_last_10_transactions_from_mono'
@@ -180,6 +183,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_usd_fop_from_monobank
     respond_with(:message, text: ReceiveUsdFopFromMonobank.call)
+  end
+
+  def total_saved_money_from_google_sheet
+    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call)
   end
 
   def get_last_3_expenses_in_google_sheet
