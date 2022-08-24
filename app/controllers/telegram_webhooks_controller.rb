@@ -5,7 +5,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
 
   def start!(*)
-    # binding.pry
     if from["username"] == "nikolay_stepanets" || from["username"] == "liliya_stepanets"
       respond_with(:message, text: 'Выбери действие:', reply_markup: {
         inline_keyboard: [
