@@ -114,4 +114,22 @@ DELIVEROO - 1049 грн, 20-8-2022
 
     it { should respond_with_message("как заполнять?") }
   end
+
+  describe '#categor_without_subcategor', vcr: true, freezed_time: '2022-08-24T10:23:00+00:00' do
+    let(:data) { "categor_without_subcategor" }
+
+    it { should respond_with_message("Выбранная подкатегория: ") }
+  end
+
+  describe '#Подарки: category', vcr: true, freezed_time: '2022-08-24T10:22:00+00:00' do
+    let(:data) { "Подарки: category" }
+
+    it { should respond_with_message("Выбери подкатегорию:") }
+  end
+
+  describe '#subcategory Подарки', vcr: true, freezed_time: '2022-08-24T10:25:00+00:00' do
+    let(:data) { "Подарки" }
+
+    it { should respond_with_message("Внеси цену товара:") }
+  end
 end
