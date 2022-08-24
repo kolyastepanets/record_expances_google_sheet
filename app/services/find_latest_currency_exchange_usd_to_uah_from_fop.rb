@@ -10,7 +10,7 @@ class FindLatestCurrencyExchangeUsdToUahFromFop < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_CURRENCY_EXCHANGE_FIRST_HALF_MONTH = "курс доллара 1ая зп".freeze
   KEY_FIND_CELL_CURRENCY_EXCHANGE_SECOND_HALF_MONTH = "курс доллара 2ая зп".freeze
   CURRENCY_EXCHANGE_IS_NOT_SET = 1.0
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CN').to_a)
+  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
     @current_month = Date.today.month

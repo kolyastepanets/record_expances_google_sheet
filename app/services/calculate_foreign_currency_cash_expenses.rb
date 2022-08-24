@@ -5,7 +5,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_SPENT_MONEY = "Потрачено денег:".freeze
   KEY_FIND_CELL_NOW_MONEY = "Сейчас денег:".freeze
   MONTH_POINT_ONE = ",1".freeze
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CN').to_a)
+  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
     @current_month = Date.today.month
