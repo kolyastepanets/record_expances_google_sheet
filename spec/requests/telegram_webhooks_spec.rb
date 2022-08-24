@@ -60,10 +60,10 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     it { should respond_with_message("67 777 грн") }
   end
 
-  describe '#get_current_mono_balance_from_google_sheet', vcr: true, freezed_time: '2022-08-20T19:54:00+00:00' do
+  describe '#get_current_mono_balance_from_google_sheet', vcr: true, freezed_time: '2022-08-24T20:30:00+00:00' do
     let(:data) { "get_current_mono_balance_from_google_sheet" }
 
-    it { should respond_with_message("uah in google sheet: 4 860 грн") }
+    it { should respond_with_message("uah in google sheet: 8 740 грн") }
   end
 
   describe '#get_current_mono_balance_from_monobank', vcr: true, freezed_time: '2022-08-20T19:55:00+00:00' do

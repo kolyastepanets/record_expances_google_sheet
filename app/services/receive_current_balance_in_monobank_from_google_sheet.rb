@@ -3,6 +3,10 @@ class ReceiveCurrentBalanceInMonobankFromGoogleSheet < GetOrSetDataInGoogleSheet
 
   private
 
+  def end_line_to_search
+    105
+  end
+
   def find_by_word
     'сейчас на моно'
   end
