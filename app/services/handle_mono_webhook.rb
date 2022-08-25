@@ -17,5 +17,6 @@ class HandleMonoWebhook
     end
 
     SaveDataFromMonoWebhook.call(@params)
+    TestJob.perform_later
   end
 end

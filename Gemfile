@@ -12,6 +12,7 @@ gem 'redis'
 gem 'rake'
 gem 'figaro'
 gem 'faraday'
+gem 'sidekiq', '= 6.0.2'
 
 group :development do
   gem 'listen'

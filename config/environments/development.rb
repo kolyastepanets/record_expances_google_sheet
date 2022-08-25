@@ -48,4 +48,6 @@ Rails.application.configure do
 
   config.telegram_updates_controller.session_store = :file_store, {expires_in: 1.month}
   config.hosts << "38bc-167-99-224-148.ngrok.io"
+
+  config.active_job.queue_adapter = :sidekiq
 end
