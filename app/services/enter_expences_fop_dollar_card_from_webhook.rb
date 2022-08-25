@@ -3,28 +3,37 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def initialize(transaction_data)
     @transaction_data = transaction_data
+    @params = {
+      category_name: nil,
+      sub_category_name: nil,
+      price_in_usd: @transaction_data["amount"].abs / 100.0,
+      current_month: Date.today.month,
+    }
   end
 
   def call
-    case @transaction_data["description"]
-    when cambridge_bus
-      # to put in Sidekiq
-      # PutExpensesToGoogleSheet.call('Транспорт', 'Автобус', price_in_usd, Date.today.month)
-
-      # result = CalculateTotalSpentUsdAndUah.call
-
-      # # decrease usd saved amount
-      # UpdateCommonCurrencyExpenses.call(
-      #   result[:total_left_usd_money] - price_in_usd,
-      #   result[:coordinates_of_total_left_usd_money],
-      # )
-      # to put in Sidekiq
-    when mcdonalds
-      # PutExpensesToGoogleSheet.call('Еда', 'Готовая', price_in_usd, Date.today.month)
-    end
+    build_params
+    call_job
   end
 
   private
+
+  def build_params
+    case @transaction_data["description"]
+    when cambridge_bus
+      @params[:category_name] = 'Транспорт'
+      @params[:sub_category_name] = 'Автобус'
+    when mcdonalds
+      @params[:category_name] = 'Еда'
+      @params[:sub_category_name] = 'Готовая'
+    end
+  end
+
+  def call_job
+    return if @params[:category_name].nil?
+
+    PutExpencesFopDollarCardJob.perform_later(@params)
+  end
 
   def cambridge_bus
     "STGCOACH/CTYLINK"
@@ -32,9 +41,5 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def mcdonalds
     "McDonald's"
-  end
-
-  def price_in_usd
-    @transaction_data["amount"].abs / 100.0
   end
 end

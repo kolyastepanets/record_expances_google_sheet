@@ -16,7 +16,6 @@ class HandleMonoWebhook
       EnterExpencesFopDollarCardFromWebhook.call(@params["data"]["statementItem"])
     end
 
-    SaveDataFromMonoWebhook.call(@params)
-    TestJob.perform_later
+    TestJob.perform_later(JSON.parse(@params.to_json))
   end
 end
