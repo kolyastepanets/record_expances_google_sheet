@@ -2,6 +2,7 @@ class HandleMonoWebhook
   include CallableService
 
   FOP_DOLLAR_CARD = "IJ8Y_c1UAwxRHa4vAlTivQ".freeze
+  BLACK_UAH_CARD = "C0Hfjf2vrc00CZ_1ZCjSLg".freeze
   # GET_SALARY_FOP_DOLLAR_ACCOUNT = "".freeze
 
   def initialize(params)
@@ -13,6 +14,8 @@ class HandleMonoWebhook
 
     case @params["data"]["account"]
     when FOP_DOLLAR_CARD
+      EnterExpencesFopDollarCardFromWebhook.call(@params["data"]["statementItem"])
+    when BLACK_UAH_CARD
       EnterExpencesFopDollarCardFromWebhook.call(@params["data"]["statementItem"])
     end
 
