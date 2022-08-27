@@ -58,9 +58,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       start_remember_total_price_of_products
       show_categories_to_choose
     when 'common_expenses'
+      session[:is_grivnas] = true
       start_remember_total_price_of_products
       show_categories_to_choose
     when 'receipt_foreign_currency'
+      session[:is_grivnas] = true
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       ask_to_enter_left_foreign_cash
@@ -88,19 +90,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       price_in_uah = price.to_f / session[:receipt_dollar_foreign_currency_exchange_rate].to_f * currency_uah_to_usd
       price_in_usd = price_to_calculate
 
-      result = CalculateTotalSpentUsdAndUah.call
+      DecreaseUsdSavedAmount.call(price_in_usd)
+    end
 
-      # increase uah spent amount
-      UpdateCommonCurrencyExpenses.call(
-        result[:total_spent_uah_money] + price_in_uah,
-        result[:coordinates_of_total_spent_uah_money],
-      )
-
-      # decrease usd saved amount
-      UpdateCommonCurrencyExpenses.call(
-        result[:total_left_usd_money] - price_in_usd,
-        result[:coordinates_of_total_left_usd_money],
-      )
+    if session[:is_grivnas]
+      # places to change to usd
+      # DecreaseUahSavedAmount.call(price_to_calculate)
+      # places to change to usd
     end
 
     sub_category_name = session[:last_chosen_sub_category]
@@ -145,8 +141,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     # increase uah amount
     UpdateCommonCurrencyExpenses.call(
-      result[:total_spent_uah_money] + grivnas,
-      result[:coordinates_of_total_spent_uah_money],
+      result[:total_left_uah_money] + grivnas,
+      result[:coordinates_of_total_left_uah_money],
     )
 
     # decrease usd amount
@@ -358,6 +354,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def set_default_values_in_session!
+    session[:is_grivnas] = nil
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
     session[:receipt_dollar_foreign_currency_exchange_rate] = nil

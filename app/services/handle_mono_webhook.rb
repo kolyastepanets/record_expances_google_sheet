@@ -16,7 +16,7 @@ class HandleMonoWebhook
     when FOP_DOLLAR_CARD
       EnterExpencesFopDollarCardFromWebhook.call(@params[:data][:statementItem])
     when BLACK_UAH_CARD
-      EnterExpencesFopDollarCardFromWebhook.call(@params[:data][:statementItem])
+      EnterExpencesUahBlackCardFromWebhook.call(@params[:data][:statementItem])
     end
 
     TestJob.perform_later(@params)

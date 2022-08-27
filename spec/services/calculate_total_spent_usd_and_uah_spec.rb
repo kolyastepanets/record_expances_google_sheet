@@ -5,8 +5,8 @@ RSpec.describe CalculateTotalSpentUsdAndUah, vcr: true, freezed_time: '2022-08-2
 
   it 'returns info about spent usd' do
     expect(subject).to eq({
-      total_spent_uah_money: 115846.0,
-      coordinates_of_total_spent_uah_money: "AU82",
+      total_left_uah_money: 115846.0,
+      coordinates_of_total_left_uah_money: "AU82",
       total_left_usd_money: 3683.0,
       coordinates_of_total_left_usd_money: "AU102"
     })

@@ -11,6 +11,13 @@ class BuildPrice
     price_to_put_in_sheets = current_price
     price_to_calculate = current_price
 
+    if @session_object[:is_grivnas]
+      # places to change to usd
+      # price_to_calculate = current_price
+      # price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      # places to change to usd
+    end
+
     if !@session_object[:foreigh_cash_amount].zero?
       price_to_calculate = current_price
       price_to_put_in_sheets = BuildCashForeignCurrencyFormulaPrice.call(current_price)
@@ -24,13 +31,17 @@ class BuildPrice
     if !@session_object[:receipt_foreign_currency_exchange_rate].nil?
       price_to_calculate = @session_object[:receipt_foreign_currency_exchange_rate] * current_price
       price_to_put_in_sheets = "=#{@session_object[:receipt_foreign_currency_exchange_rate].to_s.gsub(".", ",")} * #{current_price.to_s.gsub(".", ",")}"
-      # price_to_put_in_sheets = "=#{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")} * #{current_price.to_s.gsub(".", ",")}"
+      # places to change to usd
+      # price_to_put_in_sheets = "=#{price_to_calculate.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      # places to change to usd
     end
 
     if !@session_object[:receipt_dollar_foreign_currency_exchange_rate].nil?
       price_to_calculate = current_price / @session_object[:receipt_dollar_foreign_currency_exchange_rate]
       price_to_put_in_sheets = BuildDollarForeignCurrencyFormulaPrice.call(current_price, @session_object)
-      # price_to_put_in_sheets = price_to_calculate
+      # places to change to usd
+      # price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} / #{@session_object[:receipt_dollar_foreign_currency_exchange_rate].to_s.gsub(".", ",")}"
+      # places to change to usd
     end
 
     [price_to_put_in_sheets, price_to_calculate]

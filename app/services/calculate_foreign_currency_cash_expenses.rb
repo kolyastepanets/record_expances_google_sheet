@@ -8,6 +8,9 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
+    # places to change to usd
+    # @current_month = 9
+    # places to change to usd
     @current_month = Date.today.month
   end
 

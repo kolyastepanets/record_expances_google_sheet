@@ -7,6 +7,9 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
+    # places to change to usd
+    # @current_month = 9
+    # places to change to usd
     @current_month = Date.today.month
   end
 
@@ -19,13 +22,14 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
   def parse_response
     index_line_to_remember = 0
     index_column_to_remember = 0
-    total_spent_uah_money = 0
+    total_left_uah_money = 0
     total_left_usd_money = 0
 
     @response.values.each do |value_array|
       value_array.each_with_index do |value, index|
         index_column_to_remember = index if value == @current_month.to_s
       end
+      break if !index_column_to_remember.zero?
     end
 
     index_value_to_update = index_column_to_remember + 1 # column, e.x. A, B, ..., AB, etc
@@ -34,13 +38,13 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
       value_array.each do |value|
         if value == KEY_FIND_CELL_SPENT_UAH_MONEY
           index_line_to_remember = value_array_index
-          total_spent_uah_money = value_array[index_value_to_update]
+          total_left_uah_money = value_array[index_value_to_update]
         end
       end
     end
-    total_spent_uah_money = total_spent_uah_money.gsub(/[[:space:]]+/, "")
-    total_spent_uah_money = total_spent_uah_money.remove("грн") if total_spent_uah_money.include?("грн")
-    coordinates_of_total_spent_uah_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    total_left_uah_money = total_left_uah_money.gsub(/[[:space:]]+/, "")
+    total_left_uah_money = total_left_uah_money.remove("грн") if total_left_uah_money.include?("грн")
+    coordinates_of_total_left_uah_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -48,6 +52,7 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
           index_line_to_remember = value_array_index
           total_left_usd_money = value_array[index_value_to_update]
         end
+        break if total_left_usd_money.is_a?(String)
       end
     end
     total_left_usd_money = total_left_usd_money.gsub(/[[:space:]]+/, "")
@@ -55,8 +60,8 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
     coordinates_of_total_left_usd_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     {
-      total_spent_uah_money: total_spent_uah_money.to_f,
-      coordinates_of_total_spent_uah_money: coordinates_of_total_spent_uah_money,
+      total_left_uah_money: total_left_uah_money.to_f,
+      coordinates_of_total_left_uah_money: coordinates_of_total_left_uah_money,
       total_left_usd_money: total_left_usd_money.to_f,
       coordinates_of_total_left_usd_money: coordinates_of_total_left_usd_money,
     }
