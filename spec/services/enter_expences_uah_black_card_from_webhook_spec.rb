@@ -27,6 +27,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: 'youtube',
         price_in_uah: 149.0,
         current_month: Date.today.month,
+        mono_description: "YouTube",
       }
     end
 
@@ -61,6 +62,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: nil,
         price_in_uah: 18000.0,
         current_month: Date.today.month,
+        mono_description: "Лиля ❤️",
       }
     end
 
@@ -121,6 +123,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: 'google',
         price_in_uah: 45.0,
         current_month: Date.today.month,
+        mono_description: "Google",
       }
     end
 
@@ -155,6 +158,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: 'мама Коли',
         price_in_uah: 3000.0,
         current_month: Date.today.month,
+        mono_description: "516875******6402",
       }
     end
 
@@ -215,6 +219,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: 'кладовка',
         price_in_uah: 450.0,
         current_month: Date.today.month,
+        mono_description: "536354******0388",
       }
     end
 
@@ -249,6 +254,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         sub_category_name: 'кладовка',
         price_in_uah: 750.0,
         current_month: Date.today.month,
+        mono_description: "431414******3237",
       }
     end
 
@@ -280,6 +286,76 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+
+      subject
+    end
+  end
+
+  context 'when cambridge bus 18' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "STGCOACH/CTYLINK",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Транспорт',
+        sub_category_name: 'Автобус',
+        price_in_uah: 4.0,
+        current_month: Date.today.month,
+        mono_description: "STGCOACH/CTYLINK",
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when cambridge bus 75' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "THE COACH YARD",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Транспорт',
+        sub_category_name: 'Автобус',
+        price_in_uah: 4.0,
+        current_month: Date.today.month,
+        mono_description: "THE COACH YARD",
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
 
       subject
     end

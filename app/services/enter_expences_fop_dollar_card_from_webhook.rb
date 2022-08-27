@@ -21,7 +21,7 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def build_params
     case @transaction_data[:description]
-    when cambridge_bus
+    when -> (description) { cambridge_buses.include?(description) }
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Автобус'
     when mcdonalds
@@ -36,8 +36,8 @@ class EnterExpencesFopDollarCardFromWebhook
     PutExpencesFopDollarCardJob.perform_later(@params)
   end
 
-  def cambridge_bus
-    "STGCOACH/CTYLINK"
+  def cambridge_buses
+    ["STGCOACH/CTYLINK", "THE COACH YARD"]
   end
 
   def mcdonalds
