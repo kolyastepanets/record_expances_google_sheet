@@ -8,11 +8,11 @@ gem 'puma', '~> 3.11'
 gem "bootsnap", require: false
 gem 'telegram-bot'
 gem 'google-apis-sheets_v4', '= 0.10.0'
-gem 'redis'
+gem 'redis', '= 4.5'
 gem 'rake'
 gem 'figaro'
 gem 'faraday'
-gem 'sidekiq', '= 6.0.2'
+gem 'sidekiq', '= 5.2.10'
 
 group :development do
   gem 'listen'
