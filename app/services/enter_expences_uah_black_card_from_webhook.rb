@@ -6,7 +6,7 @@ class EnterExpencesUahBlackCardFromWebhook
     @params = {
       category_name: nil,
       sub_category_name: nil,
-      price_in_uah: @transaction_data["amount"].abs / 100.0,
+      price_in_uah: @transaction_data[:amount].abs / 100.0,
       current_month: Date.today.month,
     }
   end
@@ -19,7 +19,7 @@ class EnterExpencesUahBlackCardFromWebhook
   private
 
   def build_params
-    case @transaction_data["description"]
+    case @transaction_data[:description]
     when youtube
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'youtube'
@@ -38,6 +38,9 @@ class EnterExpencesUahBlackCardFromWebhook
     when kladovka_2
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'кладовка'
+    when cambridge_bus
+      @params[:category_name] = 'Транспорт'
+      @params[:sub_category_name] = 'Автобус'
     end
   end
 
@@ -65,5 +68,9 @@ class EnterExpencesUahBlackCardFromWebhook
 
   def kolya_mama
     "516875******6402"
+  end
+
+  def cambridge_bus
+    "STGCOACH/CTYLINK"
   end
 end

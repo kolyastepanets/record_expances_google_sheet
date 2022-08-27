@@ -6,19 +6,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when youtube' do
     let(:transaction_data) do
       {
-        "amount" => -14900,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "YouTube",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -14900,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "YouTube",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -40,19 +40,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when Liliia salary' do
     let(:transaction_data) do
       {
-        "amount" => -1800000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "Лиля ❤️",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -1800000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лиля ❤️",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -74,19 +74,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when Liliia another amount' do
     let(:transaction_data) do
       {
-        "amount" => -10000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "Лиля ❤️",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -10000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лиля ❤️",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
 
@@ -100,19 +100,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when google' do
     let(:transaction_data) do
       {
-        "amount" => -4500,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "Google",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -4500,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Google",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -134,19 +134,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when kolya mama 1st date of month' do
     let(:transaction_data) do
       {
-        "amount" => -300000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "516875******6402",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -300000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "516875******6402",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -168,19 +168,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when kolya mama other sum' do
     let(:transaction_data) do
       {
-        "amount" => -200000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "516875******6402",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -200000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "516875******6402",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
 
@@ -194,19 +194,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when kladovka_1' do
     let(:transaction_data) do
       {
-        "amount" => -45000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "536354******0388",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -45000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "536354******0388",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -228,19 +228,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when kladovka_2' do
     let(:transaction_data) do
       {
-        "amount" => -75000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "431414******3237",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -75000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "431414******3237",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -262,19 +262,19 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when description does not fit anything' do
     let(:transaction_data) do
       {
-        "amount" => -75000,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "bla",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -75000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "bla",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
 

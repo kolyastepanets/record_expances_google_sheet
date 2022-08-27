@@ -6,7 +6,7 @@ class EnterExpencesFopDollarCardFromWebhook
     @params = {
       category_name: nil,
       sub_category_name: nil,
-      price_in_usd: @transaction_data["amount"].abs / 100.0,
+      price_in_usd: @transaction_data[:amount].abs / 100.0,
       current_month: Date.today.month,
     }
   end
@@ -19,7 +19,7 @@ class EnterExpencesFopDollarCardFromWebhook
   private
 
   def build_params
-    case @transaction_data["description"]
+    case @transaction_data[:description]
     when cambridge_bus
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Автобус'

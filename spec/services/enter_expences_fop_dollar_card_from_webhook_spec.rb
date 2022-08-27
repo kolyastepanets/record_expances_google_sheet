@@ -6,19 +6,19 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
   context 'when cambridge bus' do
     let(:transaction_data) do
       {
-        "amount" => -400,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "STGCOACH/CTYLINK",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "STGCOACH/CTYLINK",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
@@ -40,19 +40,19 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
   context 'when mcdonalds' do
     let(:transaction_data) do
       {
-        "amount" => -400,
-        "balance" => 2876000,
-        "cashbackAmount" => 0,
-        "commissionRate" => 0,
-        "currencyCode" => 980,
-        "description" => "McDonald's",
-        "hold" => true,
-        "id" => "JEMXm-kC9iSZNfGJ",
-        "mcc" => 4829,
-        "operationAmount" => -1000,
-        "originalMcc" => 4829,
-        "receiptId" => "E4HC-1552-737M-HAC7",
-        "time" => 1661541332,
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "McDonald's",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
       }
     end
     let(:params) do
