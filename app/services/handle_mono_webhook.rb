@@ -6,19 +6,19 @@ class HandleMonoWebhook
   # GET_SALARY_FOP_DOLLAR_ACCOUNT = "".freeze
 
   def initialize(params)
-    @params = params.deep_symbolize_keys
+    @params = JSON.parse(params.to_json).deep_symbolize_keys
   end
 
   def call
     return if @params.empty?
 
-    case @params["data"]["account"]
+    case @params[:data][:account]
     when FOP_DOLLAR_CARD
       EnterExpencesFopDollarCardFromWebhook.call(@params[:data][:statementItem])
     when BLACK_UAH_CARD
       EnterExpencesFopDollarCardFromWebhook.call(@params[:data][:statementItem])
     end
 
-    TestJob.perform_later(JSON.parse(@params.to_json))
+    TestJob.perform_later(@params)
   end
 end

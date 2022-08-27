@@ -8,6 +8,7 @@ class EnterExpencesUahBlackCardFromWebhook
       sub_category_name: nil,
       price_in_uah: @transaction_data[:amount].abs / 100.0,
       current_month: Date.today.month,
+      mono_description: @transaction_data[:description],
     }
   end
 

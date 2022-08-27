@@ -22,5 +22,11 @@ class PutExpencesFopDollarCardJob < ApplicationJob
       result[:total_left_usd_money] - price_in_usd,
       result[:coordinates_of_total_left_usd_money],
     )
+
+    NotifyEnteredExpencesFromWebhook.call(params)
+  rescue StandardError => e
+    error_message = { message: e.message }
+
+    NotifyEnteredExpencesFromWebhook.call(error_message)
   end
 end

@@ -22,5 +22,11 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       result[:total_spent_uah_money] + price_in_uah,
       result[:coordinates_of_total_spent_uah_money],
     )
+
+    NotifyEnteredExpencesFromWebhook.call(params)
+  rescue StandardError => e
+    error_message = { message: e.message }
+
+    NotifyEnteredExpencesFromWebhook.call(error_message)
   end
 end

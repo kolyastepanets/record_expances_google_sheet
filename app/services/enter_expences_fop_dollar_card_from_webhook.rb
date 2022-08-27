@@ -8,6 +8,7 @@ class EnterExpencesFopDollarCardFromWebhook
       sub_category_name: nil,
       price_in_usd: @transaction_data[:amount].abs / 100.0,
       current_month: Date.today.month,
+      mono_description: @transaction_data[:description],
     }
   end
 
@@ -40,6 +41,6 @@ class EnterExpencesFopDollarCardFromWebhook
   end
 
   def mcdonalds
-    "McDonald's"
+    "McDonald’s"
   end
 end
