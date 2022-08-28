@@ -28,29 +28,17 @@ class EnterExpencesFopDollarCardFromWebhook
       @params[:category_name] = 'Еда'
       @params[:sub_category_name] = 'Готовая'
     when sold_dollars_from_fop
-      grivnas = @transaction_data[:operationAmount].abs / 100.0
-      dollars = @transaction_data[:amount].abs / 100.0
-
-      result = CalculateTotalSpentUsdAndUah.call
-
-      # increase uah amount
-      UpdateCommonCurrencyExpenses.call(
-        result[:total_left_uah_money] + grivnas,
-        result[:coordinates_of_total_left_uah_money],
-      )
-
-      # decrease usd amount
-      UpdateCommonCurrencyExpenses.call(
-        result[:total_left_usd_money] - dollars,
-        result[:coordinates_of_total_left_usd_money],
-      )
+      @params = {
+        sold_dollars_from_fop: true,
+        grivnas: @transaction_data[:operationAmount].abs / 100.0,
+        dollars: @transaction_data[:amount].abs / 100.0,
+      }
     end
   end
 
   def call_job
-    return if @params[:category_name].nil?
-
-    PutExpencesFopDollarCardJob.perform_later(@params)
+    EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]
+    PutExpencesFopDollarCardJob.perform_later(@params) if @params[:category_name].present?
   end
 
   def cambridge_buses

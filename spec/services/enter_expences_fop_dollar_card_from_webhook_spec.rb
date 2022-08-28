@@ -127,22 +127,22 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         time: 1661710603
       }
     end
-    let(:result) do
+    let(:params) do
       {
-        total_left_uah_money: 1000,
-        coordinates_of_total_left_uah_money: 'BC81',
-        total_left_usd_money: 200,
-        coordinates_of_total_left_usd_money: 'BC82',
+        grivnas: 3665,
+        dollars: 100,
+        sold_dollars_from_fop: true,
       }
     end
 
-    before do
-      allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return(result)
+    it 'calls job EnterSoldDollarsFromFopJob' do
+      expect(EnterSoldDollarsFromFopJob).to receive(:perform_later).with(params)
+
+      subject
     end
 
-    it 'calls 2 classes' do
-      expect(UpdateCommonCurrencyExpenses).to receive(:call).with(4665, 'BC81')
-      expect(UpdateCommonCurrencyExpenses).to receive(:call).with(100, 'BC82')
+    it 'does not call PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
 
       subject
     end
