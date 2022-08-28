@@ -27,6 +27,23 @@ class EnterExpencesFopDollarCardFromWebhook
     when mcdonalds
       @params[:category_name] = 'Еда'
       @params[:sub_category_name] = 'Готовая'
+    when sold_dollars_from_fop
+      grivnas = @transaction_data[:operationAmount].abs / 100.0
+      dollars = @transaction_data[:amount].abs / 100.0
+
+      result = CalculateTotalSpentUsdAndUah.call
+
+      # increase uah amount
+      UpdateCommonCurrencyExpenses.call(
+        result[:total_left_uah_money] + grivnas,
+        result[:coordinates_of_total_left_uah_money],
+      )
+
+      # decrease usd amount
+      UpdateCommonCurrencyExpenses.call(
+        result[:total_left_usd_money] - dollars,
+        result[:coordinates_of_total_left_usd_money],
+      )
     end
   end
 
@@ -42,5 +59,9 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def mcdonalds
     "McDonald’s"
+  end
+
+  def sold_dollars_from_fop
+    "На гривневый счет ФОП для перевода на карту"
   end
 end

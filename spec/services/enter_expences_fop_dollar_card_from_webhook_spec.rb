@@ -107,4 +107,44 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
   end
+
+  context 'when sold dollars from fop' do
+    let(:transaction_data) do
+      {
+        amount: -10000,
+        balance: 1533784,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        counterEdrpou: "3299616355",
+        counterIban: "UA093220010000026002300065191",
+        currencyCode: 980,
+        description: "На гривневый счет ФОП для перевода на карту",
+        hold: true,
+        id: "q6BoObsWc4t4vdq9",
+        mcc: 4829,
+        operationAmount: -366500,
+        originalMcc: 4829,
+        time: 1661710603
+      }
+    end
+    let(:result) do
+      {
+        total_left_uah_money: 1000,
+        coordinates_of_total_left_uah_money: 'BC81',
+        total_left_usd_money: 200,
+        coordinates_of_total_left_usd_money: 'BC82',
+      }
+    end
+
+    before do
+      allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return(result)
+    end
+
+    it 'calls 2 classes' do
+      expect(UpdateCommonCurrencyExpenses).to receive(:call).with(4665, 'BC81')
+      expect(UpdateCommonCurrencyExpenses).to receive(:call).with(100, 'BC82')
+
+      subject
+    end
+  end
 end
