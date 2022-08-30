@@ -94,6 +94,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end
@@ -190,6 +191,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end
@@ -286,6 +288,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end

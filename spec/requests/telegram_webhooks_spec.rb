@@ -121,8 +121,8 @@ DELIVEROO - 1049 грн, 20-8-2022
     it { should respond_with_message("Выбранная подкатегория: ") }
   end
 
-  describe '#Подарки: category', vcr: true, freezed_time: '2022-08-24T10:22:00+00:00' do
-    let(:data) { "Подарки: category" }
+  describe '#Подарки: only_category', vcr: true, freezed_time: '2022-08-24T10:22:00+00:00' do
+    let(:data) { "Подарки: only_category" }
 
     it { should respond_with_message("Выбери подкатегорию:") }
   end

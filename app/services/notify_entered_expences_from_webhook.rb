@@ -8,6 +8,6 @@ class NotifyEnteredExpencesFromWebhook
   end
 
   def call
-    Telegram.bot.send_message(chat_id: NIKOLAY_STEPANETS_CHAT_ID, text: @params)
+    Telegram.bot.send_message(chat_id: NIKOLAY_STEPANETS_CHAT_ID, text: "Сохраненные данные: #{@params}")
   end
 end

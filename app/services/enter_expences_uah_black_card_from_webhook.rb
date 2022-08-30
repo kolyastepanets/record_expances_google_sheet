@@ -46,7 +46,7 @@ class EnterExpencesUahBlackCardFromWebhook
   end
 
   def call_job
-    return if @params[:category_name].nil?
+    return SendMessageToBotToAskToEnterExpences.call(@transaction_data) if @params[:category_name].nil?
 
     PutExpencesUahBlackCardJob.perform_later(@params)
   end

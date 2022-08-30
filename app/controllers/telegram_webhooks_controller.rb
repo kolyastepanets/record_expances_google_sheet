@@ -68,7 +68,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_to_enter_left_foreign_cash
     when 'dollar_card'
       ask_to_enter_dollar_foreign_currency_exchange_rate
-    when -> (input_category) { input_category.include?('category') }
+    when -> (input_category) { input_category.include?('only_category') }
       category_name = data.split(': ')[0]
       show_sub_categories_by_category(category_name)
     when *sub_categories
@@ -77,6 +77,24 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_for_price(nil)
     when 'finish_remember_total_price_of_products'
       finish_remember_total_price_of_products
+    when -> (input_category) { input_category.include?('c_id') }
+      category_name = data.split(': ')[0]
+      transaction_id = data.split(': ')[1].split('c_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:category_name] = category_name
+      params[:message_ids] << payload["message"]["message_id"]
+      redis.set(transaction_id, params.to_json, ex: 1.month)
+
+      show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_sub_category) { input_sub_category.include?('s_id') }
+      sub_category_name = find_full_sub_category_name(data.split(': ')[0])
+      transaction_id = data.split(': ')[1].split('s_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:message_ids] << payload["message"]["message_id"]
+      params[:sub_category_name] = sub_category_name
+
+      PutExpencesUahBlackCardJob.perform_later(params)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     else
       # return help
     end
@@ -253,7 +271,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def show_categories_to_choose
     prepare_categories = categories.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
-        { text: category, callback_data: "#{category}: category" }
+        { text: category, callback_data: "#{category}: only_category" }
       end
     end
 
@@ -307,13 +325,19 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Внеси цену товара:')
   end
 
-  def show_sub_categories_by_category(category_name)
+  def show_sub_categories_by_category(category_name, transaction_id = nil)
     save_category_to_session!(category_name)
     show_per_line = category_name == 'Путешествия' ? SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE : SHOW_ITEMS_PER_LINE
 
     prepare_sub_categories = category_to_sub_categories[category_name].each_slice(show_per_line)
                                                                       .map do |sub_categories_array|
       sub_categories_array.map do |sub_category|
+        if transaction_id.present?
+          sub_category = sub_category.first(20) + "_" if sub_category.size > 20
+
+          next { text: sub_category, callback_data: "#{sub_category}: s_id:#{transaction_id}" }
+        end
+
         { text: sub_category, callback_data: sub_category }
       end
     end
@@ -327,6 +351,21 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     prepare_sub_categories.push(category_without_subcategory)
 
     respond_with(:message, text: 'Выбери подкатегорию:', reply_markup: { inline_keyboard: prepare_sub_categories })
+  end
+
+  def find_full_sub_category_name(sub_category_name)
+    return sub_category_name if !sub_category_name.end_with?("_")
+
+    short_sub_category_name = sub_category_name.delete("_")
+    full_sub_category_name = ""
+
+    sub_categories.each do |sub_category|
+      if sub_category.include?(short_sub_category_name)
+        full_sub_category_name = sub_category
+        break
+      end
+    end
+    full_sub_category_name
   end
 
   def save_category_to_session!(category_name)
@@ -366,5 +405,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:foreigh_spent_cash_amount] = 0
     session[:total_withraw_foreign_money] = 0
     session[:total_price_of_products_in_foreign_currency] = 0
+  end
+
+  def redis
+    @redis ||= Redis.new
   end
 end
