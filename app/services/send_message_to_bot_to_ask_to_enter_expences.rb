@@ -9,6 +9,7 @@ class SendMessageToBotToAskToEnterExpences
     @id = transaction_data[:id]
     @description = transaction_data[:description]
     @price_in_uah = transaction_data[:amount].abs / 100.0
+    @operation_amount = transaction_data[:operationAmount].abs / 100.0
     # @price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
     @redis = Redis.new
     @categories = ReceiveCategories.call
@@ -31,6 +32,7 @@ class SendMessageToBotToAskToEnterExpences
     @params = {
       description: @description,
       price_in_uah: @price_in_uah,
+      operation_amount: @operation_amount,
       message_ids: [],
     }
   end

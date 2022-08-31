@@ -51,6 +51,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         description: "Amazon.co.uk",
         message_ids: [123, 456],
         price_in_uah: 533.62,
+        operation_amount: 11.95,
       })
     end
   end
