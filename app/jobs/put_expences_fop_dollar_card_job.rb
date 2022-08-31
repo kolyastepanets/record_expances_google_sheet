@@ -4,16 +4,11 @@ class PutExpencesFopDollarCardJob < ApplicationJob
   def perform(params)
     params = params.deep_symbolize_keys
     price_in_usd = params[:price_in_usd]
-    # remove when move to USD
-    price_in_uah = price_in_usd * MonobankCurrencyRates.call('USD', 'UAH')
-    # remove when move to USD
 
     PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
-      price_in_uah,
-      # price_in_usd,
-      params[:current_month],
+      price_in_usd,
     )
 
     result = CalculateTotalSpentUsdAndUah.call

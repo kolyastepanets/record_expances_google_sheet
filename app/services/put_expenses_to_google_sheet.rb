@@ -11,10 +11,7 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
     @price = price
     @date_today = Date.today
     @current_day = @date_today.day
-    # places to change to usd, remove
-    # @current_month = 9
     @current_month = current_month || @date_today.month
-    # places to change to usd, remove
     @current_year = @date_today.year
   end
 
@@ -28,21 +25,11 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
       @current_day,
       @current_month,
       @current_year,
-      @date_today.strftime("%d.%m.%Y")
+      @date_today.strftime("%d.%m.%Y"),
+      MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ","),
+      MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ",")
     ]]
-    @range = "'Повседневные'!A:G"
-    # @values = [[
-    #   @category,
-    #   @sub_category,
-    #   @price,
-    #   @current_day,
-    #   @current_month,
-    #   @current_year,
-    #   @date_today.strftime("%d.%m.%Y"),
-    #   MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ","),
-    #   MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ",")
-    # ]]
-    # @range = "'Повседневные'!A:I"
+    @range = "'Повседневные'!A:I"
   end
 
   def make_request

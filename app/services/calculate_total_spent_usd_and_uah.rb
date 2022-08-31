@@ -1,15 +1,11 @@
 class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
   include CallableService
 
-  KEY_FIND_CELL_SPENT_UAH_MONEY = "Продал валюту".freeze
-  # KEY_FIND_CELL_SPENT_UAH_MONEY = "Осталось черная моно грн".freeze
+  KEY_FIND_CELL_SPENT_UAH_MONEY = "Осталось черная моно грн".freeze
   KEY_FIND_CELL_LEFT_USD_MONEY = "Осталось ФОП моно $".freeze
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
-    # places to change to usd
-    # @current_month = 9
-    # places to change to usd
     @current_month = Date.today.month
   end
 

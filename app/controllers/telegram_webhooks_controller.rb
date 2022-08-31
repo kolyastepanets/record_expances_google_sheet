@@ -8,7 +8,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if from["username"] == "nikolay_stepanets" || from["username"] == "liliya_stepanets"
       respond_with(:message, text: 'Выбери действие:', reply_markup: {
         inline_keyboard: [
-          [{ text: 'Получить баланс текущего месяца gsheets', callback_data: 'get_current_month_balance' }],
           [{ text: 'UAH на gsheets', callback_data: 'get_current_mono_balance_from_google_sheet' }],
           [{ text: 'UAH на monobank', callback_data: 'get_current_mono_balance_from_monobank' }],
           [{ text: 'USD FOP на gsheets', callback_data: 'get_usd_fop_from_google_sheet' }],
@@ -33,8 +32,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       start!
 
-    when 'get_current_month_balance'
-      get_current_month_balance
     when 'get_current_mono_balance_from_google_sheet'
       get_current_mono_balance_from_google_sheet
     when 'get_current_mono_balance_from_monobank'
@@ -112,9 +109,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
 
     if session[:is_grivnas]
-      # places to change to usd
-      # DecreaseUahSavedAmount.call(price_to_calculate)
-      # places to change to usd
+      DecreaseUahSavedAmount.call(price_to_calculate)
     end
 
     sub_category_name = session[:last_chosen_sub_category]
@@ -294,9 +289,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Выбери категорию:', reply_markup: { inline_keyboard: prepare_categories })
   end
 
-  def get_current_month_balance
-    respond_with(:message, text: ReceiveCurrentMonthBalance.call)
-  end
 
   def get_current_mono_balance_from_google_sheet
     respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call)

@@ -51,8 +51,12 @@ RSpec.describe BuildPrice do
       }
     end
 
+    before do
+      allow(MonobankCurrencyRates).to receive(:call).and_return("37,4995")
+    end
+
     it 'returns prices' do
-      expect(subject).to eq(["=45 * 1,85", 83.25])
+      expect(subject).to eq(["=83,25 / 37,4995", 83.25])
     end
   end
 
@@ -69,7 +73,7 @@ RSpec.describe BuildPrice do
     end
 
     it 'returns prices' do
-      expect(subject).to eq(["=1,85 / 0,8363 * 37,4995", 2.2121248355853163])
+      expect(subject).to eq(["=1,85 / 0,8363", 2.2121248355853163])
     end
   end
 end

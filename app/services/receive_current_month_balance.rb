@@ -8,13 +8,8 @@ class ReceiveCurrentMonthBalance < GetOrSetDataInGoogleSheetBase
   end
 
   def find_by_word
-    'в сумме потрачено'
+    'СУММА:'
   end
-  # places to change to usd, remove
-  # def find_by_word
-  #   'СУММА:'
-  # end
-  # places to change to usd, remove
 
   def parse_response
     balance_to_return
