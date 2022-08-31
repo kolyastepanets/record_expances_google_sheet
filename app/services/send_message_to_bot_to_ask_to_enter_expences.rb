@@ -2,7 +2,7 @@ class SendMessageToBotToAskToEnterExpences
   include CallableService
 
   NIKOLAY_STEPANETS_CHAT_ID = 384435131
-  EXPENSES_TO_SKIP = ["На награду в моно"].freeze
+  EXPENSES_TO_SKIP = ["На награду в моно", "С гривневого счета ФОП"].freeze
   SHOW_ITEMS_PER_LINE = 2
 
   def initialize(transaction_data)
