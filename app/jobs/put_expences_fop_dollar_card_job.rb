@@ -5,7 +5,7 @@ class PutExpencesFopDollarCardJob < ApplicationJob
     params = params.deep_symbolize_keys
     price_in_usd = params[:price_in_usd]
     # remove when move to USD
-    # price_in_uah = price_in_usd * MonobankCurrencyRates.call('USD', 'UAH')
+    price_in_uah = price_in_usd * MonobankCurrencyRates.call('USD', 'UAH')
     # remove when move to USD
 
     PutExpensesToGoogleSheet.call(
