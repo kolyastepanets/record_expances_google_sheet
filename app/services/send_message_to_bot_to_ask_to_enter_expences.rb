@@ -52,7 +52,7 @@ class SendMessageToBotToAskToEnterExpences
   end
 
   def save_to_redis
-    @redis.set(@id, @params.to_json, ex: 1.month)
+    @redis.set(@id, @params.to_json, ex: 2.weeks)
   end
 
   def categories_to_show

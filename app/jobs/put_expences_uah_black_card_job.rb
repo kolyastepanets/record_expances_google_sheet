@@ -20,10 +20,10 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       result[:coordinates_of_total_left_uah_money],
     )
 
-    NotifyEnteredExpencesFromWebhook.call(params)
+    SendNotificationMessageToBot.call(params)
   rescue StandardError => e
     error_message = { exception: e, message: e.message }
 
-    NotifyEnteredExpencesFromWebhook.call(error_message)
+    SendNotificationMessageToBot.call(error_message)
   end
 end

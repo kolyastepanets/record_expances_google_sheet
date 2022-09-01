@@ -10,6 +10,6 @@ class DeleteMessagesJob < ApplicationJob
   rescue StandardError => e
     error_message = { exception: e, message: e.message }
 
-    NotifyEnteredExpencesFromWebhook.call(error_message)
+    SendNotificationMessageToBot.call(error_message)
   end
 end

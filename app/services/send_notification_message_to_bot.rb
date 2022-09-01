@@ -1,4 +1,4 @@
-class NotifyEnteredExpencesFromWebhook
+class SendNotificationMessageToBot
   include CallableService
 
   NIKOLAY_STEPANETS_CHAT_ID = 384435131
