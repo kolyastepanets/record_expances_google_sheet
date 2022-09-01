@@ -82,7 +82,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:category_name] = category_name
       params[:message_ids] << payload["message"]["message_id"]
-      redis.set(transaction_id, params.to_json, ex: 1.month)
+      redis.set(transaction_id, params.to_json, ex: 2.weeks)
 
       show_sub_categories_by_category(category_name, transaction_id)
     when -> (input_sub_category) { input_sub_category.include?('s_id') }
@@ -92,7 +92,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
 
-      PutExpencesUahBlackCardJob.perform_later(params)
+      PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
+      PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     else
       # return help

@@ -8,7 +8,8 @@ class SendMessageToBotToAskToEnterExpences
   def initialize(transaction_data)
     @id = transaction_data[:id]
     @description = transaction_data[:description]
-    @price_in_uah = transaction_data[:amount].abs / 100.0
+    @price_in_uah = transaction_data[:amount].abs / 100.0 if !transaction_data[:is_fop_dollar]
+    @price_in_usd = transaction_data[:amount].abs / 100.0 if transaction_data[:is_fop_dollar]
     @operation_amount = transaction_data[:operationAmount].abs / 100.0
     @redis = Redis.new
     @categories = ReceiveCategories.call
@@ -31,6 +32,7 @@ class SendMessageToBotToAskToEnterExpences
     @params = {
       description: @description,
       price_in_uah: @price_in_uah,
+      price_in_usd: @price_in_usd,
       operation_amount: @operation_amount,
       message_ids: [],
     }
