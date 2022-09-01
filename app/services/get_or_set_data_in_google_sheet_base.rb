@@ -11,7 +11,7 @@ class GetOrSetDataInGoogleSheetBase
   private
 
   def prepare_request_data
-    @range = "#{Date.today.year}!A#{start_line_to_search}:CO#{end_line_to_search}"
+    @range = "#{Date.today.year}!A#{start_line_to_search}:CJ#{end_line_to_search}"
   end
 
   def make_request
@@ -46,8 +46,8 @@ class GetOrSetDataInGoogleSheetBase
       value_array.each_with_index do |value, index|
         if value == Date.today.month.to_s
           index_column_to_remember = index
-          break
         end
+        break if !index_column_to_remember.zero?
       end
     end
 
@@ -57,8 +57,8 @@ class GetOrSetDataInGoogleSheetBase
       value_array.each do |value|
         if value == find_by_word
           balance_to_return = value_array[index_value_to_find]
-          break
         end
+        break if balance_to_return.is_a?(String)
       end
     end
 
