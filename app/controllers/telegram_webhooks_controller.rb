@@ -74,6 +74,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_for_price(nil)
     when 'finish_remember_total_price_of_products'
       finish_remember_total_price_of_products
+    when -> (input_data) { input_data.include?('remove_messages') }
+      remove_messages(data)
     when -> (input_category) { input_category.include?('c_id') }
       category_name = data.split(': ')[0]
       transaction_id = data.split(': ')[1].split('c_id:')[1]
@@ -401,5 +403,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def redis
     @redis ||= Redis.new
+  end
+
+  def remove_messages(data)
+    transaction_id = data.split(': ')[1]
+    params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+    DeleteMessagesJob.perform_later(params[:message_ids].uniq)
   end
 end

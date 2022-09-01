@@ -56,11 +56,20 @@ class SendMessageToBotToAskToEnterExpences
   end
 
   def categories_to_show
-    @categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+    categories = @categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
         { text: category, callback_data: "#{category}: c_id:#{@id}" }
       end
     end
+
+    remove_messages = [
+      {
+        text: "Удалить сообщения этой транзакции",
+        callback_data: "remove_messages: #{@id}"
+      }
+    ]
+
+    categories.push(remove_messages)
   end
 
   def save_message_id(message_id)
