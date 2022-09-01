@@ -5,7 +5,7 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
 
   VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
 
-  def initialize(category, sub_category, price, current_month)
+  def initialize(category, sub_category, price, current_month: nil)
     @category = category
     @sub_category = sub_category
     @price = price
