@@ -98,6 +98,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     else
       # return help
     end
+  rescue StandardError => e
+    respond_with(:message, text: "Что то пошло не так: #{e.message}")
   end
 
   def save_data_to_google_sheet!(price, *args)
@@ -117,7 +119,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
-    PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, detect_month)
+    PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
     remember_total_price_of_products(price_to_calculate)
     remember_total_price_of_products_in_foreign_currency(price.to_f)
 
