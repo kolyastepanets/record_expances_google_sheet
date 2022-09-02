@@ -363,4 +363,39 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
       subject
     end
   end
+
+  context 'when digital ocean' do
+    let(:transaction_data) do
+      {
+        amount: -4500,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "DigitalOcean",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'Сервак, впн',
+        price_in_uah: 45.0,
+        current_month: Date.today.month,
+        mono_description: "DigitalOcean",
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
 end

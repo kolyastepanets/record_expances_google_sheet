@@ -39,6 +39,9 @@ class EnterExpencesUahBlackCardFromWebhook
     when kladovka_2
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'кладовка'
+    when digital_ocean
+      @params[:category_name] = 'Для дома'
+      @params[:sub_category_name] = 'Сервак, впн'
     when -> (description) { cambridge_buses.include?(description) }
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Автобус'
@@ -73,5 +76,9 @@ class EnterExpencesUahBlackCardFromWebhook
 
   def cambridge_buses
     ["STGCOACH/CTYLINK", "THE COACH YARD"]
+  end
+
+  def digital_ocean
+    "DigitalOcean"
   end
 end
