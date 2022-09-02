@@ -15,7 +15,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
-          [{ text: 'Продал валюту c ФОПа', callback_data: 'sold_dollars_from_fop' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -46,8 +45,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_last_3_expenses_in_google_sheet
     when 'get_last_10_transactions_from_mono'
       get_last_10_transactions_from_mono
-    when 'sold_dollars_from_fop'
-      sold_dollars_from_fop
     when 'enter_expenses'
       ask_type_of_expenses
     when 'metro_expenses'
@@ -208,12 +205,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_last_10_transactions_from_mono
     respond_with(:message, text: GetLastTenTransactionsFromMonobank.call)
-  end
-
-  def sold_dollars_from_fop
-    save_context(:enter_sold_dollars_and_grivnas!)
-    respond_with(:message, text: 'Внеси сколько долларов пробел сколько гривен:')
-    respond_with(:message, text: 'Например: 500 14770')
   end
 
   def ask_type_of_expenses

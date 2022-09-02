@@ -2,8 +2,6 @@ require 'rails_helper'
 require 'telegram/bot/rspec/integration/rails'
 
 RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
-  # include_context 'telegram/bot/updates_controller'
-
   let(:from) { { username: 'nikolay_stepanets' } }
 
   describe '#start!' do
@@ -16,10 +14,9 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
             [{text: "UAH на monobank", callback_data: "get_current_mono_balance_from_monobank"}],
             [{text: "USD FOP на gsheets", callback_data: "get_usd_fop_from_google_sheet"}],
             [{text: "USD FOP на monobank", callback_data: "get_usd_fop_from_monobank"}],
-            [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
+            [{text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet'}],
             [{text: "Последние 3 траты в gsheets", callback_data: "get_last_3_expenses_in_google_sheet"}],
             [{text: "Последние 10 транзакций в моно", callback_data: "get_last_10_transactions_from_mono"}],
-            [{text: "Продал валюту c ФОПа", callback_data: "sold_dollars_from_fop"}],
             [{text: "Внести расходы", callback_data: "enter_expenses"}],
             [{text: "Главное меню", callback_data: "start_again"}]
           ]
