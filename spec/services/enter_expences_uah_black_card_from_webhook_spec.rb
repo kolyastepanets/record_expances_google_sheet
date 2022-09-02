@@ -26,6 +26,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Для дома',
         sub_category_name: 'youtube',
         price_in_uah: 149.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "YouTube",
       }
@@ -61,6 +62,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Лиля',
         sub_category_name: nil,
         price_in_uah: 18000.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "Лиля ❤️",
       }
@@ -123,6 +125,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Для дома',
         sub_category_name: 'google',
         price_in_uah: 45.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "Google",
       }
@@ -158,6 +161,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Подарки',
         sub_category_name: 'мама Коли',
         price_in_uah: 3000.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "516875******6402",
       }
@@ -220,6 +224,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Для дома',
         sub_category_name: 'кладовка',
         price_in_uah: 450.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "536354******0388",
       }
@@ -255,6 +260,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Для дома',
         sub_category_name: 'кладовка',
         price_in_uah: 750.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "431414******3237",
       }
@@ -317,6 +323,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Транспорт',
         sub_category_name: 'Автобус',
         price_in_uah: 4.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "STGCOACH/CTYLINK",
       }
@@ -352,6 +359,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Транспорт',
         sub_category_name: 'Автобус',
         price_in_uah: 4.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "THE COACH YARD",
       }
@@ -387,6 +395,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         category_name: 'Для дома',
         sub_category_name: 'Сервак, впн',
         price_in_uah: 45.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "DigitalOcean",
       }

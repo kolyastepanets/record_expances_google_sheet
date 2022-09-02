@@ -7,6 +7,7 @@ class EnterExpencesFopDollarCardFromWebhook
       category_name: nil,
       sub_category_name: nil,
       price_in_usd: @transaction_data[:amount].abs / 100.0,
+      operation_amount: @transaction_data[:operationAmount].abs / 100.0,
       current_month: Date.today.month,
       mono_description: @transaction_data[:description],
     }

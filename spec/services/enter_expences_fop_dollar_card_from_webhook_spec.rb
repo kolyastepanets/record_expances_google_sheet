@@ -26,6 +26,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         category_name: 'Транспорт',
         sub_category_name: 'Автобус',
         price_in_usd: 4.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "STGCOACH/CTYLINK",
       }
@@ -61,6 +62,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         category_name: 'Транспорт',
         sub_category_name: 'Автобус',
         price_in_usd: 4.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "THE COACH YARD",
       }
@@ -96,6 +98,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         category_name: 'Еда',
         sub_category_name: 'Готовая',
         price_in_usd: 4.0,
+        operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "McDonald’s",
       }
