@@ -151,27 +151,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     show_categories_to_choose
   end
 
-  def enter_sold_dollars_and_grivnas!(dollars, *args)
-    dollars = dollars.to_f
-    grivnas = args[0].to_f
-
-    result = CalculateTotalSpentUsdAndUah.call
-
-    # increase uah amount
-    UpdateCommonCurrencyExpenses.call(
-      result[:total_left_uah_money] + grivnas,
-      result[:coordinates_of_total_left_uah_money],
-    )
-
-    # decrease usd amount
-    UpdateCommonCurrencyExpenses.call(
-      result[:total_left_usd_money] - dollars,
-      result[:coordinates_of_total_left_usd_money],
-    )
-
-    respond_with(:message, text: 'Данные внесены!')
-  end
-
   def save_left_foreign_cash!(foreigh_cash_amount, *args)
     session[:foreigh_cash_amount] = foreigh_cash_amount.to_f
     result = CalculateForeignCurrencyCashExpenses.call
@@ -221,6 +200,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Чек иностранная валюта',  callback_data: 'receipt_foreign_currency' }],
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
           [{ text: 'Долларовая карта',  callback_data: 'dollar_card' }],
+          [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
       }
     )
@@ -245,6 +225,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       )
     end
 
+    DeleteAllTodaysMessages.call
     set_default_values_in_session!
     ask_type_of_expenses
   end
@@ -410,5 +391,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def amount_already_spent
     respond_with(:message, text: ReceiveCurrentMonthBalance.call)
+  end
+
+  def respond_with(type, *)
+    result = super
+
+    SaveMessageIdToRedis.call(payload["message_id"].presence || payload.dig("message", "message_id"))
+    SaveMessageIdToRedis.call(result["result"]["message_id"])
   end
 end

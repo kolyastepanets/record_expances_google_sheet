@@ -30,4 +30,16 @@ RSpec.describe SaveMessageIdToRedis, freezed_time: '2022-09-01' do
       expect(JSON.parse(redis.get(key))).to eq([12345])
     end
   end
+
+  context 'when message_id nil' do
+    before do
+      redis.del(key)
+    end
+
+    it 'does not add message' do
+      subject
+
+      expect(JSON.parse(redis.get(key))).to eq([12345])
+    end
+  end
 end

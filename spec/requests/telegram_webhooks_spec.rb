@@ -4,7 +4,7 @@ require 'telegram/bot/rspec/integration/rails'
 RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
   let(:from) { { username: 'nikolay_stepanets' } }
 
-  describe '#start!' do
+  xdescribe '#start!' do
     let(:result) do
       {
         text: "Выбери действие:",
@@ -51,31 +51,31 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe '#get_current_mono_balance_from_google_sheet', vcr: true, freezed_time: '2022-09-01T06:55:00+00:00' do
+  xdescribe '#get_current_mono_balance_from_google_sheet', vcr: true, freezed_time: '2022-09-01T06:55:00+00:00' do
     let(:data) { "get_current_mono_balance_from_google_sheet" }
 
     it { should respond_with_message("uah in google sheet: 31 880 грн") }
   end
 
-  describe '#get_current_mono_balance_from_monobank', vcr: true, freezed_time: '2022-08-20T19:55:00+00:00' do
+  xdescribe '#get_current_mono_balance_from_monobank', vcr: true, freezed_time: '2022-08-20T19:55:00+00:00' do
     let(:data) { "get_current_mono_balance_from_monobank" }
 
     it { should respond_with_message("uah in mono: 4871 грн") }
   end
 
-  describe '#get_usd_fop_from_google_sheet', vcr: true, freezed_time: '2022-08-20T20:00:00+00:00' do
+  xdescribe '#get_usd_fop_from_google_sheet', vcr: true, freezed_time: '2022-08-20T20:00:00+00:00' do
     let(:data) { "get_usd_fop_from_google_sheet" }
 
     it { should respond_with_message("usd fop in google sheet: $16 845") }
   end
 
-  describe '#get_usd_fop_from_monobank', vcr: true, freezed_time: '2022-08-20T20:02:00+00:00' do
+  xdescribe '#get_usd_fop_from_monobank', vcr: true, freezed_time: '2022-08-20T20:02:00+00:00' do
     let(:data) { "get_usd_fop_from_monobank" }
 
     it { should respond_with_message("usd fop in mono: $16848") }
   end
 
-  describe '#get_last_3_expenses_in_google_sheet', vcr: true, freezed_time: '2022-08-20T20:03:00+00:00' do
+  xdescribe '#get_last_3_expenses_in_google_sheet', vcr: true, freezed_time: '2022-08-20T20:03:00+00:00' do
     let(:data) { "get_last_3_expenses_in_google_sheet" }
 
     it { should respond_with_message("Последние 3 траты в google sheet:
@@ -84,7 +84,7 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
 Еда Готовая 1050 грн, 20-8-2022") }
   end
 
-  describe '#get_last_10_transactions_from_mono', vcr: true, freezed_time: '2022-08-20T20:08:00+00:00' do
+  xdescribe '#get_last_10_transactions_from_mono', vcr: true, freezed_time: '2022-08-20T20:08:00+00:00' do
     let(:data) { "get_last_10_transactions_from_mono" }
 
     it { should respond_with_message("Последние 10 транзакций в моно:
@@ -100,25 +100,25 @@ DELIVEROO - 1049 грн, 20-8-2022
 На награду в моно - 0 грн, 20-8-2022") }
   end
 
-  describe '#enter_expenses' do
+  xdescribe '#enter_expenses' do
     let(:data) { "enter_expenses" }
 
     it { should respond_with_message("как заполнять?") }
   end
 
-  describe '#categor_without_subcategor', vcr: true, freezed_time: '2022-08-24T10:23:00+00:00' do
+  xdescribe '#categor_without_subcategor', vcr: true, freezed_time: '2022-08-24T10:23:00+00:00' do
     let(:data) { "categor_without_subcategor" }
 
     it { should respond_with_message("Выбранная подкатегория: ") }
   end
 
-  describe '#Подарки: only_category', vcr: true, freezed_time: '2022-08-24T10:22:00+00:00' do
+  xdescribe '#Подарки: only_category', vcr: true, freezed_time: '2022-08-24T10:22:00+00:00' do
     let(:data) { "Подарки: only_category" }
 
     it { should respond_with_message("Выбери подкатегорию:") }
   end
 
-  describe '#subcategory Подарки', vcr: true, freezed_time: '2022-08-24T10:25:00+00:00' do
+  xdescribe '#subcategory Подарки', vcr: true, freezed_time: '2022-08-24T10:25:00+00:00' do
     let(:data) { "Подарки" }
 
     it { should respond_with_message("Внеси цену товара:") }
