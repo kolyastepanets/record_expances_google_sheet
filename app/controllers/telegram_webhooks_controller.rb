@@ -16,6 +16,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
+          [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -48,6 +49,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_last_3_expenses_in_google_sheet
     when 'get_last_10_transactions_from_mono'
       get_last_10_transactions_from_mono
+    when 'delete_all_todays_messages'
+      delete_all_todays_messages
     when 'enter_expenses'
       ask_type_of_expenses
     when 'metro_expenses'
@@ -398,5 +401,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     SaveMessageIdToRedis.call(payload["message_id"].presence || payload.dig("message", "message_id"))
     SaveMessageIdToRedis.call(result["result"]["message_id"])
+  end
+
+  def delete_all_todays_messages
+    DeleteAllTodaysMessages.call
   end
 end
