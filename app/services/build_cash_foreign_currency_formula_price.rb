@@ -9,6 +9,6 @@ class BuildCashForeignCurrencyFormulaPrice
     currency_foreign_uah = GetGoogleSheetCurrencyExchange.call
     modified_price = @price.to_s.gsub(".", ",")
 
-    "=#{currency_foreign_uah}*#{modified_price}"
+    "=#{currency_foreign_uah}*#{modified_price}/#{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
   end
 end
