@@ -87,10 +87,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:message_ids] << payload["message"]["message_id"]
       redis.set(transaction_id, params.to_json, ex: 2.weeks)
 
+      transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)
-    when -> (input_sub_category) { input_sub_category.include?('s_id') }
+    when -> (input_sub_category) { input_sub_category.include?('c1_id') }
       sub_category_name = find_full_sub_category_name(data.split(': ')[0])
-      transaction_id = data.split(': ')[1].split('s_id:')[1]
+      transaction_id = data.split(': ')[1].split('c1_id:')[1]
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
@@ -98,6 +99,24 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    when -> (input_category) { input_category.include?('f_id') }
+      category_name = data.split(': ')[0]
+      transaction_id, price = data.split(': ')[1].split('f_id:')[1].split(":")
+      params = JSON.parse(redis.get(transaction_id))
+      last_price_to_message = params.select { |pri| pri["price"] == price.to_f }[-1]
+      last_price_to_message["message_ids"] << payload["message"]["message_id"]
+      last_price_to_message["category_name"] = category_name
+
+      redis.set(transaction_id, params.to_json, ex: 2.days)
+
+      transaction_id = "f1_id:#{transaction_id}:#{price}"
+      show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_sub_category) { input_sub_category.include?('f1_id') }
+      params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
+
+      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
+      PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
+      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq)
     else
       # return help
     end
@@ -168,6 +187,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:total_price_of_products_in_foreign_currency] = 0
     start_remember_total_price_of_products
     show_categories_to_choose
+  end
+
+  def message(message)
+    return respond_with(:message, text: 'invalid message') if message["photo"].blank?
+
+    HandleInputPhotoJob.perform_later(message)
+    respond_with(:message, text: 'Началась обработка фото...')
   end
 
   private
@@ -308,9 +334,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
                                                                       .map do |sub_categories_array|
       sub_categories_array.map do |sub_category|
         if transaction_id.present?
-          sub_category = sub_category.first(20) + "_" if sub_category.size > 20
+          sub_category = sub_category.first(15) + "_" if sub_category.size > 15
 
-          next { text: sub_category, callback_data: "#{sub_category}: s_id:#{transaction_id}" }
+          next { text: sub_category, callback_data: "#{sub_category}: #{transaction_id}" }
         end
 
         { text: sub_category, callback_data: sub_category }

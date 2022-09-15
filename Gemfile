@@ -13,6 +13,7 @@ gem 'rake'
 gem 'figaro'
 gem 'faraday'
 gem 'sidekiq', '= 5.2.10'
+gem 'rtesseract'
 
 group :development do
   gem 'listen'
