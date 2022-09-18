@@ -30,6 +30,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           operation_amount: 10.0,
           current_month: Date.today.month,
           mono_description: "STGCOACH/CTYLINK",
+          currency_rate: 2.5,
         }
       end
 
@@ -66,6 +67,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           operation_amount: 10.0,
           current_month: Date.today.month,
           mono_description: "THE COACH YARD",
+          currency_rate: 2.5,
         }
       end
 
@@ -102,6 +104,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           operation_amount: 10.0,
           current_month: Date.today.month,
           mono_description: "WASABI, SUSHI & BENTO",
+          currency_rate: 2.5,
         }
       end
 
@@ -139,6 +142,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "McDonald’s",
+        currency_rate: 2.5,
       }
     end
 
@@ -175,6 +179,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "Wizz Air",
+        currency_rate: 2.5,
       }
     end
 
@@ -220,6 +225,43 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
 
     it 'does not call PutExpencesFopDollarCardJob' do
       expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
+
+      subject
+    end
+  end
+
+  context 'when it does not round to bigger number' do
+    let(:transaction_data) do
+      {
+        amount: -138,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Wizz Air",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -120,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Путешествия',
+        sub_category_name: 'Авиа билеты',
+        price_in_usd: 1.38,
+        operation_amount: 1.2,
+        current_month: Date.today.month,
+        mono_description: "Wizz Air",
+        currency_rate: 0.8695,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
 
       subject
     end

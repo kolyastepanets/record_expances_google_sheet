@@ -10,6 +10,7 @@ class EnterExpencesFopDollarCardFromWebhook
       operation_amount: @transaction_data[:operationAmount].abs / 100.0,
       current_month: Date.today.month,
       mono_description: @transaction_data[:description],
+      currency_rate: currency_rate,
     }
   end
 
@@ -68,5 +69,15 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def wizz_air
     "Wizz Air"
+  end
+
+  def currency_rate
+    price_in_usd = @transaction_data[:amount].abs / 100.0
+    operation_amount = @transaction_data[:operationAmount].abs / 100.0
+
+    currency_rate = operation_amount / price_in_usd
+    currency_rate = currency_rate.to_s
+    currency_rate = currency_rate.split('.')
+    "#{currency_rate[0]}.#{currency_rate[1].first(4)}".to_f
   end
 end

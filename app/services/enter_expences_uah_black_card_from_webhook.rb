@@ -10,6 +10,7 @@ class EnterExpencesUahBlackCardFromWebhook
       operation_amount: @transaction_data[:operationAmount].abs / 100.0,
       current_month: Date.today.month,
       mono_description: @transaction_data[:description],
+      currency_rate: currency_rate,
     }
   end
 
@@ -81,5 +82,15 @@ class EnterExpencesUahBlackCardFromWebhook
 
   def digital_ocean
     "DigitalOcean"
+  end
+
+  def currency_rate
+    price_in_uah = @transaction_data[:amount].abs / 100.0
+    operation_amount = @transaction_data[:operationAmount].abs / 100.0
+
+    currency_rate = price_in_uah / operation_amount
+    currency_rate = currency_rate.to_s
+    currency_rate = currency_rate.split('.')
+    "#{currency_rate[0]}.#{currency_rate[1].first(4)}".to_f
   end
 end
