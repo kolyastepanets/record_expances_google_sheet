@@ -15,19 +15,7 @@ class PricesFromImage
   private
 
   def parse_image
-    last_photo = @message_params[:photo][-1][:file_id]
-
-    response = Telegram.bot.get_file(file_id: last_photo)
-    @file_id = response["result"]["file_unique_id"]
-
-    url = "https://api.telegram.org/file/bot#{ENV['TELEGRAM_BOT_TOKEN']}/#{response["result"]["file_path"]}"
-    res = Faraday.new(url: url).get
-    File.open("public/uploads/out.jpg", "wb") do |f|
-      f.write(res.body)
-    end
-    image = RTesseract.new("public/uploads/out.jpg")
-
-    image.to_s.split(/\n/).each.with_index do |line_with_spaces, index|
+    image_to_s.split(/\n/).each.with_index do |line_with_spaces, index|
       line = line_with_spaces.gsub(/[[:space:]]/, '')
 
       if (line.include?('total') || line.include?('Total') || line.include?('Cash') || line.include?('Items:')) && line.match(/\d*\.\d*$/)
@@ -44,6 +32,20 @@ class PricesFromImage
         @collected_prices << matched_number_with_two_digits_after_comma[0].gsub(",", ".").to_f
       end
     end
+  end
+
+  def image_to_s
+    last_photo = @message_params[:photo][-1][:file_id]
+
+    response = Telegram.bot.get_file(file_id: last_photo)
+    @file_id = response["result"]["file_unique_id"]
+
+    url = "https://api.telegram.org/file/bot#{ENV['TELEGRAM_BOT_TOKEN']}/#{response["result"]["file_path"]}"
+    res = Faraday.new(url: url).get
+    File.open("public/uploads/out.jpg", "wb") do |f|
+      f.write(res.body)
+    end
+    RTesseract.new("public/uploads/out.jpg").to_s
   end
 
   def return_result
