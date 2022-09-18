@@ -25,9 +25,15 @@ class EnterExpencesFopDollarCardFromWebhook
     when -> (description) { cambridge_buses.include?(description) }
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Автобус'
-    when mcdonalds
+    when -> (description) { ready_food.include?(description) }
       @params[:category_name] = 'Еда'
       @params[:sub_category_name] = 'Готовая'
+    when uk_train
+      @params[:category_name] = 'Транспорт'
+      @params[:sub_category_name] = 'Поезд'
+    when wizz_air
+      @params[:category_name] = 'Путешествия'
+      @params[:sub_category_name] = 'Авиа билеты'
     when sold_dollars_from_fop
       @params = {
         sold_dollars_from_fop: true,
@@ -48,11 +54,19 @@ class EnterExpencesFopDollarCardFromWebhook
     ["STGCOACH/CTYLINK", "THE COACH YARD"]
   end
 
-  def mcdonalds
-    "McDonald’s"
+  def ready_food
+    ["WASABI, SUSHI & BENTO", "McDonald’s"]
   end
 
   def sold_dollars_from_fop
     "На гривневый счет ФОП для перевода на карту"
+  end
+
+  def uk_train
+    "thetrainline.com"
+  end
+
+  def wizz_air
+    "Wizz Air"
   end
 end
