@@ -40,7 +40,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when Liliia salary' do
+  context 'when Liliia salary', freezed_time: '2022-08-01' do
     let(:transaction_data) do
       {
         amount: -1800000,
@@ -77,7 +77,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when Liliia another amount' do
+  context 'when Liliia another day', freezed_time: '2022-08-02' do
     let(:transaction_data) do
       {
         amount: -10000,
@@ -141,7 +141,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when kolya mama 1st date of month' do
+  context 'when kolya mama 1st date of month', freezed_time: '2022-08-01' do
     let(:transaction_data) do
       {
         amount: -300000,
@@ -178,7 +178,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when kolya mama other sum' do
+  context 'when kolya mama other day', freezed_time: '2022-08-02' do
     let(:transaction_data) do
       {
         amount: -200000,
@@ -279,107 +279,6 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when description does not fit anything' do
-    let(:transaction_data) do
-      {
-        amount: -75000,
-        balance: 2876000,
-        cashbackAmount: 0,
-        commissionRate: 0,
-        currencyCode: 980,
-        description: "bla",
-        hold: true,
-        id: "JEMXm-kC9iSZNfGJ",
-        mcc: 4829,
-        operationAmount: -1000,
-        originalMcc: 4829,
-        receiptId: "E4HC-1552-737M-HAC7",
-        time: 1661541332,
-      }
-    end
-
-    it 'does not call job PutExpencesUahBlackCardJob' do
-      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
-
-      subject
-    end
-  end
-
-  context 'when cambridge bus 18' do
-    let(:transaction_data) do
-      {
-        amount: -400,
-        balance: 2876000,
-        cashbackAmount: 0,
-        commissionRate: 0,
-        currencyCode: 980,
-        description: "STGCOACH/CTYLINK",
-        hold: true,
-        id: "JEMXm-kC9iSZNfGJ",
-        mcc: 4829,
-        operationAmount: -1000,
-        originalMcc: 4829,
-        receiptId: "E4HC-1552-737M-HAC7",
-        time: 1661541332,
-      }
-    end
-    let(:params) do
-      {
-        category_name: 'Транспорт',
-        sub_category_name: 'Автобус',
-        price_in_uah: 4.0,
-        operation_amount: 10.0,
-        current_month: Date.today.month,
-        mono_description: "STGCOACH/CTYLINK",
-        currency_rate: 0.4,
-      }
-    end
-
-    it 'calls job PutExpencesUahBlackCardJob' do
-      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
-
-      subject
-    end
-  end
-
-  context 'when cambridge bus 75' do
-    let(:transaction_data) do
-      {
-        amount: -400,
-        balance: 2876000,
-        cashbackAmount: 0,
-        commissionRate: 0,
-        currencyCode: 980,
-        description: "THE COACH YARD",
-        hold: true,
-        id: "JEMXm-kC9iSZNfGJ",
-        mcc: 4829,
-        operationAmount: -1000,
-        originalMcc: 4829,
-        receiptId: "E4HC-1552-737M-HAC7",
-        time: 1661541332,
-      }
-    end
-    let(:params) do
-      {
-        category_name: 'Транспорт',
-        sub_category_name: 'Автобус',
-        price_in_uah: 4.0,
-        operation_amount: 10.0,
-        current_month: Date.today.month,
-        mono_description: "THE COACH YARD",
-        currency_rate: 0.4,
-      }
-    end
-
-    it 'calls job PutExpencesUahBlackCardJob' do
-      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
-
-      subject
-    end
-  end
-
   context 'when digital ocean' do
     let(:transaction_data) do
       {
@@ -417,7 +316,299 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-  context 'when do not round' do
+  context 'when uk' do
+    context 'when cambridge bus 18' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "STGCOACH/CTYLINK",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Транспорт',
+          sub_category_name: 'Автобус',
+          price_in_uah: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "STGCOACH/CTYLINK",
+          currency_rate: 0.4,
+        }
+      end
+
+      it 'calls job PutExpencesUahBlackCardJob' do
+        expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+
+    context 'when cambridge bus 75' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "THE COACH YARD",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Транспорт',
+          sub_category_name: 'Автобус',
+          price_in_uah: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "THE COACH YARD",
+          currency_rate: 0.4,
+        }
+      end
+
+      it 'calls job PutExpencesUahBlackCardJob' do
+        expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+
+    context 'when WASABI, SUSHI & BENTO' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "WASABI, SUSHI & BENTO",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Еда',
+          sub_category_name: 'Готовая',
+          price_in_uah: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "WASABI, SUSHI & BENTO",
+          currency_rate: 0.4,
+        }
+      end
+
+      it 'calls job PutExpencesUahBlackCardJob' do
+        expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+
+    context 'when thetrainline.com' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "thetrainline.com",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Транспорт',
+          sub_category_name: 'Поезд',
+          price_in_uah: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "thetrainline.com",
+          currency_rate: 0.4,
+        }
+      end
+
+      it 'calls job PutExpencesUahBlackCardJob' do
+        expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+  end
+
+  context 'when mcdonalds' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "McDonald’s",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Еда',
+        sub_category_name: 'Готовая',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "McDonald’s",
+        currency_rate: 0.4,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when Wizz Air' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Wizz Air",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Путешествия',
+        sub_category_name: 'Авиа билеты',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "Wizz Air",
+        currency_rate: 0.4,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when AIRBNB' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "AIRBNB",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Путешествия',
+        sub_category_name: 'аренда кв',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "AIRBNB",
+        currency_rate: 0.4,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+
+
+
+
+  context 'when description does not fit anything' do
+    let(:transaction_data) do
+      {
+        amount: -75000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "bla",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+
+    it 'does not call job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
+  context 'when do not round to bigger number currency rate' do
     let(:transaction_data) do
       {
         amount: -35100,

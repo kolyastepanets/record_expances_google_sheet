@@ -3,6 +3,332 @@ require 'rails_helper'
 RSpec.describe EnterExpencesFopDollarCardFromWebhook do
   subject{ described_class.call(transaction_data) }
 
+  context 'when youtube' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "YouTube",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'youtube',
+        price_in_usd: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "YouTube",
+        currency_rate: 2.5,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when Liliia salary', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -50000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лиля ❤️",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -50000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Лиля',
+        sub_category_name: nil,
+        price_in_usd: 500.0,
+        operation_amount: 500.0,
+        current_month: Date.today.month,
+        mono_description: "Лиля ❤️",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when Liliia salary another day', freezed_time: '2022-08-02' do
+    let(:transaction_data) do
+      {
+        amount: -50000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лиля ❤️",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -50000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        is_fop_dollar: true,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Лиля',
+        sub_category_name: nil,
+        price_in_usd: 500.0,
+        operation_amount: 500.0,
+        current_month: Date.today.month,
+        mono_description: "Лиля ❤️",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'does not call job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
+  context 'when google' do
+    let(:transaction_data) do
+      {
+        amount: -200,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Google",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -200,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'google',
+        price_in_usd: 2.0,
+        operation_amount: 2.0,
+        current_month: Date.today.month,
+        mono_description: "Google",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when kolya mama 1st date of month', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -10000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "516875******6402",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -10000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Подарки',
+        sub_category_name: 'мама Коли',
+        price_in_usd: 100.0,
+        operation_amount: 100.0,
+        current_month: Date.today.month,
+        mono_description: "516875******6402",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when kolya mama other day', freezed_time: '2022-08-02' do
+    let(:transaction_data) do
+      {
+        amount: -10000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "516875******6402",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -10000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        is_fop_dollar: true,
+      }
+    end
+
+    it 'does not call job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
+  context 'when kladovka_1' do
+    let(:transaction_data) do
+      {
+        amount: -10000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "536354******0388",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -10000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'кладовка',
+        price_in_usd: 100.0,
+        operation_amount: 100.0,
+        current_month: Date.today.month,
+        mono_description: "536354******0388",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when kladovka_2' do
+    let(:transaction_data) do
+      {
+        amount: -75000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "431414******3237",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -75000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'кладовка',
+        price_in_usd: 750.0,
+        operation_amount: 750.0,
+        current_month: Date.today.month,
+        mono_description: "431414******3237",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when digital ocean' do
+    let(:transaction_data) do
+      {
+        amount: -4500,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "DigitalOcean",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -4500,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Для дома',
+        sub_category_name: 'Сервак, впн',
+        price_in_usd: 45.0,
+        operation_amount: 45.0,
+        current_month: Date.today.month,
+        mono_description: "DigitalOcean",
+        currency_rate: 1,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when uk' do
     context 'when cambridge bus 18' do
       let(:transaction_data) do
@@ -114,6 +440,43 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         subject
       end
     end
+
+    context 'when thetrainline.com' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "thetrainline.com",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Транспорт',
+          sub_category_name: 'Поезд',
+          price_in_usd: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "thetrainline.com",
+          currency_rate: 2.5,
+        }
+      end
+
+      it 'calls job PutExpencesFopDollarCardJob' do
+        expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
   end
 
   context 'when mcdonalds' do
@@ -190,6 +553,43 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
   end
 
+  context 'when AIRBNB' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "AIRBNB",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Путешествия',
+        sub_category_name: 'аренда кв',
+        price_in_usd: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "AIRBNB",
+        currency_rate: 2.5,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when sold dollars from fop' do
     let(:transaction_data) do
       {
@@ -230,7 +630,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
   end
 
-  context 'when it does not round to bigger number' do
+  context 'when do not round to bigger number currency rate' do
     let(:transaction_data) do
       {
         amount: -138,
