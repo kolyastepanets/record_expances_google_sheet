@@ -35,6 +35,9 @@ class EnterExpencesFopDollarCardFromWebhook
     when wizz_air
       @params[:category_name] = 'Путешествия'
       @params[:sub_category_name] = 'Авиа билеты'
+    when airbnb
+      @params[:category_name] = 'Путешествия'
+      @params[:sub_category_name] = 'аренда кв'
     when sold_dollars_from_fop
       @params = {
         sold_dollars_from_fop: true,
@@ -69,6 +72,10 @@ class EnterExpencesFopDollarCardFromWebhook
 
   def wizz_air
     "Wizz Air"
+  end
+
+  def airbnb
+    "AIRBNB"
   end
 
   def currency_rate
