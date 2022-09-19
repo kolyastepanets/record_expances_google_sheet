@@ -8,6 +8,7 @@ class SendMessageToBotToAskToEnterExpences
   def initialize(transaction_data)
     @id = transaction_data[:id]
     @description = transaction_data[:description]
+    @currency_rate = transaction_data[:currency_rate]
     @price_in_uah = transaction_data[:amount].abs / 100.0 if !transaction_data[:is_fop_dollar]
     @price_in_usd = transaction_data[:amount].abs / 100.0 if transaction_data[:is_fop_dollar]
     @operation_amount = transaction_data[:operationAmount].abs / 100.0
@@ -34,6 +35,7 @@ class SendMessageToBotToAskToEnterExpences
       price_in_uah: @price_in_uah,
       price_in_usd: @price_in_usd,
       operation_amount: @operation_amount,
+      currency_rate: @currency_rate,
       message_ids: [],
     }
   end

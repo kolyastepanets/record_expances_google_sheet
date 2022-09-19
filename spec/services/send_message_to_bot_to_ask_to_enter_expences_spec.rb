@@ -19,7 +19,8 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       operationAmount: -1195,
       originalMcc: 5969,
       receiptId: "X5H9-3T1K-4HB8-CMC5",
-      time: 1661777571
+      time: 1661777571,
+      currency_rate: 0.8707,
     }
   end
 
@@ -53,6 +54,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         price_in_uah: 533.62,
         operation_amount: 11.95,
         price_in_usd: nil,
+        currency_rate: 0.8707,
       })
     end
   end
@@ -184,6 +186,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         receiptId: "X5H9-3T1K-4HB8-CMC5",
         time: 1661777571,
         is_fop_dollar: true,
+        currency_rate: 0.8707,
       }
     end
     let(:response_message_with_params) do
@@ -215,6 +218,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         price_in_uah: nil,
         operation_amount: 11.95,
         price_in_usd: 533.62,
+        currency_rate: 0.8707,
       })
     end
   end

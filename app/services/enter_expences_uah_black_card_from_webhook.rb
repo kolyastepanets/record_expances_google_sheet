@@ -13,7 +13,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   def call_job
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
 
-    SendMessageToBotToAskToEnterExpences.call(@transaction_data)
+    SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(currency_rate: currency_rate))
   end
 
   def currency_rate

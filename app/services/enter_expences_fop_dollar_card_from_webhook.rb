@@ -22,7 +22,7 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
     return EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]
     return PutExpencesFopDollarCardJob.perform_later(@params) if @params[:category_name].present?
 
-    SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(is_fop_dollar: true))
+    SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(is_fop_dollar: true, currency_rate: currency_rate))
   end
 
   def sold_dollars_from_fop

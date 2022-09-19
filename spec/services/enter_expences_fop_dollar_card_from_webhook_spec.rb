@@ -94,6 +94,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         is_fop_dollar: true,
+        currency_rate: 1.0,
       }
     end
     let(:params) do
@@ -207,6 +208,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         is_fop_dollar: true,
+        currency_rate: 1.0,
       }
     end
 

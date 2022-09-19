@@ -93,6 +93,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
+        currency_rate: 10.0,
       }
     end
 
@@ -194,6 +195,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
+        currency_rate: 200.0,
       }
     end
 
@@ -577,10 +579,6 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
-
-
-
-
   context 'when description does not fit anything' do
     let(:transaction_data) do
       {
@@ -597,6 +595,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
+        currency_rate: 75.0,
       }
     end
 
