@@ -8,6 +8,7 @@ gem 'puma', '~> 3.11'
 gem "bootsnap", require: false
 gem 'telegram-bot'
 gem 'google-apis-sheets_v4', '= 0.10.0'
+gem 'google-apis-vision_v1', '= 0.1'
 gem 'redis', '= 4.5'
 gem 'rake'
 gem 'figaro'

@@ -118,6 +118,8 @@ GEM
       webrick
     google-apis-sheets_v4 (0.10.0)
       google-apis-core (>= 0.4, < 2.a)
+    google-apis-vision_v1 (0.1.0)
+      google-apis-core (~> 0.1)
     googleauth (1.2.0)
       faraday (>= 0.17.3, < 3.a)
       jwt (>= 1.4, < 3.0)
@@ -304,6 +306,7 @@ DEPENDENCIES
   faraday
   figaro
   google-apis-sheets_v4 (= 0.10.0)
+  google-apis-vision_v1 (= 0.1)
   listen
   pry-byebug
   pry-rails

@@ -1,61 +1,96 @@
 require 'rails_helper'
 
-RSpec.describe PricesFromImage do
+RSpec.describe PricesFromImage, vcr: true do
   subject { described_class.call(message_params) }
 
   let(:message_params) do
   end
 
   before do
-    allow_any_instance_of(described_class).to receive(:image_to_s).and_return(image_to_s)
+    allow_any_instance_of(described_class).to receive(:get_telegram_image).and_return(get_telegram_image)
   end
 
-  context 'when receipt polish shop' do
-    context 'when invalid parse' do
-      let(:image_to_s) { "PSICUTTER\nwon Road\n\nComberton\n\nCambridge €B23. 7hp\n\nKIKKOMAN TERIYAKI MARINA 3.00\nELMLEA DOUBLE 1.6/\nGROCERY NON VAT eed)\nGROCERY NON VAI 2.89\nGROCERY NON VAT 0.99\nGROCERY NON VAI 1.69\n\nSub-total 6 items 12.53\n\nAmount to pay 12.53\nPayment by CREDIT CARD 12.53\nChange\n\nshopping al\nhank you for shopping\nThank you ey cosTCurren\n" }
+  context 'when receipt polish shop 1', freezed_time: '2022-09-21T21:31:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out.jpg") }
 
-      it 'return 3 values' do
-        expect(subject).to eq([[3.0, 2.89, 0.99, 1.69], 12.53, nil])
-      end
+    it 'return 3 values' do
+      result = subject
 
-      it 'has sum of prices does not equal total sum' do
-        result = subject
-        expect(result[0].sum).to_not eq(result[1])
-      end
+      sum_of_prices = result[0].sum
+      expect(result).to eq([[2.99, 1.5, 3.0, 1.35, 2.95, 0.55, 3.78, 1.5, 2.29, 4.04], 23.95, nil])
+      expect(sum_of_prices).to eq(result[1])
     end
+  end
 
-    context 'when valid parse' do
-      let(:image_to_s) { "HH\n\nPolish Marke Jess\n\n“we 72 Newmarket Road,\nCambridge,\n\nCB5 8DZ\nVAT NO: RECEIPT : 139506\nBR: 1\\1 Sobieslaw 20/08/2022 13:25\nMASLO POLSKIE 200G M £2.99\nCZEKOLADA ORZECHOWA £1.50\nTWAROG TLUSTY 250G MLEKPOL MAZURSKI SMAK\n! 2 @ 1.50 £3.00\nKASZA JECZMIENNA SRE £1.35\nKASZA GRYCZANA 400G £2.95\n\n£0.55\n£3.78\n£1.50\n£2.29\n£4.04\n\nTotal :£23.95\n\nCash:£23.95\nChange: £0 .00\n\nJER MLECZNA KANAP\n\n" }
+  context 'when receipt polish shop 2', freezed_time: '2022-09-21T22:25:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out3.jpg") }
 
-      it 'return 3 values' do
-        expect(subject).to eq([[2.99, 1.5, 3.0, 1.35, 2.95, 0.55, 3.78, 1.5, 2.29, 4.04], 23.95, nil])
-      end
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[2.65, 2.85, 1.55, 1.75, 3.35, 1.2, 1.09, 0.6, 1.29, 5.5, 2.03, 2.73, 2.99], 29.58, nil])
+      expect(sum_of_prices).to eq(result[1])
     end
+  end
 
-    context 'number with comma and incorrect total word' do
-      let(:image_to_s) { "MERCI COFFEE&CREAM | £2.65\nMERCI DARK 1006 E2 .85\nSchogetten czekolada £1,55\nSEREK MILANDIA SMIET £1.75\nMINI GOLKA 1606 £3.85\nBURACZKI PAP CEB 460 £1.20\nButchery £1.09\nOREO 30g £0.60\nButchery £1.29\nFruit & Veg 5.50\nFruit & Veg £2.03\nFruit & Veg £2.73\nGrocery £2.99\nlotal :£29\n\nCash: £29.58\nChange :£0.00\n\nYou were served by: Julia\n\n" }
+  context 'when receipt comberton shop 1', freezed_time: '2022-09-21T22:27:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out2.jpg") }
 
-      it 'return 3 values' do
-        expect(subject).to eq([[2.65, 2.85, 1.55, 1.75, 3.85, 1.2, 1.09, 0.6, 1.29, 5.5, 2.03, 2.73, 2.99], 29.58, nil])
-      end
+    it 'return 3 values' do
+      result = subject
 
-      it 'has sum of prices equals total sum' do
-        result = subject
-        expect(result[0].sum).to_not eq(result[1])
-      end
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[1.99, 1.79, 1.99], 5.77, nil])
+      expect(sum_of_prices).to eq(result[1])
     end
+  end
 
-    context 'when finish word Items:' do
-      let(:image_to_s) { "I\n\nw\nPolish Marke Jess\n2 Newmarket Road,\n\nCambridge,\n\nCBS gpz\nVAT NO RECEIPT : 145947\nBR:1\\] Julia 17/09/2022 11:38\nMERCI COFFEE&CREAM 1 £2.65\nMERCI DARK 100G £2.85\nSchoget ten czekolada £1.55\nSEREK MILANDIA SMIET £1.75\nMINI GOLKA 1606 £3.35\nBURACZKI PAP CEB 460 £1.20\nButchery £1.09\nOREO 30g £0.60\nButchery £1.29\nFruit & Veg £5.50\nFruit & Veg £2.03\nFruit & Veg £2.73\nGrocery £2.99\nItems: 13 Fotall £29.58\n\nCash: £29 58\nChange :£0 00\n\nyou were served by: Julia\n\n“THANK YOU PLEASE CALL AGAIN\"\n\n“MO Peis) TRA) ODA\n" }
+  context 'when receipt comberton shop 2', freezed_time: '2022-09-21T22:35:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out4.jpeg") }
 
-      it 'return 3 values' do
-        expect(subject).to eq([[2.65, 2.85, 1.55, 1.75, 3.35, 1.2, 1.09, 0.6, 1.29, 5.5, 2.03, 2.73, 2.99], 29.58, nil])
-      end
+    it 'return 3 values' do
+      result = subject
 
-      it 'has sum of prices equals total sum' do
-        result = subject
-        expect(result[0].sum).to_not eq(result[1])
-      end
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[1.85, 1.45, 1.67, 2.99, 1.95, 9.99], 19.9, nil])
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt sainsbury 1', freezed_time: '2022-09-22T08:13:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out5.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[2.75, 13.0, 2.05, 2.0, 2.0, 2.5, 1.7, 5.3, 3.0, 1.35, 2.0, 2.5, 1.1, 1.0, 1.7, 1.5, 1.6, 2.35, 1.4, 1.35, 1.5, 1.35, 2.25, 2.75, 2.2, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.75], 74.95, nil])
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  xcontext 'when receipt waitrose 1', freezed_time: '2022-09-22T08:24:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out6.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[19.99, 1.1, 2.0, 2.0, 81.5, 1.5, 1.5, 0.9, 2.5, 1.5, 1.25, 1.5, 1.0, 1.0, 1.0, 1.0, 2.5, 927.33, 1.55, 0.5, 2.3, 2.3, 1.55, 1.66, 2.0, 2.2, 2.0, 2.0, 2.4, 1.12, 1.55, 1.0, 3.5, 103.95, 1.7, 92.4, 2.5, 2.2, 2.0, 2.55, 1.95, 952.0, 1.25, 1.5, 1.9], 105.2, nil])
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt waitrose 2', freezed_time: '2022-09-22T08:31:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out7.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq( [[19.99, 1.1, 2.0, 2.0, 1.5, 1.5, 1.5, 0.9, 2.5, 1.5, 1.25, 1.5, 1.0, 1.0, 1.0, 1.0, 2.5, 7.33, 1.55, 0.35, 0.5, 2.3, 2.3, 1.55, 1.66, 2.0, 2.2, 2.0, 2.0, 2.4, 1.12, 1.55, 1.0, 3.5, 2.1, 3.95, 1.7, 2.4, 2.5, 2.2, 2.0, 2.55, 1.95, 1.95, 2.0, 1.25, 1.5, -1.9], 105.2, nil])
+      expect(sum_of_prices).to eq(result[1])
     end
   end
 end
