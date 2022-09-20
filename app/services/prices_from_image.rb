@@ -42,10 +42,10 @@ class PricesFromImage
 
     url = "https://api.telegram.org/file/bot#{ENV['TELEGRAM_BOT_TOKEN']}/#{response["result"]["file_path"]}"
     res = Faraday.new(url: url).get
-    File.open("public/uploads/out.jpg", "wb") do |f|
+    File.open("public/out.jpg", "wb") do |f|
       f.write(res.body)
     end
-    RTesseract.new("public/uploads/out.jpg").to_s
+    RTesseract.new("public/out.jpg").to_s
   end
 
   def return_result
