@@ -20,8 +20,7 @@ class PricesFromImage
         break @total_sum_in_receipt = line.match(/\d*\.\d*$/)[0].to_f
       end
 
-      negative_number = line.match(/-\d*\.\d*$/)
-      if negative_number && text_lines.any? { |line| line.include?('waitrose') }
+      if negative_number_in_waitrose?(line)
         next
       end
 
@@ -57,5 +56,11 @@ class PricesFromImage
 
   def polish_shop_end?(line)
     line.include?('total') || line.include?('Total')
+  end
+
+  # because I have to manually withdraw price from some product in receipt
+  # maybe can be automatted, it would be great!
+  def negative_number_in_waitrose?(line)
+    line.match(/-\d*\.\d*$/) && text_lines.any? { |line| line.include?('waitrose') }
   end
 end
