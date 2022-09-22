@@ -63,7 +63,50 @@ RSpec.describe PricesFromImage, vcr: true do
 
     it 'return 3 values' do
       result = subject
-
+      # binding.pry
+      # sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      # expect(result).to eq(
+      #   [
+      #     [
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>2.75 },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>13.0 },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>2.05 },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>2.0  },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>2.0  },
+      #       {:category_name=>"Для дома", :sub_category_name=>"Инвентарь",             :price=>2.5  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.7  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Мясо",                  :price=>5.3  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Мясо",                  :price=>3.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>1.35 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>2.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>2.5  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>1.1  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.7  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.5  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.6  },
+      #       {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>2.35 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.4  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.35 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.5  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.35 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Рыба",                  :price=>2.25 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Рыба",                  :price=>2.75 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>2.2  },
+      #       {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>2.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>2.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0  },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>1.0  },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>1.0  },
+      #       {:category_name=>nil,        :sub_category_name=>nil,                     :price=>2.75 }
+      #     ],
+      #     74.95,
+      #     nil
+      #   ]
+      # )
       sum_of_prices = result[0].sum.round(2)
       expect(result).to eq([[2.75, 13.0, 2.05, 2.0, 2.0, 2.5, 1.7, 5.3, 3.0, 1.35, 2.0, 2.5, 1.1, 1.0, 1.7, 1.5, 1.6, 2.35, 1.4, 1.35, 1.5, 1.35, 2.25, 2.75, 2.2, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.75], 74.95, nil])
       expect(sum_of_prices).to eq(result[1])

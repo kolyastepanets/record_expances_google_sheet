@@ -30,13 +30,13 @@ class PricesFromImage
       if matched_number_with_two_digits_after_point
         @collected_prices << matched_number_with_two_digits_after_point[0].to_f.round(2)
 
-        category_name, sub_category_name = shop_parse_class.call(line)
+        # category_name, sub_category_name = shop_parse_class.call(line)
 
-        @categories_with_prices << {
-          category_name: category_name,
-          sub_category_name: sub_category_name,
-          price: matched_number_with_two_digits_after_point[0].to_f.round(2)
-        }
+        # @categories_with_prices << {
+        #   category_name: category_name,
+        #   sub_category_name: sub_category_name,
+        #   price: matched_number_with_two_digits_after_point[0].to_f.round(2)
+        # }
       end
     end
   end
@@ -77,6 +77,8 @@ class PricesFromImage
   def shop_parse_class
     if text_lines.any? { |line| line.include?('waitrose') }
       DetectCategoryAndSubcategoryFromLine::Waitrose
+    elsif text_lines.any? { |line| line.include?('sainsbury') }
+      DetectCategoryAndSubcategoryFromLine::Sainsburys
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end

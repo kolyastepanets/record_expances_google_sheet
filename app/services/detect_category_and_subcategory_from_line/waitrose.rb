@@ -1,55 +1,6 @@
 module DetectCategoryAndSubcategoryFromLine
   class Waitrose < Default
     def call
-      # binding.pry
-      category_name = nil
-      sub_category_name = nil
-
-      if alcohol?
-        category_name = 'Еда'
-        sub_category_name = 'Алкоголь'
-      elsif water?
-        category_name = 'Еда'
-        sub_category_name = 'Вода'
-      elsif spices_and_seasonings?
-        category_name = 'Еда'
-        sub_category_name = 'Специи, приправы'
-      elsif sweets?
-        category_name = 'Еда'
-        sub_category_name = 'Сладости'
-      elsif tea_or_coffee?
-        category_name = 'Еда'
-        sub_category_name = 'Кофе, Чай'
-      elsif fruits?
-        category_name = 'Еда'
-        sub_category_name = 'Фрукты'
-      elsif vegetables?
-        category_name = 'Еда'
-        sub_category_name = 'Овощи'
-      elsif dairy?
-        category_name = 'Еда'
-        sub_category_name = 'Молочка'
-      elsif bread?
-        category_name = 'Еда'
-        sub_category_name = 'Хлеб и др'
-      elsif meat?
-        category_name = 'Еда'
-        sub_category_name = 'Мясо'
-      elsif fish?
-        category_name = 'Еда'
-        sub_category_name = 'Рыба'
-      elsif sausage_and_sausages?
-        category_name = 'Еда'
-        sub_category_name = 'Колбаса, сосиски'
-      elsif for_beer?
-        category_name = 'Еда'
-        sub_category_name = 'К пиву'
-      elsif bath_stuff?
-        category_name = 'Для дома'
-        sub_category_name = 'Ванные принадлежности'
-      end
-
-      [category_name, sub_category_name]
     end
 
     ####
@@ -57,8 +8,6 @@ module DetectCategoryAndSubcategoryFromLine
     def alcohol?
       wine?
     end
-
-    ####
 
     def wine?
       @line.include?('beefsteak') && @line.include?('club') && @line.include?('malbe')
