@@ -5,6 +5,7 @@ class PricesFromImage
     @message_params = message_params
     @collected_prices = []
     @total_sum_in_receipt = 0
+    @categories_with_prices = []
   end
 
   def call
@@ -28,6 +29,14 @@ class PricesFromImage
       matched_number_with_two_digits_after_point = line.match(/\d*\.\d*/) if matched_number_with_two_digits_after_point.nil?
       if matched_number_with_two_digits_after_point
         @collected_prices << matched_number_with_two_digits_after_point[0].to_f.round(2)
+
+        category_name, sub_category_name = shop_parse_class.call(line)
+
+        @categories_with_prices << {
+          category_name: category_name,
+          sub_category_name: sub_category_name,
+          price: matched_number_with_two_digits_after_point[0].to_f.round(2)
+        }
       end
     end
   end
@@ -47,6 +56,7 @@ class PricesFromImage
   end
 
   def return_result
+    # [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
     [@collected_prices.reject(&:zero?), @total_sum_in_receipt.round(2), @file_id]
   end
 
@@ -62,5 +72,13 @@ class PricesFromImage
   # maybe can be automatted, it would be great!
   def negative_number_in_waitrose?(line)
     line.match(/-\d*\.\d*$/) && text_lines.any? { |line| line.include?('waitrose') }
+  end
+
+  def shop_parse_class
+    if text_lines.any? { |line| line.include?('waitrose') }
+      DetectCategoryAndSubcategoryFromLine::Waitrose
+    else
+      DetectCategoryAndSubcategoryFromLine::Default
+    end
   end
 end

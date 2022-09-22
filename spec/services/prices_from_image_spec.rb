@@ -78,6 +78,64 @@ RSpec.describe PricesFromImage, vcr: true do
 
       sum_of_prices = result[0].sum.round(2)
       expect(result).to eq( [[19.99, 1.1, 2.0, 2.0, 1.5, 1.5, 1.5, 0.9, 2.5, 1.5, 1.25, 1.5, 1.0, 1.0, 1.0, 1.0, 2.5, 7.33, 1.55, 0.35, 0.5, 2.3, 2.3, 1.55, 1.66, 2.0, 2.2, 2.0, 2.0, 2.4, 1.12, 1.55, 1.0, 3.5, 2.1, 3.95, 1.7, 2.4, 2.5, 2.2, 2.0, 2.55, 1.95, 0.05, 2.0, 1.25, 1.5], 105.2, nil])
+
+      # sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      # expect(result).to eq(
+      #   [
+      #     [
+      #       {:category_name=>"Еда",      :sub_category_name=>"Алкоголь",              :price=>19.99 },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Хлеб и др",             :price=>1.1   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>1.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>1.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>1.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>0.9   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Специи, приправы",      :price=>2.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>1.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.25  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Вода",                  :price=>1.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>1.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Кофе, Чай",             :price=>2.5   },
+      #       {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>7.33  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.55  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>0.35  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Специи, приправы",      :price=>0.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>2.3   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>2.3   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>1.55  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>1.66  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Хлеб и др",             :price=>2.2   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.4   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Мясо",                  :price=>1.12  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>1.55  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Хлеб и др",             :price=>1.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Рыба",                  :price=>3.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Сладости",              :price=>2.1   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Колбаса, сосиски",      :price=>3.95  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Хлеб и др",             :price=>1.7   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Специи, приправы",      :price=>2.4   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Кофе, Чай",             :price=>2.5   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.2   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Фрукты",                :price=>2.55  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>1.95  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>0.05  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Овощи",                 :price=>2.0   },
+      #       {:category_name=>"Еда",      :sub_category_name=>"К пиву",                :price=>1.25  },
+      #       {:category_name=>"Еда",      :sub_category_name=>"Молочка",               :price=>1.5   }
+      #     ],
+      #     105.2,
+      #     nil
+      #   ]
+      # )
+
       expect(sum_of_prices).to eq(result[1])
     end
   end
