@@ -82,14 +82,14 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  context 'when receipt waitrose 2', freezed_time: '2022-09-22T08:31:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out7.jpeg") }
+  context 'when receipt waitrose modified receipt', freezed_time: '2022-09-22T13:44:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out8.jpeg") }
 
     it 'return 3 values' do
       result = subject
 
       sum_of_prices = result[0].sum.round(2)
-      expect(result).to eq( [[19.99, 1.1, 2.0, 2.0, 1.5, 1.5, 1.5, 0.9, 2.5, 1.5, 1.25, 1.5, 1.0, 1.0, 1.0, 1.0, 2.5, 7.33, 1.55, 0.35, 0.5, 2.3, 2.3, 1.55, 1.66, 2.0, 2.2, 2.0, 2.0, 2.4, 1.12, 1.55, 1.0, 3.5, 2.1, 3.95, 1.7, 2.4, 2.5, 2.2, 2.0, 2.55, 1.95, 1.95, 2.0, 1.25, 1.5, -1.9], 105.2, nil])
+      expect(result).to eq( [[19.99, 1.1, 2.0, 2.0, 1.5, 1.5, 1.5, 0.9, 2.5, 1.5, 1.25, 1.5, 1.0, 1.0, 1.0, 1.0, 2.5, 7.33, 1.55, 0.35, 0.5, 2.3, 2.3, 1.55, 1.66, 2.0, 2.2, 2.0, 2.0, 2.4, 1.12, 1.55, 1.0, 3.5, 2.1, 3.95, 1.7, 2.4, 2.5, 2.2, 2.0, 2.55, 1.95, 0.05, 2.0, 1.25, 1.5], 105.2, nil])
       expect(sum_of_prices).to eq(result[1])
     end
   end

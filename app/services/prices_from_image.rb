@@ -22,7 +22,6 @@ class PricesFromImage
 
       negative_number = line.match(/-\d*\.\d*$/)
       if negative_number && text_lines.any? { |line| line.include?('waitrose') }
-        @collected_prices << negative_number[0].to_f.round(2)
         next
       end
 
