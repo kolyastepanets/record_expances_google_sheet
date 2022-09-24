@@ -69,5 +69,11 @@ module DetectCategoryAndSubcategoryFromLine
     def porridge?
       @line.include?('kasza')
     end
+
+    ####
+
+    def sausage_and_sausages?
+      @line.include?('kielbasa')
+    end
   end
 end

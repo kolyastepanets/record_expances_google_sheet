@@ -75,6 +75,35 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt polish shop 3', freezed_time: '2022-09-24T20:08:00+00:00' do
+    # TO IMPORVE RECOGNISE, CAN BE DONE BETTER
+    let(:get_telegram_image) { File.read("spec/images/out9.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[1.5, 1.6, 1.5, 1.75, 0.93, 5.29, 3.99], 16.56, nil])
+      # sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      # expect(result).to eq(
+      #   [
+      #     [
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>1.5  },
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>1.6  },
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>1.5  },
+      #       {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>1.75 },
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>0.93 },
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>5.29 },
+      #       {:category_name=>nil,   :sub_category_name=>nil,                :price=>3.99 }
+      #     ],
+      #     16.56,
+      #     nil
+      #   ]
+      # )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt comberton shop 1', freezed_time: '2022-09-21T22:27:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out2.jpg") }
 

@@ -1,5 +1,6 @@
 class ConvertImageToArrayOfText < GoogleVisionBase
   POSSIBLE_Y_POSITION = 11
+  # POSSIBLE_Y_POSITION = 16
 
   def initialize(image)
     @image = image
