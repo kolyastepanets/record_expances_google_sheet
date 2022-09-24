@@ -602,7 +602,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         counterEdrpou: "3299616355",
         counterIban: "UA093220010000026002300065191",
         currencyCode: 980,
-        description: "На гривневый счет ФОП для перевода на карту",
+        description: "На гривневий рахунок ФОП для переказу на картку",
         hold: true,
         id: "q6BoObsWc4t4vdq9",
         mcc: 4829,

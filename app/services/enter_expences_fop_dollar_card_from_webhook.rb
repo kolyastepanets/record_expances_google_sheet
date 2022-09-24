@@ -26,7 +26,7 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def sold_dollars_from_fop
-    "На гривневый счет ФОП для перевода на карту"
+    "На гривневий рахунок ФОП для переказу на картку"
   end
 
   def currency_rate
