@@ -52,6 +52,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif eggs?
         category_name = 'Еда'
         sub_category_name = 'Яйца'
+      elsif grocery?
+        category_name = 'Еда'
+        sub_category_name = 'Бакалея'
       elsif bath_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Ванные принадлежности'
@@ -61,6 +64,59 @@ module DetectCategoryAndSubcategoryFromLine
       end
 
       [category_name, sub_category_name]
+    end
+
+    private
+
+    def alcohol?
+    end
+
+    def water?
+    end
+
+    def spices_and_seasonings?
+    end
+
+    def sweets?
+    end
+
+    def tea_or_coffee?
+    end
+
+    def fruits?
+    end
+
+    def vegetables?
+    end
+
+    def dairy?
+    end
+
+    def bread?
+    end
+
+    def meat?
+    end
+
+    def fish?
+    end
+
+    def sausage_and_sausages?
+    end
+
+    def for_beer?
+    end
+
+    def eggs?
+    end
+
+    def grocery?
+    end
+
+    def bath_stuff?
+    end
+
+    def home_stuff?
     end
   end
 end

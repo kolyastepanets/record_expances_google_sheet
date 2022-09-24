@@ -1,6 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
   class Sainsburys < Default
-
     def alcohol?
       wine?
     end

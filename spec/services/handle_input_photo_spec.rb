@@ -128,7 +128,6 @@ RSpec.describe HandleInputPhoto do
   end
 
   context 'when all prices are parced' do
-
     it 'sends message to bot with prices and categories' do
       expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 3.0")
       expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(1.2, request_params_1).and_return(result2)

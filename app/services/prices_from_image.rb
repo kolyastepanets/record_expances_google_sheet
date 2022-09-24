@@ -79,6 +79,10 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::Waitrose
     elsif text_lines.any? { |line| line.include?('sainsbury') }
       DetectCategoryAndSubcategoryFromLine::Sainsburys
+    elsif text_lines.any? { |line| line.include?('COMBERTON') && line.include?('COSTCUTTER') }
+      DetectCategoryAndSubcategoryFromLine::CombertonShop
+    elsif text_lines.any? { |line| line.downcase.include?('polish') && line.downcase.include?('marke') }
+      DetectCategoryAndSubcategoryFromLine::PolishShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end

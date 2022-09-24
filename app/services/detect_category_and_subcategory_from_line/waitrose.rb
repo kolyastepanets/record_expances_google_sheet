@@ -1,10 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
   class Waitrose < Default
-    def call
-    end
-
-    ####
-
     def alcohol?
       wine?
     end
