@@ -17,16 +17,16 @@ class PricesFromImage
 
   def parse_image
     text_lines.each do |line|
-      if (sainsbury_end?(line) || polish_shop_end?(line)) && line.match(/\d*\.\d*$/)
-        break @total_sum_in_receipt = line.match(/\d*\.\d*$/)[0].to_f
+      if end_line_for_shop?(line) && line.match(/\d*\.\d*$/)
+        break @total_sum_in_receipt = line.match(/\d{1,3}\.\d{1,2}$/)[0].to_f
       end
 
       if negative_number_in_waitrose?(line)
         next
       end
 
-      matched_number_with_two_digits_after_point = line.match(/\d*\.\d*$/)
-      matched_number_with_two_digits_after_point = line.match(/\d*\.\d*/) if matched_number_with_two_digits_after_point.nil?
+      matched_number_with_two_digits_after_point = line.match(/\d{1,2}\.\d{2}$/)
+      matched_number_with_two_digits_after_point = line.match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
       if matched_number_with_two_digits_after_point
         @collected_prices << matched_number_with_two_digits_after_point[0].to_f.round(2)
 
@@ -60,12 +60,20 @@ class PricesFromImage
     [@collected_prices.reject(&:zero?), @total_sum_in_receipt.round(2), @file_id]
   end
 
+  def end_line_for_shop?(line)
+    sainsbury_end?(line) || polish_shop_end?(line) || marks_and_spencer_end?(line)
+  end
+
   def sainsbury_end?(line)
     line.include?('BALANCE')
   end
 
   def polish_shop_end?(line)
     line.include?('total') || line.include?('Total')
+  end
+
+  def marks_and_spencer_end?(line)
+    line.include?('Items')
   end
 
   # because I have to manually withdraw price from some product in receipt
@@ -83,6 +91,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::CombertonShop
     elsif text_lines.any? { |line| line.downcase.include?('polish') && line.downcase.include?('marke') }
       DetectCategoryAndSubcategoryFromLine::PolishShop
+    elsif text_lines.any? { |line| line.downcase.include?('marksandspencer') }
+      DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
