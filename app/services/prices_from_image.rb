@@ -35,7 +35,8 @@ class PricesFromImage
         # @categories_with_prices << {
         #   category_name: category_name,
         #   sub_category_name: sub_category_name,
-        #   price: matched_number_with_two_digits_after_point[0].to_f.round(2)
+        #   price: matched_number_with_two_digits_after_point[0].to_f.round(2),
+        #   line_to_parse: line
         # }
       end
     end
