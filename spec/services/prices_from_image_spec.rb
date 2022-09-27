@@ -155,6 +155,34 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  # fails because of 0.99 in the center of receipt. Update script so that this number will not be taken
+  xcontext 'when receipt comberton shop 3', freezed_time: '2022-09-27T08:57:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out11.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+      # binding.pry
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[0.99, 3.15, 1.67, 1.99, 2.99, 1.49, 2.97, 0.99, 4.03], 19.28, nil])
+      # sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      # expect(result).to eq(
+      #   [
+      #     [
+      #       {:category_name=>"Еда", :sub_category_name=>"К пиву",   :price=>1.85 },
+      #       {:category_name=>"Еда", :sub_category_name=>"Молочка",  :price=>1.45 },
+      #       {:category_name=>"Еда", :sub_category_name=>"Молочка",  :price=>1.67 },
+      #       {:category_name=>"Еда", :sub_category_name=>"Молочка",  :price=>2.99 },
+      #       {:category_name=>"Еда", :sub_category_name=>"Молочка",  :price=>1.95 },
+      #       {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>9.99 }
+      #     ],
+      #     19.9,
+      #     nil
+      #   ]
+      # )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt sainsbury 1', freezed_time: '2022-09-22T08:13:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out05.jpeg") }
 

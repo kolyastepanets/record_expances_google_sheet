@@ -45,8 +45,73 @@ class HandleInputPhoto
     #       **price_in_uah,
     #     }
 
-    #     PutExpencesFopDollarCardJob.perform_now(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
+
+    #    #### PutExpencesFopDollarCardJob.perform_now(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
+    #   params = params.deep_symbolize_keys
+    #   price_in_usd = params[:price_in_usd]
+
+    #   PutExpensesToGoogleSheet.call(
+    #     params[:category_name],
+    #     params[:sub_category_name],
+    #     price_in_usd,
+    #   )
+
+    #   result = CalculateTotalSpentUsdAndUah.call
+
+    #   # decrease usd saved amount
+    #   UpdateCommonCurrencyExpenses.call(
+    #     result[:total_left_usd_money] - price_in_usd,
+    #     result[:coordinates_of_total_left_usd_money],
+    #   )
+
+    #   SendNotificationMessageToBot.call(params)
+    # rescue StandardError => e
+    #   error_message = { exception: e, message: e.message }
+
+    #   SendNotificationMessageToBot.call(error_message)
+    # end
+
+
+
+
+
     #     PutExpencesUahBlackCardJob.perform_now(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
+        #   params = params.deep_symbolize_keys
+        #   price_in_uah = params[:price_in_uah]
+        #   price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+
+        #   PutExpensesToGoogleSheet.call(
+        #     params[:category_name],
+        #     params[:sub_category_name],
+        #     price_in_usd_to_put_in_google_sheets,
+        #   )
+
+        #   result = CalculateTotalSpentUsdAndUah.call
+
+        #   # decrease uah spent amount
+        #   UpdateCommonCurrencyExpenses.call(
+        #     result[:total_left_uah_money] - price_in_uah,
+        #     result[:coordinates_of_total_left_uah_money],
+        #   )
+
+        #   SendNotificationMessageToBot.call(params)
+        # rescue StandardError => e
+        #   error_message = { exception: e, message: e.message }
+
+        #   SendNotificationMessageToBot.call(error_message)
+        # end
+
+
+
+
+
+
+
+
+
+
+
+
     #   else
     #     categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
     #       categories_array.map do |category|

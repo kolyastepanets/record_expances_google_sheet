@@ -62,7 +62,7 @@ class PricesFromImage
   end
 
   def end_line_for_shop?(line)
-    sainsbury_end?(line) || polish_shop_end?(line) || marks_and_spencer_end?(line)
+    sainsbury_end?(line) || polish_shop_end?(line) || marks_and_spencer_end_or_comberton_shop?(line)
   end
 
   def sainsbury_end?(line)
@@ -73,8 +73,8 @@ class PricesFromImage
     line.include?('total') || line.include?('Total')
   end
 
-  def marks_and_spencer_end?(line)
-    line.include?('Items')
+  def marks_and_spencer_end_or_comberton_shop?(line)
+    line.downcase.include?('items')
   end
 
   # because I have to manually withdraw price from some product in receipt
