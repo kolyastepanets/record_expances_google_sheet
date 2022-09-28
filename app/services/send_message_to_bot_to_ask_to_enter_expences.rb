@@ -2,7 +2,7 @@ class SendMessageToBotToAskToEnterExpences
   include CallableService
 
   NIKOLAY_STEPANETS_CHAT_ID = 384435131
-  EXPENSES_TO_SKIP = ["На награду в моно", "З гривневого рахунка ФОП"].freeze
+  EXPENSES_TO_SKIP = ["На награду в моно", "З гривневого рахунка ФОП", "Виведення кешбеку"].freeze
   SHOW_ITEMS_PER_LINE = 2
 
   def initialize(transaction_data)
@@ -17,7 +17,7 @@ class SendMessageToBotToAskToEnterExpences
   end
 
   def call
-    return if EXPENSES_TO_SKIP.include?(@description)
+    return if EXPENSES_TO_SKIP.any? { |expence| @description.include?(expence) }
 
     build_params
     response = send_message_with_params
