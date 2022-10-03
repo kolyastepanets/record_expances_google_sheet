@@ -466,6 +466,43 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         subject
       end
     end
+
+    context 'when trainline' do
+      let(:transaction_data) do
+        {
+          amount: -400,
+          balance: 2876000,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 980,
+          description: "trainline",
+          hold: true,
+          id: "JEMXm-kC9iSZNfGJ",
+          mcc: 4829,
+          operationAmount: -1000,
+          originalMcc: 4829,
+          receiptId: "E4HC-1552-737M-HAC7",
+          time: 1661541332,
+        }
+      end
+      let(:params) do
+        {
+          category_name: 'Транспорт',
+          sub_category_name: 'Поезд',
+          price_in_uah: 4.0,
+          operation_amount: 10.0,
+          current_month: Date.today.month,
+          mono_description: "trainline",
+          currency_rate: 0.4,
+        }
+      end
+
+      it 'calls job PutExpencesUahBlackCardJob' do
+        expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
   end
 
   context 'when mcdonalds' do
@@ -494,6 +531,43 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 10.0,
         current_month: Date.today.month,
         mono_description: "McDonald’s",
+        currency_rate: 0.4,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when mcdonalds different description' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "McDonalds",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Еда',
+        sub_category_name: 'Готовая',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "McDonalds",
         currency_rate: 0.4,
       }
     end

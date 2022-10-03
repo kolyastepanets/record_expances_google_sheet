@@ -46,10 +46,10 @@ class CommonExpensesFromWebhook
     when -> (description) { cambridge_buses.include?(description) }
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Автобус'
-    when -> (description) { ready_food.include?(description) }
+    when -> (description) { ready_food.any? { |food| description.downcase.include?(food.downcase) } }
       @params[:category_name] = 'Еда'
       @params[:sub_category_name] = 'Готовая'
-    when uk_train
+    when -> (description) { description.include?(uk_train) }
       @params[:category_name] = 'Транспорт'
       @params[:sub_category_name] = 'Поезд'
     when -> (description) { airlines.include?(description) }
@@ -66,11 +66,11 @@ class CommonExpensesFromWebhook
   end
 
   def ready_food
-    ["WASABI, SUSHI & BENTO", "McDonald’s"]
+    ["WASABI, SUSHI & BENTO", "mcdonald"]
   end
 
   def uk_train
-    "thetrainline.com"
+    "trainline"
   end
 
   def airlines
