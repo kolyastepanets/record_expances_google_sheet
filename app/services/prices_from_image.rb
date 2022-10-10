@@ -62,15 +62,15 @@ class PricesFromImage
   end
 
   def end_line_for_shop?(line)
-    sainsbury_end?(line) || polish_shop_end?(line) || marks_and_spencer_end_or_comberton_shop?(line)
+    sainsbury_end?(line) || total_end?(line) || marks_and_spencer_end_or_comberton_shop?(line)
   end
 
   def sainsbury_end?(line)
     line.include?('BALANCE')
   end
 
-  def polish_shop_end?(line)
-    line.include?('total') || line.include?('Total')
+  def total_end?(line)
+    line.downcase.include?('total')
   end
 
   def marks_and_spencer_end_or_comberton_shop?(line)
