@@ -1,6 +1,5 @@
 class ConvertImageToArrayOfText < GoogleVisionBase
   POSSIBLE_Y_POSITION = 11
-  # POSSIBLE_Y_POSITION = 16
 
   def initialize(image)
     @image = image
@@ -34,12 +33,17 @@ class ConvertImageToArrayOfText < GoogleVisionBase
 
     grouped_texts = grouped_texts.sort_by{ |grouped_text| grouped_text[:key] }
 
-    text_lines = []
+    grouped_texts_category_to_price = []
 
     grouped_texts.each do |grouped_text|
-      text_lines << grouped_text[:text].join
+      *category_name, price = grouped_text[:text]
+
+      grouped_texts_category_to_price << {
+        category_name: category_name.join,
+        price: price,
+      }
     end
 
-    text_lines
+    grouped_texts_category_to_price
   end
 end

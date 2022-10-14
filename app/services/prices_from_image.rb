@@ -16,17 +16,18 @@ class PricesFromImage
   private
 
   def parse_image
-    text_lines.each do |line|
-      if end_line_for_shop?(line) && line.match(/\d*\.\d*$/)
-        break @total_sum_in_receipt = line.match(/\d{1,3}\.\d{1,2}$/)[0].to_f
+    category_to_price.each do |line|
+      if end_line_for_shop?(line[:category_name]) && line[:price].match(/\d*\.\d*$/)
+        break @total_sum_in_receipt = line[:price].match(/\d{1,3}\.\d{1,2}$/)[0].to_f
       end
 
-      if negative_number_in_waitrose?(line)
+      if negative_number_in_waitrose?(line[:price])
         next
       end
 
-      matched_number_with_two_digits_after_point = line.match(/\d{1,2}\.\d{2}$/)
-      matched_number_with_two_digits_after_point = line.match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
+      matched_number_with_two_digits_after_point = line[:price].match(/\d{1,2}\.\d{2}$/)
+      matched_number_with_two_digits_after_point = line[:price].match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
+      matched_number_with_two_digits_after_point = line[:category_name].match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
       if matched_number_with_two_digits_after_point
         @collected_prices << matched_number_with_two_digits_after_point[0].to_f.round(2)
 
@@ -52,8 +53,8 @@ class PricesFromImage
     Faraday.new(url: url).get.body
   end
 
-  def text_lines
-    @text_lines ||= ConvertImageToArrayOfText.call(get_telegram_image)
+  def category_to_price
+    @category_to_price ||= ConvertImageToArrayOfText.call(get_telegram_image)
   end
 
   def return_result
@@ -62,6 +63,8 @@ class PricesFromImage
   end
 
   def end_line_for_shop?(line)
+    return false if line.nil?
+
     sainsbury_end?(line) || total_end?(line) || marks_and_spencer_end_or_comberton_shop?(line)
   end
 
@@ -80,7 +83,11 @@ class PricesFromImage
   # because I have to manually withdraw price from some product in receipt
   # maybe can be automatted, it would be great!
   def negative_number_in_waitrose?(line)
-    line.match(/-\d*\.\d*$/) && text_lines.any? { |line| line.include?('waitrose') }
+    line.match(/-\d*\.\d*$/) && all_text.downcase.include?('waitrose')
+  end
+
+  def all_text
+    category_to_price.map { |ha| ha[:category_name] + ha[:price].to_s }.join
   end
 
   def shop_parse_class
