@@ -742,4 +742,46 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
   end
+
+  context 'when salary from fop' do
+    let(:transaction_data) do
+      {
+        time: 1665753624,
+        description: "SWIFT платіж: MT103 від 14/10/2022,20.00 USD,/RFB/221014120545361RFB 221014120545361",
+        mcc: 4829,
+        originalMcc: 4829,
+        amount: 2000,
+        operationAmount: 2000,
+        currencyCode: 840,
+        commissionRate: 0,
+        cashbackAmount: 0,
+        balance: 2000,
+        hold: true,
+      }
+    end
+    let(:params) do
+      {
+        dollars: 20,
+        salary: true,
+      }
+    end
+
+    it 'calls job EnterSalaryFromFopJob' do
+      expect(EnterSalaryFromFopJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+
+    it 'does not call PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
+
+      subject
+    end
+
+    it 'does not call EnterSoldDollarsFromFopJob' do
+      expect(EnterSoldDollarsFromFopJob).to_not receive(:perform_later)
+
+      subject
+    end
+  end
 end
