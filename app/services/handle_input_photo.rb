@@ -9,8 +9,8 @@ class HandleInputPhoto
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
     currency_code, currency_rate = @message_params[:caption].split(' ')
-    @currency_to_usd = currency_rate.to_f if currency_code == "Usd" || currency_code == "usd" || currency_code == "USD"
-    @currency_to_uah = currency_rate.to_f if currency_code == "Uah" || currency_code == "uah" || currency_code == "UAH"
+    @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
+    @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
     @params = []
   end
 

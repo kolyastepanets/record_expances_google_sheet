@@ -22,7 +22,7 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
 
   def price_in_uah
     price_in_uah = {}
-    price_in_uah = { price_in_uah: (@price * @last_price_to_message["currency_to_uah"] / MonobankCurrencyRates.call('USD', 'UAH')) } if @last_price_to_message["currency_to_uah"].present?
+    price_in_uah = { price_in_uah: (@price * @last_price_to_message["currency_to_uah"]) } if @last_price_to_message["currency_to_uah"].present?
     price_in_uah
   end
 

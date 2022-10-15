@@ -47,7 +47,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.telegram_updates_controller.session_store = :file_store, {expires_in: 1.month}
-  config.hosts << "8e6a-109-158-239-165.ngrok.io"
+  config.hosts << "974b-109-158-161-229.ngrok.io"
 
   config.active_job.queue_adapter = :sidekiq
 end

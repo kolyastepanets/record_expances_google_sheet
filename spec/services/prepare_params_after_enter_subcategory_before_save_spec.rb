@@ -22,7 +22,7 @@ RSpec.describe PrepareParamsAfterEnterSubcategoryBeforeSave do
     it 'returns 3 values' do
       expect(subject).to eq(
         [
-          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :price_in_uah=>3.624725663008841},
+          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :price_in_uah=>135.92540000000002},
           [
             {"price"=>2.65, "currency_to_usd"=>nil, "currency_to_uah"=>45.46, "message_ids"=>[26582]},
             {"price"=>2.85, "currency_to_usd"=>nil, "currency_to_uah"=>45.46, "message_ids"=>[26583]},
