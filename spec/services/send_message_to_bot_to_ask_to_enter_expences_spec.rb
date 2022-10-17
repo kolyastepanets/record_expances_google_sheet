@@ -152,6 +152,37 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         expect(subject).to eq(nil)
       end
     end
+
+    context 'when uah on fop' do
+      let(:transaction_data) do
+        {
+          amount: -53362,
+          balance: 3332238,
+          cashbackAmount: 0,
+          commissionRate: 0,
+          currencyCode: 826,
+          description: "На гривневий рахунок ФОП",
+          hold: true,
+          id: id,
+          mcc: 5969,
+          operationAmount: -1195,
+          originalMcc: 5969,
+          receiptId: "X5H9-3T1K-4HB8-CMC5",
+          time: 1661777571
+        }
+      end
+
+      it 'does not call telegram bot' do
+        expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
+        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
+
+        subject
+      end
+
+      it 'returns nil' do
+        expect(subject).to eq(nil)
+      end
+    end
   end
 
   context '#categories_to_show' do
