@@ -742,4 +742,51 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
   end
+
+  context 'when sold dollars from fop to uah fop for taxes' do
+    let(:transaction_data) do
+      {
+        description: "На гривневий рахунок ФОП",
+        mcc: 4829,
+        originalMcc: 4829,
+        amount: -19367,
+        operationAmount: -709800,
+        currencyCode: 980,
+        commissionRate: 0,
+        cashbackAmount: 0,
+        balance: 1,
+        hold: true,
+      }
+    end
+    let(:params) do
+      {
+        dollars: 193.67,
+        sold_dollars_to_uah_fop_for_taxes: true,
+      }
+    end
+
+    it 'calls job DecreaseDollarsJob' do
+      expect(DecreaseDollarsJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+
+    it 'does not call EnterSoldDollarsFromFopJob' do
+      expect(EnterSoldDollarsFromFopJob).to_not receive(:perform_later)
+
+      subject
+    end
+
+    it 'does not call PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
+
+      subject
+    end
+
+    it 'does not call SendMessageToBotToAskToEnterExpences' do
+      expect(SendMessageToBotToAskToEnterExpences).to_not receive(:call)
+
+      subject
+    end
+  end
 end
