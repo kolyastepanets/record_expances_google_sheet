@@ -174,11 +174,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def save_left_foreign_cash!(foreigh_cash_amount, *args)
-    session[:foreigh_cash_amount] = foreigh_cash_amount.to_f
+    session[:foreigh_cash_amount] = SumEnteredAmount.call(foreigh_cash_amount)
     result = CalculateForeignCurrencyCashExpenses.call
     session[:foreigh_spent_cash_amount] = result[:spent_foreign_money]
     session[:total_withraw_foreign_money] = result[:total_withraw_foreign_money]
     money_left_to_enter = session[:total_withraw_foreign_money] - session[:foreigh_cash_amount] - session[:foreigh_spent_cash_amount]
+    respond_with(:message, text: "Внесенная сумма налички: #{session[:foreigh_cash_amount]}")
     respond_with(:message, text: "Осталось внести: #{money_left_to_enter}")
     start_remember_total_price_of_products
     show_categories_to_choose
