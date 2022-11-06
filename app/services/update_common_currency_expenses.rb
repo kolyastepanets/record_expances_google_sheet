@@ -3,15 +3,16 @@ class UpdateCommonCurrencyExpenses < GetOrSetDataInGoogleSheetBase
 
   VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
 
-  def initialize(money_to_save, coordinates_of_value_to_change)
+  def initialize(money_to_save, coordinates_of_value_to_change, year: Date.today.year)
     @money_to_save = money_to_save
     @coordinates_of_value_to_change = coordinates_of_value_to_change
+    @year = year
   end
 
   private
 
   def prepare_request_data
-    @range = "#{Date.today.year}!#{@coordinates_of_value_to_change}"
+    @range = "#{@year}!#{@coordinates_of_value_to_change}"
     @values = [[@money_to_save]]
   end
 

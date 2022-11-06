@@ -22,9 +22,16 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
         dollars: @transaction_data[:amount].abs / 100.0,
       }
     end
+    if @transaction_data[:description].downcase.include?(swift_salary)
+      @params = {
+        swift_salary: true,
+        dollars: @transaction_data[:amount].abs / 100.0,
+      }
+    end
   end
 
   def call_job
+    return EnterSalaryFromSwiftJob.perform_later(@params) if @params[:swift_salary]
     return DecreaseDollarsJob.perform_later(@params) if @params[:sold_dollars_to_uah_fop_for_taxes]
     return EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]
     return PutExpencesFopDollarCardJob.perform_later(@params) if @params[:category_name].present?
@@ -38,6 +45,10 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
 
   def sold_dollars_to_uah_fop_for_taxes
     "На гривневий рахунок ФОП"
+  end
+
+  def swift_salary
+    "swift"
   end
 
   def currency_rate
