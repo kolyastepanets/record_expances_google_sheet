@@ -717,4 +717,39 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
       subject
     end
   end
+
+  context 'when withdraw from atm' do
+    let(:transaction_data) do
+      {
+        time: 1667098010,
+        description: "Банкомат BANK NEGARA IND",
+        mcc: 6011,
+        originalMcc: 6011,
+        amount: -245786,
+        operationAmount: -100000000,
+        currencyCode: 360,
+        commissionRate: 4819,
+        cashbackAmount: 0,
+        balance: 123,
+        hold: true,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Кэш',
+        sub_category_name: nil,
+        price_in_uah: 2457.86,
+        operation_amount: 1000000.0,
+        current_month: Date.today.month,
+        mono_description: "Банкомат BANK NEGARA IND",
+        currency_rate: 0.0024,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
 end

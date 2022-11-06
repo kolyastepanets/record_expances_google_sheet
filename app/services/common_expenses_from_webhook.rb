@@ -58,6 +58,9 @@ class CommonExpensesFromWebhook
     when airbnb
       @params[:category_name] = 'Путешествия'
       @params[:sub_category_name] = 'аренда кв'
+    when -> (description) { description.downcase.include?('банкомат') }
+      @params[:category_name] = 'Кэш'
+      @params[:sub_category_name] = nil
     end
   end
 
