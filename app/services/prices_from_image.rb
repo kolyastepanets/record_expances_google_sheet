@@ -16,20 +16,19 @@ class PricesFromImage
   private
 
   def parse_image
+    # binding.pry
     category_to_price.each do |line|
-      if end_line_for_shop?(line[:category_name]) && line[:price].match(/\d*\.\d*$/)
-        break @total_sum_in_receipt = line[:price].match(/\d{1,3}\.\d{1,2}$/)[0].to_f
+      if end_line_for_shop?(line[:category_name]) && match_total_price(line[:price])
+        break @total_sum_in_receipt = match_total_price(line[:price])
       end
 
       if negative_number_in_waitrose?(line[:price])
         next
       end
 
-      matched_number_with_two_digits_after_point = line[:price].match(/\d{1,2}\.\d{2}$/)
-      matched_number_with_two_digits_after_point = line[:price].match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
-      matched_number_with_two_digits_after_point = line[:category_name].match(/\d{1,2}\.\d{2}/) if matched_number_with_two_digits_after_point.nil?
-      if matched_number_with_two_digits_after_point
-        @collected_prices << matched_number_with_two_digits_after_point[0].to_f.round(2)
+      matched_price = match_common_price(line)
+      if matched_price
+        @collected_prices << matched_price
 
         # category_name, sub_category_name = shop_parse_class.call(line)
 
@@ -65,7 +64,7 @@ class PricesFromImage
   def end_line_for_shop?(line)
     return false if line.nil?
 
-    sainsbury_end?(line) || total_end?(line) || marks_and_spencer_end_or_comberton_shop?(line)
+    sainsbury_end?(line) || total_end?(line) || marks_and_spencer_end_or_comberton_shop?(line) || pepito_end?(line)
   end
 
   def sainsbury_end?(line)
@@ -80,10 +79,18 @@ class PricesFromImage
     line.downcase.include?('items')
   end
 
+  def pepito_end?(line)
+    line.downcase.include?('totalreceived')
+  end
+
   # because I have to manually withdraw price from some product in receipt
   # maybe can be automatted, it would be great!
   def negative_number_in_waitrose?(line)
-    line.match(/-\d*\.\d*$/) && all_text.downcase.include?('waitrose')
+    all_text.downcase.include?('waitrose') && line.match(/-\d*\.\d*$/)
+  end
+
+  def is_pepito_supermarket?
+    all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepitomarket')
   end
 
   def all_text
@@ -104,5 +111,41 @@ class PricesFromImage
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
+  end
+
+  def match_total_price(string_price)
+    if is_pepito_supermarket?
+      matched_price = (string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
+      matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
+      return matched_price
+    end
+
+    matched_price = string_price.match(/\d*\.\d*$/)
+    matched_price = matched_price[0].to_f if matched_price.present?
+    matched_price
+  end
+
+  def match_common_price(line)
+    if is_pepito_supermarket?
+      matched_price = line[:price].match(/\d*\,\d*$/) || line[:price].match(/\d*\.\d*$/)
+      matched_price = nil if strange_punctuation_in_price?(line[:price])
+      matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
+      matched_price = nil if small_price_for_receipt?(matched_price)
+      return matched_price
+    end
+
+    matched_price = line[:price].match(/\d{1,2}\.\d{2}$/) || line[:price].match(/\d{1,2}\.\d{2}/) || line[:category_name].match(/\d{1,2}\.\d{2}/)
+    matched_price = matched_price[0].to_f if !matched_price.nil?
+    matched_price
+  end
+
+  def strange_punctuation_in_price?(string_price)
+    string_price.count('.') > 1 || string_price.include?('-')
+  end
+
+  def small_price_for_receipt?(matched_price)
+    return false if matched_price.nil?
+
+    matched_price <= 100
   end
 end

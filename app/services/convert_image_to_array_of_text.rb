@@ -13,7 +13,11 @@ class ConvertImageToArrayOfText < GoogleVisionBase
     grouped_strings = []
 
     result[:text_annotations].each do |text_annotation|
-      grouped_strings << { key: text_annotation[:bounding_poly][:vertices][-1][:y], text: [text_annotation[:description]] }
+      grouped_strings << {
+        key_y: text_annotation[:bounding_poly][:vertices][-1][:y],
+        key_x: text_annotation[:bounding_poly][:vertices][-1][:x],
+        text: [text_annotation[:description]]
+      }
     end
     grouped_strings.delete_at(0)
 
@@ -22,8 +26,12 @@ class ConvertImageToArrayOfText < GoogleVisionBase
 
     grouped_strings.each do |grouped_string|
       grouped_texts.each do |grouped_text|
-        if grouped_text[:key].between?(grouped_string[:key] - POSSIBLE_Y_POSITION, grouped_string[:key] + POSSIBLE_Y_POSITION)
-          break grouped_text[:text].concat(grouped_string[:text])
+        if text_on_the_same_row?(grouped_text, grouped_string)
+          if should_put_string_to_start?(grouped_text, grouped_string)
+            break grouped_text[:text].unshift(grouped_string[:text].join)
+          else
+            break grouped_text[:text].push(grouped_string[:text].join)
+          end
         end
         if grouped_texts[-1] == grouped_text
           break grouped_texts << grouped_string
@@ -31,7 +39,7 @@ class ConvertImageToArrayOfText < GoogleVisionBase
       end
     end
 
-    grouped_texts = grouped_texts.sort_by{ |grouped_text| grouped_text[:key] }
+    grouped_texts = grouped_texts.sort_by{ |grouped_text| grouped_text[:key_y] }
 
     grouped_texts_category_to_price = []
 
@@ -45,5 +53,13 @@ class ConvertImageToArrayOfText < GoogleVisionBase
     end
 
     grouped_texts_category_to_price
+  end
+
+  def text_on_the_same_row?(grouped_text, grouped_string)
+    grouped_text[:key_y].between?(grouped_string[:key_y] - POSSIBLE_Y_POSITION, grouped_string[:key_y] + POSSIBLE_Y_POSITION)
+  end
+
+  def should_put_string_to_start?(grouped_text, grouped_string)
+    grouped_text[:key_x] > grouped_string[:key_x]
   end
 end

@@ -386,4 +386,16 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(sum_of_prices).to eq(result[1])
     end
   end
+
+  context 'when receipt pepito 1', freezed_time: '2022-11-06T04:22:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out06.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum.round(2)
+      expect(result).to eq([[41700.0, 6900.0, 32900.0, 4500.0, 23000.0, 18500.0, 11500.0, 22500.0, 49522.0, 9699.0, 33509.0, 92500.0, 45348.0, 38570.0, 57000.0, 47400.0, 18400.0, 65000.0], 618448.0, nil])
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 end
