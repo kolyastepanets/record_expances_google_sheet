@@ -16,13 +16,12 @@ class PricesFromImage
   private
 
   def parse_image
-    # binding.pry
-    category_to_price.each do |line|
-      if end_line_for_shop?(line[:category_name]) && match_total_price(line[:price])
-        break @total_sum_in_receipt = match_total_price(line[:price])
+    parsed_texts.each do |line|
+      if end_line_for_shop?(line.join) && match_total_price(line[-1])
+        break @total_sum_in_receipt = match_total_price(line[-1])
       end
 
-      if negative_number_in_waitrose?(line[:price])
+      if negative_number_in_waitrose?(line[-1])
         next
       end
 
@@ -52,8 +51,8 @@ class PricesFromImage
     Faraday.new(url: url).get.body
   end
 
-  def category_to_price
-    @category_to_price ||= ConvertImageToArrayOfText.call(get_telegram_image)
+  def parsed_texts
+    @parsed_texts ||= ConvertImageToArrayOfText.call(get_telegram_image)
   end
 
   def return_result
@@ -94,7 +93,7 @@ class PricesFromImage
   end
 
   def all_text
-    category_to_price.map { |ha| ha[:category_name] + ha[:price].to_s }.join
+    @all_text ||= parsed_texts.flat_map(&:join).join
   end
 
   def shop_parse_class
@@ -115,7 +114,7 @@ class PricesFromImage
 
   def match_total_price(string_price)
     if is_pepito_supermarket?
-      matched_price = (string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
+      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
     end
@@ -127,14 +126,14 @@ class PricesFromImage
 
   def match_common_price(line)
     if is_pepito_supermarket?
-      matched_price = line[:price].match(/\d*\,\d*$/) || line[:price].match(/\d*\.\d*$/)
-      matched_price = nil if strange_punctuation_in_price?(line[:price])
+      matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
+      matched_price = nil if strange_punctuation_in_price?(line[-1])
       matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
       matched_price = nil if small_price_for_receipt?(matched_price)
       return matched_price
     end
 
-    matched_price = line[:price].match(/\d{1,2}\.\d{2}$/) || line[:price].match(/\d{1,2}\.\d{2}/) || line[:category_name].match(/\d{1,2}\.\d{2}/)
+    matched_price = line[-1].match(/\d{1,2}\.\d{2}$/) || line[-1].match(/\d{1,2}\.\d{2}/) || line.join.match(/\d{1,2}\.\d{2}/)
     matched_price = matched_price[0].to_f if !matched_price.nil?
     matched_price
   end
