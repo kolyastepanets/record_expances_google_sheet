@@ -32,7 +32,7 @@ class PricesFromImage
       matched_price = match_common_price(line)
       if matched_price
         if ENV['PARSE_PRICE_WITH_CATEGORIES']
-          category_name, sub_category_name = shop_parse_class.call(line.join)
+          category_name, sub_category_name = shop_parse_class.call(line)
 
           @categories_with_prices << {
             category_name: category_name,
@@ -120,6 +120,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::PolishShop
     elsif all_text.downcase.include?('marksandspencer')
       DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
+    elsif is_frestive_supermarket?
+      DetectCategoryAndSubcategoryFromLine::FrestiveShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end

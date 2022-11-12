@@ -3,7 +3,7 @@ module DetectCategoryAndSubcategoryFromLine
     include CallableService
 
     def initialize(line_from_receipt)
-      @line = line_from_receipt.downcase
+      @line = line_from_receipt.join.downcase
     end
 
     def call
@@ -55,7 +55,13 @@ module DetectCategoryAndSubcategoryFromLine
       elsif grocery?
         category_name = 'Еда'
         sub_category_name = 'Бакалея'
+      elsif food_bag_or_delivery?
+        category_name = 'Еда'
+        sub_category_name = 'Новопочта'
       elsif bath_stuff?
+        category_name = 'Для дома'
+        sub_category_name = 'Ванные принадлежности'
+      elsif kitchen_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Ванные принадлежности'
       elsif home_stuff?
@@ -117,6 +123,12 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def home_stuff?
+    end
+
+    def food_bag_or_delivery?
+    end
+
+    def kitchen_stuff?
     end
   end
 end
