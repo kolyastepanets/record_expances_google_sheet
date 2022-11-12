@@ -165,15 +165,15 @@ class PricesFromImage
       end
 
       if is_all_numbers?(array_of_text)
-        new_parsed_texts[-1].concat([array_of_text[-1]])
-        new_parsed_texts << filtered_texts[index + 1]
+        add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
+        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
         next
       end
 
       next if already_added?(array_of_text, new_parsed_texts)
       next new_parsed_texts << array_of_text if new_parsed_texts.empty?
 
-      new_parsed_texts[-1].concat(array_of_text)
+      add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
     end
 
     new_parsed_texts
@@ -181,6 +181,18 @@ class PricesFromImage
 
   def is_all_numbers?(array_of_text)
     array_of_text.all? { |text| text.include?('.') || text.include?(',') } || array_of_text.all? { |text| text.to_f > 0 }
+  end
+
+  def add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
+    new_parsed_texts[-1].concat([array_of_text[-1]])
+  end
+
+  def add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
+    new_parsed_texts << filtered_texts[index + 1]
+  end
+
+  def add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
+    new_parsed_texts[-1].concat(array_of_text)
   end
 
   def already_added?(array_of_text, new_parsed_texts)
