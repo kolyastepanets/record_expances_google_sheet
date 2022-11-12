@@ -18,13 +18,14 @@ class PricesFromImage
   def parse_image
     array_of_texts = parsed_texts
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
+    array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
 
     array_of_texts.each do |line|
       if end_line_for_shop?(line.join) && match_total_price(line[-1])
         break @total_sum_in_receipt = match_total_price(line[-1])
       end
 
-      if negative_number_in_waitrose?(line[-1])
+      if negative_number?(line[-1])
         next
       end
 
@@ -91,12 +92,17 @@ class PricesFromImage
 
   # because I have to manually withdraw price from some product in receipt
   # maybe can be automatted, it would be great!
-  def negative_number_in_waitrose?(line)
-    all_text.downcase.include?('waitrose') && line.match(/-\d*\.\d*$/)
+  def negative_number?(line)
+    all_text.downcase.include?('waitrose') && line.match(/-\d*\.\d*$/) ||
+      is_frestive_supermarket? && line.match(/-\d*\,\d*$/)
   end
 
   def is_pepito_supermarket?
     all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepitomarket')
+  end
+
+  def is_frestive_supermarket?
+    all_text.downcase.include?('frestive')
   end
 
   def all_text
@@ -120,7 +126,7 @@ class PricesFromImage
   end
 
   def match_total_price(string_price)
-    if is_pepito_supermarket?
+    if is_pepito_supermarket? || is_frestive_supermarket?
       matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
@@ -132,7 +138,7 @@ class PricesFromImage
   end
 
   def match_common_price(line)
-    if is_pepito_supermarket?
+    if is_pepito_supermarket? || is_frestive_supermarket?
       matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
       matched_price = nil if strange_punctuation_in_price?(line[-1])
       matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
@@ -177,6 +183,11 @@ class PricesFromImage
     end
 
     new_parsed_texts
+  end
+
+  def prepare_texts_for_frestive
+    # remove  ['1', '@', '115,000'] - it means quantity and full price
+    parsed_texts.reject { |array_of_text| array_of_text.size <= 3 }
   end
 
   def is_all_numbers?(array_of_text)

@@ -581,4 +581,64 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(sum_of_prices).to eq(result[1])
     end
   end
+
+  context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out11.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      if ENV['PARSE_PRICE_WITH_CATEGORIES']
+        sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+        expect(result).to eq(
+          [
+            [
+              {:category_name=>nil, :sub_category_name=>nil, :price=>15000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>38000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>282500.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>25000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>16500.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>48000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>15000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>16000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>15000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>100000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>54000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>10000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>78213.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>10220.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>8308.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>12050.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>18000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>40000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>20000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>145500.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>115000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>50000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>16000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>50000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>49000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>8927.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>14560.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>60500.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>132000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>213000.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>45900.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>101536.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>23762.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>86458.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>15953.0},
+              {:category_name=>nil, :sub_category_name=>nil, :price=>32500.0}
+            ],
+            1982387.0,
+            nil
+          ]
+        )
+      else
+        sum_of_prices = result[0].sum.round(2)
+        expect(result).to eq([[15000.0, 38000.0, 282500.0, 25000.0, 16500.0, 48000.0, 15000.0, 16000.0, 15000.0, 100000.0, 54000.0, 10000.0, 78213.0, 10220.0, 8308.0, 12050.0, 18000.0, 40000.0, 20000.0, 145500.0, 115000.0, 50000.0, 16000.0, 50000.0, 49000.0, 8927.0, 14560.0, 60500.0, 132000.0, 213000.0, 45900.0, 101536.0, 23762.0, 86458.0, 15953.0, 32500.0], 1982387.0, nil])
+      end
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 end
