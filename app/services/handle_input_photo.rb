@@ -17,8 +17,11 @@ class HandleInputPhoto
   def call
     return if @message_params[:photo].blank?
 
-    @collected_prices, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
-    # @prices_with_categories, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
+    if ENV['PARSE_PRICE_WITH_CATEGORIES']
+      @prices_with_categories, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
+    else
+      @collected_prices, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
+    end
 
     return send_message('не смог распарсить все цены в чеке :(((') if !can_enter_expenses?
 
@@ -152,12 +155,9 @@ class HandleInputPhoto
   private
 
   def can_enter_expenses?
-    return true if @collected_prices.sum.round(2) == @total_sum_in_receipt
-    return true if (@collected_prices.sum.round(2) - @total_sum_in_receipt) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (@collected_prices.sum.round(2) - @total_sum_in_receipt).positive?
-    return true if (@total_sum_in_receipt - @collected_prices.sum.round(2)) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (@total_sum_in_receipt - @collected_prices.sum.round(2)).positive?
-    # return true if collected_prices_sum.round(2) == @total_sum_in_receipt
-    # return true if (collected_prices_sum.round(2) - @total_sum_in_receipt) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (collected_prices_sum.round(2) - @total_sum_in_receipt).positive?
-    # return true if (@total_sum_in_receipt - collected_prices_sum.round(2)) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (@total_sum_in_receipt - collected_prices_sum.round(2)).positive?
+    return true if collected_prices_sum.round(2) == @total_sum_in_receipt
+    return true if (collected_prices_sum.round(2) - @total_sum_in_receipt) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (collected_prices_sum.round(2) - @total_sum_in_receipt).positive?
+    return true if (@total_sum_in_receipt - collected_prices_sum.round(2)) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (@total_sum_in_receipt - collected_prices_sum.round(2)).positive?
 
     false
   end
@@ -198,7 +198,13 @@ class HandleInputPhoto
   end
 
   def collected_prices_sum
-    @collected_prices_sum ||= @prices_with_categories[0].sum { |hsh| hsh[:price] }.round(2)
+    return @collected_prices_sum if defined? @collected_prices_sum
+
+    if ENV['PARSE_PRICE_WITH_CATEGORIES']
+      @collected_prices_sum ||= @prices_with_categories[0].sum { |hsh| hsh[:price] }.round(2)
+    else
+      @collected_prices_sum ||= @collected_prices.sum.round(2)
+    end
   end
 
   def get_categories

@@ -30,16 +30,17 @@ class PricesFromImage
 
       matched_price = match_common_price(line)
       if matched_price
-        @collected_prices << matched_price
+        if ENV['PARSE_PRICE_WITH_CATEGORIES']
+          category_name, sub_category_name = shop_parse_class.call(line.join)
 
-        # category_name, sub_category_name = shop_parse_class.call(line)
-
-        # @categories_with_prices << {
-        #   category_name: category_name,
-        #   sub_category_name: sub_category_name,
-        #   price: matched_number_with_two_digits_after_point[0].to_f.round(2),
-        #   line_to_parse: line
-        # }
+          @categories_with_prices << {
+            category_name: category_name,
+            sub_category_name: sub_category_name,
+            price: matched_price,
+          }
+        else
+          @collected_prices << matched_price
+        end
       end
     end
   end
@@ -59,8 +60,11 @@ class PricesFromImage
   end
 
   def return_result
-    # [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
-    [@collected_prices.reject(&:zero?), @total_sum_in_receipt.round(2), @file_id]
+    if ENV['PARSE_PRICE_WITH_CATEGORIES']
+      [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
+    else
+      [@collected_prices.reject(&:zero?), @total_sum_in_receipt.round(2), @file_id]
+    end
   end
 
   def end_line_for_shop?(line)
@@ -100,15 +104,15 @@ class PricesFromImage
   end
 
   def shop_parse_class
-    if text_lines.any? { |line| line.include?('waitrose') }
+    if all_text.include?('waitrose')
       DetectCategoryAndSubcategoryFromLine::Waitrose
-    elsif text_lines.any? { |line| line.include?('sainsbury') }
+    elsif all_text.include?('sainsbury')
       DetectCategoryAndSubcategoryFromLine::Sainsburys
-    elsif text_lines.any? { |line| line.include?('COMBERTON') && line.include?('COSTCUTTER') }
+    elsif all_text.downcase.include?('comberton') && all_text.downcase.include?('costcutter')
       DetectCategoryAndSubcategoryFromLine::CombertonShop
-    elsif text_lines.any? { |line| line.downcase.include?('polish') && line.downcase.include?('marke') }
+    elsif all_text.downcase.include?('polish') && all_text.downcase.include?('marke')
       DetectCategoryAndSubcategoryFromLine::PolishShop
-    elsif text_lines.any? { |line| line.downcase.include?('marksandspencer') }
+    elsif all_text.downcase.include?('marksandspencer')
       DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
