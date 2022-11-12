@@ -16,7 +16,10 @@ class PricesFromImage
   private
 
   def parse_image
-    parsed_texts.each do |line|
+    array_of_texts = parsed_texts
+    array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
+
+    array_of_texts.each do |line|
       if end_line_for_shop?(line.join) && match_total_price(line[-1])
         break @total_sum_in_receipt = match_total_price(line[-1])
       end
@@ -146,5 +149,37 @@ class PricesFromImage
     return false if matched_price.nil?
 
     matched_price <= 100
+  end
+
+  def prepare_texts_for_pepito
+    new_parsed_texts = []
+    filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 2 }
+
+    filtered_texts.each.with_index do |array_of_text, index|
+      if array_of_text.any? { |word| word.downcase == 'total' }
+        break
+      end
+
+      if is_all_numbers?(array_of_text)
+        new_parsed_texts[-1].concat([array_of_text[-1]])
+        new_parsed_texts << filtered_texts[index + 1]
+        next
+      end
+
+      next if already_added?(array_of_text, new_parsed_texts)
+      next new_parsed_texts << array_of_text if new_parsed_texts.empty?
+
+      new_parsed_texts[-1].concat(array_of_text)
+    end
+
+    new_parsed_texts
+  end
+
+  def is_all_numbers?(array_of_text)
+    array_of_text.all? { |text| text.include?('.') || text.include?(',') } || array_of_text.all? { |text| text.to_f > 0 }
+  end
+
+  def already_added?(array_of_text, new_parsed_texts)
+    (array_of_text - (new_parsed_texts[-1] || [])).blank?
   end
 end
