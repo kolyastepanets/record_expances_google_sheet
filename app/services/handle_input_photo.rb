@@ -25,128 +25,97 @@ class HandleInputPhoto
 
     return send_message('не смог распарсить все цены в чеке :(((') if !can_enter_expenses?
 
-    send_message("Общая цена в чеке: #{@collected_prices.sum}")
-    # send_message("Общая цена в чеке: #{collected_prices_sum}")
+    send_message("Общая цена в чеке: #{collected_prices_sum}")
 
-    # !!!!! СОХРАНИТЬ ПОРЯДОК СООБЩЕНИЙ В БОТЕ КАК В ЧЕКЕ !!!!!!
+    if ENV['PARSE_PRICE_WITH_CATEGORIES']
+      @prices_with_categories.each do |price_with_category|
+        current_price = price_with_category[:price]
 
-    # @prices_with_categories.each do |price_with_category|
-    #   current_price = price_with_category[:price]
+        price_in_usd = {}
+        if @currency_to_usd.present?
+          price_in_usd = {
+            price_in_usd: (current_price / @currency_to_usd),
+            price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
+          }
+        end
 
-    #   if price_with_category[:category_name].present?
-    #     price_in_uah = {}
-    #     price_in_uah = { price_in_uah: (current_price * @currency_to_uah / MonobankCurrencyRates.call('USD', 'UAH')) } if @currency_to_uah.present?
+        price_in_uah = {}
+        if @currency_to_uah.present?
+          price_in_uah = {
+            price_in_uah: (current_price * @currency_to_uah),
+            price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+          }
+        end
 
-    #     price_in_usd = {}
-    #     price_in_usd = { price_in_usd: (current_price / @currency_to_usd) } if @currency_to_usd.present?
-
-    #     params_to_save_to_google_sheet = {
-    #       category_name: price_with_category[:category_name],
-    #       sub_category_name: price_with_category[:sub_category_name],
-    #       operation_amount: current_price,
-    #       **price_in_usd,
-    #       **price_in_uah,
-    #     }
-
-
-    #    #### PutExpencesFopDollarCardJob.perform_now(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
-    #   params = params.deep_symbolize_keys
-    #   price_in_usd = params[:price_in_usd]
-
-    #   PutExpensesToGoogleSheet.call(
-    #     params[:category_name],
-    #     params[:sub_category_name],
-    #     price_in_usd,
-    #   )
-
-    #   result = CalculateTotalSpentUsdAndUah.call
-
-    #   # decrease usd saved amount
-    #   UpdateCommonCurrencyExpenses.call(
-    #     result[:total_left_usd_money] - price_in_usd,
-    #     result[:coordinates_of_total_left_usd_money],
-    #   )
-
-    #   SendNotificationMessageToBot.call(params)
-    # rescue StandardError => e
-    #   error_message = { exception: e, message: e.message }
-
-    #   SendNotificationMessageToBot.call(error_message)
-    # end
-
-
-
-
-
-    #     PutExpencesUahBlackCardJob.perform_now(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
-        #   params = params.deep_symbolize_keys
-        #   price_in_uah = params[:price_in_uah]
-        #   price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
-
-        #   PutExpensesToGoogleSheet.call(
-        #     params[:category_name],
-        #     params[:sub_category_name],
-        #     price_in_usd_to_put_in_google_sheets,
-        #   )
-
-        #   result = CalculateTotalSpentUsdAndUah.call
-
-        #   # decrease uah spent amount
-        #   UpdateCommonCurrencyExpenses.call(
-        #     result[:total_left_uah_money] - price_in_uah,
-        #     result[:coordinates_of_total_left_uah_money],
-        #   )
-
-        #   SendNotificationMessageToBot.call(params)
-        # rescue StandardError => e
-        #   error_message = { exception: e, message: e.message }
-
-        #   SendNotificationMessageToBot.call(error_message)
-        # end
-
-
-
-
-
-
-
-
-
-
-
-
-    #   else
-    #     categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
-    #       categories_array.map do |category|
-    #         { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{current_price}" }
-    #       end
-    #     end
-    #     response = send_message_with_categories(current_price, categories_to_show, price_with_category[:line_to_parse])
-    #     @params << {
-    #       price: price,
-    #       currency_to_usd: @currency_to_usd,
-    #       currency_to_uah: @currency_to_uah,
-    #       message_ids: [response["result"]["message_id"]],
-    #     }
-    #   end
-    # end
-    # save_to_redis
-
-
-
-
-
-    categories_to_show_by_price.each do |price_to_categories|
-      price_to_categories.each do |price, categories_to_show|
-        response = send_message_with_categories(price, categories_to_show)
-        @params << {
-          price: price,
-          currency_to_usd: @currency_to_usd,
-          currency_to_uah: @currency_to_uah,
-          message_ids: [response["result"]["message_id"]],
+        params_to_save_to_google_sheet = {
+          category_name: price_with_category[:category_name],
+          sub_category_name: price_with_category[:sub_category_name],
+          operation_amount: current_price,
+          **price_in_usd,
+          **price_in_uah,
         }
+
+        if price_with_category[:category_name].present?
+          if @currency_to_usd.present?
+            PutExpensesToGoogleSheet.call(
+              params_to_save_to_google_sheet[:category_name],
+              params_to_save_to_google_sheet[:sub_category_name],
+              params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
+            )
+
+            # decrease usd saved amount
+            result = CalculateTotalSpentUsdAndUah.call
+            UpdateCommonCurrencyExpenses.call(
+              result[:total_left_usd_money] - params_to_save_to_google_sheet[:price_in_usd],
+              result[:coordinates_of_total_left_usd_money],
+            )
+          end
+
+          if @currency_to_uah.present?
+            PutExpensesToGoogleSheet.call(
+              params_to_save_to_google_sheet[:category_name],
+              params_to_save_to_google_sheet[:sub_category_name],
+              params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
+            )
+
+            # decrease uah spent amount
+            result = CalculateTotalSpentUsdAndUah.call
+            UpdateCommonCurrencyExpenses.call(
+              result[:total_left_uah_money] - params_to_save_to_google_sheet[:price_in_uah],
+              result[:coordinates_of_total_left_uah_money],
+            )
+          end
+
+          SendNotificationMessageToBot.call(params_to_save_to_google_sheet)
+        else
+          categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+            categories_array.map do |category|
+              { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{current_price}" }
+            end
+          end
+          response = send_message_with_categories(current_price, categories_to_show)
+          @params << {
+            price: current_price,
+            currency_to_usd: @currency_to_usd,
+            currency_to_uah: @currency_to_uah,
+            message_ids: [response["result"]["message_id"]],
+          }
+        end
+      end
+    else
+      categories_to_show_by_price.each do |price_to_categories|
+        price_to_categories.each do |price, categories_to_show|
+          response = send_message_with_categories(price, categories_to_show)
+          @params << {
+            price: price,
+            currency_to_usd: @currency_to_usd,
+            currency_to_uah: @currency_to_uah,
+            message_ids: [response["result"]["message_id"]],
+          }
+        end
       end
     end
+
     save_to_redis
 
     nil
@@ -177,14 +146,6 @@ class HandleInputPhoto
     )
   end
 
-  # def send_message_with_categories(price, categories_to_show, line_to_parse)
-  #   Telegram.bot.send_message(
-  #     chat_id: NIKOLAY_STEPANETS_CHAT_ID,
-  #     text: "Выбери категорию чтобы сохранить для #{price}, line_to_parse: #{line_to_parse}:",
-  #     reply_markup: { inline_keyboard:  categories_to_show },
-  #   )
-  # end
-
   def categories_to_show_by_price
     @collected_prices.map do |price|
       {
@@ -201,7 +162,7 @@ class HandleInputPhoto
     return @collected_prices_sum if defined? @collected_prices_sum
 
     if ENV['PARSE_PRICE_WITH_CATEGORIES']
-      @collected_prices_sum ||= @prices_with_categories[0].sum { |hsh| hsh[:price] }.round(2)
+      @collected_prices_sum ||= @prices_with_categories.sum { |hsh| hsh[:price] }.round(2)
     else
       @collected_prices_sum ||= @collected_prices.sum.round(2)
     end
