@@ -8,7 +8,7 @@ class PutExpencesFopDollarCardJob < ApplicationJob
     PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
-      price_in_usd,
+      params[:price_in_usd_to_save_in_google_sheet] || price_in_usd,
     )
 
     result = CalculateTotalSpentUsdAndUah.call

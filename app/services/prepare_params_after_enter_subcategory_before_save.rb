@@ -22,13 +22,23 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
 
   def price_in_uah
     price_in_uah = {}
-    price_in_uah = { price_in_uah: (@price * @last_price_to_message["currency_to_uah"]) } if @last_price_to_message["currency_to_uah"].present?
+    if @last_price_to_message["currency_to_uah"].present?
+      price_in_uah = {
+        price_in_uah: (@price * @last_price_to_message["currency_to_uah"]),
+        price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} * #{@last_price_to_message["currency_to_uah"].to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      }
+    end
     price_in_uah
   end
 
   def price_in_usd
     price_in_usd = {}
-    price_in_usd = { price_in_usd: (@price / @last_price_to_message["currency_to_usd"]) } if @last_price_to_message["currency_to_usd"].present?
+    if @last_price_to_message["currency_to_usd"].present?
+      price_in_usd = {
+        price_in_usd: (@price / @last_price_to_message["currency_to_usd"]),
+        price_in_usd_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} / #{@last_price_to_message["currency_to_usd"].to_s.gsub(".", ",")}"
+      }
+    end
     price_in_usd
   end
 
