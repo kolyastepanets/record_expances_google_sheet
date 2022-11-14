@@ -63,7 +63,7 @@ module DetectCategoryAndSubcategoryFromLine
         sub_category_name = 'Ванные принадлежности'
       elsif kitchen_stuff?
         category_name = 'Для дома'
-        sub_category_name = 'Ванные принадлежности'
+        sub_category_name = 'Кухонные принадлежности'
       elsif home_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Инвентарь'

@@ -406,6 +406,7 @@ RSpec.describe HandleInputPhoto do
 
       before do
         allow(PricesFromImage).to receive(:call).and_return([collected_prices_with_categories, total_sum_in_receipt, file_id])
+        allow(MonobankCurrencyRates).to receive(:call).and_return("37,4406")
       end
 
       context 'when all categories present' do

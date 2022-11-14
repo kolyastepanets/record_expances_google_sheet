@@ -21,7 +21,7 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
 
     array_of_texts.each do |line|
-      if end_line_for_shop?(line.join) && match_total_price(line[-1])
+      if end_line_for_shop?(line) && match_total_price(line[-1])
         break @total_sum_in_receipt = match_total_price(line[-1])
       end
 
@@ -68,26 +68,22 @@ class PricesFromImage
     end
   end
 
-  def end_line_for_shop?(line)
-    return false if line.nil?
+  def end_line_for_shop?(array_of_words)
+    return false if array_of_words.nil?
 
-    sainsbury_end?(line) || total_end?(line) || marks_and_spencer_end_or_comberton_shop?(line) || pepito_end?(line)
+    sainsbury_end?(array_of_words) || total_end?(array_of_words) || marks_and_spencer_end_or_comberton_shop?(array_of_words)
   end
 
-  def sainsbury_end?(line)
-    line.include?('BALANCE')
+  def sainsbury_end?(array_of_words)
+    array_of_words.any? { |word| word.downcase == 'balance' }
   end
 
-  def total_end?(line)
-    line.downcase.include?('total')
+  def total_end?(array_of_words)
+    array_of_words.any? { |word| word.downcase == 'total' }
   end
 
-  def marks_and_spencer_end_or_comberton_shop?(line)
-    line.downcase.include?('items')
-  end
-
-  def pepito_end?(line)
-    line.downcase.include?('totalreceived')
+  def marks_and_spencer_end_or_comberton_shop?(array_of_words)
+    array_of_words.any? { |word| word.downcase == 'items' }
   end
 
   # because I have to manually withdraw price from some product in receipt
@@ -122,6 +118,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
     elsif is_frestive_supermarket?
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
+    elsif is_pepito_supermarket?
+      DetectCategoryAndSubcategoryFromLine::PepitoShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
@@ -165,7 +163,7 @@ class PricesFromImage
 
   def prepare_texts_for_pepito
     new_parsed_texts = []
-    filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 2 }
+    filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
 
     filtered_texts.each.with_index do |array_of_text, index|
       if array_of_text.any? { |word| word.downcase == 'total' }
