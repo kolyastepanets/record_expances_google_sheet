@@ -51,8 +51,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_last_10_transactions_from_mono
     when 'delete_all_todays_messages'
       delete_all_todays_messages
-    when 'enter_expenses'
+    when 'calculate_as_half_expenses'
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_half_expenses')
       ask_type_of_expenses
+    when 'calculate_as_our_full_expenses'
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_our_full_expenses')
+      ask_type_of_expenses
+    when 'calculate_as_their_full_expenses'
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_their_full_expenses')
+      ask_type_of_expenses
+    when 'enter_expenses'
+      ask_half_price_or_full_price
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
@@ -142,6 +151,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
     PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
+    if redis.get('how_calculate_expenses_between_us')
+      # somehow update background color
+    end
     remember_total_price_of_products(price_to_calculate)
     remember_total_price_of_products_in_foreign_currency(price.to_f)
 
@@ -219,6 +231,20 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_last_10_transactions_from_mono
     respond_with(:message, text: GetLastTenTransactionsFromMonobank.call)
+  end
+
+  def ask_half_price_or_full_price
+    respond_with(
+      :message,
+      text: 'как считать расходы?',
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'Расходы пополам', callback_data: 'calculate_as_half_expenses' }],
+          [{ text: 'Все расходы наши', callback_data: 'calculate_as_our_full_expenses' }],
+          [{ text: 'Все расходы их', callback_data: 'calculate_as_their_full_expenses' }],
+        ],
+      }
+    )
   end
 
   def ask_type_of_expenses
@@ -409,6 +435,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:foreigh_spent_cash_amount] = 0
     session[:total_withraw_foreign_money] = 0
     session[:total_price_of_products_in_foreign_currency] = 0
+
+    redis.del('how_calculate_expenses_between_us')
   end
 
   def redis
