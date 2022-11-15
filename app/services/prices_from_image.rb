@@ -25,7 +25,7 @@ class PricesFromImage
         break @total_sum_in_receipt = match_total_price(line[-1])
       end
 
-      if negative_number?(line[-1])
+      if should_skip_line?(line)
         next
       end
 
@@ -86,8 +86,24 @@ class PricesFromImage
     array_of_words.any? { |word| word.downcase == 'items' }
   end
 
+  def should_skip_line?(line)
+    waitrose_negative_number?(line) || is_frestive_negative_number?(line) || bali_direct_store_subtotal?(line)
+  end
+
   # because I have to manually withdraw price from some product in receipt
   # maybe can be automatted, it would be great!
+  def waitrose_negative_number?(line)
+    is_waitrose? && line[-1].match(/-\d*\.\d*$/)
+  end
+
+  def is_frestive_negative_number?(line)
+    is_frestive_supermarket? && line[-1].match(/-\d*\,\d*$/)
+  end
+
+  def bali_direct_store_subtotal?(line)
+    is_bali_direct_store? && line.any? { |word| word.downcase == 'subtotal' }
+  end
+
   def negative_number?(line)
     all_text.downcase.include?('waitrose') && line.match(/-\d*\.\d*$/) ||
       is_frestive_supermarket? && line.match(/-\d*\,\d*$/)
@@ -99,6 +115,14 @@ class PricesFromImage
 
   def is_frestive_supermarket?
     all_text.downcase.include?('frestive')
+  end
+
+  def is_bali_direct_store?
+    all_text.downcase.include?('bali') && all_text.downcase.include?('direct') && all_text.downcase.include?('store')
+  end
+
+  def is_waitrose?
+    all_text.downcase.include?('waitrose')
   end
 
   def all_text
@@ -120,13 +144,15 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
     elsif is_pepito_supermarket?
       DetectCategoryAndSubcategoryFromLine::PepitoShop
+    elsif is_bali_direct_store?
+      DetectCategoryAndSubcategoryFromLine::BaliDirectStoreShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
   end
 
   def match_total_price(string_price)
-    if is_pepito_supermarket? || is_frestive_supermarket?
+    if is_pepito_supermarket? || is_frestive_supermarket? || is_bali_direct_store?
       matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
@@ -138,7 +164,7 @@ class PricesFromImage
   end
 
   def match_common_price(line)
-    if is_pepito_supermarket? || is_frestive_supermarket?
+    if is_pepito_supermarket? || is_frestive_supermarket? || is_bali_direct_store?
       matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
       matched_price = nil if strange_punctuation_in_price?(line[-1])
       matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?

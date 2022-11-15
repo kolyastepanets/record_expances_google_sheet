@@ -641,4 +641,52 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(sum_of_prices).to eq(result[1])
     end
   end
+
+  context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out14.png") }
+
+    it 'return 3 values' do
+      result = subject
+
+      if ENV['PARSE_PRICE_WITH_CATEGORIES']
+        sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+        expect(result).to eq(
+          [
+            [
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>184500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>132500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>145000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>48000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>46000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>57500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>122000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>20000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>16000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>26000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>20000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>8000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>13500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>33000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>18000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>91500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>33500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>40000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :price=>130000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>75000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>64500.0}
+            ],
+            1381000.0,
+            nil
+          ]
+        )
+      else
+        sum_of_prices = 0
+      end
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 end

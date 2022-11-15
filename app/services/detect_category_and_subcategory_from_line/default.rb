@@ -58,6 +58,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif food_bag_or_delivery?
         category_name = 'Еда'
         sub_category_name = 'Новопочта'
+      elsif ready_to_cook?
+        category_name = 'Еда'
+        sub_category_name = 'Полуфабрикаты/морозилка'
       elsif bath_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Ванные принадлежности'
@@ -129,6 +132,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kitchen_stuff?
+    end
+
+    def ready_to_cook?
     end
   end
 end
