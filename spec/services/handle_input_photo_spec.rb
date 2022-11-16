@@ -391,7 +391,7 @@ RSpec.describe HandleInputPhoto do
           "caption"=>caption
        }
       end
-      let(:caption) { "Usd 15202" }
+      let(:caption) { "Usd 15202 Y" }
       let(:collected_prices_with_categories) do
         [
           {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>15000.0},
@@ -427,6 +427,12 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3081.41691882647, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.9146164978292, "BC81")
+
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -479,7 +485,7 @@ RSpec.describe HandleInputPhoto do
         end
 
         context 'when uah' do
-          let(:caption) { "Uah 0.00242025" }
+          let(:caption) { "Uah 0.00242025 Y" }
 
           it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
@@ -497,6 +503,12 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2416.279375, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3060.065875, "BC81")
+
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -662,6 +674,10 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
 
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
                 :category_name=>"Для дома",
@@ -711,6 +727,10 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
+
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {

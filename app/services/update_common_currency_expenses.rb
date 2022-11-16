@@ -1,8 +1,4 @@
 class UpdateCommonCurrencyExpenses < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
-  VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
-
   def initialize(money_to_save, coordinates_of_value_to_change, year: Date.today.year)
     @money_to_save = money_to_save
     @coordinates_of_value_to_change = coordinates_of_value_to_change

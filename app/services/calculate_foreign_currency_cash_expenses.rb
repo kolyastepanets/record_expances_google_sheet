@@ -1,6 +1,4 @@
 class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   KEY_FIND_CELL_TOTAL_MONEY = "Всего денег:".freeze
   KEY_FIND_CELL_SPENT_MONEY = "Потрачено денег:".freeze
   KEY_FIND_CELL_NOW_MONEY = "Сейчас денег:".freeze

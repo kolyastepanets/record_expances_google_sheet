@@ -1,6 +1,4 @@
 class ReceiveTotalSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   private
 
   def next_index_value_to_find

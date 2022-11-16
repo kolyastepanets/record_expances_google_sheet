@@ -1,6 +1,4 @@
 class FindCellToEnterSalaryOrNbuCurrencyRate < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize(month, year_sheet, cell_with_text_to_find_next_cell)

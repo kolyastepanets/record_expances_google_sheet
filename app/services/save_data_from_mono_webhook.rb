@@ -1,8 +1,4 @@
 class SaveDataFromMonoWebhook < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
-  VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
-
   def initialize(params)
     @params = params
   end
@@ -14,7 +10,7 @@ class SaveDataFromMonoWebhook < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    service_google_sheet.append_spreadsheet_value(
+    @response = service_google_sheet.append_spreadsheet_value(
       FIN_PLAN_SPREAD_SHEET_ID,
       @range,
       { values: [[@params.to_s]] },
@@ -23,6 +19,6 @@ class SaveDataFromMonoWebhook < GetOrSetDataInGoogleSheetBase
   end
 
   def parse_response
-    # nothing to return
+    @response
   end
 end

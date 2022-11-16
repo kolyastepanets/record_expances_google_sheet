@@ -1,6 +1,4 @@
 class ReceiveCurrentBalanceInMonobankFromGoogleSheet < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   private
 
   def end_line_to_search

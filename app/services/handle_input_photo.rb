@@ -8,9 +8,10 @@ class HandleInputPhoto
   def initialize(message_params)
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
-    currency_code, currency_rate = @message_params[:caption].split(' ')
+    currency_code, currency_rate, should_divide_expenses = @message_params[:caption].split(' ')
     @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
+    @should_divide_expenses = true if should_divide_expenses&.downcase == 'y' || should_divide_expenses&.downcase == 'yes'
     @params = []
   end
 
@@ -57,11 +58,12 @@ class HandleInputPhoto
 
         if price_with_category[:category_name].present?
           if @currency_to_usd.present?
-            PutExpensesToGoogleSheet.call(
+            response = PutExpensesToGoogleSheet.call(
               params_to_save_to_google_sheet[:category_name],
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
+            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
 
             # decrease usd saved amount
             result = CalculateTotalSpentUsdAndUah.call
@@ -72,11 +74,12 @@ class HandleInputPhoto
           end
 
           if @currency_to_uah.present?
-            PutExpensesToGoogleSheet.call(
+            response = PutExpensesToGoogleSheet.call(
               params_to_save_to_google_sheet[:category_name],
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
+            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
 
             # decrease uah spent amount
             result = CalculateTotalSpentUsdAndUah.call

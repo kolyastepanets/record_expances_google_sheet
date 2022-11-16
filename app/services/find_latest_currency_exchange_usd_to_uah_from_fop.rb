@@ -5,8 +5,6 @@
 # in 1 week currency exchange will be 1 usd / 35 uah
 # so in market I will spend less than $1000 => $828
 class FindLatestCurrencyExchangeUsdToUahFromFop < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   KEY_FIND_CELL_CURRENCY_EXCHANGE_FIRST_HALF_MONTH = "курс доллара 1ая зп".freeze
   KEY_FIND_CELL_CURRENCY_EXCHANGE_SECOND_HALF_MONTH = "курс доллара 2ая зп".freeze
   CURRENCY_EXCHANGE_IS_NOT_SET = 1.0

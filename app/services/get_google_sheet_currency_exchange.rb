@@ -1,6 +1,4 @@
 class GetGoogleSheetCurrencyExchange < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   MONTH_POINT_ONE = ",1".freeze
   CURRENCY_UAH_FOREIGN = "курс гривна/валюта".freeze
 

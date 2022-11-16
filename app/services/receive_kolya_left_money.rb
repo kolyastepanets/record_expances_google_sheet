@@ -1,6 +1,4 @@
 class ReceiveKolyaLeftMoney < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   KOLYA_MONTH_BALANCE = 6000
 
   private

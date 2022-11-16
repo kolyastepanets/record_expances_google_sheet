@@ -1,6 +1,4 @@
 class ReceiveCategories < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   def initialize
     @redis = Redis.new
   end

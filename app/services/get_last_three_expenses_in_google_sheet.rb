@@ -1,6 +1,4 @@
 class GetLastThreeExpensesInGoogleSheet < GetOrSetDataInGoogleSheetBase
-  include CallableService
-
   private
 
   def prepare_request_data

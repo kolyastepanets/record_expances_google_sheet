@@ -1,4 +1,7 @@
 class GetOrSetDataInGoogleSheetBase
+  include CallableService
+
+  VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
   SCOPE = 'https://www.googleapis.com/auth/spreadsheets'.freeze
   FIN_PLAN_SPREAD_SHEET_ID = '1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg'.freeze
 
