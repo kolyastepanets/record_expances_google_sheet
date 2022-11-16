@@ -147,11 +147,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
-    response = PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
-    if redis.get('how_calculate_expenses_between_us')
-      calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
-      UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses)
-    end
+    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses' ? 'y' : 'n'
+    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
+
     remember_total_price_of_products(price_to_calculate)
     remember_total_price_of_products_in_foreign_currency(price.to_f)
 
