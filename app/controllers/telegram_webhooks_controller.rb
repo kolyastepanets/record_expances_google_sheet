@@ -235,8 +235,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: 'как считать расходы?',
       reply_markup: {
         inline_keyboard: [
-          [{ text: 'Расходы пополам', callback_data: 'calculate_as_half_expenses' }],
           [{ text: 'Все расходы наши', callback_data: 'calculate_as_our_full_expenses' }],
+          [{ text: 'Расходы пополам', callback_data: 'calculate_as_half_expenses' }],
         ],
       }
     )
