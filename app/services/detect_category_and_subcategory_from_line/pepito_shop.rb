@@ -5,13 +5,21 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def beer?
+      bintang_beer? || bali_hai_beer?
+    end
+
+    def bintang_beer?
       @line.include?('crystal') && @line.include?('bintang')
+    end
+
+    def bali_hai_beer?
+      @line.include?('bali') && @line.include?('hai')
     end
 
     ####
 
     def eggs?
-      @line.include?('telur') && @line.include?('ayam')
+      @line.include?('telur')
     end
 
     ####
@@ -31,16 +39,22 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
+      soy_souce?
+    end
+
+    def soy_souce?
+      @line.include?('kikko') && @line.include?('asin')
     end
 
     ####
 
     def sweets?
-      magnum_icecream? || oreo_cake? || lindt? || kit_kat?
+      magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
+        like_m_and_ms?
     end
 
     def magnum_icecream?
-      @line.include?('magnum') && (@line.include?('almond') || @line.include?('classic'))
+      @line.include?('magnum')
     end
 
     def oreo_cake?
@@ -53,6 +67,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kit_kat?
       @line.include?('kat') && @line.include?('kit')
+    end
+
+    def oreo_biscuit?
+      @line.include?('oreo')
+    end
+
+    def milk_chocolate?
+      @line.include?('milk') && @line.include?('chocolate')
+    end
+
+    def like_m_and_ms?
+      @line.include?('chacha') && @line.include?('peanut')
     end
 
     ####
@@ -93,7 +119,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def vegetables?
-      cucumber? || pepper? || tomato? || avocado?
+      cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper?
     end
 
     def cucumber?
@@ -112,10 +138,23 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('alpukat')
     end
 
+    def brokoli?
+      @line.include?('brokoli')
+    end
+
+    def potato?
+      @line.include?('kentang') && @line.include?('besar')
+    end
+
+    def canned_pepper?
+      @line.include?('mamas') && @line.include?('pepper') && @line.include?('roast')
+    end
+
     ####
 
     def dairy?
-      milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? || delicyo_yog? || cimory_yog?
+      milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
+        delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese?
     end
 
     def milk?
@@ -150,10 +189,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('cimory') && @line.include?('squeeze')
     end
 
+    def j_j_cheese?
+      @line.include?('j&j') && @line.include?('cott')
+    end
+
+    def laughing_cow_cheese?
+      @line.include?('laughing') && @line.include?('co') && @line.include?('chee')
+    end
+
     ####
 
     def bread?
-      donut? || just_bread?
+      donut? || just_bread? || bread_sticks?
     end
 
     def donut?
@@ -162,6 +209,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def just_bread?
       @line.include?('whole') && @line.include?('wheat')
+    end
+
+    def bread_sticks?
+      @line.include?('grissini') && @line.include?('gluten')
     end
 
     ####
@@ -187,7 +238,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham?
+      mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
+        mamas_salami?
     end
 
     def mamas_ham?
@@ -207,17 +259,21 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bacon?
-      @line.include?('streaky') && @line.include?('bacon')
+      @line.include?('bacon')
     end
 
     def smith_field_ham?
       @line.include?('smithfield') && @line.include?('ham')
     end
 
+    def mamas_salami?
+      @line.include?('mamas') && @line.include?('salami')
+    end
+
     ####
 
     def for_beer?
-      lays? || pistachios?
+      lays? || pistachios? || pringles?
     end
 
     def lays?
@@ -225,7 +281,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pistachios?
-      @line.include?('pistachios')
+      @line.include?('pistachios') || @line.include?('pischio')
+    end
+
+    def pringles?
+      @line.include?('pringles')
     end
 
     ####
@@ -241,15 +301,19 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      tissue? || some_stuff?
+      tissue? || some_stuff? || sponge?
     end
 
     def tissue?
-      @line.include?('paseo') && @line.include?('ultrs')
+      @line.include?('paseo')
     end
 
     def some_stuff?
       @line.include?('youth') && @line.include?('kitchen')
+    end
+
+    def sponge?
+      @line.include?('polytex') && @line.include?('sponge')
     end
 
     ####
@@ -265,11 +329,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      clear_gel?
+      clear_gel? || colgate?
     end
 
     def clear_gel?
       @line.include?('clear') && @line.include?('active')
+    end
+
+    def colgate?
+      @line.include?('colgate')
     end
 
     ####

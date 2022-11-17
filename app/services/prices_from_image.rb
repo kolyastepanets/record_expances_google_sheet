@@ -164,7 +164,25 @@ class PricesFromImage
   end
 
   def match_common_price(line)
-    if is_pepito_supermarket? || is_frestive_supermarket? || is_bali_direct_store?
+    if is_pepito_supermarket?
+      if line[-1].include?(' - ') # calculate discount
+        price, discount = line[-1].split(' - ')
+        matched_price = price.match(/\d*\,\d*$/) || price.match(/\d*\.\d*$/)
+        matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
+
+        matched_discount = discount.match(/\d*\,\d*$/) || discount.match(/\d*\.\d*$/)
+        matched_discount = matched_discount[0].delete(",").delete(".").to_f if !matched_discount.nil?
+
+        return matched_price - matched_discount
+      end
+
+      matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
+      matched_price = nil if strange_punctuation_in_price?(line[-1])
+      matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
+      matched_price = nil if small_price_for_receipt?(matched_price)
+      return matched_price
+    end
+    if is_frestive_supermarket? || is_bali_direct_store?
       matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
       matched_price = nil if strange_punctuation_in_price?(line[-1])
       matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
@@ -192,12 +210,32 @@ class PricesFromImage
     filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
 
     filtered_texts.each.with_index do |array_of_text, index|
-      if array_of_text.any? { |word| word.downcase == 'total' }
+      if array_of_text.all? { |word| word.downcase == 'total' && word.downcase == 'received' }
         break
       end
 
+      if array_of_text.map(&:downcase).include?('discount')
+        next
+      end
+
+      if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
+        next
+      end
+
+      if line_is_discount?(array_of_text, index)
+        next
+      end
+
+      if is_all_numbers?(array_of_text) && line_is_discount?(filtered_texts[index + 1], index)
+        discount_value = filtered_texts[index + 1][-2]
+        value_to_add = ["#{array_of_text[-1]} - #{discount_value}"]
+        add_last_price_to_array_of_texts!(new_parsed_texts, value_to_add)
+        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index + 1)
+        next
+      end
+
       if is_all_numbers?(array_of_text)
-        add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
+        add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text[-1]])
         add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
         next
       end
@@ -220,8 +258,12 @@ class PricesFromImage
     array_of_text.all? { |text| text.include?('.') || text.include?(',') } || array_of_text.all? { |text| text.to_f > 0 }
   end
 
-  def add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
-    new_parsed_texts[-1].concat([array_of_text[-1]])
+  def line_is_discount?(current_array, index)
+    current_array.include?('Disc') && current_array.include?('.') && current_array.include?('(')
+  end
+
+  def add_last_price_to_array_of_texts!(new_parsed_texts, number)
+    new_parsed_texts[-1].concat(number)
   end
 
   def add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
