@@ -280,7 +280,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     DeleteAllTodaysMessages.call
     set_default_values_in_session!
-    ask_type_of_expenses
+
+    respond_with(:message,
+      text: 'В меню',
+      reply_markup: {
+        inline_keyboard: [[{ text: 'Главное меню',  callback_data: 'start_again' }]],
+      }
+    )
   end
 
   def show_total_price_of_products
