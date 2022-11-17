@@ -4,7 +4,7 @@ class PutExpensesToGoogleSheetJob < ApplicationJob
   def perform(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
     calculate_as_half_expenses_for_us = calculate_as_half_expenses == 'y'
 
-    response = PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
-    UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses_for_us)
+    response = ApiGoogleSheet::PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
+    ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses_for_us)
   end
 end

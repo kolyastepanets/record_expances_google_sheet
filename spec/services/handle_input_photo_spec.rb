@@ -411,28 +411,28 @@ RSpec.describe HandleInputPhoto do
 
       context 'when all categories present' do
         context 'when usd' do
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
-            allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
+          it 'calls ApiGoogleSheet::PutExpensesToGoogleSheet, ApiGoogleSheet::UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+            allow(ApiGoogleSheet::CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
 
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 15202,0")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3081.41691882647, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.9146164978292, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3081.41691882647, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3098.9146164978292, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -487,28 +487,28 @@ RSpec.describe HandleInputPhoto do
         context 'when uah' do
           let(:caption) { "Uah 0.00242025 Y" }
 
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
-            allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
+          it 'calls ApiGoogleSheet::PutExpensesToGoogleSheet, ApiGoogleSheet::UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+            allow(ApiGoogleSheet::CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
 
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 * 0,00242025 / 37,4406")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2416.279375, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3060.065875, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(2416.279375, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3060.065875, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -659,24 +659,24 @@ RSpec.describe HandleInputPhoto do
         end
 
         context 'when usd' do
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
-            allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
+          it 'calls ApiGoogleSheet::PutExpensesToGoogleSheet, ApiGoogleSheet::UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+            allow(ApiGoogleSheet::CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
 
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(282500.0, request_params_1).and_return(result1)
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -713,24 +713,24 @@ RSpec.describe HandleInputPhoto do
         context 'when uah' do
           let(:caption) { "Uah 0.00242025" }
 
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
-            allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
+          it 'calls ApiGoogleSheet::PutExpensesToGoogleSheet, ApiGoogleSheet::UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+            allow(ApiGoogleSheet::CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
 
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406")
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(282500.0, request_params_1).and_return(result1)
-            expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
+            expect(ApiGoogleSheet::PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
+            expect(ApiGoogleSheet::UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {

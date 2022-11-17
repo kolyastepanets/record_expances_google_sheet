@@ -13,7 +13,7 @@ class SendMessageToBotToAskToEnterExpences
     @price_in_usd = transaction_data[:amount].abs / 100.0 if transaction_data[:is_fop_dollar]
     @operation_amount = transaction_data[:operationAmount].abs / 100.0
     @redis = Redis.new
-    @categories = ReceiveCategories.call
+    @categories = ApiGoogleSheet::ReceiveCategories.call
   end
 
   def call

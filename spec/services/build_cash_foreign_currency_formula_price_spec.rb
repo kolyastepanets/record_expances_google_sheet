@@ -6,7 +6,7 @@ RSpec.describe BuildCashForeignCurrencyFormulaPrice do
   let(:price) { 29.4 }
 
   before do
-    allow(GetGoogleSheetCurrencyExchange).to receive(:call).and_return("36,92000")
+    allow(ApiGoogleSheet::GetGoogleSheetCurrencyExchange).to receive(:call).and_return("36,92000")
     allow(MonobankCurrencyRates).to receive(:call).and_return("37.4995")
   end
 

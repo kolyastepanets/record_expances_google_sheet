@@ -58,32 +58,32 @@ class HandleInputPhoto
 
         if price_with_category[:category_name].present?
           if @currency_to_usd.present?
-            response = PutExpensesToGoogleSheet.call(
+            response = ApiGoogleSheet::PutExpensesToGoogleSheet.call(
               params_to_save_to_google_sheet[:category_name],
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
+            ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
 
             # decrease usd saved amount
-            result = CalculateTotalSpentUsdAndUah.call
-            UpdateCommonCurrencyExpenses.call(
+            result = ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call
+            ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
               result[:total_left_usd_money] - params_to_save_to_google_sheet[:price_in_usd],
               result[:coordinates_of_total_left_usd_money],
             )
           end
 
           if @currency_to_uah.present?
-            response = PutExpensesToGoogleSheet.call(
+            response = ApiGoogleSheet::PutExpensesToGoogleSheet.call(
               params_to_save_to_google_sheet[:category_name],
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
+            ApiGoogleSheet::UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
 
             # decrease uah spent amount
-            result = CalculateTotalSpentUsdAndUah.call
-            UpdateCommonCurrencyExpenses.call(
+            result = ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call
+            ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
               result[:total_left_uah_money] - params_to_save_to_google_sheet[:price_in_uah],
               result[:coordinates_of_total_left_uah_money],
             )
@@ -172,7 +172,7 @@ class HandleInputPhoto
   end
 
   def get_categories
-    @get_categories ||= ReceiveCategories.call
+    @get_categories ||= ApiGoogleSheet::ReceiveCategories.call
   end
 
   def save_to_redis

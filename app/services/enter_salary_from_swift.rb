@@ -33,11 +33,11 @@ class EnterSalaryFromSwift
   private
 
   def coordinates_of_cell_to_enter_salary
-    FindCellToEnterSalaryOrNbuCurrencyRate.call(@month_to_enter, year_sheet, @cell_with_text_to_find_next_cell)
+    ApiGoogleSheet::FindCellToEnterSalaryOrNbuCurrencyRate.call(@month_to_enter, year_sheet, @cell_with_text_to_find_next_cell)
   end
 
   def enter_salary
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       @params[:dollars],
       coordinates_of_cell_to_enter_salary,
       year: year_sheet,
@@ -45,11 +45,11 @@ class EnterSalaryFromSwift
   end
 
   def coordinates_of_cell_to_enter_nbu_rate
-    FindCellToEnterSalaryOrNbuCurrencyRate.call(@month_to_enter, year_sheet, @text_to_enter_nbu_usd_rate)
+    ApiGoogleSheet::FindCellToEnterSalaryOrNbuCurrencyRate.call(@month_to_enter, year_sheet, @text_to_enter_nbu_usd_rate)
   end
 
   def enter_nbu_rate
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       nbu_usd_rate,
       coordinates_of_cell_to_enter_nbu_rate,
       year: year_sheet,
@@ -57,11 +57,11 @@ class EnterSalaryFromSwift
   end
 
   def coordinates_to_enter_left_usd_and_usd
-    @coordinates_to_enter_left_usd_and_usd ||= CalculateTotalSpentUsdAndUah.call(month: @month_to_enter)
+    @coordinates_to_enter_left_usd_and_usd ||= ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call(month: @month_to_enter)
   end
 
   def enter_left_usd_fop
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       coordinates_to_enter_left_usd_and_usd[:total_left_usd_money] + @params[:dollars],
       coordinates_to_enter_left_usd_and_usd[:coordinates_of_total_left_usd_money],
       year: year_sheet,

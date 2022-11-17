@@ -5,7 +5,7 @@ class MonobankWebhooksController < ApplicationController
   end
 
   def create
-    HandleMonoWebhook.call(params["monobank_webhook"])
+    MonoWebhook::HandleMonoWebhook.call(params["monobank_webhook"])
     render json: {}, status: 200
   end
 end

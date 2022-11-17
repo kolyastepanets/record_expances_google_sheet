@@ -4,16 +4,16 @@ class EnterSoldDollarsFromFopJob < ApplicationJob
   def perform(params)
     params = params.deep_symbolize_keys
 
-    result = CalculateTotalSpentUsdAndUah.call
+    result = ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call
 
     # increase uah amount
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       result[:total_left_uah_money] + params[:grivnas],
       result[:coordinates_of_total_left_uah_money],
     )
 
     # decrease usd amount
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       result[:total_left_usd_money] - params[:dollars],
       result[:coordinates_of_total_left_usd_money],
     )

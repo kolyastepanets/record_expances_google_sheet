@@ -57,7 +57,7 @@ class PricesFromImage
   end
 
   def parsed_texts
-    @parsed_texts ||= ConvertImageToArrayOfText.call(get_telegram_image)
+    @parsed_texts ||= ApiGoogleVision::ConvertImageToArrayOfText.call(get_telegram_image)
   end
 
   def return_result

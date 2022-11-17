@@ -68,7 +68,7 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
   end
 
   def sub_categories
-    ReceiveCategories.call.values.flatten
+    ApiGoogleSheet::ReceiveCategories.call.values.flatten
   end
 
   def messages_to_delete

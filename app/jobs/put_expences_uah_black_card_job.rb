@@ -12,10 +12,10 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       price_in_usd_to_put_in_google_sheets,
     )
 
-    result = CalculateTotalSpentUsdAndUah.call
+    result = ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call
 
     # decrease uah spent amount
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       result[:total_left_uah_money] - price_in_uah,
       result[:coordinates_of_total_left_uah_money],
     )

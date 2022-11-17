@@ -148,7 +148,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
     calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses' ? 'y' : 'n'
-    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
+    ApiGoogleSheet::PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
 
     remember_total_price_of_products(price_to_calculate)
     remember_total_price_of_products_in_foreign_currency(price.to_f)
@@ -183,7 +183,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_left_foreign_cash!(foreigh_cash_amount, *args)
     session[:foreigh_cash_amount] = SumEnteredAmount.call(foreigh_cash_amount)
-    result = CalculateForeignCurrencyCashExpenses.call
+    result = ApiGoogleSheet::CalculateForeignCurrencyCashExpenses.call
     session[:foreigh_spent_cash_amount] = result[:spent_foreign_money]
     session[:total_withraw_foreign_money] = result[:total_withraw_foreign_money]
     money_left_to_enter = session[:total_withraw_foreign_money] - session[:foreigh_cash_amount] - session[:foreigh_spent_cash_amount]
@@ -210,7 +210,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   private
 
   def get_usd_fop_from_google_sheet
-    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call)
+    respond_with(:message, text: ApiGoogleSheet::ReceiveUsdFopFromGoogleSheet.call)
   end
 
   def get_usd_fop_from_monobank
@@ -218,11 +218,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def total_saved_money_from_google_sheet
-    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call)
+    respond_with(:message, text: ApiGoogleSheet::ReceiveTotalSavedMoneyFromGoogleSheet.call)
   end
 
   def get_last_3_expenses_in_google_sheet
-    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call)
+    respond_with(:message, text: ApiGoogleSheet::GetLastThreeExpensesInGoogleSheet.call)
   end
 
   def get_last_10_transactions_from_mono
@@ -267,12 +267,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def finish_remember_total_price_of_products
     show_total_price_of_products
     if !session[:foreigh_cash_amount].zero?
-      result = CalculateForeignCurrencyCashExpenses.call
-      UpdateCommonCurrencyExpenses.call(
+      result = ApiGoogleSheet::CalculateForeignCurrencyCashExpenses.call
+      ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
         result[:spent_foreign_money] + session[:total_price_of_products],
         result[:coordinates_of_value_to_change_spent_foreign_money],
       )
-      UpdateCommonCurrencyExpenses.call(
+      ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
         session[:foreigh_cash_amount],
         result[:coordinates_of_value_to_change_now_foreign_money],
       )
@@ -330,7 +330,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
 
   def get_current_mono_balance_from_google_sheet
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call)
+    respond_with(:message, text: ApiGoogleSheet::ReceiveCurrentBalanceInMonobankFromGoogleSheet.call)
   end
 
   def get_current_mono_balance_from_monobank
@@ -338,7 +338,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def category_to_sub_categories
-    @category_to_sub_categories ||= ReceiveCategories.call
+    @category_to_sub_categories ||= ApiGoogleSheet::ReceiveCategories.call
   end
 
   def categories
@@ -451,7 +451,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def amount_already_spent
-    respond_with(:message, text: ReceiveCurrentMonthBalance.call)
+    respond_with(:message, text: ApiGoogleSheet::ReceiveCurrentMonthBalance.call)
   end
 
   def respond_with(type, *)

@@ -4,10 +4,10 @@ class DecreaseDollarsJob < ApplicationJob
   def perform(params)
     params = params.deep_symbolize_keys
 
-    result = CalculateTotalSpentUsdAndUah.call
+    result = ApiGoogleSheet::CalculateTotalSpentUsdAndUah.call
 
     # decrease usd amount
-    UpdateCommonCurrencyExpenses.call(
+    ApiGoogleSheet::UpdateCommonCurrencyExpenses.call(
       result[:total_left_usd_money] - params[:dollars],
       result[:coordinates_of_total_left_usd_money],
     )
