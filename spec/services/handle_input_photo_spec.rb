@@ -411,7 +411,7 @@ RSpec.describe HandleInputPhoto do
 
       context 'when all categories present' do
         context 'when usd' do
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+          it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
@@ -422,13 +422,13 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3075.2006314958558, "BC81")
+            expect(UpdateCellInGoogleSheet).to receive(:call).with(3075.2006314958558, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -483,7 +483,7 @@ RSpec.describe HandleInputPhoto do
         context 'when uah' do
           let(:caption) { "Uah 0.00242025 Y" }
 
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+          it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
@@ -494,13 +494,13 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2187.5657499999998, "BC81")
+            expect(UpdateCellInGoogleSheet).to receive(:call).with(2187.5657499999998, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -651,7 +651,7 @@ RSpec.describe HandleInputPhoto do
         end
 
         context 'when usd' do
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+          it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
@@ -662,11 +662,11 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3094.8690961715565, "BC81")
+            expect(UpdateCellInGoogleSheet).to receive(:call).with(3094.8690961715565, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -703,7 +703,7 @@ RSpec.describe HandleInputPhoto do
         context 'when uah' do
           let(:caption) { "Uah 0.00242025" }
 
-          it 'calls PutExpensesToGoogleSheet, UpdateCommonCurrencyExpenses, SendNotificationMessageToBot' do
+          it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
 
             expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 377000.0")
@@ -714,11 +714,11 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2911.2205, "BC81")
+            expect(UpdateCellInGoogleSheet).to receive(:call).with(2911.2205, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(HandleHalfCalculatedExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -870,7 +870,7 @@ RSpec.describe HandleInputPhoto do
 
         before do
           allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({ total_left_usd_money: 10, total_left_uah_money: 10 })
-          allow(UpdateCommonCurrencyExpenses).to receive(:call)
+          allow(UpdateCellInGoogleSheet).to receive(:call)
         end
 
         context 'when sum of all prices less than 200 of total_sum_in_receipt' do

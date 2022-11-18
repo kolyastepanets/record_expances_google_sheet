@@ -12,13 +12,13 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       price_in_usd_to_put_in_google_sheets,
     )
 
-    calculate_as_half_expenses_for_us = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
+    should_divide_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
     redis.del('how_calculate_expenses_between_us')
-    UpdateCellBackgroundColorInExpensesPageAsync.call(response, calculate_as_half_expenses_for_us)
+    HandleHalfCalculatedExpenses.call(response, should_divide_expenses, price_in_usd_to_put_in_google_sheets)
 
     # decrease uah spent amount
     result = CalculateTotalSpentUsdAndUah.call
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       result[:total_left_uah_money] - price_in_uah,
       result[:coordinates_of_total_left_uah_money],
     )

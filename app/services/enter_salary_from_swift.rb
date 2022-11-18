@@ -37,10 +37,10 @@ class EnterSalaryFromSwift
   end
 
   def enter_salary
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       @params[:dollars],
       coordinates_of_cell_to_enter_salary,
-      year: year_sheet,
+      page: year_sheet,
     )
   end
 
@@ -49,10 +49,10 @@ class EnterSalaryFromSwift
   end
 
   def enter_nbu_rate
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       nbu_usd_rate,
       coordinates_of_cell_to_enter_nbu_rate,
-      year: year_sheet,
+      page: year_sheet,
     )
   end
 
@@ -61,10 +61,10 @@ class EnterSalaryFromSwift
   end
 
   def enter_left_usd_fop
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       coordinates_to_enter_left_usd_and_usd[:total_left_usd_money] + @params[:dollars],
       coordinates_to_enter_left_usd_and_usd[:coordinates_of_total_left_usd_money],
-      year: year_sheet,
+      page: year_sheet,
     )
   end
 

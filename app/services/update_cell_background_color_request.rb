@@ -1,7 +1,8 @@
 class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
-  def initialize(sheet_id, line_number_saved_expenses)
+  def initialize(sheet_id, line_number_saved_expenses, color)
     @sheet_id = sheet_id
     @line_number_saved_expenses = line_number_saved_expenses
+    @color = color
   end
 
   def call
@@ -42,8 +43,7 @@ class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
                 {
                   user_entered_format: {
                     background_color: {
-                      red: 1,
-                      green: 0.8,
+                      **detect_hash_color,
                     }
                   }
                 }
@@ -54,5 +54,15 @@ class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
         }
       }
     ]
+  end
+
+  def detect_hash_color
+    if @color == 'yellow'
+      return { red: 1, green: 0.8 }
+    end
+
+    if @color == 'green'
+      return { green: 0.8 }
+    end
   end
 end

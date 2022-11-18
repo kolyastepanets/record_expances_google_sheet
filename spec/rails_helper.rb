@@ -26,6 +26,7 @@ Dir[Rails.root.join("spec/support/*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveJob::TestHelper
   # Remove this line to enable support for ActiveRecord
   config.use_active_record = false
 
