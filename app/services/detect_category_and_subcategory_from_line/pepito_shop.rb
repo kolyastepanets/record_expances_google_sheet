@@ -13,7 +13,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bintang_beer?
-      @line.include?('crystal') && @line.include?('bintang')
+      @line.any? { |word| word.include?('bintang') } && @line.include?('crystal')
     end
 
     def bali_hai_beer?
@@ -51,11 +51,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      soy_souce?
+      soy_souce? || mayonaise?
     end
 
     def soy_souce?
       @line.include?('kikko') && @line.include?('asin')
+    end
+
+    def mayonaise?
+      @line.include?('mayonais')
     end
 
     ####
@@ -74,11 +78,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def lindt?
-      @line.include?('lindt')
+      @line.any? { |word| word.include?('lindt') }
     end
 
     def kit_kat?
-      @line.include?('kat') && @line.include?('kit')
+      @line.any? { |word| word.include?('kit') } && @line.include?('kat')
     end
 
     def oreo_biscuit?
@@ -110,7 +114,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape?
+      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? || corn?
     end
 
     def pineapple?
@@ -126,21 +130,25 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def watermelon?
-      @line.include?('semangka') && @line.include?('merah')
+      @line.any? { |word| word.include?('semangka') } && @line.include?('merah')
     end
 
     def banana?
-      @line.any? { |word| word.include?('sunpride') } && @line.include?('pisang')
+      @line.any? { |word| word.include?('unpride') } && @line.include?('pisang')
     end
 
     def grape?
       @line.include?('green') && @line.include?('grape')
     end
 
+    def corn?
+      @line.include?('jagung') && @line.include?('manis')
+    end
+
     ####
 
     def vegetables?
-      cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper?
+      cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? || carrot?
     end
 
     def cucumber?
@@ -171,6 +179,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mamas') && @line.include?('pepper') && @line.include?('roast')
     end
 
+    def carrot?
+      @line.include?('wortel') && @line.include?('medan')
+    end
+
     ####
 
     def dairy?
@@ -183,7 +195,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def greenfields_milk?
-      @line.include?('greenfield') && @line.include?('milk')
+      @line.any? { |word| word.include?('greenfield') } && @line.include?('milk')
     end
 
     def kin_milk?
@@ -195,7 +207,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def biokul_yog?
-      @line.any? { |word| word.include?('biokul') } && @line.include?('yog')
+      @line.any? { |word| word.include?('iokul') } && @line.include?('yog')
     end
 
     def kin_yog?
@@ -222,29 +234,33 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      donut? || just_bread? || bread_sticks?
+      donut? || bread_sticks? || toast?
     end
 
     def donut?
       @line.any? { |word| word.include?('onut') } && @line.include?('sprinkle')
     end
 
-    def just_bread?
-      @line.any? { |word| word.include?('whole') } && @line.include?('wheat')
-    end
-
     def bread_sticks?
       @line.include?('grissini') && @line.include?('gluten')
+    end
+
+    def toast?
+      @line.any? { |word| word.include?('toast') }
     end
 
     ####
 
     def meat?
-      chicken_breast?
+      chicken_breast? || chicken_leg?
     end
 
     def chicken_breast?
       @line.include?('chic') && @line.include?('breast')
+    end
+
+    def chicken_leg?
+      @line.include?('chicken') && @line.include?('leg')
     end
 
     ####
@@ -299,7 +315,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def lays?
-      @line.include?('lay') && @line.include?('chips')
+      @line.include?('lays') || (@line.include?('lay') && @line.include?('chips'))
     end
 
     def pistachios?
@@ -313,11 +329,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      rice?
+      rice? || barilla_farfalle?
     end
 
     def rice?
       @line.include?('basmati') && @line.include?('rice')
+    end
+
+    def barilla_farfalle?
+      @line.include?('barilla') && @line.include?('farfalle')
     end
 
     ####
@@ -351,7 +371,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      clear_gel? || colgate? || local_vanish?
+      clear_gel? || colgate? || local_vanish? || vanish?
     end
 
     def clear_gel?
@@ -364,6 +384,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def local_vanish?
       @line.include?('proclin')
+    end
+
+    def vanish?
+      @line.include?('vanish')
     end
 
     ####

@@ -524,7 +524,7 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  context 'when receipt pepito 2', freezed_time: '2022-11-11T10:24:00+00:00' do
+  context 'when receipt pepito 2', freezed_time: '2022-11-18T08:56:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out07.jpeg") }
 
     it 'return 3 values' do
@@ -656,6 +656,42 @@ RSpec.describe PricesFromImage, vcr: true do
               {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>64000.0}
             ],
             809200.0,
+            nil
+          ]
+        )
+      else
+      end
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt pepito 5', freezed_time: '2022-11-18T08:20:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out18.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      if ENV['PARSE_PRICE_WITH_CATEGORIES']
+        sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+        expect(result).to eq(
+          [
+            [
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>15904.0},
+              {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>115000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>64000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>36330.0},
+              {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>54900.0},
+              {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>40900.0},
+              {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>45000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>50300.0},
+              {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>54900.0},
+              {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>9000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>22770.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>55383.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>10560.0}
+            ],
+            600947.0,
             nil
           ]
         )

@@ -210,17 +210,13 @@ class PricesFromImage
     filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
 
     filtered_texts.each.with_index do |array_of_text, index|
-      if array_of_text.all? { |word| word.downcase == 'total' && word.downcase == 'received' }
-        break
-      end
-
       if array_of_text.map(&:downcase).include?('discount')
         next
       end
 
-      if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
-        next
-      end
+      # if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
+      #   next
+      # end
 
       if line_is_discount?(array_of_text, index)
         next
@@ -244,6 +240,10 @@ class PricesFromImage
       next new_parsed_texts << array_of_text if new_parsed_texts.empty?
 
       add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
+
+      if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
+        break
+      end
     end
 
     new_parsed_texts
