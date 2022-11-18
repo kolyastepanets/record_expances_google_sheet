@@ -45,7 +45,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cola?
-      @line.include?('cola')
+      @line.include?('coca') && @line.include?('cola')
     end
 
     ####
