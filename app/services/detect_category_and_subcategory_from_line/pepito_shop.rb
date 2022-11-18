@@ -1,7 +1,11 @@
 module DetectCategoryAndSubcategoryFromLine
   class PepitoShop < Default
+    def initialize(line_from_receipt)
+      @line = line_from_receipt.map(&:downcase)
+    end
+
     def alcohol?
-      beer?
+      beer? || wine?
     end
 
     def beer?
@@ -16,6 +20,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bali') && @line.include?('hai')
     end
 
+    def wine?
+      @line.include?('hatten') && @line.include?('white')
+    end
+
     ####
 
     def eggs?
@@ -25,7 +33,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      green_tea? || cherry_juice?
+      green_tea? || cherry_juice? || cola?
     end
 
     def green_tea?
@@ -34,6 +42,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cherry_juice?
       @line.include?('clasic') && @line.include?('sour') && @line.include?('chery')
+    end
+
+    def cola?
+      @line.include?('cola')
     end
 
     ####
@@ -50,7 +62,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms?
+        like_m_and_ms? || kinder_bueno?
     end
 
     def magnum_icecream?
@@ -81,9 +93,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('chacha') && @line.include?('peanut')
     end
 
+    def kinder_bueno?
+      @line.include?('kinder') && @line.include?('bueno')
+    end
+
     ####
 
     def tea_or_coffee?
+      nescafe?
+    end
+
+    def nescafe?
+      @line.include?('nescafe')
     end
 
     ####
@@ -93,7 +114,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pineapple?
-      @line.include?('nanas') && @line.include?('honi')
+      @line.any? { |word| word.include?('nanas') } && @line.include?('honi')
     end
 
     def mango?
@@ -109,7 +130,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def banana?
-      @line.include?('sunpride') && @line.include?('pisang')
+      @line.any? { |word| word.include?('sunpride') } && @line.include?('pisang')
     end
 
     def grape?
@@ -123,7 +144,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cucumber?
-      @line.include?('kyuri')
+      @line.any? { |word| word.include?('kyuri') }
     end
 
     def pepper?
@@ -135,7 +156,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def avocado?
-      @line.include?('alpukat')
+      @line.any? { |word| word.include?('alpukat') }
     end
 
     def brokoli?
@@ -166,15 +187,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kin_milk?
-      @line.include?('kin') && @line.include?('milk')
+      @line.include?('kin') && @line.include?('freshmilk')
     end
 
     def greenfields_yog?
-      @line.include?('greenfield') && @line.include?('yog')
+      @line.include?('greenfields') && @line.include?('yog')
     end
 
     def biokul_yog?
-      @line.include?('biokul') && @line.include?('yog')
+      @line.any? { |word| word.include?('biokul') } && @line.include?('yog')
     end
 
     def kin_yog?
@@ -182,7 +203,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def delicyo_yog?
-      @line.include?('delicyo') && @line.include?('yog')
+      @line.any? { |word| word.include?('del') } && @line.any? { |word| word.include?('icyo') } && @line.include?('yog')
     end
 
     def cimory_yog?
@@ -190,11 +211,12 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def j_j_cheese?
-      @line.include?('j&j') && @line.include?('cott')
+      @line.include?('j') && @line.include?('&') && @line.include?('cott')
     end
 
     def laughing_cow_cheese?
-      @line.include?('laughing') && @line.include?('co') && @line.include?('chee')
+      @line.any? { |word| word.include?('laughing') } && @line.any? { |word| word.include?('co') } &&
+        @line.any? { |word| word.include?('chee') }
     end
 
     ####
@@ -204,11 +226,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def donut?
-      @line.include?('onut') && @line.include?('sprinkle')
+      @line.any? { |word| word.include?('onut') } && @line.include?('sprinkle')
     end
 
     def just_bread?
-      @line.include?('whole') && @line.include?('wheat')
+      @line.any? { |word| word.include?('whole') } && @line.include?('wheat')
     end
 
     def bread_sticks?
@@ -255,7 +277,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cooked_ham?
-      @line.include?('ooked') && @line.include?('ham')
+      @line.any? { |word| word.include?('ooked') } && @line.include?('ham')
     end
 
     def bacon?
@@ -263,7 +285,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def smith_field_ham?
-      @line.include?('smithfield') && @line.include?('ham')
+      @line.any? { |word| word.include?('smithfield') } && @line.include?('ham')
     end
 
     def mamas_salami?
@@ -309,7 +331,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def some_stuff?
-      @line.include?('youth') && @line.include?('kitchen')
+      @line.any? { |word| word.include?('youth') } && @line.include?('kitchen')
     end
 
     def sponge?
@@ -329,7 +351,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      clear_gel? || colgate?
+      clear_gel? || colgate? || local_vanish?
     end
 
     def clear_gel?
@@ -338,6 +360,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def colgate?
       @line.include?('colgate')
+    end
+
+    def local_vanish?
+      @line.include?('proclin')
     end
 
     ####

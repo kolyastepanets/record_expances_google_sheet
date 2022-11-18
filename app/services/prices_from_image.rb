@@ -110,7 +110,7 @@ class PricesFromImage
   end
 
   def is_pepito_supermarket?
-    all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepitomarket')
+    all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepito')
   end
 
   def is_frestive_supermarket?
