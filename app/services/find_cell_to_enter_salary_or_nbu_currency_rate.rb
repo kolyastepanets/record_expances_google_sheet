@@ -10,7 +10,7 @@ class FindCellToEnterSalaryOrNbuCurrencyRate < GetOrSetDataInGoogleSheetBase
   private
 
   def prepare_request_data
-    @range = "#{@year_sheet}!A#{start_line_to_search}:AL#{end_line_to_search}"
+    @range = "#{@year_sheet}!A#{start_line_to_search}:CJ#{end_line_to_search}"
   end
 
   def end_line_to_search
