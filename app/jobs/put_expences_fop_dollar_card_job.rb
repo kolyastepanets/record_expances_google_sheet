@@ -5,15 +5,18 @@ class PutExpencesFopDollarCardJob < ApplicationJob
     params = params.deep_symbolize_keys
     price_in_usd = params[:price_in_usd]
 
-    PutExpensesToGoogleSheet.call(
+    response = PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
       params[:price_in_usd_to_save_in_google_sheet] || price_in_usd,
     )
 
-    result = CalculateTotalSpentUsdAndUah.call
+    calculate_as_half_expenses_for_us = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
+    redis.del('how_calculate_expenses_between_us')
+    UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses_for_us)
 
     # decrease usd saved amount
+    result = CalculateTotalSpentUsdAndUah.call
     UpdateCommonCurrencyExpenses.call(
       result[:total_left_usd_money] - price_in_usd,
       result[:coordinates_of_total_left_usd_money],
@@ -24,5 +27,9 @@ class PutExpencesFopDollarCardJob < ApplicationJob
     error_message = { exception: e, message: e.message }
 
     SendNotificationMessageToBot.call(error_message)
+  end
+
+  def redis
+    @redis ||= Redis.new
   end
 end

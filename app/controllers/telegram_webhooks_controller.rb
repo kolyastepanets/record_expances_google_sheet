@@ -91,7 +91,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:category_name] = category_name
       params[:message_ids] << payload["message"]["message_id"]
-      redis.set(transaction_id, params.to_json, ex: 2.weeks)
+      redis.set(transaction_id, params.to_json, ex: 1.week)
 
       transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)
@@ -105,6 +105,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    when -> (input_category) { input_category.include?('h_id') }
+      category_name = data.split(': ')[0]
+      transaction_id = data.split(': ')[1].split('h_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:category_name] = category_name
+      params[:message_ids] << payload["message"]["message_id"]
+      redis.set(transaction_id, params.to_json, ex: 1.week)
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_half_expenses')
+
+      transaction_id = "c1_id:#{transaction_id}"
+      show_sub_categories_by_category(category_name, transaction_id)
     when -> (input_category) { input_category.include?('f_id') }
       category_name = data.split(': ')[0]
       transaction_id, price = data.split(': ')[1].split('f_id:')[1].split(":")
@@ -113,7 +124,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       last_price_to_message["message_ids"] << payload["message"]["message_id"]
       last_price_to_message["category_name"] = category_name
 
-      redis.set(transaction_id, params.to_json, ex: 2.days)
+      redis.set(transaction_id, params.to_json, ex: 1.week)
 
       transaction_id = "f1_id:#{transaction_id}:#{price}"
       show_sub_categories_by_category(category_name, transaction_id)

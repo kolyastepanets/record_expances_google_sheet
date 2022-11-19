@@ -43,6 +43,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
     before do
       allow_any_instance_of(described_class).to receive(:send_message_with_params).and_return(response_message_with_params)
       allow_any_instance_of(described_class).to receive(:send_message_with_categories).and_return(response_message_with_categories)
+      allow_any_instance_of(described_class).to receive(:send_message_with_categories_when_calculate_as_half_expenses).and_return(response_message_with_categories)
     end
 
     it "saves message ids to redis" do
@@ -50,7 +51,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
 
       expect(JSON.parse(redis.get(id)).deep_symbolize_keys).to eq({
         description: "Amazon.co.uk",
-        message_ids: [123, 456],
+        message_ids: [123, 456, 456],
         price_in_uah: 533.62,
         operation_amount: 11.95,
         price_in_usd: nil,
@@ -82,6 +83,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       it 'does not call telegram bot' do
         expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
         expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
+        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories_when_calculate_as_half_expenses)
 
         subject
       end
@@ -113,6 +115,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       it 'does not call telegram bot' do
         expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
         expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
+        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories_when_calculate_as_half_expenses)
 
         subject
       end
@@ -144,6 +147,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       it 'does not call telegram bot' do
         expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
         expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
+        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories_when_calculate_as_half_expenses)
 
         subject
       end
@@ -200,6 +204,52 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
     end
   end
 
+  context '#categories_to_show_as_half_expenses' do
+    let(:result) do
+      [
+        [
+          {callback_data: "Транспорт: h_id:6mIsfyeVdVbitoSl", text: "Транспорт"},
+          {callback_data: "Еда: h_id:6mIsfyeVdVbitoSl", text: "Еда"}
+        ],
+        [
+          {callback_data: "Развлечения: h_id:6mIsfyeVdVbitoSl", text: "Развлечения"},
+          {callback_data: "Подарки: h_id:6mIsfyeVdVbitoSl", text: "Подарки"}
+        ],
+        [
+          {callback_data: "Для дома: h_id:6mIsfyeVdVbitoSl", text: "Для дома"},
+          {callback_data: "Коля: h_id:6mIsfyeVdVbitoSl", text: "Коля"}
+        ],
+        [
+          {callback_data: "Валди: h_id:6mIsfyeVdVbitoSl", text: "Валди"},
+          {callback_data: "Непредвиденное: h_id:6mIsfyeVdVbitoSl", text: "Непредвиденное"}
+        ],
+        [
+          {callback_data: "Марк: h_id:6mIsfyeVdVbitoSl", text: "Марк"},
+          {callback_data: "Лиля: h_id:6mIsfyeVdVbitoSl", text: "Лиля"}
+        ],
+        [
+          {callback_data: "Путешествия: h_id:6mIsfyeVdVbitoSl", text: "Путешествия"},
+          {callback_data: "Инвестиции, фз: h_id:6mIsfyeVdVbitoSl", text: "Инвестиции, фз"}
+        ],
+        [
+          {callback_data: "Авто бмоно: h_id:6mIsfyeVdVbitoSl", text: "Авто бмоно"},
+          {callback_data: "Крупные покупки: h_id:6mIsfyeVdVbitoSl", text: "Крупные покупки"}
+        ],
+        [
+          {callback_data: "Капитал: h_id:6mIsfyeVdVbitoSl", text: "Капитал"},
+          {callback_data: "Кэш: h_id:6mIsfyeVdVbitoSl", text: "Кэш"}
+        ],
+        [
+          {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"}
+        ]
+      ]
+    end
+
+    it 'returns categories and btn messages to delete' do
+      expect(described_class.new(transaction_data).send(:categories_to_show_as_half_expenses)).to eq(result)
+    end
+  end
+
   context 'when fop dollar usd' do
     let(:transaction_data) do
       {
@@ -238,6 +288,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
     before do
       allow_any_instance_of(described_class).to receive(:send_message_with_params).and_return(response_message_with_params)
       allow_any_instance_of(described_class).to receive(:send_message_with_categories).and_return(response_message_with_categories)
+      allow_any_instance_of(described_class).to receive(:send_message_with_categories_when_calculate_as_half_expenses).and_return(response_message_with_categories)
     end
 
     it "saves message ids to redis" do
@@ -245,7 +296,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
 
       expect(JSON.parse(redis.get(id)).deep_symbolize_keys).to eq({
         description: "Amazon.co.uk",
-        message_ids: [123, 456],
+        message_ids: [123, 456, 456],
         price_in_uah: nil,
         operation_amount: 11.95,
         price_in_usd: 533.62,
