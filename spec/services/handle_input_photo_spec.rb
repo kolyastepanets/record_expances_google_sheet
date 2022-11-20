@@ -422,11 +422,7 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3081.41691882647, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.9146164978292, "BC81")
+            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3075.2006314958558, "BC81")
 
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
@@ -498,11 +494,7 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406")
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2416.279375, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3060.065875, "BC81")
+            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2187.5657499999998, "BC81")
 
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
@@ -670,9 +662,7 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3099.0132877252995, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
+            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3094.8690961715565, "BC81")
 
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
@@ -724,9 +714,7 @@ RSpec.describe HandleInputPhoto do
             expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
             expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3063.69625, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
-            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
+            expect(UpdateCommonCurrencyExpenses).to receive(:call).with(2911.2205, "BC81")
 
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
             expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)

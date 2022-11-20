@@ -28,6 +28,9 @@ class HandleInputPhoto
 
     send_message("Общая цена в чеке: #{collected_prices_sum}")
 
+    total_sum_usd = 0
+    total_sum_uah = 0
+
     if ENV['PARSE_PRICE_WITH_CATEGORIES']
       @prices_with_categories.each.with_index(1) do |price_with_category, index|
         current_price = price_with_category[:price]
@@ -65,11 +68,7 @@ class HandleInputPhoto
             )
             UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
 
-            # decrease usd saved amount
-            UpdateCommonCurrencyExpenses.call(
-              calculate_total_spent_usd_and_uah[:total_left_usd_money] - params_to_save_to_google_sheet[:price_in_usd],
-              calculate_total_spent_usd_and_uah[:coordinates_of_total_left_usd_money],
-            )
+            total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
           end
 
           if @currency_to_uah.present?
@@ -80,12 +79,7 @@ class HandleInputPhoto
             )
             UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
 
-            # decrease uah spent amount
-            UpdateCommonCurrencyExpenses.call(
-              calculate_total_spent_usd_and_uah[:total_left_uah_money] - params_to_save_to_google_sheet[:price_in_uah],
-              calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
-            )
-
+            total_sum_uah += params_to_save_to_google_sheet[:price_in_uah]
           end
 
           SendNotificationMessageToBot.call(params_to_save_to_google_sheet)
@@ -116,6 +110,24 @@ class HandleInputPhoto
           }
         end
       end
+    end
+
+    calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
+
+    if @currency_to_usd.present?
+      # decrease usd saved amount
+      UpdateCommonCurrencyExpenses.call(
+        calculate_total_spent_usd_and_uah[:total_left_usd_money] - total_sum_usd,
+        calculate_total_spent_usd_and_uah[:coordinates_of_total_left_usd_money],
+      )
+    end
+
+    if @currency_to_uah.present?
+      # decrease uah spent amount
+      UpdateCommonCurrencyExpenses.call(
+        calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,
+        calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
+      )
     end
 
     save_to_redis
@@ -176,9 +188,5 @@ class HandleInputPhoto
 
   def save_to_redis
     @redis.set(@file_id, @params.to_json, ex: 2.days)
-  end
-
-  def calculate_total_spent_usd_and_uah
-    @calculate_total_spent_usd_and_uah ||= CalculateTotalSpentUsdAndUah.call
   end
 end
