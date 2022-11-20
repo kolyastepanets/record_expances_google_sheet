@@ -428,11 +428,11 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.9146164978292, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -504,11 +504,11 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3060.065875, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -674,9 +674,9 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3097.5003289040915, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3098.3554795421655, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -728,9 +728,9 @@ RSpec.describe HandleInputPhoto do
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3008.0305, "BC81")
             expect(UpdateCommonCurrencyExpenses).to receive(:call).with(3039.49375, "BC81")
 
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
-            expect(UpdateCellBackgroundColorInExpensesPage).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
+            expect(UpdateCellBackgroundColorInExpensesPageAsync).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {

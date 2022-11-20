@@ -13,7 +13,7 @@ class PutExpencesFopDollarCardJob < ApplicationJob
 
     calculate_as_half_expenses_for_us = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
     redis.del('how_calculate_expenses_between_us')
-    UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses_for_us)
+    UpdateCellBackgroundColorInExpensesPageAsync.call(response, calculate_as_half_expenses_for_us)
 
     # decrease usd saved amount
     result = CalculateTotalSpentUsdAndUah.call

@@ -1,14 +1,10 @@
-class UpdateCellBackgroundColorInExpensesPage < GetOrSetDataInGoogleSheetBase
-  EVERY_DAY_EXPENSES_PAGE = 2079267030
-
-  def initialize(response_after_save_expenses, should_divide_expenses)
-    @response_after_save_expenses = response_after_save_expenses
-    @should_divide_expenses = should_divide_expenses
+class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
+  def initialize(sheet_id, line_number_saved_expenses)
+    @sheet_id = sheet_id
+    @line_number_saved_expenses = line_number_saved_expenses
   end
 
   def call
-    return if !@should_divide_expenses
-
     prepare_request_data
     make_request
     parse_response
@@ -35,9 +31,8 @@ class UpdateCellBackgroundColorInExpensesPage < GetOrSetDataInGoogleSheetBase
       {
         update_cells: {
           range: {
-            sheet_id: EVERY_DAY_EXPENSES_PAGE,
-            start_row_index: line_number_saved_expenses,
-            end_row_index: line_number_saved_expenses + 1,
+            sheet_id: @sheet_id,
+            start_row_index: @line_number_saved_expenses,
             start_column_index: 2,
             end_column_index: 3
           },
@@ -59,9 +54,5 @@ class UpdateCellBackgroundColorInExpensesPage < GetOrSetDataInGoogleSheetBase
         }
       }
     ]
-  end
-
-  def line_number_saved_expenses
-    @line_number_saved_expenses ||= @response_after_save_expenses.table_range.split(":")[-1].match(/\d.*/)[0].to_i
   end
 end

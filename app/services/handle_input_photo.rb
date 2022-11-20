@@ -29,7 +29,7 @@ class HandleInputPhoto
     send_message("Общая цена в чеке: #{collected_prices_sum}")
 
     if ENV['PARSE_PRICE_WITH_CATEGORIES']
-      @prices_with_categories.each do |price_with_category|
+      @prices_with_categories.each.with_index(1) do |price_with_category, index|
         current_price = price_with_category[:price]
 
         price_in_usd = {}
@@ -63,13 +63,12 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
+            UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
 
             # decrease usd saved amount
-            result = CalculateTotalSpentUsdAndUah.call
             UpdateCommonCurrencyExpenses.call(
-              result[:total_left_usd_money] - params_to_save_to_google_sheet[:price_in_usd],
-              result[:coordinates_of_total_left_usd_money],
+              calculate_total_spent_usd_and_uah[:total_left_usd_money] - params_to_save_to_google_sheet[:price_in_usd],
+              calculate_total_spent_usd_and_uah[:coordinates_of_total_left_usd_money],
             )
           end
 
@@ -79,14 +78,14 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPage.call(response, @should_divide_expenses)
+            UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
 
             # decrease uah spent amount
-            result = CalculateTotalSpentUsdAndUah.call
             UpdateCommonCurrencyExpenses.call(
-              result[:total_left_uah_money] - params_to_save_to_google_sheet[:price_in_uah],
-              result[:coordinates_of_total_left_uah_money],
+              calculate_total_spent_usd_and_uah[:total_left_uah_money] - params_to_save_to_google_sheet[:price_in_uah],
+              calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
             )
+
           end
 
           SendNotificationMessageToBot.call(params_to_save_to_google_sheet)
@@ -177,5 +176,9 @@ class HandleInputPhoto
 
   def save_to_redis
     @redis.set(@file_id, @params.to_json, ex: 2.days)
+  end
+
+  def calculate_total_spent_usd_and_uah
+    @calculate_total_spent_usd_and_uah ||= CalculateTotalSpentUsdAndUah.call
   end
 end
