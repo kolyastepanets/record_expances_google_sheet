@@ -17,16 +17,14 @@ class PricesFromImage
 
   def parse_image
     array_of_texts = parsed_texts
+    array_of_texts = prepare_texts_for_waitrose if is_waitrose?
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
+    array_of_texts = prepare_texts_for_bali_direct_store if is_bali_direct_store?
 
     array_of_texts.each do |line|
-      if end_line_for_shop?(line) && match_total_price(line[-1])
-        break @total_sum_in_receipt = match_total_price(line[-1])
-      end
-
-      if should_skip_line?(line)
-        next
+      if end_line_for_shop?(line) && match_total_price(line)
+        break @total_sum_in_receipt = match_total_price(line)
       end
 
       matched_price = match_common_price(line)
@@ -86,20 +84,6 @@ class PricesFromImage
     array_of_words.any? { |word| word.downcase == 'items' }
   end
 
-  def should_skip_line?(line)
-    waitrose_negative_number?(line) || is_frestive_negative_number?(line) || bali_direct_store_subtotal?(line)
-  end
-
-  # because I have to manually withdraw price from some product in receipt
-  # maybe can be automatted, it would be great!
-  def waitrose_negative_number?(line)
-    is_waitrose? && line[-1].match(/-\d*\.\d*$/)
-  end
-
-  def is_frestive_negative_number?(line)
-    is_frestive_supermarket? && line[-1].match(/-\d*\,\d*$/)
-  end
-
   def bali_direct_store_subtotal?(line)
     is_bali_direct_store? && line.any? { |word| word.downcase == 'subtotal' }
   end
@@ -151,8 +135,19 @@ class PricesFromImage
     end
   end
 
-  def match_total_price(string_price)
-    if is_pepito_supermarket? || is_frestive_supermarket? || is_bali_direct_store?
+  def match_total_price(line)
+    string_price = line[-1]
+
+    if is_pepito_supermarket? || is_bali_direct_store?
+      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
+      matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
+      return matched_price
+    end
+
+    if is_frestive_supermarket?
+      index_of_total_word = line.map(&:downcase).find_index('total')
+      string_price = line.select.with_index { |word, index| index > index_of_total_word }.join
+
       matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
@@ -182,11 +177,19 @@ class PricesFromImage
       matched_price = nil if small_price_for_receipt?(matched_price)
       return matched_price
     end
+
     if is_frestive_supermarket? || is_bali_direct_store?
       matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
       matched_price = nil if strange_punctuation_in_price?(line[-1])
       matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
       matched_price = nil if small_price_for_receipt?(matched_price)
+
+      if matched_price.nil?
+        matched_price = line.last(3).join
+        matched_price = matched_price.match(/\d*\,\d*$/) || matched_price.match(/\d*\.\d*$/)
+        matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
+      end
+
       return matched_price
     end
 
@@ -213,10 +216,6 @@ class PricesFromImage
       if array_of_text.map(&:downcase).include?('discount')
         next
       end
-
-      # if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
-      #   next
-      # end
 
       if line_is_discount?(array_of_text, index)
         next
@@ -250,8 +249,19 @@ class PricesFromImage
   end
 
   def prepare_texts_for_frestive
-    # remove  ['1', '@', '115,000'] - it means quantity and full price
-    parsed_texts.reject { |array_of_text| array_of_text.size <= 3 }
+    parsed_texts
+      .reject { |array_of_text| array_of_text.size <= 3 } # remove  ['1', '@', '115,000'] - it means quantity and full price
+      .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
+  end
+
+  def prepare_texts_for_bali_direct_store
+    parsed_texts.reject { |array_of_text| array_of_text.any? { |word| word.downcase == 'subtotal' } }
+  end
+
+  # because I have to manually withdraw price from some product in receipt
+  # maybe can be automatted, it would be great!
+  def prepare_texts_for_waitrose
+    parsed_texts.reject { |array_of_text| array_of_text[-1].match(/-\d*\.\d*$/) } # negative number (discount)
   end
 
   def is_all_numbers?(array_of_text)

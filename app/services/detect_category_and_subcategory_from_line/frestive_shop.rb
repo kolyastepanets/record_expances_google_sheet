@@ -1,5 +1,9 @@
 module DetectCategoryAndSubcategoryFromLine
   class FrestiveShop < Default
+    def initialize(line_from_receipt)
+      @line = line_from_receipt.map(&:downcase)
+    end
+
     def alcohol?
       beer?
     end
@@ -11,28 +15,38 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def eggs?
-      @line.include?('egg') && @line.include?('bioland')
+      @line.include?('egg')
     end
 
     ####
 
     def water?
-      coca_cola?
+      coca_cola? || rauch_strawberry?
     end
 
     def coca_cola?
       @line.include?('coca') && @line.include?('cola')
     end
 
+    def rauch_strawberry?
+      @line.include?('rauch') && @line.include?('strawbry')
+    end
+
     ####
 
     def spices_and_seasonings?
+      cook_cream?
+    end
+
+    def cook_cream?
+      @line.include?('cook') && @line.include?('cream')
     end
 
     ####
 
     def sweets?
-      honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? || like_m_and_ms?
+      honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
+        like_m_and_ms? || lindt? || chacha?
     end
 
     def honey?
@@ -44,11 +58,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def monggo_chocolate?
-      @line.include?('monggo') && @line.include?('mlk')
+      @line.include?('monggo')
     end
 
     def icecream?
-      @line.include?('walls') && @line.include?('mgnum')
+      @line.include?('walls')
     end
 
     def kinder_joy?
@@ -61,6 +75,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def like_m_and_ms?
       @line.include?('delfi') && @line.include?('mini') && @line.include?('toys')
+    end
+
+    def lindt?
+      @line.include?('lindt')
+    end
+
+    def chacha?
+      @line.include?('chacha')
     end
 
     ####
@@ -94,7 +116,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def vegetables?
-      potato? || pepper? || zucchini? || tomato? || parsley?
+      potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
+        bonduel_peas? || avocado? || garlic?
     end
 
     def potato?
@@ -117,6 +140,26 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('parsley')
     end
 
+    def carrot?
+      @line.include?('carrot')
+    end
+
+    def sault_cucumbers?
+      @line.include?('kuhne') && @line.include?('feine')
+    end
+
+    def bonduel_peas?
+      @line.include?('bonduel') && @line.include?('peas')
+    end
+
+    def avocado?
+      @line.include?('avocado')
+    end
+
+    def garlic?
+      @line.include?('garlic')
+    end
+
     ####
 
     def dairy?
@@ -124,7 +167,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cheese?
-      ricotta? || slices? || mozarella?
+      ricotta? || slices? || mozarella? || yummy_chese?
     end
 
     def ricotta?
@@ -139,6 +182,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bella') && @line.include?('mozza')
     end
 
+    def yummy_chese?
+      @line.include?('yummy') && @line.include?('chese')
+    end
+
     def butter?
       @line.include?('anchor') && @line.include?('pat')
     end
@@ -150,17 +197,29 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
+      just_bread? || bread_for_hot_dog?
+    end
+
+    def just_bread?
       @line.include?('bread')
+    end
+
+    def bread_for_hot_dog?
+      @line.include?('dog') && @line.include?('hot')
     end
 
     ####
 
     def meat?
-      chicken?
+      chicken? || chicken_leg?
     end
 
     def chicken?
       @line.include?('chicken')
+    end
+
+    def chicken_leg?
+      @line.include?('paha') && @line.any? { |word| word.include?('bawa') }
     end
 
     ####
@@ -176,16 +235,33 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
+      bernardi? || el_primo?
+    end
+
+    def bernardi?
+      @line.include?('bernardi')
+    end
+
+    def el_primo?
+      @line.include?('el') && @line.include?('primo')
     end
 
     ####
 
     def for_beer?
-      pistachios?
+      pistachios? || thins? || sunflower_seeds?
     end
 
     def pistachios?
-      @line.include?('sunkist') && @line.include?('rst')
+      @line.include?('sunkist') && @line.any? { |word| word.include?('rst') }
+    end
+
+    def thins?
+      @line.include?('thins') && @line.include?('chives')
+    end
+
+    def sunflower_seeds?
+      @line.include?('snflwrs') && @line.any? { |word| word.include?('seed') }
     end
 
     ####
