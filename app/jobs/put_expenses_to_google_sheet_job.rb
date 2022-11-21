@@ -5,6 +5,6 @@ class PutExpensesToGoogleSheetJob < ApplicationJob
     calculate_as_half_expenses_for_us = calculate_as_half_expenses == 'y'
 
     response = PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets, current_month: detect_month)
-    UpdateCellBackgroundColorInExpensesPage.call(response, calculate_as_half_expenses_for_us)
+    UpdateCellBackgroundColorInExpensesPageAsync.call(response, calculate_as_half_expenses_for_us)
   end
 end
