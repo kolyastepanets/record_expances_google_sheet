@@ -66,7 +66,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms? || kinder_bueno?
+        like_m_and_ms? || kinder?
     end
 
     def magnum_icecream?
@@ -97,8 +97,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('chacha') && @line.include?('peanut')
     end
 
-    def kinder_bueno?
-      @line.include?('kinder') && @line.include?('bueno')
+    def kinder?
+      @line.include?('kinder')
     end
 
     ####
@@ -148,7 +148,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def vegetables?
-      cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? || carrot?
+      cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
+        carrot? || kale? || onion? || herb? || tomat_cherry?
     end
 
     def cucumber?
@@ -180,7 +181,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def carrot?
-      @line.include?('wortel') && @line.include?('medan')
+      @line.include?('wortel') && @line.any? { |word| word.include?('medan') }
+    end
+
+    def kale?
+      @line.include?('kale')
+    end
+
+    def onion?
+      @line.include?('bawang') && @line.include?('besar')
+    end
+
+    def herb?
+      @line.include?('herb') && @line.any? { |word| word.include?('dill') }
+    end
+
+    def tomat_cherry?
+      @line.include?('tomat') && @line.include?('cherry')
     end
 
     ####
@@ -252,32 +269,36 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken_leg?
+      chicken_breast? || chicken?
     end
 
     def chicken_breast?
       @line.include?('chic') && @line.include?('breast')
     end
 
-    def chicken_leg?
-      @line.include?('chicken') && @line.include?('leg')
+    def chicken?
+      @line.include?('chicken')
     end
 
     ####
 
     def fish?
-      marlin?
+      marlin? || gravad?
     end
 
     def marlin?
       @line.include?('marlin') && @line.include?('steak')
     end
 
+    def gravad?
+      @line.include?('gravad') && @line.include?('lax')
+    end
+
     ####
 
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
-        mamas_salami?
+        mamas_salami? || triple_ham?
     end
 
     def mamas_ham?
@@ -308,10 +329,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mamas') && @line.include?('salami')
     end
 
+    def triple_ham?
+      @line.include?('fores') && @line.include?('triple') && @line.include?('black')
+    end
+
     ####
 
     def for_beer?
-      lays? || pistachios? || pringles?
+      lays? || pistachios? || pringles? || thins_chips?
     end
 
     def lays?
@@ -324,6 +349,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pringles?
       @line.include?('pringles')
+    end
+
+    def thins_chips?
+      @line.include?('thins')
     end
 
     ####

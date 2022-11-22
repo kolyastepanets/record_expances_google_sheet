@@ -752,6 +752,151 @@ RSpec.describe HandleInputPhoto do
           end
         end
       end
+
+      context 'when difference too big between sum and total_sum_in_receipt (more than 200)' do
+        let(:total_sum_in_receipt) { 376799.0 }
+
+        it 'sends to bot error message' do
+          expect_any_instance_of(described_class).to receive(:send_message).with("не смог распарсить все цены в чеке :(((, сумма всех цен: 377000.0, сумма: 376799.0")
+
+          subject
+        end
+      end
+
+      context 'when sum of all prices more than 201 of total_sum_in_receipt' do
+        let(:total_sum_in_receipt) { 377201.0 }
+
+        it 'sends to bot error message' do
+          expect_any_instance_of(described_class).to receive(:send_message).with("не смог распарсить все цены в чеке :(((, сумма всех цен: 377000.0, сумма: 377201.0")
+
+          subject
+        end
+      end
+
+      context 'when difference more/less than 200 rupiah' do
+        # category_name nil to not stub PutExpensesToGoogleSheet and other classes
+        let(:collected_prices_with_categories) do
+          [
+            {:category_name=>nil, :sub_category_name=>nil, :price=>15000.0},
+            {:category_name=>nil, :sub_category_name=>nil, :price=>38000.0},
+          ]
+        end
+        let(:request_params_1) do
+          [
+            [
+              {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:15000.0", text: "Транспорт"},
+              {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:15000.0", text: "Еда"}
+            ],
+            [
+              {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:15000.0", text: "Развлечения"},
+              {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:15000.0", text: "Подарки"}
+            ],
+            [
+              {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:15000.0", text: "Для дома"},
+              {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:15000.0", text: "Коля"}
+            ],
+            [
+              {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:15000.0", text: "Валди"},
+              {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:15000.0", text: "Непредвиденное"}
+            ],
+            [
+              {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:15000.0", text: "Марк"},
+              {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:15000.0", text: "Лиля"}
+            ],
+            [
+              {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:15000.0", text: "Путешествия"},
+              {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:15000.0", text: "Инвестиции, фз"}
+            ],
+            [
+              {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:15000.0", text: "Авто бмоно"},
+              {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:15000.0", text: "Крупные покупки"}
+            ],
+            [
+              {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:15000.0", text: "Капитал"},
+              {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:15000.0", text: "Кэш"}
+            ]
+          ]
+        end
+        let(:result1) do
+          {
+            "result" => {
+              "message_id" => 456789
+            }
+          }
+        end
+        let(:request_params_2) do
+          [
+            [
+              {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:38000.0", text: "Транспорт"},
+              {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:38000.0", text: "Еда"}
+            ],
+            [
+              {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:38000.0", text: "Развлечения"},
+              {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:38000.0", text: "Подарки"}
+            ],
+            [
+              {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:38000.0", text: "Для дома"},
+              {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:38000.0", text: "Коля"}
+            ],
+            [
+              {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:38000.0", text: "Валди"},
+              {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:38000.0", text: "Непредвиденное"}
+            ],
+            [
+              {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:38000.0", text: "Марк"},
+              {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:38000.0", text: "Лиля"}
+            ],
+            [
+              {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:38000.0", text: "Путешествия"},
+              {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:38000.0", text: "Инвестиции, фз"}
+            ],
+            [
+              {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:38000.0", text: "Авто бмоно"},
+              {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:38000.0", text: "Крупные покупки"}
+            ],
+            [
+              {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:38000.0", text: "Капитал"},
+              {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:38000.0", text: "Кэш"}
+            ]
+          ]
+        end
+        let(:result2) do
+          {
+            "result" => {
+              "message_id" => 789123
+            }
+          }
+        end
+
+        before do
+          allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({ total_left_usd_money: 10, total_left_uah_money: 10 })
+          allow(UpdateCommonCurrencyExpenses).to receive(:call)
+        end
+
+        context 'when sum of all prices less than 200 of total_sum_in_receipt' do
+          let(:total_sum_in_receipt) { 52801.0 }
+
+          it 'sends message to bot with prices and categories' do
+            expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 53000.0")
+            expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(15000.0, request_params_1).and_return(result1)
+            expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(38000.0, request_params_2).and_return(result2)
+
+            subject
+          end
+        end
+
+        context 'when total_sum_in_receipt less than 200 of sum all prices' do
+          let(:total_sum_in_receipt) { 53199.0 }
+
+          it 'sends message to bot with prices and categories' do
+            expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 53000.0")
+            expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(15000.0, request_params_1).and_return(result1)
+            expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(38000.0, request_params_2).and_return(result2)
+
+            subject
+          end
+        end
+      end
     end
   end
 end

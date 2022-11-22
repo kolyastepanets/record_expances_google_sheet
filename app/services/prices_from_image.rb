@@ -241,6 +241,10 @@ class PricesFromImage
       add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
 
       if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
+        if !array_of_text.any? { |word| word.count("0-9") > 0 }
+          add_text_to_already_existing_array_of_text!(new_parsed_texts, filtered_texts[index + 1])
+        end
+
         break
       end
     end

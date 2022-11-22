@@ -4,6 +4,8 @@ class HandleInputPhoto
   NIKOLAY_STEPANETS_CHAT_ID = 384435131
   SHOW_ITEMS_PER_LINE = 2
   ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM = 0.5
+  ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM_INDONESIA = 200
+  USUALLY_MIN_SUM_IN_INDONESIA = 50_000
 
   def initialize(message_params)
     @message_params = message_params.deep_symbolize_keys
@@ -24,7 +26,7 @@ class HandleInputPhoto
       @collected_prices, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
     end
 
-    return send_message('не смог распарсить все цены в чеке :(((') if !can_enter_expenses?
+    return send_message("не смог распарсить все цены в чеке :(((, сумма всех цен: #{collected_prices_sum.round(2)}, сумма: #{@total_sum_in_receipt}") if !can_enter_expenses?
 
     send_message("Общая цена в чеке: #{collected_prices_sum}")
 
@@ -141,6 +143,12 @@ class HandleInputPhoto
     return true if collected_prices_sum.round(2) == @total_sum_in_receipt
     return true if (collected_prices_sum.round(2) - @total_sum_in_receipt) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (collected_prices_sum.round(2) - @total_sum_in_receipt).positive?
     return true if (@total_sum_in_receipt - collected_prices_sum.round(2)) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM && (@total_sum_in_receipt - collected_prices_sum.round(2)).positive?
+
+    if collected_prices_sum > USUALLY_MIN_SUM_IN_INDONESIA
+      return true if collected_prices_sum.round(2) == @total_sum_in_receipt
+      return true if (collected_prices_sum.round(2) - @total_sum_in_receipt) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM_INDONESIA && (collected_prices_sum.round(2) - @total_sum_in_receipt).positive?
+      return true if (@total_sum_in_receipt - collected_prices_sum.round(2)) <= ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM_INDONESIA && (@total_sum_in_receipt - collected_prices_sum.round(2)).positive?
+    end
 
     false
   end
