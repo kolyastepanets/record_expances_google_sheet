@@ -82,8 +82,14 @@ class SendMessageToBotToAskToEnterExpences
         callback_data: "remove_messages: #{@id}"
       }
     ]
+    vika_returned_uah = [
+      {
+        text: "Вика вернула гривны на моно",
+        callback_data: "vika:#{@price_in_uah}:#{@id}"
+      }
+    ]
 
-    categories.push(remove_messages)
+    categories.push(remove_messages).push(vika_returned_uah)
   end
 
   def categories_to_show_as_half_expenses

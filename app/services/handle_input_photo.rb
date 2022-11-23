@@ -68,7 +68,7 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
+            HandleHalfCalculatedExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet], index: index)
 
             total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
           end
@@ -79,7 +79,7 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
-            UpdateCellBackgroundColorInExpensesPageAsync.call(response, @should_divide_expenses, index: index)
+            HandleHalfCalculatedExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet], index: index)
 
             total_sum_uah += params_to_save_to_google_sheet[:price_in_uah]
           end
@@ -118,7 +118,7 @@ class HandleInputPhoto
 
     if @currency_to_usd.present?
       # decrease usd saved amount
-      UpdateCommonCurrencyExpenses.call(
+      UpdateCellInGoogleSheet.call(
         calculate_total_spent_usd_and_uah[:total_left_usd_money] - total_sum_usd,
         calculate_total_spent_usd_and_uah[:coordinates_of_total_left_usd_money],
       )
@@ -126,7 +126,7 @@ class HandleInputPhoto
 
     if @currency_to_uah.present?
       # decrease uah spent amount
-      UpdateCommonCurrencyExpenses.call(
+      UpdateCellInGoogleSheet.call(
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,
         calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
       )

@@ -194,7 +194,10 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
           {callback_data: "Кэш: c_id:6mIsfyeVdVbitoSl", text: "Кэш"}
         ],
         [
-          {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"}
+          {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"},
+        ],
+        [
+          {callback_data: "vika:533.62:6mIsfyeVdVbitoSl", text: "Вика вернула гривны на моно"}
         ]
       ]
     end

@@ -1,14 +1,14 @@
-class UpdateCommonCurrencyExpenses < GetOrSetDataInGoogleSheetBase
-  def initialize(money_to_save, coordinates_of_value_to_change, year: Date.today.year)
+class UpdateCellInGoogleSheet < GetOrSetDataInGoogleSheetBase
+  def initialize(money_to_save, coordinates_of_value_to_change, page: Date.today.year)
     @money_to_save = money_to_save
     @coordinates_of_value_to_change = coordinates_of_value_to_change
-    @year = year
+    @page = page
   end
 
   private
 
   def prepare_request_data
-    @range = "#{@year}!#{@coordinates_of_value_to_change}"
+    @range = "#{@page}!#{@coordinates_of_value_to_change}"
     @values = [[@money_to_save]]
   end
 

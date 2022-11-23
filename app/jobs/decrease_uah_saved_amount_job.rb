@@ -6,7 +6,7 @@ class DecreaseUahSavedAmountJob < ApplicationJob
 
     result = CalculateTotalSpentUsdAndUah.call
 
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       result[:total_left_uah_money] - params[:price_in_uah],
       result[:coordinates_of_total_left_uah_money],
     )

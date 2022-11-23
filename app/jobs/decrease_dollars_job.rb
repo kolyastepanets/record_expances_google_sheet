@@ -7,7 +7,7 @@ class DecreaseDollarsJob < ApplicationJob
     result = CalculateTotalSpentUsdAndUah.call
 
     # decrease usd amount
-    UpdateCommonCurrencyExpenses.call(
+    UpdateCellInGoogleSheet.call(
       result[:total_left_usd_money] - params[:dollars],
       result[:coordinates_of_total_left_usd_money],
     )

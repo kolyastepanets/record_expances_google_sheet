@@ -17,6 +17,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
           [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
+          [{ text: 'Сколько ребята должны',  callback_data: 'expenses_to_return_from_vika' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -51,6 +52,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_last_10_transactions_from_mono
     when 'delete_all_todays_messages'
       delete_all_todays_messages
+    when 'expenses_to_return_from_vika'
+      expenses_to_return_from_vika
+    when -> (input_data) { input_data.include?('vika') }
+      vika_returned_uah(data)
     when 'calculate_as_half_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_half_expenses')
       ask_type_of_expenses
@@ -279,11 +284,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     show_total_price_of_products
     if !session[:foreigh_cash_amount].zero?
       result = CalculateForeignCurrencyCashExpenses.call
-      UpdateCommonCurrencyExpenses.call(
+      UpdateCellInGoogleSheet.call(
         result[:spent_foreign_money] + session[:total_price_of_products],
         result[:coordinates_of_value_to_change_spent_foreign_money],
       )
-      UpdateCommonCurrencyExpenses.call(
+      UpdateCellInGoogleSheet.call(
         session[:foreigh_cash_amount],
         result[:coordinates_of_value_to_change_now_foreign_money],
       )
@@ -474,5 +479,20 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def delete_all_todays_messages
     DeleteAllTodaysMessages.call
+  end
+
+  def expenses_to_return_from_vika
+    result = FindCellToEnterVikaHalfExpenses.call
+
+    respond_with(:message, text: "Гривен: #{result[:vika_total_sum_mono]}")
+    respond_with(:message, text: "Рупий: #{result[:vika_total_sum_cash]}")
+  end
+
+  def vika_returned_uah(data)
+    _reserved_word, price_in_uah, transaction_id = data.split(':')
+
+    HandleVikaReturnedMoney.call(price_in_uah, 'uah')
+    params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+    DeleteMessagesJob.perform_later(params[:message_ids].uniq)
   end
 end
