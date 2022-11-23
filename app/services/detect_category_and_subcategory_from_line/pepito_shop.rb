@@ -33,7 +33,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      green_tea? || cherry_juice? || cola?
+      green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice?
     end
 
     def green_tea?
@@ -46,6 +46,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cola?
       @line.include?('coca') && @line.include?('cola')
+    end
+
+    def fruit_juice?
+      @line.include?('fruit') && @line.include?('juice')
+    end
+
+    def andros_juice?
+      @line.include?('andros')
     end
 
     ####
@@ -66,7 +74,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms? || kinder?
+        like_m_and_ms? || kinder? || schogetten?
     end
 
     def magnum_icecream?
@@ -99,6 +107,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kinder?
       @line.include?('kinder')
+    end
+
+    def schogetten?
+      @line.include?('schogetten')
     end
 
     ####
@@ -189,7 +201,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def onion?
-      @line.include?('bawang') && @line.include?('besar')
+      @line.include?('bawang')
     end
 
     def herb?
@@ -358,15 +370,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      rice? || barilla_farfalle?
+      rice? || barilla?
     end
 
     def rice?
       @line.include?('basmati') && @line.include?('rice')
     end
 
-    def barilla_farfalle?
-      @line.include?('barilla') && @line.include?('farfalle')
+    def barilla?
+      @line.include?('barilla')
     end
 
     ####

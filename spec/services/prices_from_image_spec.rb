@@ -683,6 +683,42 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 7', freezed_time: '2022-11-23T03:05:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out21.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      if ENV['PARSE_PRICE_WITH_CATEGORIES']
+        sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+        expect(result).to eq(
+          [
+            [
+              {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>24500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
+              {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>50000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>66000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>40150.0},
+              {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>156300.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>20000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>13410.0},
+              {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>44700.0},
+              {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>13410.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>19328.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>9000.0}
+            ],
+            625698.0,
+            nil
+          ]
+        )
+      else
+      end
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out11.jpeg") }
 
