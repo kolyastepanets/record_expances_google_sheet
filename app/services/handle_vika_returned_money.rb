@@ -1,7 +1,7 @@
 class HandleVikaReturnedMoney
   include CallableService
 
-  MAKE_REQUEST_EVERY = 5.seconds
+  MAKE_REQUEST_EVERY = 10.seconds
 
   def initialize(price, type_returned)
     @price = price
@@ -22,6 +22,10 @@ class HandleVikaReturnedMoney
       vika_total_sum_mono = "= #{result[:vika_total_sum_mono].to_s.split('.')[0]} - #{@price.to_s.split('.')[0]}"
       UpdateCellInGoogleSheet.call(vika_total_sum_mono, result[:vika_total_sum_mono_coordinates])
       UpdateCellInGoogleSheet.call('', result[:vika_total_sum_mono_cells_coordinates])
+
+      # increase uah spent amount
+      result = CalculateTotalSpentUsdAndUah.call
+      UpdateCellInGoogleSheet.call(result[:total_left_uah_money] + @price, result[:coordinates_of_total_left_uah_money])
     end
 
     # if @type_returned == 'cash'
