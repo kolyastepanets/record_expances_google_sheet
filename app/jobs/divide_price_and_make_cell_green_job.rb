@@ -11,8 +11,7 @@ class DividePriceAndMakeCellGreenJob < ApplicationJob
       return
     end
 
-    new_value = value.gsub(/[[:space:]]+/, "")
-    new_value = "= #{new_value.delete('$')} / 2"
+    new_value = "#{value} / 2"
     price_cell = "C#{coordinates_of_value.to_i + 1}"
     UpdateCellInGoogleSheet.call(new_value, price_cell, page: 'Повседневные')
 

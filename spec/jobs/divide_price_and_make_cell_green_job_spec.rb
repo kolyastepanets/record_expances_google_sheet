@@ -6,8 +6,8 @@ RSpec.describe DividePriceAndMakeCellGreenJob do
   let(:coordinates_of_value) { "6424" }
 
   it 'calls FindCellValueInEveryDayExpensesPage, UpdateCellInGoogleSheet, UpdateCellBackgroundColorRequest' do
-    expect(FindCellValueInEveryDayExpensesPage).to receive(:call).with(6425).and_return("$1 000")
-    expect(UpdateCellInGoogleSheet).to receive(:call).with("= 1000 / 2", "C6425", page: 'Повседневные')
+    expect(FindCellValueInEveryDayExpensesPage).to receive(:call).with(6425).and_return("=156300 * 0,0024204 / 37,4406")
+    expect(UpdateCellInGoogleSheet).to receive(:call).with("=156300 * 0,0024204 / 37,4406 / 2", "C6425", page: 'Повседневные')
     expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, "6424", "green")
 
     perform_enqueued_jobs { subject }
