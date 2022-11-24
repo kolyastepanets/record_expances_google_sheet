@@ -33,7 +33,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice?
+      green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice?
     end
 
     def green_tea?
@@ -56,13 +56,17 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('andros')
     end
 
+    def happy_day_juice?
+      @line.include?('happy') && @line.include?('day')
+    end
+
     ####
 
     def spices_and_seasonings?
-      soy_souce? || mayonaise?
+      kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard?
     end
 
-    def soy_souce?
+    def kikko_soy_souce?
       @line.include?('kikko') && @line.include?('asin')
     end
 
@@ -70,11 +74,19 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mayonais')
     end
 
+    def soy_souce?
+      @line.include?('soy') && @line.include?('sauce')
+    end
+
+    def french_mustard?
+      @line.include?('french') && @line.include?('mustard')
+    end
+
     ####
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms? || kinder? || schogetten?
+        like_m_and_ms? || kinder? || schogetten? || nutella?
     end
 
     def magnum_icecream?
@@ -113,6 +125,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('schogetten')
     end
 
+    def nutella?
+      @line.include?('nutella')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -126,7 +142,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? || corn?
+      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? || corn? || red_apple?
     end
 
     def pineapple?
@@ -157,11 +173,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('jagung') && @line.include?('manis')
     end
 
+    def red_apple?
+      @line.include?('red') && @line.include?('apel')
+    end
+
     ####
 
     def vegetables?
       cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
-        carrot? || kale? || onion? || herb? || tomat_cherry?
+        carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
+        tomat_gondol?
     end
 
     def cucumber?
@@ -210,6 +231,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tomat_cherry?
       @line.include?('tomat') && @line.include?('cherry')
+    end
+
+    def parsley?
+      @line.include?('parsley')
+    end
+
+    def daun_dill?
+      @line.include?('daun') && @line.any? { |word| word.include?('diil') }
+    end
+
+    def tomat_gondol?
+      @line.include?('tomat') && @line.include?('gondol')
     end
 
     ####
@@ -295,7 +328,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      marlin? || gravad?
+      marlin? || gravad? || mahi?
     end
 
     def marlin?
@@ -306,11 +339,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('gravad') && @line.include?('lax')
     end
 
+    def mahi?
+      @line.include?('mahi') && @line.include?('fillet')
+    end
+
     ####
 
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
-        mamas_salami? || triple_ham?
+        mamas_salami? || triple_ham? || bernardi_beef?
     end
 
     def mamas_ham?
@@ -343,6 +380,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def triple_ham?
       @line.include?('fores') && @line.include?('triple') && @line.include?('black')
+    end
+
+    def bernardi_beef?
+      @line.include?('bernardi') && @line.include?('beef')
     end
 
     ####
@@ -434,7 +475,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      bataries? || baby_wipes?
+      bataries? || baby_wipes? || another_baby_wipes?
     end
 
     def bataries?
@@ -443,6 +484,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def baby_wipes?
       @line.include?('baby') && @line.include?('wipes')
+    end
+
+    def another_baby_wipes?
+      @line.any? { |word| word.include?('etkins') } && @line.include?('clean')
+    end
+
+    ####
+
+    def pampers?
+      @line.include?('sweety') && @line.include?('pant')
     end
   end
 end

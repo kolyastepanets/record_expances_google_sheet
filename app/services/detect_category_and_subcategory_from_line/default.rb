@@ -70,6 +70,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif home_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Инвентарь'
+      elsif pampers?
+        category_name = 'Марк'
+        sub_category_name = 'Памперсы'
       end
 
       [category_name, sub_category_name]
@@ -135,6 +138,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ready_to_cook?
+    end
+
+    def pampers?
     end
   end
 end
