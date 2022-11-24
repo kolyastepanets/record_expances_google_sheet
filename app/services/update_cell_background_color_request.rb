@@ -64,5 +64,9 @@ class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
     if @color == 'green'
       return { green: 0.8 }
     end
+
+    if @color == 'orange'
+      return { red: 1, green: 0.4 }
+    end
   end
 end

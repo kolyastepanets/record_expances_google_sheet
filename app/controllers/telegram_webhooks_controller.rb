@@ -17,7 +17,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
           [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
-          [{ text: 'Сколько ребята должны',  callback_data: 'expenses_to_return_from_vika' }],
+          [{ text: 'Кто кому сколько должен',  callback_data: 'expenses_to_return_from_vika' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -56,8 +56,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       expenses_to_return_from_vika
     when -> (input_data) { input_data.include?('vika') }
       vika_returned_uah(data)
-    when 'calculate_as_half_expenses'
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_half_expenses')
+    when 'calculate_as_mykola_paid_half_expenses'
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
+      ask_type_of_expenses
+    when 'calculate_as_vika_paid_half_expenses'
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
       ask_type_of_expenses
     when 'calculate_as_our_full_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_our_full_expenses')
@@ -163,7 +166,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
-    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses' ? 'y' : 'n'
+    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_mykola_paid_half_expenses' ? AllConstants::MYKOLA_PAYED : nil
+    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_vika_paid_half_expenses' ? AllConstants::VIKA_PAYED : nil
     PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
 
     remember_total_price_of_products(price_to_calculate)
@@ -252,7 +256,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       reply_markup: {
         inline_keyboard: [
           [{ text: 'Все расходы наши', callback_data: 'calculate_as_our_full_expenses' }],
-          [{ text: 'Расходы пополам', callback_data: 'calculate_as_half_expenses' }],
+          [{ text: 'Микола заплатил (половина)', callback_data: 'calculate_as_mykola_paid_half_expenses' }],
+          [{ text: 'Вика заплатила (половина)', callback_data: 'calculate_as_vika_paid_half_expenses' }],
         ],
       }
     )
@@ -484,15 +489,23 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def expenses_to_return_from_vika
     result = FindCellToEnterVikaHalfExpenses.call
 
-    respond_with(:message, text: "Гривен: #{result[:vika_total_sum_mono]}")
-    respond_with(:message, text: "Рупий: #{result[:vika_total_sum_cash]}")
+    who_should_return = ''
+    if (result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]) > 0
+      who_should_return = "Итого: Вика должна #{result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]} грн"
+    elsif (result[:mykola_total_sum_mono] - result[:vika_total_sum_mono]) > 0
+      who_should_return = "Итого: Микола должен #{result[:mykola_total_sum_mono] - result[:vika_total_sum_mono]} грн"
+    elsif (result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]) == 0
+      who_should_return = 'Никто ничего никому не должен'
+    end
+
+    text = "Вика должна гривен: #{result[:vika_total_sum_mono]}\nМикола должен гривен: #{result[:mykola_total_sum_mono]}\n#{who_should_return}"
+
+    respond_with(:message, text: text)
   end
 
   def vika_returned_uah(data)
-    _reserved_word, price_in_uah, transaction_id = data.split(':')
-
-    HandleVikaReturnedMoney.call(price_in_uah, 'uah')
-    params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
-    DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    HandleVikaReturnedMoney.call(data)
+  rescue HandleVikaReturnedMoney::HandleVikaReturnedMoneyError => e
+    respond_with(:message, text: e.message)
   end
 end
