@@ -197,7 +197,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
           {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"},
         ],
         [
-          {callback_data: "vika:533.62:6mIsfyeVdVbitoSl", text: "Вика вернула гривны на моно"}
+          {callback_data: "vika:533.62:6mIsfyeVdVbitoSl", text: "Вика или Микола вернул(а) гривны на моно"}
         ]
       ]
     end

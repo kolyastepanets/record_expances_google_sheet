@@ -13,7 +13,9 @@ class HandleInputPhoto
     currency_code, currency_rate, should_divide_expenses = @message_params[:caption].split(' ')
     @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
-    @should_divide_expenses = true if should_divide_expenses&.downcase == 'y' || should_divide_expenses&.downcase == 'yes'
+    @should_divide_expenses = should_divide_expenses
+    @mykola_paid = true if should_divide_expenses&.downcase == AllConstants::MYKOLA_PAYED
+    @vika_paid = true if should_divide_expenses&.downcase == AllConstants::VIKA_PAYED
     @params = []
   end
 
@@ -68,7 +70,7 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
-            HandleHalfCalculatedExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet], index: index)
+            WriteDownHalfExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet], index: index)
 
             total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
           end
@@ -79,7 +81,7 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
-            HandleHalfCalculatedExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet], index: index)
+            WriteDownHalfExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet], index: index)
 
             total_sum_uah += params_to_save_to_google_sheet[:price_in_uah]
           end
@@ -124,7 +126,7 @@ class HandleInputPhoto
       )
     end
 
-    if @currency_to_uah.present?
+    if @currency_to_uah.present? && @mykola_paid
       # decrease uah spent amount
       UpdateCellInGoogleSheet.call(
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,

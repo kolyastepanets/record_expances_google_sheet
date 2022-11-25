@@ -1,29 +1,32 @@
-class HandleHalfCalculatedExpensesJob < ApplicationJob
+class WriteDownHalfExpensesJob < ApplicationJob
   queue_as :default
 
-  def perform(sheet_id, line_number_saved_expenses, price_to_enter, month)
+  def perform(sheet_id, line_number_saved_expenses, price_to_enter, month, how_divide_expenses)
     @month = month.to_s
     @price_to_enter = price_to_enter
+    @how_divide_expenses = how_divide_expenses
 
     result = FindCellToEnterVikaHalfExpenses.call
 
-    if month_as_cash?
-      vika_total_sum_cash = result[:vika_total_sum_cash] + detect_cash_price
-      UpdateCellInGoogleSheet.call(vika_total_sum_cash, result[:vika_total_sum_cash_coordinates])
-
-      vika_total_sum_cash_cells = result[:vika_total_sum_cash_cells] + "-#{line_number_saved_expenses}"
-      vika_total_sum_cash_cells = "#{line_number_saved_expenses}" if result[:vika_total_sum_cash_cells].blank?
-      UpdateCellInGoogleSheet.call(vika_total_sum_cash_cells, result[:vika_total_sum_cash_cells_coordinates])
-    else
+    if @how_divide_expenses == AllConstants::MYKOLA_PAYED
       vika_total_sum_mono = result[:vika_total_sum_mono] + detect_mono_price
       UpdateCellInGoogleSheet.call(vika_total_sum_mono, result[:vika_total_sum_mono_coordinates])
 
       vika_total_sum_mono_cells = result[:vika_total_sum_mono_cells] + "-#{line_number_saved_expenses}"
       vika_total_sum_mono_cells = "#{line_number_saved_expenses}" if result[:vika_total_sum_mono_cells].blank?
       UpdateCellInGoogleSheet.call(vika_total_sum_mono_cells, result[:vika_total_sum_mono_cells_coordinates])
+      UpdateCellBackgroundColorRequest.call(sheet_id, line_number_saved_expenses, 'yellow')
     end
 
-    UpdateCellBackgroundColorRequest.call(sheet_id, line_number_saved_expenses, 'yellow')
+    if @how_divide_expenses == AllConstants::VIKA_PAYED
+      mykola_total_sum_mono = result[:mykola_total_sum_mono] + detect_mono_price
+      UpdateCellInGoogleSheet.call(mykola_total_sum_mono, result[:mykola_total_sum_mono_coordinates])
+
+      mykola_total_sum_mono_cells = result[:mykola_total_sum_mono_cells] + "-#{line_number_saved_expenses}"
+      mykola_total_sum_mono_cells = "#{line_number_saved_expenses}" if result[:mykola_total_sum_mono_cells].blank?
+      UpdateCellInGoogleSheet.call(mykola_total_sum_mono_cells, result[:mykola_total_sum_mono_cells_coordinates])
+      UpdateCellBackgroundColorRequest.call(sheet_id, line_number_saved_expenses, 'orange')
+    end
   end
 
   # input:

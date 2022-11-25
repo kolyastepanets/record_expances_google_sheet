@@ -12,9 +12,16 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       price_in_usd_to_put_in_google_sheets,
     )
 
-    should_divide_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
+    how_divide_expenses = case redis.get('how_calculate_expenses_between_us')
+                          when 'calculate_as_mykola_paid_half_expenses'
+                            AllConstants::MYKOLA_PAYED
+                          when 'calculate_as_vika_paid_half_expenses'
+                            AllConstants::VIKA_PAYED
+                          else
+                            nil
+                          end
     redis.del('how_calculate_expenses_between_us')
-    HandleHalfCalculatedExpenses.call(response, should_divide_expenses, price_in_usd_to_put_in_google_sheets)
+    WriteDownHalfExpenses.call(response, how_divide_expenses, price_in_usd_to_put_in_google_sheets)
 
     # decrease uah spent amount
     result = CalculateTotalSpentUsdAndUah.call

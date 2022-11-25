@@ -11,9 +11,16 @@ class PutExpencesFopDollarCardJob < ApplicationJob
       params[:price_in_usd_to_save_in_google_sheet] || price_in_usd,
     )
 
-    should_divide_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_half_expenses'
+    how_divide_expenses = case redis.get('how_calculate_expenses_between_us')
+                          when 'calculate_as_mykola_paid_half_expenses'
+                            AllConstants::MYKOLA_PAYED
+                          when 'calculate_as_vika_paid_half_expenses'
+                            AllConstants::VIKA_PAYED
+                          else
+                            nil
+                          end
     redis.del('how_calculate_expenses_between_us')
-    HandleHalfCalculatedExpenses.call(response, should_divide_expenses, params[:price_in_usd_to_save_in_google_sheet] || price_in_usd)
+    WriteDownHalfExpenses.call(response, how_divide_expenses, params[:price_in_usd_to_save_in_google_sheet] || price_in_usd)
 
     # decrease usd saved amount
     result = CalculateTotalSpentUsdAndUah.call

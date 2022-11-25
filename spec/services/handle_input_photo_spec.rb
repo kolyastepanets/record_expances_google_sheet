@@ -424,11 +424,11 @@ RSpec.describe HandleInputPhoto do
 
             expect(UpdateCellInGoogleSheet).to receive(:call).with(3075.2006314958558, "BC81")
 
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -481,7 +481,7 @@ RSpec.describe HandleInputPhoto do
         end
 
         context 'when uah' do
-          let(:caption) { "Uah 0.00242025 Y" }
+          let(:caption) { "Uah 0.00242025 m" }
 
           it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
@@ -496,11 +496,11 @@ RSpec.describe HandleInputPhoto do
 
             expect(UpdateCellInGoogleSheet).to receive(:call).with(2187.5657499999998, "BC81")
 
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -664,9 +664,9 @@ RSpec.describe HandleInputPhoto do
 
             expect(UpdateCellInGoogleSheet).to receive(:call).with(3094.8690961715565, "BC81")
 
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {
@@ -701,7 +701,7 @@ RSpec.describe HandleInputPhoto do
         end
 
         context 'when uah' do
-          let(:caption) { "Uah 0.00242025" }
+          let(:caption) { "Uah 0.00242025 m" }
 
           it 'calls PutExpensesToGoogleSheet, UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
             allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_uah_money: 3100.0, coordinates_of_total_left_uah_money: "BC81"})
@@ -716,9 +716,9 @@ RSpec.describe HandleInputPhoto do
 
             expect(UpdateCellInGoogleSheet).to receive(:call).with(2911.2205, "BC81")
 
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
-            expect(HandleHalfCalculatedExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
+            expect(WriteDownHalfExpenses).to receive(:call)
 
             expect(SendNotificationMessageToBot).to receive(:call).with(
               {

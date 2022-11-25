@@ -84,7 +84,7 @@ class SendMessageToBotToAskToEnterExpences
     ]
     vika_returned_uah = [
       {
-        text: "Вика вернула гривны на моно",
+        text: "Вика или Микола вернул(а) гривны на моно",
         callback_data: "vika:#{@price_in_uah}:#{@id}"
       }
     ]
