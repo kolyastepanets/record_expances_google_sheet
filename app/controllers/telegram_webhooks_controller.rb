@@ -166,8 +166,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
-    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_mykola_paid_half_expenses' ? AllConstants::MYKOLA_PAYED : nil
-    calculate_as_half_expenses = redis.get('how_calculate_expenses_between_us') == 'calculate_as_vika_paid_half_expenses' ? AllConstants::VIKA_PAYED : nil
+    calculate_as_half_expenses = case redis.get('how_calculate_expenses_between_us')
+                                 when 'calculate_as_mykola_paid_half_expenses'
+                                   AllConstants::MYKOLA_PAYED
+                                 when 'calculate_as_vika_paid_half_expenses'
+                                   AllConstants::VIKA_PAYED
+                                 else
+                                   nil
+                                 end
     PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, calculate_as_half_expenses)
 
     remember_total_price_of_products(price_to_calculate)
