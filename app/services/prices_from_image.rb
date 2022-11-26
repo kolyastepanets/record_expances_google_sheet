@@ -94,7 +94,11 @@ class PricesFromImage
   end
 
   def is_pepito_supermarket?
-    all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepito')
+    all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepito') || express_berawa?
+  end
+
+  def express_berawa?
+    all_text.downcase.include?('berawa') && all_text.downcase.include?('express')
   end
 
   def is_frestive_supermarket?
@@ -255,6 +259,7 @@ class PricesFromImage
   def prepare_texts_for_frestive
     parsed_texts
       .reject { |array_of_text| array_of_text.size <= 3 } # remove  ['1', '@', '115,000'] - it means quantity and full price
+      .reject { |array_of_text| array_of_text.size == 5 && array_of_text.include?('@') } # remove  ["1.016", "@", "39", ",", "000"] - it means quantity and full price
       .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
   end
 

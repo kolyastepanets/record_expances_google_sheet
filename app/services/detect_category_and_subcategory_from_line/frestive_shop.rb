@@ -5,11 +5,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer?
+      beer? || wine?
     end
 
     def beer?
       @line.include?('bintang')
+    end
+
+    def wine?
+      @line.include?('hatten') && @line.include?('rose')
     end
 
     ####
@@ -98,7 +102,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      banana? || apple? || melon?
+      banana? || apple? || melon? || pineapple?
     end
 
     def banana?
@@ -113,11 +117,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('melon') && @line.include?('cantaluope')
     end
 
+    def pineapple?
+      @line.include?('pineapple')
+    end
+
     ####
 
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
-        bonduel_peas? || avocado? || garlic?
+        bonduel_peas? || avocado? || garlic? || rucola?
     end
 
     def potato?
@@ -160,14 +168,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('garlic')
     end
 
+    def rucola?
+      @line.include?('rucola')
+    end
+
     ####
 
     def dairy?
-      cheese? || butter? || milk?
+      cheese? || butter? || milk? || sour_cream? || kefir?
     end
 
     def cheese?
-      ricotta? || slices? || mozarella? || yummy_chese?
+      ricotta? || slices? || mozarella? || yummy_chese? || block?
     end
 
     def ricotta?
@@ -186,18 +198,30 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('yummy') && @line.include?('chese')
     end
 
+    def block?
+      @line.include?('emmental') && @line.include?('block')
+    end
+
     def butter?
-      @line.include?('anchor') && @line.include?('pat')
+      @line.include?('anchor')
     end
 
     def milk?
       @line.include?('greenfields') && @line.include?('fresh')
     end
 
+    def sour_cream?
+      @line.include?('sour') && @line.any? { |word| word.include?('cream') }
+    end
+
+    def kefir?
+      @line.include?('kefir')
+    end
+
     ####
 
     def bread?
-      just_bread? || bread_for_hot_dog?
+      just_bread? || bread_for_hot_dog? || for_wrap?
     end
 
     def just_bread?
@@ -208,10 +232,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('dog') && @line.include?('hot')
     end
 
+    def for_wrap?
+      @line.include?('kawan') && @line.include?('roti')
+    end
+
     ####
 
     def meat?
-      chicken? || chicken_leg?
+      chicken? || chicken_leg? || chicken_2?
     end
 
     def chicken?
@@ -220,6 +248,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_leg?
       @line.include?('paha') && @line.any? { |word| word.include?('bawa') }
+    end
+
+    def chicken_2?
+      @line.include?('paha') && @line.include?('atas')
     end
 
     ####
@@ -272,11 +304,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      tissue?
+      tissue? || kitchen_ware?
     end
 
     def tissue?
       @line.include?('paseo') && (@line.include?('tissue') || @line.include?('soft'))
+    end
+
+    def kitchen_ware?
+      @line.include?('kitchen') && @line.include?('ware')
     end
 
     ####

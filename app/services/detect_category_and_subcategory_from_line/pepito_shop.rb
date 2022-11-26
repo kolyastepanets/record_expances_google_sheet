@@ -249,7 +249,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
-        delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese?
+        delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || greenfields_ricotta_cheese?
     end
 
     def milk?
@@ -291,6 +291,10 @@ module DetectCategoryAndSubcategoryFromLine
     def laughing_cow_cheese?
       @line.any? { |word| word.include?('laughing') } && @line.any? { |word| word.include?('co') } &&
         @line.any? { |word| word.include?('chee') }
+    end
+
+    def greenfields_ricotta_cheese?
+      @line.include?('greenfields') && @line.include?('ricotta')
     end
 
     ####
@@ -494,6 +498,12 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pampers?
       @line.include?('sweety') && @line.include?('pant')
+    end
+
+    ####
+
+    def ready_to_cook?
+      @line.include?('sora') && @line.include?('mozzarela')
     end
   end
 end
