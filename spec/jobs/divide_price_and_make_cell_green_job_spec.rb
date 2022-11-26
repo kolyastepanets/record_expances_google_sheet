@@ -8,7 +8,7 @@ RSpec.describe DividePriceAndMakeCellGreenJob do
   it 'calls FindCellValueInEveryDayExpensesPage, UpdateCellInGoogleSheet, UpdateCellBackgroundColorRequest' do
     expect(FindCellValueInEveryDayExpensesPage).to receive(:call).with(6425).and_return("=156300 * 0,0024204 / 37,4406")
     expect(UpdateCellInGoogleSheet).to receive(:call).with("=156300 * 0,0024204 / 37,4406 / 2", "C6425", page: 'Повседневные')
-    expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, "6424", "green")
+    expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, 6424, 6425, "green")
 
     perform_enqueued_jobs { subject }
   end

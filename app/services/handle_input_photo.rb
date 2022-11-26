@@ -35,6 +35,9 @@ class HandleInputPhoto
     total_sum_usd = 0
     total_sum_uah = 0
 
+    first_cell_number = 0
+    last_cell_number = 0
+
     if ENV['PARSE_PRICE_WITH_CATEGORIES']
       @prices_with_categories.each.with_index(1) do |price_with_category, index|
         current_price = price_with_category[:price]
@@ -42,7 +45,7 @@ class HandleInputPhoto
         price_in_usd = {}
         if @currency_to_usd.present?
           price_in_usd = {
-            price_in_usd: (current_price / @currency_to_usd),
+            price_in_usd: (current_price / @currency_to_usd).round(2),
             price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
           }
         end
@@ -50,7 +53,7 @@ class HandleInputPhoto
         price_in_uah = {}
         if @currency_to_uah.present?
           price_in_uah = {
-            price_in_uah: (current_price * @currency_to_uah),
+            price_in_uah: (current_price * @currency_to_uah).round(2),
             price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
           }
         end
@@ -64,13 +67,16 @@ class HandleInputPhoto
         }
 
         if price_with_category[:category_name].present?
+          sleep(1) # prevent google api sheet limit
           if @currency_to_usd.present?
             response = PutExpensesToGoogleSheet.call(
               params_to_save_to_google_sheet[:category_name],
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
             )
-            WriteDownHalfExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet], index: index)
+            if index == 1
+              first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
+            end
 
             total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
           end
@@ -81,7 +87,9 @@ class HandleInputPhoto
               params_to_save_to_google_sheet[:sub_category_name],
               params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
             )
-            WriteDownHalfExpenses.call(response, @should_divide_expenses, params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet], index: index)
+            if index == 1
+              first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
+            end
 
             total_sum_uah += params_to_save_to_google_sheet[:price_in_uah]
           end
@@ -115,6 +123,14 @@ class HandleInputPhoto
         end
       end
     end
+
+    total_sum_usd = total_sum_usd.round(2)
+    total_sum_uah = total_sum_uah.round(2)
+
+    last_cell_number = first_cell_number + (@prices_with_categories.size - 1)
+    all_cells = (first_cell_number..last_cell_number).to_a
+
+    WriteDownHalfExpenses.call(@should_divide_expenses, all_cells, total_sum_usd, total_sum_uah)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
 
