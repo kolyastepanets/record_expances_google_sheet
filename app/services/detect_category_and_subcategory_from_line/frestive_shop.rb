@@ -114,7 +114,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def melon?
-      @line.include?('melon') && @line.include?('cantaluope')
+      @line.include?('melon')
     end
 
     def pineapple?
@@ -125,7 +125,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
-        bonduel_peas? || avocado? || garlic? || rucola?
+        bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese?
     end
 
     def potato?
@@ -170,6 +170,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def rucola?
       @line.include?('rucola')
+    end
+
+    def cabbage_chinese?
+      @line.include?('cabbage') && @line.include?('chinese')
     end
 
     ####
@@ -221,7 +225,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      just_bread? || bread_for_hot_dog? || for_wrap?
+      just_bread? || bread_for_hot_dog? || for_wrap? || flour?
     end
 
     def just_bread?
@@ -236,10 +240,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('kawan') && @line.include?('roti')
     end
 
+    def flour?
+      @line.include?('kunci') && @line.include?('biru')
+    end
+
     ####
 
     def meat?
-      chicken? || chicken_leg? || chicken_2?
+      chicken? || chicken_leg? || chicken_2? || pork? || bacon?
     end
 
     def chicken?
@@ -252,6 +260,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_2?
       @line.include?('paha') && @line.include?('atas')
+    end
+
+    def pork?
+      @line.include?('pork')
+    end
+
+    def bacon?
+      @line.include?('bacon')
     end
 
     ####
@@ -267,7 +283,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      bernardi? || el_primo?
+      bernardi? || el_primo? || ham?
     end
 
     def bernardi?
@@ -276,6 +292,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def el_primo?
       @line.include?('el') && @line.include?('primo')
+    end
+
+    def ham?
+      @line.include?('cooked') && @line.include?('ham')
     end
 
     ####
@@ -299,26 +319,45 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
+      barilla?
+    end
+
+    def barilla?
+      @line.include?('barilla')
     end
 
     ####
 
     def kitchen_stuff?
-      tissue? || kitchen_ware?
+      tissue? || kitchen_ware? || sponge?
     end
 
     def tissue?
-      @line.include?('paseo') && (@line.include?('tissue') || @line.include?('soft'))
+      @line.include?('paseo') && (@line.include?('tissue') || @line.include?('soft') || @line.include?('white'))
     end
 
     def kitchen_ware?
       @line.include?('kitchen') && @line.include?('ware')
     end
 
+    def sponge?
+      @line.include?('bagus') && @line.include?('bilas')
+    end
+
     ####
 
     def food_bag_or_delivery?
       @line.include?('linds') && @line.include?('tas') && @line.include?('kain')
+    end
+
+    ####
+
+    def bath_stuff?
+      toilet_paper?
+    end
+
+    def toilet_paper?
+      @line.include?('bagus') && @line.include?('klap')
     end
   end
 end

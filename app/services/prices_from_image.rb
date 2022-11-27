@@ -257,10 +257,24 @@ class PricesFromImage
   end
 
   def prepare_texts_for_frestive
-    parsed_texts
-      .reject { |array_of_text| array_of_text.size <= 3 } # remove  ['1', '@', '115,000'] - it means quantity and full price
+    new_parsed_texts = []
+
+    filtered_texts = parsed_texts
+      .reject { |array_of_text| array_of_text.size <= 3 && array_of_text.any? { |word| word.match(/[[:punct:]]/) } && array_of_text.size != 1 } # remove  ['1', '@', '115,000'] - it means quantity and full price
       .reject { |array_of_text| array_of_text.size == 5 && array_of_text.include?('@') } # remove  ["1.016", "@", "39", ",", "000"] - it means quantity and full price
+      .reject { |array_of_text| array_of_text.size == 2 } # remove  ['1', '115,000'] - it means quantity and full price
       .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
+
+    filtered_texts.each.with_index do |array_of_text, index|
+      if is_all_numbers?(array_of_text) && array_of_text.size == 1
+        add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
+        next
+      end
+
+      new_parsed_texts << array_of_text
+    end
+
+    new_parsed_texts
   end
 
   def prepare_texts_for_bali_direct_store

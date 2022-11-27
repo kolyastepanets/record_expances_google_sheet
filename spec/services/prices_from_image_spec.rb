@@ -956,6 +956,43 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 4', freezed_time: '2022-11-27T07:39:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out25.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      if ENV['PARSE_PRICE_WITH_CATEGORIES']
+        sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+        expect(result).to eq(
+          [
+            [
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>31857.0},
+              {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>49500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>37560.0},
+              {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>38080.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>24583.0},
+              {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>29500.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>124533.0},
+              {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>25382.0},
+              {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>17000.0},
+              {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>24000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11410.0},
+              {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>61000.0},
+              {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>13674.0}
+            ],
+            488079.0,
+            nil
+          ]
+        )
+      else
+        sum_of_prices = result[0].sum.round(2)
+        expect(result).to eq([[15000.0, 38000.0, 282500.0, 25000.0, 16500.0, 48000.0, 15000.0, 16000.0, 15000.0, 100000.0, 54000.0, 10000.0, 78213.0, 10220.0, 8308.0, 12050.0, 18000.0, 40000.0, 20000.0, 145500.0, 115000.0, 50000.0, 16000.0, 50000.0, 49000.0, 8927.0, 14560.0, 60500.0, 132000.0, 213000.0, 45900.0, 101536.0, 23762.0, 86458.0, 15953.0, 32500.0], 1982387.0, nil])
+      end
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
