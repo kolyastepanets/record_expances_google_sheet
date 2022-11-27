@@ -28,19 +28,15 @@ class PricesFromImage
       end
 
       matched_price = match_common_price(line)
-      if matched_price
-        if ENV['PARSE_PRICE_WITH_CATEGORIES']
-          category_name, sub_category_name = shop_parse_class.call(line)
+      next if matched_price.nil?
 
-          @categories_with_prices << {
-            category_name: category_name,
-            sub_category_name: sub_category_name,
-            price: matched_price,
-          }
-        else
-          @collected_prices << matched_price
-        end
-      end
+      category_name, sub_category_name = shop_parse_class.call(line)
+
+      @categories_with_prices << {
+        category_name: category_name,
+        sub_category_name: sub_category_name,
+        price: matched_price,
+      }
     end
   end
 
@@ -59,11 +55,7 @@ class PricesFromImage
   end
 
   def return_result
-    if ENV['PARSE_PRICE_WITH_CATEGORIES']
-      [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
-    else
-      [@collected_prices.reject(&:zero?), @total_sum_in_receipt.round(2), @file_id]
-    end
+    [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
   end
 
   def end_line_for_shop?(array_of_words)
