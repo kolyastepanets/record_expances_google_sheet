@@ -5,6 +5,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
 
   def start!(*)
+    set_default_values_in_session!
+
     if from["username"] == "nikolay_stepanets" || from["username"] == "liliya_stepanets"
       respond_with(:message, text: 'Выбери действие:', reply_markup: {
         inline_keyboard: [
@@ -31,9 +33,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     case data
     when 'start_again'
       set_default_values_in_session!
-
       start!
-
     when 'get_current_mono_balance_from_google_sheet'
       get_current_mono_balance_from_google_sheet
     when 'get_current_mono_balance_from_monobank'
@@ -66,6 +66,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       redis.set('how_calculate_expenses_between_us', 'calculate_as_our_full_expenses')
       ask_type_of_expenses
     when 'enter_expenses'
+      set_default_values_in_session!
       ask_half_price_or_full_price
     when 'metro_expenses'
       session[:is_metro] = true
