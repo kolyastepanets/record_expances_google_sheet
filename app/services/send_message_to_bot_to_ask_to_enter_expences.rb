@@ -9,9 +9,9 @@ class SendMessageToBotToAskToEnterExpences
     @id = transaction_data[:id]
     @description = transaction_data[:description]
     @currency_rate = transaction_data[:currency_rate]
-    @price_in_uah = transaction_data[:amount].abs / 100.0 if !transaction_data[:is_fop_dollar]
-    @price_in_usd = transaction_data[:amount].abs / 100.0 if transaction_data[:is_fop_dollar]
-    @operation_amount = transaction_data[:operationAmount].abs / 100.0
+    @price_in_uah = transaction_data[:amount].to_i.abs / 100.0 if !transaction_data[:is_fop_dollar]
+    @price_in_usd = transaction_data[:amount].to_i.abs / 100.0 if transaction_data[:is_fop_dollar]
+    @operation_amount = transaction_data[:operationAmount].to_i.abs / 100.0
     @redis = Redis.new
     @categories = ReceiveCategories.call
   end

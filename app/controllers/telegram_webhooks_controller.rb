@@ -146,8 +146,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     else
       # return help
     end
+
   rescue StandardError => e
-    respond_with(:message, text: "Что то пошло не так: #{e.message}")
+    if Rails.env.production?
+      respond_with(:message, text: "Что то пошло не так: #{e.message}")
+    else
+      raise e
+    end
   end
 
   def save_data_to_google_sheet!(price, *args)
@@ -191,9 +196,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     save_sub_category_to_session!(nil)
     respond_with(:message, text: 'Данные внесены')
     show_categories_to_choose
+
   rescue StandardError => e
-    error_message = "Упс, что-то пошло не так, категория: #{category_name}, подкатегория: #{sub_category_name}, ошибка: #{e.message}"
-    respond_with(:message, text: error_message)
+    if Rails.env.production?
+      error_message = "Упс, что-то пошло не так, категория: #{category_name}, подкатегория: #{sub_category_name}, ошибка: #{e.message}"
+      respond_with(:message, text: error_message)
+    else
+      raise e
+    end
   end
 
   def ask_to_enter_dollar_foreign_currency_exchange_rate

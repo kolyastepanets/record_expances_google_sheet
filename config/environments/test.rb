@@ -38,5 +38,7 @@ Rails.application.configure do
   config.telegram_updates_controller.session_store = :file_store, Rails.root.join('tmp', 'session_store')
 end
 
-Telegram.reset_bots
-Telegram::Bot::ClientStub.stub_all!
+if !ENV['ALLOW_BOT_REAL_REQUEST']
+  Telegram.reset_bots
+  Telegram::Bot::ClientStub.stub_all!
+end

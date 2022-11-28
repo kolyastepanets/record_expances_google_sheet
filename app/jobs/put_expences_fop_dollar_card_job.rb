@@ -34,9 +34,12 @@ class PutExpencesFopDollarCardJob < ApplicationJob
 
     SendNotificationMessageToBot.call(params)
   rescue StandardError => e
-    error_message = { exception: e, message: e.message }
-
-    SendNotificationMessageToBot.call(error_message)
+    if Rails.env.production?
+      error_message = { exception: e, message: e.message }
+      SendNotificationMessageToBot.call(error_message)
+    else
+      raise e
+    end
   end
 
   def redis

@@ -3,7 +3,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
 
   def build_params
     @params = {
-      price_in_uah: @transaction_data[:amount].abs / 100.0,
+      price_in_uah: @transaction_data[:amount].to_i.abs / 100.0,
       **@params,
     }
 
@@ -17,8 +17,8 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def currency_rate
-    price_in_uah = @transaction_data[:amount].abs / 100.0
-    operation_amount = @transaction_data[:operationAmount].abs / 100.0
+    price_in_uah = @transaction_data[:amount].to_i.abs / 100.0
+    operation_amount = @transaction_data[:operationAmount].to_i.abs / 100.0
 
     currency_rate = price_in_uah / operation_amount
     currency_rate = currency_rate.to_s
