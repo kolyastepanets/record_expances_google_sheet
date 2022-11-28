@@ -6,7 +6,7 @@ class CommonExpensesFromWebhook
     @params = {
       category_name: nil,
       sub_category_name: nil,
-      operation_amount: @transaction_data[:operationAmount].abs / 100.0,
+      operation_amount: @transaction_data[:operationAmount].to_i.abs / 100.0,
       current_month: Date.today.month,
       mono_description: @transaction_data[:description],
       currency_rate: currency_rate,
