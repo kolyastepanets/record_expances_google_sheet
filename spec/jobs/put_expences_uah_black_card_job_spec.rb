@@ -23,6 +23,11 @@ RSpec.describe PutExpencesUahBlackCardJob do
       :coordinates_of_total_left_usd_money=>"BQ81"
     }
   end
+  let(:response_after_save_expenses) do
+    OpenStruct.new(
+      table_range: "A5389"
+    )
+  end
 
   context 'when mykola paid' do
     around(:each) do |example|
@@ -32,8 +37,8 @@ RSpec.describe PutExpencesUahBlackCardJob do
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406').and_return(nil)
-      expect(WriteDownHalfExpenses).to receive(:call).with(nil, 'm', '=200,25 / 37,4406')
+      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406').and_return(response_after_save_expenses)
+      expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 0, 200.25)
       expect(UpdateCellInGoogleSheet).to receive(:call).with(16079.75, 'BQ82')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -49,8 +54,8 @@ RSpec.describe PutExpencesUahBlackCardJob do
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406').and_return(nil)
-      expect(WriteDownHalfExpenses).to receive(:call).with(nil, 'v', '=200,25 / 37,4406')
+      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406').and_return(response_after_save_expenses)
+      expect(WriteDownHalfExpenses).to receive(:call).with("v", [5389], 0, 200.25)
       expect(UpdateCellInGoogleSheet).to receive(:call).with(16079.75, 'BQ82')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 

@@ -121,7 +121,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:category_name] = category_name
       params[:message_ids] << payload["message"]["message_id"]
       redis.set(transaction_id, params.to_json, ex: 1.week)
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_half_expenses')
+      redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
 
       transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)

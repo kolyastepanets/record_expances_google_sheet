@@ -20,7 +20,10 @@ class PutExpencesFopDollarCardJob < ApplicationJob
                             nil
                           end
     redis.del('how_calculate_expenses_between_us')
-    WriteDownHalfExpenses.call(response, how_divide_expenses, params[:price_in_usd_to_save_in_google_sheet] || price_in_usd)
+
+    cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
+    total_sum_usd = UsdFloatFromStringPriceToPutInSheets.call(params[:price_in_usd_to_save_in_google_sheet]) || price_in_usd
+    WriteDownHalfExpenses.call(how_divide_expenses, [cell_number], total_sum_usd, 0)
 
     # decrease usd saved amount
     result = CalculateTotalSpentUsdAndUah.call

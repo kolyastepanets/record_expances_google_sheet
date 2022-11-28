@@ -21,7 +21,8 @@ class PutExpencesUahBlackCardJob < ApplicationJob
                             nil
                           end
     redis.del('how_calculate_expenses_between_us')
-    WriteDownHalfExpenses.call(response, how_divide_expenses, price_in_usd_to_put_in_google_sheets)
+    cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
+    WriteDownHalfExpenses.call(how_divide_expenses, [cell_number], 0, price_in_uah)
 
     # decrease uah spent amount
     result = CalculateTotalSpentUsdAndUah.call
