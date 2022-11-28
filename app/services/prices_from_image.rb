@@ -161,7 +161,7 @@ class PricesFromImage
         matched_price = price.match(/\d*\,\d*$/) || price.match(/\d*\.\d*$/)
         matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
 
-        matched_discount = discount.match(/\d*\,\d*$/) || discount.match(/\d*\.\d*$/)
+        matched_discount = discount.match(/\d*\,\d*$/) || discount.match(/\d*\.\d*$/) || discount.match(/\d*$/)
         matched_discount = matched_discount[0].delete(",").delete(".").to_f if !matched_discount.nil?
 
         return matched_price - matched_discount

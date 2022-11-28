@@ -71,7 +71,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mayonaise?
-      @line.include?('mayonais')
+      @line.any? { |word| word.include?('mayonais') }
     end
 
     def soy_souce?
@@ -86,7 +86,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms? || kinder? || schogetten? || nutella?
+        like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls?
     end
 
     def magnum_icecream?
@@ -114,7 +114,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def like_m_and_ms?
-      @line.include?('chacha') && @line.include?('peanut')
+      @line.include?('chacha')
     end
 
     def kinder?
@@ -129,6 +129,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('nutella')
     end
 
+    def halls?
+      @line.include?('halls')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -137,6 +141,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def nescafe?
       @line.include?('nescafe')
+    end
+
+    def zaini?
+      @line.include?('zaini')
     end
 
     ####
@@ -182,7 +190,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
-        tomat_gondol?
+        tomat_gondol? || zuchini?
     end
 
     def cucumber?
@@ -243,6 +251,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tomat_gondol?
       @line.include?('tomat') && @line.include?('gondol')
+    end
+
+    def zuchini?
+      @line.include?('zuchini')
     end
 
     ####
