@@ -50,7 +50,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
-        like_m_and_ms? || lindt? || chacha?
+        like_m_and_ms? || lindt? || chacha? || poule_de_luxe?
     end
 
     def honey?
@@ -78,7 +78,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def like_m_and_ms?
-      @line.include?('delfi') && @line.include?('mini') && @line.include?('toys')
+      @line.include?('delfi')
     end
 
     def lindt?
@@ -87,6 +87,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chacha?
       @line.include?('chacha')
+    end
+
+    def poule_de_luxe?
+      @line.include?('poule') && @line.include?('de')
     end
 
     ####
@@ -183,7 +187,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cheese?
-      ricotta? || slices? || mozarella? || yummy_chese? || block?
+      ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? || bel_cheese?
     end
 
     def ricotta?
@@ -204,6 +208,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def block?
       @line.include?('emmental') && @line.include?('block')
+    end
+
+    def president_gouda?
+      @line.include?('president') && @line.include?('gouda')
+    end
+
+    def bel_cheese?
+      @line.include?('bel') && @line.include?('chese')
     end
 
     def butter?
@@ -283,7 +295,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      bernardi? || el_primo? || ham?
+      bernardi? || el_primo? || ham? || kanzler? || smoke_leg?
     end
 
     def bernardi?
@@ -295,7 +307,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ham?
-      @line.include?('cooked') && @line.include?('ham')
+      @line.include?('ham')
+    end
+
+    def kanzler?
+      @line.include?('kanzler')
+    end
+
+    def smoke_leg?
+      @line.any? { |word| word.include?('smoke') } && @line.any? { |word| word.include?('leg') }
     end
 
     ####
