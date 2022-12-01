@@ -234,7 +234,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def herb?
-      @line.include?('herb') && @line.any? { |word| word.include?('dill') }
+      @line.any? { |word| word.include?('herb') } && @line.any? { |word| word.include?('dill') }
     end
 
     def tomat_cherry?

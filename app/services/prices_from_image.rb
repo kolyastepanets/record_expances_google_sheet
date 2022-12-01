@@ -256,6 +256,7 @@ class PricesFromImage
       .reject { |array_of_text| array_of_text.size == 5 && array_of_text.include?('@') } # remove  ["1.016", "@", "39", ",", "000"] - it means quantity and full price
       .reject { |array_of_text| array_of_text.size == 2 } # remove  ['1', '115,000'] - it means quantity and full price
       .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
+      .reject { |array_of_text| array_of_text.include?('disc') && array_of_text.include?('toko') }
 
     filtered_texts.each.with_index do |array_of_text, index|
       if is_all_numbers?(array_of_text) && array_of_text.size == 1

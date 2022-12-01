@@ -13,7 +13,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def wine?
-      @line.include?('hatten') && @line.include?('rose')
+      @line.include?('hatten')
     end
 
     ####
@@ -25,15 +25,19 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      coca_cola? || rauch_strawberry?
+      coca_cola? || rauch_juice? || mixed_juice?
     end
 
     def coca_cola?
       @line.include?('coca') && @line.include?('cola')
     end
 
-    def rauch_strawberry?
-      @line.include?('rauch') && @line.include?('strawbry')
+    def rauch_juice?
+      @line.include?('rauch')
+    end
+
+    def mixed_juice?
+      @line.include?('mixed') && @line.include?('juice')
     end
 
     ####
@@ -58,7 +62,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def oreo?
-      @line.include?('oreo') && @line.include?('bisc')
+      @line.include?('oreo')
     end
 
     def monggo_chocolate?
@@ -106,7 +110,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      banana? || apple? || melon? || pineapple?
+      banana? || apple? || melon? || pineapple? || watermelon?
     end
 
     def banana?
@@ -114,7 +118,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apple?
-      @line.include?('apple') && @line.include?('ryl')
+      @line.include?('apple')
     end
 
     def melon?
@@ -125,11 +129,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('pineapple')
     end
 
+    def watermelon?
+      @line.include?('watermelon')
+    end
+
     ####
 
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
-        bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese?
+        bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb?
     end
 
     def potato?
@@ -145,7 +153,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tomato?
-      @line.include?('tomato') && @line.include?('cherry')
+      @line.include?('tomato')
     end
 
     def parsley?
@@ -178,6 +186,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cabbage_chinese?
       @line.include?('cabbage') && @line.include?('chinese')
+    end
+
+    def herb?
+      @line.any? { |word| word.include?('herb') } && @line.any? { |word| word.include?('dill') }
     end
 
     ####
@@ -349,11 +361,11 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      tissue? || kitchen_ware? || sponge?
+      tissue? || kitchen_ware? || sponge? || mitu_blue?
     end
 
     def tissue?
-      @line.include?('paseo') && (@line.include?('tissue') || @line.include?('soft') || @line.include?('white'))
+      @line.include?('paseo')
     end
 
     def kitchen_ware?
@@ -362,6 +374,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sponge?
       @line.include?('bagus') && @line.include?('bilas')
+    end
+
+    def mitu_blue?
+      @line.include?('mitu') && @line.include?('blue')
     end
 
     ####
