@@ -59,7 +59,7 @@ class FindCellToEnterVikaHalfExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    vika_total_sum_mono = vika_total_sum_mono.gsub(/[[:space:]]+/, "")
+    vika_total_sum_mono = vika_total_sum_mono.to_s.gsub(/[[:space:]]+/, "")
     vika_total_sum_mono_coordinates = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
@@ -80,14 +80,14 @@ class FindCellToEnterVikaHalfExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    vika_total_sum_cash = vika_total_sum_cash.gsub(/[[:space:]]+/, "")
+    vika_total_sum_cash = vika_total_sum_cash.to_s.gsub(/[[:space:]]+/, "")
     vika_total_sum_cash_coordinates = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
         if value == KEY_FIND_CELL_SPENT_VIKA_TOTAL_SUM_CASH_CELLS
           index_line_to_remember = value_array_index
-          vika_total_sum_cash_cells = value_array[index_value_to_update]
+          vika_total_sum_cash_cells = value_array[index_value_to_update].to_s
         end
       end
     end
@@ -101,7 +101,7 @@ class FindCellToEnterVikaHalfExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    mykola_total_sum_mono = mykola_total_sum_mono.gsub(/[[:space:]]+/, "")
+    mykola_total_sum_mono = mykola_total_sum_mono.to_s.gsub(/[[:space:]]+/, "")
     mykola_total_sum_mono_coordinates = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
