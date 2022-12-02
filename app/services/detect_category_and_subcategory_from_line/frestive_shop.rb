@@ -43,18 +43,22 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      cook_cream?
+      cook_cream? || sunflower_oil?
     end
 
     def cook_cream?
       @line.include?('cook') && @line.include?('cream')
     end
 
+    def sunflower_oil?
+      @line.include?('mazola') && @line.include?('snflwr')
+    end
+
     ####
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
-        like_m_and_ms? || lindt? || chacha? || poule_de_luxe?
+        like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda?
     end
 
     def honey?
@@ -95,6 +99,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def poule_de_luxe?
       @line.include?('poule') && @line.include?('de')
+    end
+
+    def hello_panda?
+      @line.include?('hello') && @line.include?('panda')
     end
 
     ####
