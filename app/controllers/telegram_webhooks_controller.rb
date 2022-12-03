@@ -153,7 +153,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_data_to_google_sheet!(price, *args)
     price_to_put_in_sheets, price_to_calculate = BuildPrice.call(price, session)
 
-    if !session[:receipt_dollar_foreign_currency_exchange_rate].nil?
+    if !session[:receipt_dollar_foreign_currency_exchange_rate].nil? && redis.get('how_calculate_expenses_between_us') != 'calculate_as_vika_paid_half_expenses'
       currency_uah_to_usd = price_to_put_in_sheets.split(" ")[-1].gsub(",", ".").to_f
       price_in_uah = price.to_f / session[:receipt_dollar_foreign_currency_exchange_rate].to_f * currency_uah_to_usd
       price_in_usd = price_to_calculate
@@ -161,7 +161,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       DecreaseUsdSavedAmount.call(price_in_usd)
     end
 
-    if session[:is_grivnas]
+    if session[:is_grivnas] && redis.get('how_calculate_expenses_between_us') != 'calculate_as_vika_paid_half_expenses'
       DecreaseUahSavedAmount.call(price_to_calculate)
     end
 
