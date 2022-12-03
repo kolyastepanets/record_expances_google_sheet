@@ -31,6 +31,14 @@ RSpec.describe UsdFloatFromStringPriceToPutInSheets do
     end
   end
 
+  context 'when price from metro' do
+    let(:price_to_put_in_sheets) { "=(149,0 + 149,0 * 0,2) / 37,4406" }
+
+    it 'return in usd' do
+      expect(subject).to eq(5)
+    end
+  end
+
   context 'when nil' do
     let(:price_to_put_in_sheets) { nil }
 

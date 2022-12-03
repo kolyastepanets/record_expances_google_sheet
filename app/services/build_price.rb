@@ -23,7 +23,7 @@ class BuildPrice
 
     if @session_object[:is_metro]
       price_to_calculate = current_price + current_price * 0.2
-      price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} + #{current_price.to_s.gsub(".", ",")} * #{0.2.to_s.gsub(".", ",")}"
+      price_to_put_in_sheets = "=(#{current_price.to_s.gsub(".", ",")} + #{current_price.to_s.gsub(".", ",")} * #{0.2.to_s.gsub(".", ",")}) / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
     end
 
     if !@session_object[:receipt_foreign_currency_exchange_rate].nil?

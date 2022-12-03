@@ -170,6 +170,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       DecreaseUahSavedAmount.call(price_to_calculate)
     end
 
+    if session[:is_metro]
+      DecreaseUahSavedAmount.call(price_to_calculate)
+    end
+
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
     calculate_as_half_expenses = case redis.get('how_calculate_expenses_between_us')
