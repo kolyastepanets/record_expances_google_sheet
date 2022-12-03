@@ -54,7 +54,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       delete_all_todays_messages
     when 'expenses_to_return_from_vika'
       expenses_to_return_from_vika
-    when -> (input_data) { input_data.include?('vika') }
+    when -> (input_data) { input_data.include?('vika:') }
       vika_returned_uah(data)
     when 'calculate_as_mykola_paid_half_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
