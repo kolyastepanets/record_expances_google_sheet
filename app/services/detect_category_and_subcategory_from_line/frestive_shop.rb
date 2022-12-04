@@ -25,7 +25,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      coca_cola? || rauch_juice? || mixed_juice?
+      coca_cola? || rauch_juice? || mixed_juice? || fanta?
     end
 
     def coca_cola?
@@ -40,10 +40,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mixed') && @line.include?('juice')
     end
 
+    def fanta?
+      @line.include?('fanta')
+    end
+
     ####
 
     def spices_and_seasonings?
-      cook_cream? || sunflower_oil?
+      cook_cream? || sunflower_oil? || mayonaise?
     end
 
     def cook_cream?
@@ -54,11 +58,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mazola') && @line.include?('snflwr')
     end
 
+    def mayonaise?
+      @line.include?('mynais') && @line.include?('kewpie')
+    end
+
     ####
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
-        like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda?
+        like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2?
     end
 
     def honey?
@@ -103,6 +111,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def hello_panda?
       @line.include?('hello') && @line.include?('panda')
+    end
+
+    def honey_2?
+      @line.include?('ldm') && @line.include?('squeezy')
     end
 
     ####
@@ -197,7 +209,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def herb?
-      @line.any? { |word| word.include?('herb') } && @line.any? { |word| word.include?('dill') }
+      @line.any? { |word| word.include?('dill') }
     end
 
     ####
@@ -305,17 +317,21 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna?
+      tuna? || shrimp?
     end
 
     def tuna?
       @line.include?('tuna') && @line.include?('steak')
     end
 
+    def shrimp?
+      @line.include?('shrimp') && @line.include?('fresh')
+    end
+
     ####
 
     def sausage_and_sausages?
-      bernardi? || el_primo? || ham? || kanzler? || smoke_leg?
+      bernardi? || el_primo? || ham? || kanzler? || smoke_leg? || salami?
     end
 
     def bernardi?
@@ -338,10 +354,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.any? { |word| word.include?('smoke') } && @line.any? { |word| word.include?('leg') }
     end
 
+    def salami?
+      @line.include?('mamas') && @line.include?('salam')
+    end
+
     ####
 
     def for_beer?
-      pistachios? || thins? || sunflower_seeds?
+      pistachios? || thins? || sunflower_seeds? || pringles?
     end
 
     def pistachios?
@@ -354,6 +374,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sunflower_seeds?
       @line.include?('snflwrs') && @line.any? { |word| word.include?('seed') }
+    end
+
+    def pringles?
+      @line.include?('pringles')
     end
 
     ####
@@ -402,6 +426,12 @@ module DetectCategoryAndSubcategoryFromLine
 
     def toilet_paper?
       @line.include?('bagus') && @line.include?('klap')
+    end
+
+    ####
+
+    def pampers?
+      @line.include?('makuku') && @line.include?('slim')
     end
   end
 end

@@ -5,6 +5,8 @@
 #
 # USE big numbers so that it will be clear in google sheet it was test
 #
+# clear redis from Monobank currency rates
+#
 # !!! WARNING !!!
 
 require 'rails_helper'
