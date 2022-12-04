@@ -16,6 +16,304 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     allow(DeleteAllTodaysMessages).to receive(:call)
   end
 
+  let(:reply_markup_all_info) do
+    {
+      "reply_markup" => {
+        "inline_keyboard" => [
+          [
+            {
+              "callback_data" => "get_current_mono_balance_from_google_sheet",
+              "text" => "UAH на gsheets"
+            }
+          ],
+          [
+            {
+              "callback_data" => "get_current_mono_balance_from_monobank",
+              "text" => "UAH на monobank"
+            }
+          ],
+          [
+            {
+              "callback_data" => "get_usd_fop_from_google_sheet",
+              "text" => "USD FOP на gsheets"
+            }
+          ],
+          [
+            {
+              "callback_data" => "get_usd_fop_from_monobank",
+              "text" => "USD FOP на monobank"
+            }
+          ],
+          [
+            {
+              "callback_data" => "amount_already_spent",
+              "text" => "Уже потрачено"
+            }
+          ],
+          [
+            {
+              "callback_data" => "total_saved_money_from_google_sheet",
+              "text" => "Total saved money on gsheets"
+            }
+          ],
+          [
+            {
+              "callback_data" => "get_last_3_expenses_in_google_sheet",
+              "text" => "Последние 3 траты в gsheets"
+            }
+          ],
+          [
+            {
+              "callback_data" => "get_last_10_transactions_from_mono",
+              "text" => "Последние 10 транзакций в моно"
+            }
+          ],
+          [
+            {
+              "callback_data" => "delete_all_todays_messages",
+              "text" => "Удалить все текущие сообщения"
+            }
+          ],
+          [
+            {
+              "callback_data" => "expenses_to_return_from_vika",
+              "text" => "Кто кому сколько должен"
+            }
+          ],
+          [
+            {
+              "callback_data" => "enter_expenses",
+              "text" => "Внести расходы"
+            }
+          ],
+          [
+            {
+              "callback_data" => "start_again",
+              "text" => "Главное меню"
+            }
+          ]
+        ]
+      },
+    }
+  end
+  let(:message_from) do
+    {
+      "from" => {
+        "first_name" => "Nikolay",
+        "id" => ENV['MY_TELEGRAM_ID'],
+        "is_bot" => false,
+        "language_code" => "en",
+        "last_name" => "Stepanets",
+        "username" => ENV['MY_USER_NAME']
+      },
+    }
+  end
+  let(:chat) do
+    {
+      "chat" => {
+        "first_name" => "Nikolay",
+        "id" => ENV['MY_TELEGRAM_ID'],
+        "last_name" => "Stepanets",
+        "type" => "private",
+        "username" => ENV['MY_USER_NAME']
+      },
+    }
+  end
+  let(:reply_markup_choosing_type_of_expenses) do
+    {
+      "reply_markup" => {
+        "inline_keyboard" => [
+          [
+            {
+              "callback_data" => "metro_expenses",
+              "text" => "Покупки с метро"
+            }
+          ],
+          [
+            {
+              "callback_data" => "common_expenses",
+              "text" => "Обычные покупки"
+            }
+          ],
+          [
+            {
+              "callback_data" => "receipt_foreign_currency",
+              "text" => "Чек иностранная валюта"
+            }
+          ],
+          [
+            {
+              "callback_data" => "cash_foreign_currency",
+              "text" => "Наличка иностранная валюта"
+            }
+          ],
+          [
+            {
+              "callback_data" => "dollar_card",
+              "text" => "Долларовая карта"
+            }
+          ],
+          [
+            {
+              "callback_data" => "start_again",
+              "text" => "Главное меню"
+            }
+          ]
+        ]
+      },
+    }
+  end
+  let(:reply_markup_choosing_category) do
+    {
+      "reply_markup" => {
+        "inline_keyboard" => [
+          [
+            {
+              "callback_data" => "Транспорт: only_category",
+              "text" => "Транспорт"
+            },
+            {
+              "callback_data" => "Еда: only_category",
+              "text" => "Еда"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Развлечения: only_category",
+              "text" => "Развлечения"
+            },
+            {
+              "callback_data" => "Подарки: only_category",
+              "text" => "Подарки"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Для дома: only_category",
+              "text" => "Для дома"
+            },
+            {
+              "callback_data" => "Коля: only_category",
+              "text" => "Коля"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Валди: only_category",
+              "text" => "Валди"
+            },
+            {
+              "callback_data" => "Непредвиденное: only_category",
+              "text" => "Непредвиденное"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Марк: only_category",
+              "text" => "Марк"
+            },
+            {
+              "callback_data" => "Лиля: only_category",
+              "text" => "Лиля"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Путешествия: only_category",
+              "text" => "Путешествия"
+            },
+            {
+              "callback_data" => "Инвестиции, фз: only_category",
+              "text" => "Инвестиции, фз"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Авто бмоно: only_category",
+              "text" => "Авто бмоно"
+            },
+            {
+              "callback_data" => "Крупные покупки: only_category",
+              "text" => "Крупные покупки"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Капитал: only_category",
+              "text" => "Капитал"
+            },
+            {
+              "callback_data" => "Кэш: only_category",
+              "text" => "Кэш"
+            }
+          ],
+          [
+            {
+              "callback_data" => "finish_remember_total_price_of_products",
+              "text" => "Зак..ть внесение продуктов. Н.ть заново"
+            }
+          ],
+          [
+            {
+              "callback_data" => "start_again",
+              "text" => "Главное меню"
+            }
+          ]
+        ]
+      },
+    }
+  end
+  let(:reply_markup_choosing_subcategory) do
+    {
+      "reply_markup" => {
+        "inline_keyboard" => [
+          [
+            {
+              "callback_data" => "Такси",
+              "text" => "Такси"
+            },
+            {
+              "callback_data" => "Автобус",
+              "text" => "Автобус"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Метро",
+              "text" => "Метро"
+            },
+            {
+              "callback_data" => "Другой",
+              "text" => "Другой"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Поезд",
+              "text" => "Поезд"
+            },
+            {
+              "callback_data" => "Бензин",
+              "text" => "Бензин"
+            }
+          ],
+          [
+            {
+              "callback_data" => "Проездной",
+              "text" => "Проездной"
+            }
+          ],
+          [
+            {
+              "callback_data" => "categor_without_subcategor",
+              "text" => "Без подкатегории"
+            }
+          ]
+        ]
+      },
+    }
+  end
+
   context 'when enter common uah expenses through bot' do
     context 'when vika payed', freezed_time: '2022-12-03T08:31:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
@@ -23,23 +321,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "start_again",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317895074902",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -48,82 +333,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35159,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -135,23 +345,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "enter_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317267389846",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051828,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -160,82 +357,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35160,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -247,23 +369,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "calculate_as_vika_paid_half_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318113433528",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052068,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -305,23 +414,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "common_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317356629958",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052288,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -330,46 +426,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35163,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "metro_expenses",
-                                    "text" => "Покупки с метро"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "common_expenses",
-                                    "text" => "Обычные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "receipt_foreign_currency",
-                                    "text" => "Чек иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "cash_foreign_currency",
-                                    "text" => "Наличка иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "dollar_card",
-                                    "text" => "Долларовая карта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_type_of_expenses,
                     "text" => "как заполнять?"
                 }
             },
@@ -381,23 +438,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052388,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -406,102 +450,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35165,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -513,23 +462,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052463,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -538,52 +474,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35166,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -601,14 +492,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670052690,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35169,
                 "text" => "1000000"
             },
@@ -620,23 +504,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "finish_remember_total_price_of_products",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318519661742",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052694,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -645,102 +516,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35173,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -776,23 +552,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "start_again",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317895074902",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -801,82 +564,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35159,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -888,23 +576,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "enter_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317267389846",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051828,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -913,82 +588,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35160,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -1000,23 +600,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "calculate_as_vika_paid_half_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318113433528",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052068,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1058,23 +645,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "common_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317356629958",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052288,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1083,46 +657,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35163,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "metro_expenses",
-                                    "text" => "Покупки с метро"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "common_expenses",
-                                    "text" => "Обычные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "receipt_foreign_currency",
-                                    "text" => "Чек иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "cash_foreign_currency",
-                                    "text" => "Наличка иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "dollar_card",
-                                    "text" => "Долларовая карта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_type_of_expenses,
                     "text" => "как заполнять?"
                 }
             },
@@ -1134,23 +669,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052388,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1159,102 +681,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35165,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -1266,23 +693,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052463,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1291,52 +705,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35166,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -1354,14 +723,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670052690,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35169,
                 "text" => "1000000"
             },
@@ -1373,23 +735,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318620605451",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071810,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1398,102 +747,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35887,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -1505,23 +759,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315526205282",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1530,52 +771,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35888,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -1593,14 +789,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670072000,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35891,
                 "text" => "10000"
             },
@@ -1612,23 +801,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "finish_remember_total_price_of_products",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318658776636",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670072001,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1637,102 +813,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35895,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -1774,23 +855,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "start_again",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317895074902",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1799,82 +867,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35159,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -1886,23 +879,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "enter_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317267389846",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051828,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -1911,82 +891,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35160,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -1998,23 +903,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "calculate_as_mykola_paid_half_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318113433528",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052068,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2056,23 +948,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "common_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317356629958",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052288,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2081,46 +960,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35163,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "metro_expenses",
-                                    "text" => "Покупки с метро"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "common_expenses",
-                                    "text" => "Обычные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "receipt_foreign_currency",
-                                    "text" => "Чек иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "cash_foreign_currency",
-                                    "text" => "Наличка иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "dollar_card",
-                                    "text" => "Долларовая карта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_type_of_expenses,
                     "text" => "как заполнять?"
                 }
             },
@@ -2132,23 +972,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052388,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2157,102 +984,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35165,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -2264,23 +996,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052463,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2289,52 +1008,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35166,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -2352,14 +1026,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670052690,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35169,
                 "text" => "1000000"
             },
@@ -2371,23 +1038,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318620605451",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071810,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2396,102 +1050,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35887,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -2503,23 +1062,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315526205282",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2528,52 +1074,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35888,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -2591,14 +1092,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670072000,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35891,
                 "text" => "1000000"
             },
@@ -2610,23 +1104,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "finish_remember_total_price_of_products",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318658776636",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670072001,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2635,102 +1116,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35895,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -2772,23 +1158,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "start_again",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317895074902",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2797,82 +1170,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35159,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -2884,23 +1182,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "enter_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317267389846",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051828,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -2909,82 +1194,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35160,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -2996,23 +1206,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "calculate_as_our_full_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318113433528",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052068,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3054,23 +1251,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "common_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317356629958",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052288,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3079,46 +1263,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35163,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "metro_expenses",
-                                    "text" => "Покупки с метро"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "common_expenses",
-                                    "text" => "Обычные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "receipt_foreign_currency",
-                                    "text" => "Чек иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "cash_foreign_currency",
-                                    "text" => "Наличка иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "dollar_card",
-                                    "text" => "Долларовая карта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_type_of_expenses,
                     "text" => "как заполнять?"
                 }
             },
@@ -3130,23 +1275,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052388,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3155,102 +1287,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35165,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -3262,23 +1299,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052463,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3287,52 +1311,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35166,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -3350,14 +1329,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670052690,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35169,
                 "text" => "1000000"
             },
@@ -3369,23 +1341,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318620605451",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071810,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3394,102 +1353,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35887,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -3501,23 +1365,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315526205282",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3526,52 +1377,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35888,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -3589,14 +1395,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670072000,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35891,
                 "text" => "1000000"
             },
@@ -3608,23 +1407,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "finish_remember_total_price_of_products",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318658776636",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670072001,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3633,102 +1419,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35895,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -3770,23 +1461,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "start_again",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317895074902",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3795,82 +1473,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35159,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -3882,23 +1485,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "enter_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317267389846",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670051828,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -3907,82 +1497,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35160,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_google_sheet",
-                                    "text" => "UAH на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_current_mono_balance_from_monobank",
-                                    "text" => "UAH на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_google_sheet",
-                                    "text" => "USD FOP на gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_usd_fop_from_monobank",
-                                    "text" => "USD FOP на monobank"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "amount_already_spent",
-                                    "text" => "Уже потрачено"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "total_saved_money_from_google_sheet",
-                                    "text" => "Total saved money on gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_3_expenses_in_google_sheet",
-                                    "text" => "Последние 3 траты в gsheets"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "get_last_10_transactions_from_mono",
-                                    "text" => "Последние 10 транзакций в моно"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "delete_all_todays_messages",
-                                    "text" => "Удалить все текущие сообщения"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "expenses_to_return_from_vika",
-                                    "text" => "Кто кому сколько должен"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "enter_expenses",
-                                    "text" => "Внести расходы"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_all_info,
                     "text" => "Выбери действие:"
                 }
             },
@@ -3994,23 +1509,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "calculate_as_our_full_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318113433528",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052068,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4052,23 +1554,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "metro_expenses",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136317356629958",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052288,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4077,46 +1566,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35163,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "metro_expenses",
-                                    "text" => "Покупки с метро"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "common_expenses",
-                                    "text" => "Обычные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "receipt_foreign_currency",
-                                    "text" => "Чек иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "cash_foreign_currency",
-                                    "text" => "Наличка иностранная валюта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "dollar_card",
-                                    "text" => "Долларовая карта"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_type_of_expenses,
                     "text" => "как заполнять?"
                 }
             },
@@ -4128,23 +1578,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052388,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4153,102 +1590,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35165,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -4260,23 +1602,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670052463,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4285,52 +1614,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35166,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -4348,14 +1632,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670052690,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35169,
                 "text" => "1000000"
             },
@@ -4367,23 +1644,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Транспорт: only_category",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318620605451",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071810,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4392,102 +1656,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35887,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
@@ -4499,23 +1668,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "Такси",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136315526205282",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670071818,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4524,52 +1680,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35888,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Такси",
-                                    "text" => "Такси"
-                                },
-                                {
-                                    "callback_data" => "Автобус",
-                                    "text" => "Автобус"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Метро",
-                                    "text" => "Метро"
-                                },
-                                {
-                                    "callback_data" => "Другой",
-                                    "text" => "Другой"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Поезд",
-                                    "text" => "Поезд"
-                                },
-                                {
-                                    "callback_data" => "Бензин",
-                                    "text" => "Бензин"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Проездной",
-                                    "text" => "Проездной"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "categor_without_subcategor",
-                                    "text" => "Без подкатегории"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
             },
@@ -4587,14 +1698,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                     "username" => ENV['MY_USER_NAME']
                 },
                 "date" => 1670072000,
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "message_id" => 35891,
                 "text" => "1000000"
             },
@@ -4606,23 +1710,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
                 "data" => "finish_remember_total_price_of_products",
-                "from" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "is_bot" => false,
-                    "language_code" => "en",
-                    "last_name" => "Stepanets",
-                    "username" => ENV['MY_USER_NAME']
-                },
+                **message_from,
                 "id" => "1651136318658776636",
                 "message" => {
-                    "chat" => {
-                        "first_name" => "Nikolay",
-                        "id" => ENV['MY_TELEGRAM_ID'],
-                        "last_name" => "Stepanets",
-                        "type" => "private",
-                        "username" => ENV['MY_USER_NAME']
-                    },
+                    **chat,
                     "date" => 1670072001,
                     "from" => {
                         "first_name" => ENV['BOT_NAME'],
@@ -4631,102 +1722,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                         "username" => ENV['BOT_USER_NAME']
                     },
                     "message_id" => 35895,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "Транспорт: only_category",
-                                    "text" => "Транспорт"
-                                },
-                                {
-                                    "callback_data" => "Еда: only_category",
-                                    "text" => "Еда"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Развлечения: only_category",
-                                    "text" => "Развлечения"
-                                },
-                                {
-                                    "callback_data" => "Подарки: only_category",
-                                    "text" => "Подарки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Для дома: only_category",
-                                    "text" => "Для дома"
-                                },
-                                {
-                                    "callback_data" => "Коля: only_category",
-                                    "text" => "Коля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Валди: only_category",
-                                    "text" => "Валди"
-                                },
-                                {
-                                    "callback_data" => "Непредвиденное: only_category",
-                                    "text" => "Непредвиденное"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Марк: only_category",
-                                    "text" => "Марк"
-                                },
-                                {
-                                    "callback_data" => "Лиля: only_category",
-                                    "text" => "Лиля"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Путешествия: only_category",
-                                    "text" => "Путешествия"
-                                },
-                                {
-                                    "callback_data" => "Инвестиции, фз: only_category",
-                                    "text" => "Инвестиции, фз"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Авто бмоно: only_category",
-                                    "text" => "Авто бмоно"
-                                },
-                                {
-                                    "callback_data" => "Крупные покупки: only_category",
-                                    "text" => "Крупные покупки"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "Капитал: only_category",
-                                    "text" => "Капитал"
-                                },
-                                {
-                                    "callback_data" => "Кэш: only_category",
-                                    "text" => "Кэш"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "finish_remember_total_price_of_products",
-                                    "text" => "Зак..ть внесение продуктов. Н.ть заново"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "start_again",
-                                    "text" => "Главное меню"
-                                }
-                            ]
-                        ]
-                    },
+                    **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
             },
