@@ -56,7 +56,7 @@ RSpec.describe BuildPrice do
     end
 
     it 'returns prices' do
-      expect(subject).to eq(["=83,25 / 37,4995", 83.25])
+      expect(subject).to eq(["=45 * 1,85 / 37,4995", 83.25])
     end
   end
 

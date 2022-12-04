@@ -28,7 +28,7 @@ class BuildPrice
 
     if !@session_object[:receipt_foreign_currency_exchange_rate].nil?
       price_to_calculate = @session_object[:receipt_foreign_currency_exchange_rate] * current_price
-      price_to_put_in_sheets = "=#{price_to_calculate.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      price_to_put_in_sheets = "=#{@session_object[:receipt_foreign_currency_exchange_rate].to_s.gsub(".", ",")} * #{current_price.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
     end
 
     if !@session_object[:receipt_dollar_foreign_currency_exchange_rate].nil?
