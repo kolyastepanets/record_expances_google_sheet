@@ -30,10 +30,8 @@ RSpec.describe PutExpencesUahBlackCardJob do
   end
 
   context 'when mykola paid' do
-    around(:each) do |example|
+    before do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
-      example.run
-      Redis.new.del('how_calculate_expenses_between_us')
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
@@ -47,10 +45,8 @@ RSpec.describe PutExpencesUahBlackCardJob do
   end
 
   context 'when vika paid' do
-    around(:each) do |example|
+    before do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
-      example.run
-      Redis.new.del('how_calculate_expenses_between_us')
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do

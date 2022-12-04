@@ -98,6 +98,8 @@ GEM
       railties (>= 5.0.0)
     faker (2.22.0)
       i18n (>= 1.8.11, < 2)
+    fakeredis (0.8.0)
+      redis (~> 4.1)
     faraday (2.5.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -303,6 +305,7 @@ DEPENDENCIES
   capistrano3-puma
   factory_bot_rails
   faker
+  fakeredis
   faraday
   figaro
   google-apis-sheets_v4 (= 0.10.0)

@@ -18,8 +18,7 @@ RSpec.describe BuildDollarForeignCurrencyFormulaPrice do
     end
 
     before do
-      redis = Redis.new
-      redis.set("currency_rates", currency_rates.to_json, ex: 10.seconds)
+      Redis.new.set("currency_rates", currency_rates.to_json)
     end
 
     it 'build formula for google sheet' do
@@ -33,9 +32,9 @@ RSpec.describe BuildDollarForeignCurrencyFormulaPrice do
     end
 
     it 'saves to redis' do
-      expect(Redis.new.get("currency_rates")).to_not be_nil
-
       subject
+
+      expect(Redis.new.get("currency_rates")).to_not be_nil
     end
   end
 end

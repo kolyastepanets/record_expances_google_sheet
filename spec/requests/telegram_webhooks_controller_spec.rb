@@ -5,8 +5,6 @@
 #
 # USE big numbers so that it will be clear in google sheet it was test
 #
-# clear redis from Monobank currency rates
-#
 # !!! WARNING !!!
 
 require 'rails_helper'
@@ -317,7 +315,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when metro expenses' do
-    context 'when all our metro expenses 2 times', freezed_time: '2022-12-03T13:36:00+00:00', perform_enqueued: true do
+    context 'when all our metro expenses 2 times', freezed_time: '2022-12-04T09:29:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -622,7 +620,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when common expenses' do
-    context 'when vika payed', freezed_time: '2022-12-03T08:31:00+00:00', perform_enqueued: true do
+    context 'when vika payed', freezed_time: '2022-12-04T09:30:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -853,7 +851,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika payed 2 times', freezed_time: '2022-12-03T12:56:00+00:00', perform_enqueued: true do
+    context 'when vika payed 2 times', freezed_time: '2022-12-04T09:31:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1156,7 +1154,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola payed 2 times', freezed_time: '2022-12-03T13:04:00+00:00', perform_enqueued: true do
+    context 'when mykola payed 2 times', freezed_time: '2022-12-04T09:32:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1459,7 +1457,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when all our expenses 2 times', freezed_time: '2022-12-03T13:07:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2022-12-04T09:34:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1764,7 +1762,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when uah in foreign currency expenses' do
-    context 'when all our receipt foreigh currency expenses 2 times', freezed_time: '2022-12-04T02:29:00+00:00', perform_enqueued: true do
+    context 'when all our receipt foreigh currency expenses 2 times', freezed_time: '2022-12-04T09:34:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
