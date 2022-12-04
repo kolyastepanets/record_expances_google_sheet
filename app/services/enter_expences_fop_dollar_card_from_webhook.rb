@@ -3,7 +3,7 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
 
   def build_params
     @params = {
-      price_in_usd: @transaction_data[:amount].abs / 100.0,
+      price_in_usd: @transaction_data[:amount].to_i.abs / 100.0,
       **@params,
     }
 
@@ -12,20 +12,20 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
     if @transaction_data[:description] == sold_dollars_from_fop
       @params = {
         sold_dollars_from_fop: true,
-        grivnas: @transaction_data[:operationAmount].abs / 100.0,
-        dollars: @transaction_data[:amount].abs / 100.0,
+        grivnas: @transaction_data[:operationAmount].to_i.abs / 100.0,
+        dollars: @transaction_data[:amount].to_i.abs / 100.0,
       }
     end
     if @transaction_data[:description] == sold_dollars_to_uah_fop_for_taxes
       @params = {
         sold_dollars_to_uah_fop_for_taxes: true,
-        dollars: @transaction_data[:amount].abs / 100.0,
+        dollars: @transaction_data[:amount].to_i.abs / 100.0,
       }
     end
     if @transaction_data[:description].downcase.include?(swift_salary)
       @params = {
         swift_salary: true,
-        dollars: @transaction_data[:amount].abs / 100.0,
+        dollars: @transaction_data[:amount].to_i.abs / 100.0,
       }
     end
   end
@@ -52,8 +52,8 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def currency_rate
-    price_in_usd = @transaction_data[:amount].abs / 100.0
-    operation_amount = @transaction_data[:operationAmount].abs / 100.0
+    price_in_usd = @transaction_data[:amount].to_i.abs / 100.0
+    operation_amount = @transaction_data[:operationAmount].to_i.abs / 100.0
 
     currency_rate = operation_amount / price_in_usd
     currency_rate = currency_rate.to_s
