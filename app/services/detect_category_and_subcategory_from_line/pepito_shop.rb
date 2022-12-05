@@ -21,7 +21,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def wine?
-      @line.include?('hatten')
+      @line.include?('hatten') || (@line.include?('dolce') && @line.include?('plaga'))
     end
 
     ####
@@ -99,7 +99,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
-        like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy?
+        like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
+        super_shrooms?
     end
 
     def magnum_icecream?
@@ -152,6 +153,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def peachy?
       @line.include?('peachy')
+    end
+
+    def super_shrooms?
+      @line.include?('supershrooms')
     end
 
     ####
