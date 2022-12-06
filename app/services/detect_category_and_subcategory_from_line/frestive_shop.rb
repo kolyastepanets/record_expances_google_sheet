@@ -66,7 +66,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
-        like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2?
+        like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
+        nutella? || schogetten?
     end
 
     def honey?
@@ -115,6 +116,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def honey_2?
       @line.include?('ldm') && @line.include?('squeezy')
+    end
+
+    def nutella?
+      @line.include?('nutella')
+    end
+
+    def schogetten?
+      @line.include?('schogtn')
     end
 
     ####

@@ -1151,6 +1151,42 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 9', freezed_time: '2022-12-06T05:05:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out33.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>39879.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>39900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>40455.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>148000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>82000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>59500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>58500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>9000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>18320.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>18000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>133934.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>22145.0},
+            {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>22000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>25000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>5500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14500.0}
+          ],
+          793133.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
