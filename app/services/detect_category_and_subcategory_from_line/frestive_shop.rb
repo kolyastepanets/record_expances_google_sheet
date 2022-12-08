@@ -25,7 +25,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      coca_cola? || rauch_juice? || mixed_juice? || fanta?
+      coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice?
     end
 
     def coca_cola?
@@ -44,10 +44,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('fanta')
     end
 
+    def jungle_juice?
+      @line.include?('jungle') && @line.include?('jc')
+    end
+
     ####
 
     def spices_and_seasonings?
-      cook_cream? || sunflower_oil? || mayonaise?
+      cook_cream? || sunflower_oil? || mayonaise? || mustard?
     end
 
     def cook_cream?
@@ -60,6 +64,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mayonaise?
       @line.include?('mynais') && @line.include?('kewpie')
+    end
+
+    def mustard?
+      @line.include?('french') && @line.any? { |word| word.include?('mstd') }
     end
 
     ####
@@ -166,7 +174,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
-        bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb?
+        bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
+        eggplant_purple?
     end
 
     def potato?
@@ -219,6 +228,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def herb?
       @line.any? { |word| word.include?('dill') }
+    end
+
+    def eggplant_purple?
+      @line.include?('eggplant') && @line.include?('purple')
     end
 
     ####
@@ -378,7 +391,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def thins?
-      @line.include?('thins') && @line.include?('chives')
+      @line.include?('thins')
     end
 
     def sunflower_seeds?

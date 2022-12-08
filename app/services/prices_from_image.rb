@@ -252,7 +252,7 @@ class PricesFromImage
     new_parsed_texts = []
 
     filtered_texts = parsed_texts
-      .reject { |array_of_text| array_of_text.size <= 3 && array_of_text.any? { |word| word.match(/[[:punct:]]/) } && array_of_text.size != 1 } # remove  ['1', '@', '115,000'] - it means quantity and full price
+      .reject { |array_of_text| array_of_text.size <= 3 && array_of_text.any? { |word| word.match(/[[:punct:]&&[^,]]/) } && array_of_text.size != 1 } # remove  ['1', '@', '115,000'] - it means quantity and full price
       .reject { |array_of_text| array_of_text.size == 5 && array_of_text.include?('@') } # remove  ["1.016", "@", "39", ",", "000"] - it means quantity and full price
       .reject { |array_of_text| array_of_text.size == 2 } # remove  ['1', '115,000'] - it means quantity and full price
       .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
