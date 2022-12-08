@@ -34,7 +34,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
-        berri_juice?
+        berri_juice? || bottle_of_water?
     end
 
     def green_tea?
@@ -63,6 +63,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def berri_juice?
       @line.include?('berri') && @line.include?('juice')
+    end
+
+    def bottle_of_water?
+      @line.include?('aqua') && @line.include?('btl')
     end
 
     ####
@@ -100,7 +104,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
-        super_shrooms?
+        super_shrooms? || hello_kitty?
     end
 
     def magnum_icecream?
@@ -159,6 +163,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('supershrooms')
     end
 
+    def hello_kitty?
+      @line.include?('hello') && @line.include?('kitty')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -180,7 +188,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? || corn? || red_apple?
+      pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
+        corn? || red_apple? || pear?
     end
 
     def pineapple?
@@ -188,7 +197,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mango?
-      @line.include?('mangga') && @line.include?('gdong')
+      @line.include?('mangga')
     end
 
     def dragon_fruit?
@@ -213,6 +222,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def red_apple?
       @line.include?('red') && @line.include?('apel')
+    end
+
+    def pear?
+      @line.include?('pear') && @line.include?('packam')
     end
 
     ####
@@ -568,7 +581,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def pampers?
+      sweety? || merries?
+    end
+
+    def sweety?
       @line.include?('sweety') && @line.include?('pant')
+    end
+
+    def merries?
+      @line.include?('merries') && @line.any? { |word| word.include?('good') }
     end
 
     ####
