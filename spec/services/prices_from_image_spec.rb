@@ -373,7 +373,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 1', freezed_time: '2022-11-06T04:22:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out06.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out06.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -410,7 +410,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 2', freezed_time: '2022-11-18T08:56:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out07.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out07.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -463,7 +463,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 3', freezed_time: '2022-11-17T01:31:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out16.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out16.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -513,7 +513,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 4', freezed_time: '2022-11-18T01:37:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out17.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out17.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -540,7 +540,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 5', freezed_time: '2022-11-18T08:20:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out18.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out18.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -573,7 +573,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 6', freezed_time: '2022-11-22T01:34:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out20.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out20.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -612,7 +612,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 7', freezed_time: '2022-11-23T03:05:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out21.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out21.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -645,7 +645,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 8', freezed_time: '2022-11-24T02:17:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out22.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out22.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -689,7 +689,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 9', freezed_time: '2022-11-26T07:53:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out23.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out23.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -712,7 +712,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 10', freezed_time: '2022-11-28T05:14:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out26.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out26.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -748,7 +748,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 11', freezed_time: '2022-12-01T08:03:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out29.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out29.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -794,7 +794,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 12', freezed_time: '2022-12-05T07:54:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out32.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out32.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -817,7 +817,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 13', freezed_time: '2022-12-08T03:05:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out35.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out35.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -855,7 +855,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt pepito 14', freezed_time: '2022-12-11T09:14:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out36.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/pepito/out36.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -885,7 +885,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out11.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -940,7 +940,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 2', freezed_time: '2022-11-20T03:04:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out19.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out19.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -992,7 +992,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 3', freezed_time: '2022-11-26T07:58:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out24.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out24.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1034,7 +1034,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 4', freezed_time: '2022-11-27T07:39:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out25.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out25.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1066,7 +1066,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 5', freezed_time: '2022-11-29T09:07:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out27.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out27.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1105,7 +1105,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 6', freezed_time: '2022-12-01T03:14:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out28.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out28.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1147,7 +1147,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 7', freezed_time: '2022-12-02T08:49:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out30.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out30.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1174,7 +1174,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 8', freezed_time: '2022-12-04T08:45:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out31.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out31.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1220,7 +1220,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 9', freezed_time: '2022-12-06T05:05:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out33.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out33.jpeg") }
 
     it 'return 3 values' do
       result = subject
@@ -1256,7 +1256,7 @@ RSpec.describe PricesFromImage, vcr: true do
   end
 
   context 'when receipt frestive 10', freezed_time: '2022-12-08T01:40:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/out34.jpeg") }
+    let(:get_telegram_image) { File.read("spec/images/frestive/out34.jpeg") }
 
     it 'return 3 values' do
       result = subject
