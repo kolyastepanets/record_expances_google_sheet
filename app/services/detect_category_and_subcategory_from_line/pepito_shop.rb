@@ -309,7 +309,7 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
-        diamond_cheddar?
+        diamond_cheddar? || sour_cream?
     end
 
     def milk?
@@ -361,6 +361,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('diamond') && @line.include?('cheddar')
     end
 
+    def sour_cream?
+      @line.include?('yummy') && @line.include?('sour') && @line.include?('cream')
+    end
+
     ####
 
     def bread?
@@ -368,7 +372,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def donut?
-      @line.any? { |word| word.include?('onut') } && @line.include?('sprinkle')
+      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple'))
     end
 
     def bread_sticks?
@@ -415,7 +419,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
-        mamas_salami? || triple_ham? || bernardi_beef?
+        mamas_salami? || triple_ham? || bernardi_beef? || nurnberg?
     end
 
     def mamas_ham?
@@ -452,6 +456,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bernardi_beef?
       @line.include?('bernardi') && @line.include?('beef')
+    end
+
+    def nurnberg?
+      @line.include?('nuernbrgr')
     end
 
     ####
