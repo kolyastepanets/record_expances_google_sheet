@@ -147,7 +147,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      banana? || apple? || melon? || pineapple? || watermelon?
+      banana? || apple? || melon? || pineapple? || watermelon? || mango?
     end
 
     def banana?
@@ -168,6 +168,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def watermelon?
       @line.include?('watermelon')
+    end
+
+    def mango?
+      @line.include?('mango')
     end
 
     ####
@@ -237,7 +241,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      cheese? || butter? || milk? || sour_cream? || kefir?
+      cheese? || butter? || milk? || sour_cream? || kefir? || yogurt?
     end
 
     def cheese?
@@ -286,6 +290,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kefir?
       @line.include?('kefir')
+    end
+
+    def yogurt?
+      @line.include?('greenfields') && @line.include?('yg')
     end
 
     ####
