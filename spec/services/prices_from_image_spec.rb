@@ -1297,8 +1297,8 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  context 'when receipt frestive 11', freezed_time: '2022-12-11T09:32:00+00:00' do
-    let(:get_telegram_image) { File.read("spec/images/frestive/out35.jpeg") }
+  context 'when receipt frestive 11', freezed_time: '2022-12-11T09:52:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out36.jpg") }
 
     it 'return 3 values' do
       result = subject

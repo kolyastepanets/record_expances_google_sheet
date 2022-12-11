@@ -259,8 +259,11 @@ class PricesFromImage
       .reject { |array_of_text| array_of_text.include?('disc') && array_of_text.include?('toko') }
 
     filtered_texts.each.with_index do |array_of_text, index|
-      if is_all_numbers?(array_of_text) && array_of_text.size == 1
+      if is_all_numbers?(array_of_text) && array_of_text.size == 1 && last_element_is_not_number?(new_parsed_texts)
         add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
+        next
+      end
+      if is_all_numbers?(array_of_text) && array_of_text.size == 1
         next
       end
 
@@ -268,6 +271,10 @@ class PricesFromImage
     end
 
     new_parsed_texts
+  end
+
+  def last_element_is_not_number?(new_parsed_texts)
+    new_parsed_texts[-1][-1].to_f == 0.00
   end
 
   def prepare_texts_for_bali_direct_store
