@@ -21,7 +21,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def wine?
-      @line.include?('hatten') || (@line.include?('dolce') && @line.include?('plaga'))
+      @line.include?('hatten') || @line.include?('plaga')
     end
 
     ####
