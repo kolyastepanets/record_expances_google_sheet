@@ -75,7 +75,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
-        nutella? || schogetten?
+        nutella? || schogetten? || cookies? || kit_kat?
     end
 
     def honey?
@@ -134,6 +134,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('schogtn')
     end
 
+    def cookies?
+      @line.include?('hllo') && @line.include?('pnda')
+    end
+
+    def kit_kat?
+      @line.include?('kit') && @line.include?('kat')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -179,7 +187,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
-        eggplant_purple?
+        eggplant_purple? || cucumber?
     end
 
     def potato?
@@ -236,6 +244,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def eggplant_purple?
       @line.include?('eggplant') && @line.include?('purple')
+    end
+
+    def cucumber?
+      @line.include?('kyuri')
     end
 
     ####
@@ -385,7 +397,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def salami?
-      @line.include?('mamas') && @line.include?('salam')
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('salam') }
     end
 
     ####
