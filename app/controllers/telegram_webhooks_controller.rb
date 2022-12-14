@@ -7,7 +7,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def start!(*)
     set_default_values_in_session!
 
-    if from["username"] == "nikolay_stepanets" || from["username"] == "liliya_stepanets"
+    if from["username"] == ENV['MY_USER_NAME']
       respond_with(:message, text: 'Выбери действие:', reply_markup: {
         inline_keyboard: [
           [{ text: 'UAH на gsheets', callback_data: 'get_current_mono_balance_from_google_sheet' }],
