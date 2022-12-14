@@ -10,12 +10,12 @@ class HandleInputPhoto
   def initialize(message_params)
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
-    currency_code, currency_rate, should_divide_expenses = @message_params[:caption].split(' ')
+    currency_code, currency_rate, who_paid = @message_params[:caption].split(' ')
     @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
-    @should_divide_expenses = should_divide_expenses
-    @mykola_paid = true if should_divide_expenses&.downcase == AllConstants::MYKOLA_PAYED
-    @vika_paid = true if should_divide_expenses&.downcase == AllConstants::VIKA_PAYED
+    @who_paid = who_paid&.downcase
+    @mykola_paid = true if @who_paid == AllConstants::MYKOLA_PAYED
+    @vika_paid = true if @who_paid == AllConstants::VIKA_PAYED
     @params = []
   end
 
@@ -68,6 +68,7 @@ class HandleInputPhoto
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
             params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
+            @who_paid,
           )
           if index == 1
             first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
@@ -81,6 +82,7 @@ class HandleInputPhoto
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
             params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
+            @who_paid,
           )
           if index == 1
             first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
@@ -112,7 +114,7 @@ class HandleInputPhoto
     last_cell_number = first_cell_number + (@prices_with_categories.size - 1)
     all_cells = (first_cell_number..last_cell_number).to_a
 
-    WriteDownHalfExpenses.call(@should_divide_expenses, all_cells, total_sum_usd, total_sum_uah)
+    WriteDownHalfExpenses.call(@who_paid, all_cells, total_sum_usd, total_sum_uah)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
 

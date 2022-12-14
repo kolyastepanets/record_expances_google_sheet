@@ -380,7 +380,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         }
       end
 
-      it 'saves to google sheet', freezed_time: '2022-12-04T13:58:00+00:00', perform_enqueued: true do
+      it 'saves to google sheet', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)
@@ -442,7 +442,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         allow(DeleteMessagesJob).to receive(:perform_later)
       end
 
-      it 'asks bot and saves to google sheet', freezed_time: '2022-12-04T13:31:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
@@ -453,7 +453,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         expect(response.status).to eq(200)
       end
 
-      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-04T13:47:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
@@ -512,7 +512,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         }
       end
 
-      it 'saves to google sheet', freezed_time: '2022-12-04T14:20:00+00:00', perform_enqueued: true do
+      it 'saves to google sheet', freezed_time: '2022-12-14T09:22:00+00:00', perform_enqueued: true do
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)
       end
@@ -683,7 +683,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         allow(DeleteMessagesJob).to receive(:perform_later)
       end
 
-      it 'asks bot and saves to google sheet', freezed_time: '2022-12-05T01:38:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet', freezed_time: '2022-12-14T09:26:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
@@ -694,7 +694,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         expect(response.status).to eq(200)
       end
 
-      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-05T01:38:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-14T09:26:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category

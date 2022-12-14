@@ -6,23 +6,25 @@ class PutExpencesUahBlackCardJob < ApplicationJob
     price_in_uah = params[:price_in_uah]
     price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
 
+    who_paid = case redis.get('how_calculate_expenses_between_us')
+               when 'calculate_as_mykola_paid_half_expenses'
+                 AllConstants::MYKOLA_PAYED
+               when 'calculate_as_vika_paid_half_expenses'
+                AllConstants::VIKA_PAYED
+               else
+                 nil
+               end
+
     response = PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
       price_in_usd_to_put_in_google_sheets,
+      who_paid,
     )
 
-    how_divide_expenses = case redis.get('how_calculate_expenses_between_us')
-                          when 'calculate_as_mykola_paid_half_expenses'
-                            AllConstants::MYKOLA_PAYED
-                          when 'calculate_as_vika_paid_half_expenses'
-                            AllConstants::VIKA_PAYED
-                          else
-                            nil
-                          end
     redis.del('how_calculate_expenses_between_us')
     cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
-    WriteDownHalfExpenses.call(how_divide_expenses, [cell_number], 0, price_in_uah)
+    WriteDownHalfExpenses.call(who_paid, [cell_number], 0, price_in_uah)
 
     # decrease uah spent amount
     result = CalculateTotalSpentUsdAndUah.call

@@ -36,7 +36,7 @@ RSpec.describe PutExpencesFopDollarCardJob do
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0").and_return(response_after_save_expenses)
+      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0", "m").and_return(response_after_save_expenses)
       expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 1, 0)
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
@@ -55,7 +55,7 @@ RSpec.describe PutExpencesFopDollarCardJob do
       end
 
       it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
-        expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', 100).and_return(response_after_save_expenses)
+        expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', 100, "m").and_return(response_after_save_expenses)
         expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 100, 0)
         expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
         expect(SendNotificationMessageToBot).to receive(:call).with(params)
@@ -71,7 +71,7 @@ RSpec.describe PutExpencesFopDollarCardJob do
     end
 
     it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0").and_return(response_after_save_expenses)
+      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0", "v").and_return(response_after_save_expenses)
       expect(WriteDownHalfExpenses).to receive(:call).with("v", [5389], 1, 0)
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
