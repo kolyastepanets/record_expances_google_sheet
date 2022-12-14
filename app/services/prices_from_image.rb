@@ -144,7 +144,7 @@ class PricesFromImage
       index_of_total_word = line.map(&:downcase).find_index('total')
       string_price = line.select.with_index { |word, index| index > index_of_total_word }.join
 
-      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
+      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/)) || string_price.match(/\d*$/)
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
     end

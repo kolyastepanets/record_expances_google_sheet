@@ -187,7 +187,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
-        eggplant_purple? || cucumber?
+        eggplant_purple? || cucumber? || asparagus?
     end
 
     def potato?
@@ -250,6 +250,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('kyuri')
     end
 
+    def asparagus?
+      @line.include?('asparagus')
+    end
+
     ####
 
     def dairy?
@@ -269,7 +273,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mozarella?
-      @line.include?('bella') && @line.include?('mozza')
+      (@line.include?('bella') && @line.include?('mozza')) || @line.include?('mozarella')
     end
 
     def yummy_chese?
@@ -359,7 +363,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna? || shrimp?
+      tuna? || shrimp? || barramundi?
     end
 
     def tuna?
@@ -368,6 +372,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def shrimp?
       @line.include?('shrimp') && @line.include?('fresh')
+    end
+
+    def barramundi?
+      @line.include?('barramundi')
     end
 
     ####
