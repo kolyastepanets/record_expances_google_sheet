@@ -73,6 +73,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif pampers?
         category_name = 'Марк'
         sub_category_name = 'Памперсы'
+      elsif mark_toys?
+        category_name = 'Марк'
+        sub_category_name = 'Игрушки'
       end
 
       [category_name, sub_category_name]
@@ -141,6 +144,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pampers?
+    end
+
+    def mark_toys?
     end
   end
 end

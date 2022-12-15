@@ -34,7 +34,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
-        berri_juice? || bottle_of_water?
+        berri_juice? || bottle_of_water? || mineral_water?
     end
 
     def green_tea?
@@ -69,10 +69,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('aqua') && @line.include?('btl')
     end
 
+    def mineral_water?
+      @line.include?('mineral') && @line.include?('water')
+    end
+
     ####
 
     def spices_and_seasonings?
-      kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar?
+      kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
+        oil?
     end
 
     def kikko_soy_souce?
@@ -99,12 +104,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('gula') && @line.include?('putih')
     end
 
+    def oil?
+      @line.include?('ext') && @line.include?('virgin')
+    end
+
     ####
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
-        super_shrooms? || hello_kitty?
+        super_shrooms? || hello_kitty? || jelly?
     end
 
     def magnum_icecream?
@@ -152,7 +161,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def zaini?
-      @line.include?('zaini')
+      @line.any? { |word| word.include?('zaini') }
     end
 
     def peachy?
@@ -165,6 +174,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def hello_kitty?
       @line.include?('hello') && @line.include?('kitty')
+    end
+
+    def jelly?
+      @line.include?('jelly') && @line.include?('berries')
     end
 
     ####
@@ -189,7 +202,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
-        corn? || red_apple? || pear?
+        corn? || red_apple? || pear? || plum? || orange?
     end
 
     def pineapple?
@@ -225,7 +238,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pear?
-      @line.include?('pear') && @line.include?('packam')
+      @line.include?('pear')
+    end
+
+    def plum?
+      @line.include?('red') && @line.include?('plum')
+    end
+
+    def orange?
+      @line.include?('jeruk') && @line.include?('murcot')
     end
 
     ####
@@ -233,7 +254,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
-        tomat_gondol? || zuchini? || red_onion?
+        tomat_gondol? || zuchini? || red_onion? || beans?
     end
 
     def cucumber?
@@ -241,7 +262,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pepper?
-      @line.include?('paprika') && @line.include?('hij')
+      @line.include?('paprika')
     end
 
     def tomato?
@@ -302,6 +323,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def zuchini?
       @line.include?('zuchini')
+    end
+
+    def beans?
+      @line.include?('buncis')
     end
 
     ####
@@ -368,7 +393,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      donut? || bread_sticks? || toast?
+      donut? || bread_sticks? || toast? || wrap?
     end
 
     def donut?
@@ -381,6 +406,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def toast?
       @line.any? { |word| word.include?('toast') }
+    end
+
+    def wrap?
+      @line.include?('rositas') && @line.include?('borrito')
     end
 
     ####
@@ -491,7 +520,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      rice? || barilla? || oats?
+      rice? || barilla? || oats? || peas? || vermicelli?
     end
 
     def rice?
@@ -504,6 +533,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def oats?
       @line.include?('australia') && @line.include?('harvest')
+    end
+
+    def peas?
+      @line.include?('mckenzies') && @line.include?('yellow')
+    end
+
+    def vermicelli?
+      @line.include?('rice') && @line.include?('vermicelli')
     end
 
     ####
@@ -571,7 +608,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      bataries? || baby_wipes? || another_baby_wipes?
+      bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai?
     end
 
     def bataries?
@@ -584,6 +621,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def another_baby_wipes?
       @line.any? { |word| word.include?('etkins') } && @line.include?('clean')
+    end
+
+    def energizer?
+      @line.include?('energizer')
+    end
+
+    def baterai?
+      @line.include?('baterai') && @line.include?('biru')
     end
 
     ####
@@ -604,6 +649,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def ready_to_cook?
       @line.include?('sora') && @line.include?('mozzarela')
+    end
+
+    ####
+
+    def mark_toys?
+      bubbles?
+    end
+
+    def bubbles?
+      @line.include?('yasuka')
     end
   end
 end
