@@ -1,8 +1,6 @@
 class WriteDownHalfExpenses
   include CallableService
 
-  EVERY_DAY_EXPENSES_PAGE = 2079267030
-
   def initialize(how_divide_expenses, all_cells, total_sum_usd, total_sum_uah)
     @how_divide_expenses = how_divide_expenses
     @all_cells = all_cells
@@ -33,7 +31,7 @@ class WriteDownHalfExpenses
       UpdateCellInGoogleSheet.call(mykola_total_sum_mono_cells, result[:mykola_total_sum_mono_cells_coordinates])
     end
 
-    UpdateCellBackgroundColorRequest.call(EVERY_DAY_EXPENSES_PAGE, @all_cells[0], (@all_cells[-1] + 1), color)
+    UpdateCellBackgroundColorRequest.call(ENV['EVERY_DAY_EXPENSES_PAGE'], @all_cells[0], (@all_cells[-1] + 1), color)
   end
 
   private

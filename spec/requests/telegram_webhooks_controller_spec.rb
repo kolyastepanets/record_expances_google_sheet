@@ -620,7 +620,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when common expenses' do
-    context 'when vika payed', freezed_time: '2022-12-14T09:31:00+00:00', perform_enqueued: true do
+    context 'when vika payed', freezed_time: '2022-12-16T13:53:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -851,7 +851,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika payed 2 times', freezed_time: '2022-12-14T09:32:00+00:00', perform_enqueued: true do
+    context 'when vika payed 2 times', freezed_time: '2022-12-16T13:56:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1154,7 +1154,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola payed 2 times', freezed_time: '2022-12-14T09:33:00+00:00', perform_enqueued: true do
+    context 'when mykola payed 2 times', freezed_time: '2022-12-16T13:58:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -2085,7 +2085,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-14T09:38:00+00:00', perform_enqueued: true do
+    context 'when mykola paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-16T14:00:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -2408,7 +2408,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-14T09:39:00+00:00', perform_enqueued: true do
+    context 'when vika paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-16T14:02:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3056,7 +3056,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2022-12-14T09:41:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2022-12-16T14:03:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3379,7 +3379,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2022-12-14T09:43:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2022-12-16T14:06:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3704,7 +3704,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when dollar card' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-14T09:45:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2022-12-16T14:08:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -4027,7 +4027,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2022-12-14T09:48:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2022-12-16T14:08:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -4350,7 +4350,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2022-12-14T09:50:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2022-12-16T14:09:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {

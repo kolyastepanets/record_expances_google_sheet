@@ -1,7 +1,6 @@
 class HandleInputPhoto
   include CallableService
 
-  NIKOLAY_STEPANETS_CHAT_ID = 384435131
   SHOW_ITEMS_PER_LINE = 2
   ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM = 0.5
   ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM_INDONESIA = 200
@@ -64,10 +63,12 @@ class HandleInputPhoto
       if price_with_category[:category_name].present?
         sleep(1) # prevent google api sheet limit
         if @currency_to_usd.present?
+          price_to_put_in_sheets = @who_paid.nil? ? params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet] : "#{params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet]} / 2"
+
           response = PutExpensesToGoogleSheet.call(
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
-            params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet],
+            price_to_put_in_sheets,
             @who_paid,
           )
           if index == 1
@@ -78,10 +79,12 @@ class HandleInputPhoto
         end
 
         if @currency_to_uah.present?
+          price_to_put_in_sheets = @who_paid.nil? ? params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet] : "#{params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet]} / 2"
+
           response = PutExpensesToGoogleSheet.call(
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
-            params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet],
+            price_to_put_in_sheets,
             @who_paid,
           )
           if index == 1
@@ -157,14 +160,14 @@ class HandleInputPhoto
 
   def send_message(text)
     Telegram.bot.send_message(
-      chat_id: NIKOLAY_STEPANETS_CHAT_ID,
+      chat_id: ENV['MY_TELEGRAM_ID'],
       text: text,
     )
   end
 
   def send_message_with_categories(price, categories_to_show)
     Telegram.bot.send_message(
-      chat_id: NIKOLAY_STEPANETS_CHAT_ID,
+      chat_id: ENV['MY_TELEGRAM_ID'],
       text: "Выбери категорию чтобы сохранить для #{price}:",
       reply_markup: { inline_keyboard:  categories_to_show },
     )

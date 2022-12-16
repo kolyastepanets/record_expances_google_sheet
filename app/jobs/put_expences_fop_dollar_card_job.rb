@@ -13,11 +13,13 @@ class PutExpencesFopDollarCardJob < ApplicationJob
                else
                  nil
                end
+    price_to_put_in_sheets = params[:price_in_usd_to_save_in_google_sheet] || "=#{price_in_usd.to_s.gsub(".", ",")}"
+    price_to_put_in_sheets = "#{price_to_put_in_sheets} / 2" if !who_paid.nil?
 
     response = PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
-      params[:price_in_usd_to_save_in_google_sheet] || price_in_usd,
+      price_to_put_in_sheets,
       who_paid
     )
 
