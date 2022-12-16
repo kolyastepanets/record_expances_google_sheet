@@ -57,7 +57,7 @@ class EnterSalaryFromSwift
   end
 
   def coordinates_to_enter_left_usd_and_usd
-    @coordinates_to_enter_left_usd_and_usd ||= CalculateTotalSpentUsdAndUah.call(month: @month_to_enter)
+    @coordinates_to_enter_left_usd_and_usd ||= CalculateTotalSpentUsdAndUah.call(month: @month_to_enter, year: year_sheet)
   end
 
   def enter_left_usd_fop

@@ -3,11 +3,16 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_LEFT_USD_MONEY = "Осталось ФОП моно $".freeze
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
-  def initialize(month: Date.today.month)
+  def initialize(month: Date.today.month, year: Date.today.year)
     @current_month = month
+    @year = year
   end
 
   private
+
+  def prepare_request_data
+    @range = "#{@year}!A#{start_line_to_search}:CJ#{end_line_to_search}"
+  end
 
   def end_line_to_search
     110

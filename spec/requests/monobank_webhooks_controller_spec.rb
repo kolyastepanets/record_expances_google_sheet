@@ -552,7 +552,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
       end
     end
 
-    xcontext 'when swift salary goes to the next year' do
+    context 'when swift salary goes to the next year', freezed_time: '2022-12-16T04:32:00+00:00', perform_enqueued: true do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
