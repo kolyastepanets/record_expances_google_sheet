@@ -20,6 +20,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
           [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
           [{ text: 'Кто кому сколько должен',  callback_data: 'expenses_to_return_from_vika' }],
+          [{ text: 'Info current month',  callback_data: 'info_current_month' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -54,6 +55,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       delete_all_todays_messages
     when 'expenses_to_return_from_vika'
       expenses_to_return_from_vika
+    when 'info_current_month'
+      info_current_month
     when -> (input_data) { input_data.include?('vika:') }
       vika_returned_uah(data)
     when 'calculate_as_mykola_paid_half_expenses'
@@ -528,5 +531,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     HandleVikaReturnedMoney.call(data)
   rescue HandleVikaReturnedMoney::HandleVikaReturnedMoneyError => e
     respond_with(:message, text: e.message)
+  end
+
+  def info_current_month
+    respond_with(:message, text: "```#{FindCellsCurrentMonth.call}```", parse_mode: :MarkdownV2)
   end
 end
