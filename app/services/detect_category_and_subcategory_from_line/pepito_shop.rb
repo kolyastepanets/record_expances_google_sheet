@@ -546,7 +546,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      paseo? || some_stuff? || sponge? || montis? || soap? || handsoap?
+      paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap?
     end
 
     def paseo?
@@ -571,6 +571,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def handsoap?
       @line.include?('dettol') && @line.include?('energi')
+    end
+
+    def another_soap?
+      @line.include?('lifebuoy') && @line.include?('soap')
     end
 
     ####
