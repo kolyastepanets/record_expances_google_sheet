@@ -286,7 +286,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def get_usd_from_wise
-    respond_with(:message, text: TakeWiseSavedAmount.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula])
+    total_sum = TakeWiseSavedAmount.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
+    respond_with(:message, text: "on wise: $#{total_sum}")
   end
 
   def total_saved_money_from_google_sheet
