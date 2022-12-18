@@ -7,7 +7,7 @@ class WriteDownHalfExpenses
     @how_divide_expenses = how_divide_expenses
     @all_cells = all_cells
     @all_cells_to_save = all_cells.join('-')
-    @total_sum_price = calculate_total_sum(total_sum_usd, total_sum_uah)
+    @total_sum_price = calculate_total_sum(total_sum_usd || 0, total_sum_uah || 0)
   end
 
   def call

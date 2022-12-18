@@ -43,7 +43,7 @@ RSpec.describe UsdFloatFromStringPriceToPutInSheets do
     let(:price_to_put_in_sheets) { nil }
 
     it 'return in usd' do
-      expect(subject).to eq(0)
+      expect(subject).to be_nil
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe UsdFloatFromStringPriceToPutInSheets do
     let(:price_to_put_in_sheets) { "" }
 
     it 'return in usd' do
-      expect(subject).to eq(0)
+      expect(subject).to be_nil
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe UsdFloatFromStringPriceToPutInSheets do
     let(:price_to_put_in_sheets) { "=10000,0" }
 
     it 'return in usd' do
-      expect(subject).to eq(0)
+      expect(subject).to be_nil
     end
   end
 end
