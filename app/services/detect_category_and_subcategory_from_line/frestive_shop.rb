@@ -25,7 +25,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice?
+      coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
+        aqua_water?
     end
 
     def coca_cola?
@@ -46,6 +47,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jungle_juice?
       @line.include?('jungle') && @line.include?('jc')
+    end
+
+    def nestle_water?
+      @line.include?('nestle') && @line.include?('600ml')
+    end
+
+    def aqua_water?
+      @line.include?('aqua') && @line.include?('water')
     end
 
     ####
@@ -187,7 +196,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
-        eggplant_purple? || cucumber? || asparagus?
+        eggplant_purple? || cucumber? || asparagus? || green_onion?
     end
 
     def potato?
@@ -254,14 +263,20 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('asparagus')
     end
 
+    def green_onion?
+      @line.include?('daun') && @line.include?('bawang') && @line.include?('besar')
+    end
+
     ####
 
     def dairy?
-      cheese? || butter? || milk? || sour_cream? || kefir? || yogurt?
+      cheese? || butter? || milk? || sour_cream? || kefir? || yogurt? || sour_cream_2? ||
+        plain_yogurt?
     end
 
     def cheese?
-      ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? || bel_cheese?
+      ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
+        bel_cheese? || baros_gouda?
     end
 
     def ricotta?
@@ -292,6 +307,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bel') && @line.include?('chese')
     end
 
+    def baros_gouda?
+      @line.include?('baros') && @line.include?('gouda')
+    end
+
     def butter?
       @line.include?('anchor')
     end
@@ -310,6 +329,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def yogurt?
       @line.include?('greenfields') && @line.include?('yg')
+    end
+
+    def sour_cream_2?
+      @line.include?('yummy') && @line.include?('creme')
+    end
+
+    def plain_yogurt?
+      @line.include?('plain') && @line.include?('yogurt')
     end
 
     ####
@@ -337,7 +364,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken? || chicken_leg? || chicken_2? || pork? || bacon?
+      chicken? || chicken_leg? || chicken_2? || pork? || bacon? || beef?
     end
 
     def chicken?
@@ -358,6 +385,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bacon?
       @line.include?('bacon')
+    end
+
+    def beef?
+      @line.include?('beef')
     end
 
     ####
@@ -411,7 +442,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def for_beer?
-      pistachios? || thins? || sunflower_seeds? || pringles?
+      pistachios? || thins? || sunflower_seeds? || pringles? || cashewnuts? || some_seeds?
     end
 
     def pistachios?
@@ -428,6 +459,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pringles?
       @line.include?('pringles')
+    end
+
+    def cashewnuts?
+      @line.include?('cashewnuts')
+    end
+
+    def some_seeds?
+      @line.include?('rebo') && @line.include?('kuaci')
     end
 
     ####
