@@ -4978,4 +4978,84 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
   end
+
+  context 'when wise salary', freezed_time: '2022-12-18T08:07:00+00:00', perform_enqueued: true do
+    let(:telegram_bot_params_main_menu) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "start_again",
+              **message_from,
+              "id" => "1651136317895074902",
+              "message" => {
+                  **chat,
+                  "date" => 1670051818,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35159,
+                  **reply_markup_all_info,
+                  "text" => "Выбери действие:"
+              }
+          },
+          "update_id" => 20479563
+      }
+    end
+    let(:telegram_bot_params_enter_wise_salary) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "enter_wise_salary",
+              **message_from,
+              "id" => "1651136317267389846",
+              "message" => {
+                  **chat,
+                  "date" => 1670051828,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35160,
+                  **reply_markup_all_info,
+                  "text" => "Enter wise salary:"
+              }
+          },
+          "update_id" => 20479564
+      }
+    end
+    let(:telegram_bot_params_wise_salary) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670052690,
+              **message_from,
+              "message_id" => 35169,
+              "text" => "1000000"
+          },
+          "update_id" => 20479570
+      }
+    end
+
+    it 'saves wise salary to page total savings' do
+      # main menu
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+      # choose wise salary
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_wise_salary
+      # enter salary
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_salary
+
+      expect(response.status).to eq(200)
+    end
+  end
 end

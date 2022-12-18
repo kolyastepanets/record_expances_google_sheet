@@ -21,7 +21,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
           [{ text: 'Кто кому сколько должен',  callback_data: 'expenses_to_return_from_vika' }],
           [{ text: 'Info current month',  callback_data: 'info_current_month' }],
-          # [{ text: 'Enter wise salary',  callback_data: 'enter_wise_salary' }],
+          [{ text: 'Enter wise salary',  callback_data: 'enter_wise_salary' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -58,6 +58,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       expenses_to_return_from_vika
     when 'info_current_month'
       info_current_month
+    when 'enter_wise_salary'
+      ask_to_enter_wise_salary
     when -> (input_data) { input_data.include?('vika:') }
       vika_returned_uah(data)
     when 'calculate_as_mykola_paid_half_expenses'
@@ -258,6 +260,16 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleInputPhotoJob.perform_later(message)
     respond_with(:message, text: 'Началась обработка фото...')
+  end
+
+  def ask_to_enter_wise_salary
+    save_context(:save_wise_salary!)
+    respond_with(:message, text: 'Enter wise salary:')
+  end
+
+  def save_wise_salary!(wise_salary, *args)
+    IncreaseWiseUsdSavedAmountJob.perform_later(wise_salary)
+    respond_with(:message, text: 'Wise salary has been saved')
   end
 
   private
