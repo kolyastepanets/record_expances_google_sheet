@@ -8,7 +8,7 @@ class BuildPrice
 
   def call
     current_price = @price.to_f
-    price_to_put_in_sheets = current_price
+    price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")}"
     price_to_calculate = current_price
 
     if @session_object[:is_grivnas]

@@ -15,7 +15,7 @@ RSpec.describe BuildPrice do
   end
 
   it 'returns prices' do
-    expect(subject).to eq([1.85, 1.85])
+    expect(subject).to eq(["=1,85", 1.85])
   end
 
   context 'when foreigh_cash_amount' do

@@ -14,7 +14,8 @@ class UsdFloatFromStringPriceToPutInSheets
   #
   # output: 5
   def call
-    return if @price_to_put_in_sheets.blank?
+    return 0 if @price_to_put_in_sheets.blank?
+    return 0 if !@price_to_put_in_sheets.include?('/')
 
     price = @price_to_put_in_sheets.delete('=')
     first_part, divide_by = price.split('/')

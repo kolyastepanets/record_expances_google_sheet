@@ -21,6 +21,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
           [{ text: 'Кто кому сколько должен',  callback_data: 'expenses_to_return_from_vika' }],
           [{ text: 'Info current month',  callback_data: 'info_current_month' }],
+          # [{ text: 'Enter wise salary',  callback_data: 'enter_wise_salary' }],
           [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
@@ -86,6 +87,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_to_enter_left_foreign_cash
     when 'dollar_card'
       ask_to_enter_dollar_foreign_currency_exchange_rate
+    when 'wise'
+      session[:is_wise] = true
+      start_remember_total_price_of_products
+      show_categories_to_choose
     when -> (input_category) { input_category.include?('only_category') }
       category_name = data.split(': ')[0]
       show_sub_categories_by_category(category_name)
@@ -175,6 +180,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     if session[:is_metro]
       DecreaseUahSavedAmount.call(price_to_calculate)
+    end
+
+    if session[:is_wise]
+      DecreaseWiseUsdSavedAmountJob.perform_later(price_to_calculate)
     end
 
     sub_category_name = session[:last_chosen_sub_category]
@@ -288,6 +297,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def ask_type_of_expenses
+    wise_expenses = {}
+    wise_expenses = { text: 'Wise',  callback_data: 'wise' } if redis.get('how_calculate_expenses_between_us') == 'calculate_as_our_full_expenses'
+
     respond_with(
       :message,
       text: 'как заполнять?',
@@ -298,6 +310,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Чек иностранная валюта',  callback_data: 'receipt_foreign_currency' }],
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
           [{ text: 'Долларовая карта',  callback_data: 'dollar_card' }],
+          [**wise_expenses],
           [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
       }
@@ -469,6 +482,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def set_default_values_in_session!
+    session[:is_wise] = nil
     session[:is_grivnas] = nil
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
