@@ -173,15 +173,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       price_in_uah = price.to_f / session[:receipt_dollar_foreign_currency_exchange_rate].to_f * currency_uah_to_usd
       price_in_usd = price_to_calculate
 
-      DecreaseUsdSavedAmount.call(price_in_usd)
+      DecreaseUsdSavedAmountJob.perform_later({ price_in_usd: price_in_usd })
     end
 
     if session[:is_grivnas] && redis.get('how_calculate_expenses_between_us') != 'calculate_as_vika_paid_half_expenses'
-      DecreaseUahSavedAmount.call(price_to_calculate)
+      DecreaseUahSavedAmountJob.perform_later({ price_in_uah: price_to_calculate })
     end
 
     if session[:is_metro]
-      DecreaseUahSavedAmount.call(price_to_calculate)
+      DecreaseUahSavedAmountJob.perform_later({ price_in_uah: price_to_calculate })
     end
 
     if session[:is_wise]
