@@ -14,6 +14,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'UAH на monobank', callback_data: 'get_current_mono_balance_from_monobank' }],
           [{ text: 'USD FOP на gsheets', callback_data: 'get_usd_fop_from_google_sheet' }],
           [{ text: 'USD FOP на monobank', callback_data: 'get_usd_fop_from_monobank' }],
+          [{ text: 'Wise', callback_data: 'get_usd_from_wise' }],
           [{ text: 'Уже потрачено', callback_data: 'amount_already_spent' }],
           [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
           [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
@@ -44,6 +45,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       get_usd_fop_from_google_sheet
     when 'get_usd_fop_from_monobank'
       get_usd_fop_from_monobank
+    when 'get_usd_from_wise'
+      get_usd_from_wise
     when 'amount_already_spent'
       amount_already_spent
     when 'total_saved_money_from_google_sheet'
@@ -280,6 +283,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_usd_fop_from_monobank
     respond_with(:message, text: ReceiveUsdFopFromMonobank.call)
+  end
+
+  def get_usd_from_wise
+    respond_with(:message, text: TakeWiseSavedAmount.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula])
   end
 
   def total_saved_money_from_google_sheet

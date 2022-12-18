@@ -3,8 +3,9 @@ class TakeWiseSavedAmount < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_LEFT_WISE_MONEY = "in Wise".freeze
   NEXT_SECOND_CELL = 2
 
-  def initialize
+  def initialize(value_render_option: 'FORMULA')
     @year = Date.today.year
+    @value_render_option = value_render_option
   end
 
   private
@@ -22,7 +23,7 @@ class TakeWiseSavedAmount < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: 'FORMULA' })
+    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: @value_render_option })
   end
 
   def parse_response
