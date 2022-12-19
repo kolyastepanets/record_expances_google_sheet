@@ -5058,4 +5058,157 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       expect(response.status).to eq(200)
     end
   end
+
+  context 'when wise lend money', freezed_time: '2022-12-19T01:16:00+00:00', perform_enqueued: true do
+    let(:telegram_bot_params_main_menu) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "start_again",
+              **message_from,
+              "id" => "1651136317895074902",
+              "message" => {
+                  **chat,
+                  "date" => 1670051818,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35159,
+                  **reply_markup_all_info,
+                  "text" => "Выбери действие:"
+              }
+          },
+          "update_id" => 20479563
+      }
+    end
+    let(:telegram_bot_params_enter_expenses) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "enter_expenses",
+              **message_from,
+              "id" => "1651136317267389846",
+              "message" => {
+                  **chat,
+                  "date" => 1670051828,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35160,
+                  **reply_markup_all_info,
+                  "text" => "Выбери действие:"
+              }
+          },
+          "update_id" => 20479564
+      }
+    end
+    let(:telegram_bot_params_our_all_expenses) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "calculate_as_our_full_expenses",
+              **message_from,
+              "id" => "1651136318113433528",
+              "message" => {
+                  **chat,
+                  "date" => 1670052068,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35161,
+                  "reply_markup" => {
+                      "inline_keyboard" => [
+                          [
+                              {
+                                  "callback_data" => "calculate_as_our_full_expenses",
+                                  "text" => "Все расходы наши"
+                              }
+                          ],
+                          [
+                              {
+                                  "callback_data" => "calculate_as_mykola_paid_half_expenses",
+                                  "text" => "Микола заплатил (половина)"
+                              }
+                          ],
+                          [
+                              {
+                                  "callback_data" => "calculate_as_vika_paid_half_expenses",
+                                  "text" => "Вика заплатила (половина)"
+                              }
+                          ]
+                      ]
+                  },
+                  "text" => "как считать расходы?"
+              }
+          },
+          "update_id" => 20479566
+      }
+    end
+    let(:telegram_bot_params_wise_lend_money) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "wise_lend_money",
+              **message_from,
+              "id" => "1651136317356629958",
+              "message" => {
+                  **chat,
+                  "date" => 1670052288,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35163,
+                  **reply_markup_choosing_type_of_expenses,
+                  "text" => "как заполнять?"
+              }
+          },
+          "update_id" => 20479567
+      }
+    end
+    let(:telegram_bot_params_wise_lend_amount) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670052690,
+              **message_from,
+              "message_id" => 35169,
+              "text" => "1000000"
+          },
+          "update_id" => 20479570
+      }
+    end
+
+    it 'withdraws money from wise amount' do
+      # main menu
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+      # enter expenses
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+      # all our expenses
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+      # choose to lend money
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_lend_money
+      # enter amount to lend
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_lend_amount
+
+      expect(response.status).to eq(200)
+    end
+  end
 end
