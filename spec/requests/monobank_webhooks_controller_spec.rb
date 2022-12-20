@@ -305,26 +305,26 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
   end
   let(:telegram_bot_params_transport_category_half_expenses) do
     {
-        "callback_query" => {
-            "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Транспорт: h_id:tk6Ulh_sMFs9e_Zt",
-            **message_from,
-            "id" => "1651136315859693905",
-            "message" => {
-                **chat,
-                "date" => 1670052388,
-                "from" => {
-                    "first_name" => ENV['BOT_NAME'],
-                    "id" => ENV['BOT_ID'],
-                    "is_bot" => true,
-                    "username" => ENV['BOT_USER_NAME']
-                },
-                "message_id" => 35165,
-                **reply_markup_choosing_category_half_expenses,
-                "text" => "Выбери категорию:"
-            }
-        },
-        "update_id" => 20479568
+      "callback_query" => {
+          "chat_instance" => ENV['CHAT_INSTANCE'],
+          "data" => "Транспорт: h_id:tk6Ulh_sMFs9e_Zt",
+          **message_from,
+          "id" => "1651136315859693905",
+          "message" => {
+              **chat,
+              "date" => 1670052388,
+              "from" => {
+                  "first_name" => ENV['BOT_NAME'],
+                  "id" => ENV['BOT_ID'],
+                  "is_bot" => true,
+                  "username" => ENV['BOT_USER_NAME']
+              },
+              "message_id" => 35165,
+              **reply_markup_choosing_category_half_expenses,
+              "text" => "Выбери категорию:"
+          }
+      },
+      "update_id" => 20479568
     }
   end
   let(:telegram_bot_params_taxi_subcategory) do
@@ -381,6 +381,40 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
       end
 
       it 'saves to google sheet', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when category cash' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Банкомат BANK NEGARA IND",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => -244832,
+                "operationAmount" => -100000000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves to google sheet, increase cash value', freezed_time: '2022-12-20T14:07:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)

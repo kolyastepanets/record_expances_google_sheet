@@ -22,6 +22,7 @@ class PutExpencesUahBlackCardJob < ApplicationJob
       price_in_usd_to_put_in_google_sheets,
       who_paid,
     )
+    IncreaseCashAmount.call(params)
 
     redis.del('how_calculate_expenses_between_us')
     cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i

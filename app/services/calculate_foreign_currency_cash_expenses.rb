@@ -1,8 +1,10 @@
 class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
+  KEY_FIND_CELL_WITHDRAW_FOREIGN_MONEY = "снял валюты".freeze
+  KEY_FIND_CELL_CURRENCY_RATE_UAH_TO_FOREIGH_CURRENCY = "курс гривна/валюта".freeze
   KEY_FIND_CELL_TOTAL_MONEY = "Всего денег:".freeze
   KEY_FIND_CELL_SPENT_MONEY = "Потрачено денег:".freeze
   KEY_FIND_CELL_NOW_MONEY = "Сейчас денег:".freeze
-  MONTH_POINT_ONE = ",1".freeze
+  MONTH_POINT_ONE = ".1".freeze
   COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
@@ -11,20 +13,49 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
 
   private
 
+  def make_request
+    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: 'FORMULA' })
+  end
+
   def parse_response
     index_line_to_remember = 0
     index_column_to_remember = 0
+    withdraw_foreign_money = ''
+    currency_rate_uah_to_foreigh_currency = ''
     total_withraw_foreign_money = 0
     spent_foreign_money = 0
     now_foreign_money = 0
 
     @response.values.each do |value_array|
       value_array.each_with_index do |value, index|
-        index_column_to_remember = index if value == "#{@current_month}#{MONTH_POINT_ONE}"
+        index_column_to_remember = index if value.to_s == "#{@current_month}#{MONTH_POINT_ONE}"
       end
+      break if !index_column_to_remember.zero?
     end
 
     index_value_to_update = index_column_to_remember + 1 # column, e.x. A, B, ..., AB, etc
+
+    @response.values.each_with_index do |value_array, value_array_index|
+      value_array.each do |value|
+        if value == KEY_FIND_CELL_WITHDRAW_FOREIGN_MONEY
+          index_line_to_remember = value_array_index
+          withdraw_foreign_money = value_array[index_value_to_update]
+        end
+        break if withdraw_foreign_money.is_a?(String) && withdraw_foreign_money.present?
+      end
+    end
+    coordinates_of_withdraw_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+
+    @response.values.each_with_index do |value_array, value_array_index|
+      value_array.each do |value|
+        if value == KEY_FIND_CELL_CURRENCY_RATE_UAH_TO_FOREIGH_CURRENCY
+          index_line_to_remember = value_array_index
+          currency_rate_uah_to_foreigh_currency = value_array[index_value_to_update]
+        end
+        break if currency_rate_uah_to_foreigh_currency.is_a?(String) && currency_rate_uah_to_foreigh_currency.present?
+      end
+    end
+    coordinates_of_currency_rate_uah_to_foreigh_currency = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -34,6 +65,8 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
+    calculated_total_withraw_foreign_money = total_withraw_foreign_money.delete('=').split('+').sum(&:to_f)
+    coordinates_of_total_withraw_foreign_money_formula = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -56,11 +89,21 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
     coordinates_of_value_now_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     {
-      total_withraw_foreign_money: total_withraw_foreign_money.to_f,
+      withdraw_foreign_money: withdraw_foreign_money,
+      coordinates_of_value_to_change_withdraw_foreign_money: coordinates_of_withdraw_foreign_money,
+
+      currency_rate_uah_to_foreigh_currency: currency_rate_uah_to_foreigh_currency,
+      coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency: coordinates_of_currency_rate_uah_to_foreigh_currency,
+
       spent_foreign_money: spent_foreign_money.to_f,
-      now_foreign_money: now_foreign_money.to_f,
       coordinates_of_value_to_change_spent_foreign_money: coordinates_of_value_spent_money,
+
+      now_foreign_money: now_foreign_money.to_f,
       coordinates_of_value_to_change_now_foreign_money: coordinates_of_value_now_money,
+
+      total_withraw_foreign_money: calculated_total_withraw_foreign_money,
+      total_withraw_foreign_money_formula: total_withraw_foreign_money,
+      coordinates_of_total_withraw_foreign_money_formula: coordinates_of_total_withraw_foreign_money_formula,
     }
   end
 end

@@ -2733,7 +2733,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when cash foreign currency' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-14T09:40:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2022-12-20T14:43:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3056,7 +3056,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2022-12-16T14:03:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2022-12-20T14:47:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3379,7 +3379,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2022-12-16T14:06:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2022-12-20T14:48:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
