@@ -54,7 +54,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def andros_juice?
-      @line.include?('andros')
+      @line.any? { |word| word.include?('andros') }
     end
 
     def happy_day_juice?
@@ -66,7 +66,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bottle_of_water?
-      @line.include?('aqua') && @line.include?('btl')
+      (@line.include?('aqua') && @line.include?('btl')) || (@line.include?('crystalline') && @line.include?('pet'))
     end
 
     def mineral_water?
@@ -77,7 +77,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
-        oil?
+        oil? || sugar_2?
     end
 
     def kikko_soy_souce?
@@ -89,7 +89,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def soy_souce?
-      @line.include?('soy') && @line.include?('sauce')
+      @line.include?('soy') && (@line.include?('sauce') || @line.include?('premium'))
     end
 
     def french_mustard?
@@ -108,12 +108,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ext') && @line.include?('virgin')
     end
 
+    def sugar_2?
+      @line.include?('segitiga') && @line.include?('biru')
+    end
+
     ####
 
     def sweets?
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
-        super_shrooms? || hello_kitty? || jelly?
+        super_shrooms? || hello_kitty? || jelly? || honey?
     end
 
     def magnum_icecream?
@@ -178,6 +182,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jelly?
       @line.include?('jelly') && @line.include?('berries')
+    end
+
+    def honey?
+      @line.include?('honey')
     end
 
     ####
@@ -254,7 +262,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
-        tomat_gondol? || zuchini? || red_onion? || beans?
+        tomat_gondol? || zuchini? || red_onion? || beans? || radish?
     end
 
     def cucumber?
@@ -327,6 +335,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def beans?
       @line.include?('buncis')
+    end
+
+    def radish?
+      @line.include?('red') && @line.include?('radish')
     end
 
     ####
