@@ -1025,6 +1025,91 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 19', freezed_time: '2022-12-25T03:16:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out41.jpg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>24000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>60900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>95800.0},
+            {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>116730.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>41700.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>28380.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>57663.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>57960.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>9835.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>15819.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>15900.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>24500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>25000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>25000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>138000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>49000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>89400.0},
+            {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>12000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>77500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>20000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>39300.0},
+            {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>69000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>6300.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>34500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>55300.0},
+            {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>99400.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>30900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>15000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>27000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>56900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>7000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>59000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>50700.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>20000.0},
+            {:category_name=>"Лиля", :sub_category_name=>"Ванные принадлежности", :price=>16900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>41900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>18000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>4000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>132000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>30900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>30900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>50000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>23000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>4900.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>4900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>53900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>33500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>52900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>90000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>69900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>21897.0},
+            {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>32500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>38349.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>23600.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>49000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>29800.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15790.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>9630.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>10954.0},
+            {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>6975.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>21780.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>7808.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>65500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60000.0}
+          ],
+          2635070.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
