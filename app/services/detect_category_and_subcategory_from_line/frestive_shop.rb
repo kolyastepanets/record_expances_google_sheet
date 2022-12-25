@@ -394,7 +394,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna? || shrimp? || barramundi?
+      tuna? || shrimp? || barramundi? || fish_steak?
     end
 
     def tuna?
@@ -407,6 +407,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def barramundi?
       @line.include?('barramundi')
+    end
+
+    def fish_steak?
+      @line.any? { |word| word.include?('fish') } && @line.include?('steak')
     end
 
     ####
