@@ -41,10 +41,11 @@ class PricesFromImage
   end
 
   def get_telegram_image
-    last_photo = @message_params[:photo][-1][:file_id]
+    file_id = @message_params[:photo][-1][:file_id] if @message_params.key?(:photo)
+    file_id = @message_params[:document][:file_id] if @message_params.key?(:document)
 
-    response = Telegram.bot.get_file(file_id: last_photo)
-    @file_id = response["result"]["file_unique_id"]
+    response = Telegram.bot.get_file(file_id: file_id)
+    @unique_file_id = response["result"]["file_unique_id"]
 
     url = "https://api.telegram.org/file/bot#{ENV['TELEGRAM_BOT_TOKEN']}/#{response["result"]["file_path"]}"
     Faraday.new(url: url).get.body
@@ -55,7 +56,7 @@ class PricesFromImage
   end
 
   def return_result
-    [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @file_id]
+    [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @unique_file_id]
   end
 
   def end_line_for_shop?(array_of_words)

@@ -261,7 +261,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    return respond_with(:message, text: 'invalid message') if message["photo"].blank?
+    return respond_with(:message, text: 'invalid message') if message["photo"].blank? && message["document"].blank?
 
     HandleInputPhotoJob.perform_later(message)
     respond_with(:message, text: 'Началась обработка фото...')

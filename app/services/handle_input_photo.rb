@@ -19,7 +19,7 @@ class HandleInputPhoto
   end
 
   def call
-    return if @message_params[:photo].blank?
+    return if @message_params[:photo].blank? && @message_params[:document].blank?
 
     @prices_with_categories, @total_sum_in_receipt, @file_id = PricesFromImage.call(@message_params)
 
