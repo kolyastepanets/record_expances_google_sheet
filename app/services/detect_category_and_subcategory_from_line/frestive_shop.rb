@@ -196,7 +196,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
-        eggplant_purple? || cucumber? || asparagus? || green_onion?
+        eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish?
     end
 
     def potato?
@@ -267,16 +267,24 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('daun') && @line.include?('bawang') && @line.include?('besar')
     end
 
+    def zucchini_2?
+      @line.include?('zucchini') && @line.include?('green')
+    end
+
+    def radish?
+      @line.include?('red') && @line.include?('radish')
+    end
+
     ####
 
     def dairy?
-      cheese? || butter? || milk? || sour_cream? || kefir? || yogurt? || sour_cream_2? ||
+      cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
         plain_yogurt?
     end
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
-        bel_cheese? || baros_gouda?
+        bel_cheese? || baros_gouda? || ricta?
     end
 
     def ricotta?
@@ -311,12 +319,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('baros') && @line.include?('gouda')
     end
 
+    def ricta?
+      @line.include?('yummy') && @line.include?('ricta')
+    end
+
     def butter?
       @line.include?('anchor')
     end
 
     def milk?
-      @line.include?('greenfields') && @line.include?('fresh')
+      @line.include?('greenfields')
     end
 
     def sour_cream?
@@ -325,10 +337,6 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kefir?
       @line.include?('kefir')
-    end
-
-    def yogurt?
-      @line.include?('greenfields') && @line.include?('yg')
     end
 
     def sour_cream_2?
