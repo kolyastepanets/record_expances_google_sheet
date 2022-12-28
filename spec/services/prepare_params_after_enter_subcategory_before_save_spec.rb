@@ -42,7 +42,7 @@ RSpec.describe PrepareParamsAfterEnterSubcategoryBeforeSave do
     it 'returns 3 values' do
       expect(subject).to eq(
         [
-          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :price_in_uah=>135.92540000000002, price_in_uah_converted_to_usd_to_save_in_google_sheet: "=2,99 * 45,46 / 37,4995"},
+          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :who_paid=> nil, :price_in_uah=>135.92540000000002, price_in_uah_converted_to_usd_to_save_in_google_sheet: "=2,99 * 45,46 / 37,4995"},
           [
             {"price"=>2.65, "currency_to_usd"=>nil, "currency_to_uah"=>45.46, "message_ids"=>[26582]},
             {"price"=>2.85, "currency_to_usd"=>nil, "currency_to_uah"=>45.46, "message_ids"=>[26583]},
@@ -69,7 +69,7 @@ RSpec.describe PrepareParamsAfterEnterSubcategoryBeforeSave do
     it 'returns 3 values' do
       expect(subject).to eq(
         [
-          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :price_in_usd=>3.4340186057195363, price_in_usd_to_save_in_google_sheet: "=2,99 / 0,8707"},
+          {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :operation_amount=>2.99, :who_paid=> nil, :price_in_usd=>3.4340186057195363, price_in_usd_to_save_in_google_sheet: "=2,99 / 0,8707"},
           [
             {"price"=>2.65, "currency_to_usd"=>0.8707, "currency_to_uah"=>nil, "message_ids"=>[26582]},
             {"price"=>2.85, "currency_to_usd"=>0.8707, "currency_to_uah"=>nil, "message_ids"=>[26583]},

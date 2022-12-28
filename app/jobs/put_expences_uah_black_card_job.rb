@@ -13,7 +13,10 @@ class PutExpencesUahBlackCardJob < ApplicationJob
                else
                  nil
                end
-    price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+    who_paid = params[:who_paid] if params.key?(:who_paid)
+
+    price_in_usd_to_put_in_google_sheets = params[:price_in_uah_converted_to_usd_to_save_in_google_sheet]
+    price_in_usd_to_put_in_google_sheets = "=#{price_in_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}" if price_in_usd_to_put_in_google_sheets.nil?
     price_in_usd_to_put_in_google_sheets = "#{price_in_usd_to_put_in_google_sheets} / 2" if !who_paid.nil?
 
     response = PutExpensesToGoogleSheet.call(
@@ -28,12 +31,14 @@ class PutExpencesUahBlackCardJob < ApplicationJob
     cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
     WriteDownHalfExpenses.call(who_paid, [cell_number], 0, price_in_uah)
 
-    # decrease uah spent amount
-    result = CalculateTotalSpentUsdAndUah.call
-    UpdateCellInGoogleSheet.call(
-      result[:total_left_uah_money] - price_in_uah,
-      result[:coordinates_of_total_left_uah_money],
-    )
+    if who_paid != AllConstants::VIKA_PAYED
+      # decrease uah spent amount
+      result = CalculateTotalSpentUsdAndUah.call
+      UpdateCellInGoogleSheet.call(
+        result[:total_left_uah_money] - price_in_uah,
+        result[:coordinates_of_total_left_uah_money],
+      )
+    end
 
     SendNotificationMessageToBot.call(params)
   rescue StandardError => e

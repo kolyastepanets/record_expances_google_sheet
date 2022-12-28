@@ -107,6 +107,7 @@ class HandleInputPhoto
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
           message_ids: [response["result"]["message_id"]],
+          who_paid: @who_paid,
         }
       end
     end
@@ -129,7 +130,7 @@ class HandleInputPhoto
       )
     end
 
-    if @currency_to_uah.present? && @mykola_paid
+    if @currency_to_uah.present? && !@vika_paid
       # decrease uah spent amount
       UpdateCellInGoogleSheet.call(
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,
