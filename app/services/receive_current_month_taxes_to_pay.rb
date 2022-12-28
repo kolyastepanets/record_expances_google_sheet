@@ -10,6 +10,6 @@ class ReceiveCurrentMonthTaxesToPay < GetOrSetDataInGoogleSheetBase
   end
 
   def parse_response
-    "To pay in #{Date::MONTHNAMES[Date.today.month]}: #{balance_to_return} uah"
+    "To pay taxes in #{Date::MONTHNAMES[Date.today.month]}: #{balance_to_return} uah"
   end
 end
