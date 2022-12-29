@@ -78,7 +78,7 @@ RSpec.describe HandleInputPhoto do
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(3075.2, "BC81")
 
-          expect(WriteDownHalfExpenses).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393], 24.8, 0)
+          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -146,7 +146,7 @@ RSpec.describe HandleInputPhoto do
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(2187.57, "BC81")
 
-          expect(WriteDownHalfExpenses).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393], 0, 912.43)
+          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -310,7 +310,7 @@ RSpec.describe HandleInputPhoto do
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(3094.87, "BC81")
 
-          expect(WriteDownHalfExpenses).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393], 5.13, 0)
+          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -360,7 +360,7 @@ RSpec.describe HandleInputPhoto do
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(2911.22, "BC81")
 
-          expect(WriteDownHalfExpenses).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393], 0, 188.78)
+          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -513,7 +513,7 @@ RSpec.describe HandleInputPhoto do
       before do
         allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({ total_left_usd_money: 10, total_left_uah_money: 10 })
         allow(UpdateCellInGoogleSheet).to receive(:call)
-        allow(WriteDownHalfExpenses).to receive(:call)
+        allow(UpdateCellBackgroundColor).to receive(:call)
       end
 
       context 'when sum of all prices less than 200 of total_sum_in_receipt' do

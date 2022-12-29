@@ -66,8 +66,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       info_current_month
     when 'enter_wise_salary'
       ask_to_enter_wise_salary
-    when -> (input_data) { input_data.include?('vika:') }
-      vika_returned_uah(data)
     when 'calculate_as_mykola_paid_half_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
       ask_type_of_expenses
@@ -572,23 +570,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     result = FindCellToEnterVikaHalfExpenses.call
 
     who_should_return = ''
-    if (result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]) > 0
-      who_should_return = "Итого: Вика должна #{result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]} грн"
-    elsif (result[:mykola_total_sum_mono] - result[:vika_total_sum_mono]) > 0
-      who_should_return = "Итого: Микола должен #{result[:mykola_total_sum_mono] - result[:vika_total_sum_mono]} грн"
-    elsif (result[:vika_total_sum_mono] - result[:mykola_total_sum_mono]) == 0
+    if (result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]) > 0
+      who_should_return = "Итого: Микола должен #{result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]} грн"
+    elsif (result[:mykola_total_spent_uah] - result[:vika_total_spent_uah]) > 0
+      who_should_return = "Итого: Вика должна #{result[:mykola_total_spent_uah] - result[:vika_total_spent_uah]} грн"
+    elsif (result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]) == 0
       who_should_return = 'Никто ничего никому не должен'
     end
 
-    text = "Вика должна гривен: #{result[:vika_total_sum_mono]}\nМикола должен гривен: #{result[:mykola_total_sum_mono]}\n#{who_should_return}"
+    text = "Вика потратила гривен: #{result[:vika_total_spent_uah]}\nВика потратила $: #{result[:vika_total_spent_usd]}\nМикола потратила гривен: #{result[:mykola_total_spent_uah]}\nМикола потратил $: #{result[:mykola_total_spent_usd]}\n#{who_should_return}"
 
     respond_with(:message, text: text)
-  end
-
-  def vika_returned_uah(data)
-    HandleVikaReturnedMoney.call(data)
-  rescue HandleVikaReturnedMoney::HandleVikaReturnedMoneyError => e
-    respond_with(:message, text: e.message)
   end
 
   def info_current_month

@@ -34,9 +34,9 @@ RSpec.describe PutExpencesUahBlackCardJob do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
     end
 
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406 / 2', "m").and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 0, 200.25)
+      expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
       expect(UpdateCellInGoogleSheet).to receive(:call).with(16079.75, 'BQ82')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -49,9 +49,9 @@ RSpec.describe PutExpencesUahBlackCardJob do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
     end
 
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406 / 2', "v").and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with("v", [5389], 0, 200.25)
+      expect(UpdateCellBackgroundColor).to receive(:call).with("v", [5389])
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
       perform_enqueued_jobs { subject }
@@ -59,9 +59,9 @@ RSpec.describe PutExpencesUahBlackCardJob do
   end
 
   context 'when all our expenses' do
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=200,25 / 37,4406', nil).and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with(nil, [5389], 0, 200.25)
+      expect(UpdateCellBackgroundColor).to receive(:call).with(nil, [5389])
       expect(UpdateCellInGoogleSheet).to receive(:call).with(16079.75, 'BQ82')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 

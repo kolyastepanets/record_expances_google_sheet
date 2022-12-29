@@ -118,7 +118,7 @@ class HandleInputPhoto
     last_cell_number = first_cell_number + (@prices_with_categories.size - 1)
     all_cells = (first_cell_number..last_cell_number).to_a
 
-    WriteDownHalfExpenses.call(@who_paid, all_cells, total_sum_usd, total_sum_uah)
+    UpdateCellBackgroundColor.call(@who_paid, all_cells)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
 

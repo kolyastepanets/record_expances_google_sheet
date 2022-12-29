@@ -18,9 +18,9 @@ RSpec.describe PutExpensesToGoogleSheetJob do
     allow(MonobankCurrencyRates).to receive(:call).and_return("37,4406")
   end
 
-  it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+  it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
     expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', '=156300 * 0,0024204 / 37,4406 / 2', "m", current_month: '11').and_return(response_after_save_expenses)
-    expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 10, 0)
+    expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
 
     perform_enqueued_jobs { subject }
   end

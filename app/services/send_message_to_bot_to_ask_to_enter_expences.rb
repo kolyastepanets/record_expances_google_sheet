@@ -85,16 +85,6 @@ class SendMessageToBotToAskToEnterExpences
 
     categories.push(remove_messages)
 
-    if @price_in_uah
-      vika_returned_uah = [
-        {
-          text: "Вика или Микола вернул(а) гривны на моно",
-          callback_data: "vika:#{@price_in_uah}:#{@id}"
-        }
-      ]
-      categories.push(vika_returned_uah)
-    end
-
     categories
   end
 

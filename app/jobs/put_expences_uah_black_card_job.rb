@@ -29,7 +29,7 @@ class PutExpencesUahBlackCardJob < ApplicationJob
 
     redis.del('how_calculate_expenses_between_us')
     cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
-    WriteDownHalfExpenses.call(who_paid, [cell_number], 0, price_in_uah)
+    UpdateCellBackgroundColor.call(who_paid, [cell_number])
 
     if who_paid != AllConstants::VIKA_PAYED
       # decrease uah spent amount

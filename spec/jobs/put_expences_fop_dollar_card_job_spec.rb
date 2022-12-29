@@ -35,9 +35,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
     end
 
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0 / 2", "m").and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 1, 0)
+      expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -54,9 +54,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
         }
       end
 
-      it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+      it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
         expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=100 / 2", "m").and_return(response_after_save_expenses)
-        expect(WriteDownHalfExpenses).to receive(:call).with("m", [5389], 100, 0)
+        expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
         expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
         expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -70,9 +70,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
       Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
     end
 
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0 / 2", "v").and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with("v", [5389], 1, 0)
+      expect(UpdateCellBackgroundColor).to receive(:call).with("v", [5389])
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -81,9 +81,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
   end
 
   context 'when our expenses' do
-    it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
       expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0", nil).and_return(response_after_save_expenses)
-      expect(WriteDownHalfExpenses).to receive(:call).with(nil, [5389], 1, 0)
+      expect(UpdateCellBackgroundColor).to receive(:call).with(nil, [5389])
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -100,9 +100,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
         }
       end
 
-      it 'calls PutExpensesToGoogleSheet, WriteDownHalfExpenses' do
+      it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
         expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=100", nil).and_return(response_after_save_expenses)
-        expect(WriteDownHalfExpenses).to receive(:call).with(nil, [5389], 100, 0)
+        expect(UpdateCellBackgroundColor).to receive(:call).with(nil, [5389])
         expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
         expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
