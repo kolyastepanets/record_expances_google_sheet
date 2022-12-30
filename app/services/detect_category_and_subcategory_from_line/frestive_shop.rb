@@ -26,7 +26,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
-        aqua_water?
+        aqua_water? || cheers_water?
     end
 
     def coca_cola?
@@ -55,6 +55,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def aqua_water?
       @line.include?('aqua') && @line.include?('water')
+    end
+
+    def cheers_water?
+      @line.include?('cheers') && @line.include?('water')
     end
 
     ####
@@ -279,7 +283,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
-        plain_yogurt?
+        plain_yogurt? || sour_cream_3?
     end
 
     def cheese?
@@ -345,6 +349,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def plain_yogurt?
       @line.include?('plain') && @line.include?('yogurt')
+    end
+
+    def sour_cream_3?
+      @line.any? { |word| word.include?('sour') } && @line.any? { |word| word.include?('milk') }
     end
 
     ####
