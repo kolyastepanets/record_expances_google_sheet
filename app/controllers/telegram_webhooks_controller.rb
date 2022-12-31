@@ -3,31 +3,42 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
+  MAIN_BUTTONS = [
+    ['Buttons to get info'],
+    ['Enter wise salary', 'Внести расходы'],
+  ]
+  BUTTONS_INFO = [
+    ['UAH на gsheets'],
+    ['UAH на monobank'],
+    ['USD FOP на gsheets'],
+    ['USD FOP на monobank'],
+    ['UAH and USD all'],
+    ['USD on Wise'],
+    ['Уже потрачено'],
+    ['How many taxes to pay in current month'],
+    ['Total saved money on gsheets'],
+    ['Последние 3 траты в gsheets'],
+    ['Последние 10 транзакций в моно'],
+    ['Удалить все текущие сообщения'],
+    ['Кто кому сколько должен'],
+    ['Info current month'],
+  ].freeze
 
   def start!(*)
     set_default_values_in_session!
 
     if from["username"] == ENV['MY_USER_NAME']
-      respond_with(:message, text: 'Выбери действие:', reply_markup: {
-        inline_keyboard: [
-          [{ text: 'UAH на gsheets', callback_data: 'get_current_mono_balance_from_google_sheet' }],
-          [{ text: 'UAH на monobank', callback_data: 'get_current_mono_balance_from_monobank' }],
-          [{ text: 'USD FOP на gsheets', callback_data: 'get_usd_fop_from_google_sheet' }],
-          [{ text: 'USD FOP на monobank', callback_data: 'get_usd_fop_from_monobank' }],
-          [{ text: 'USD on Wise', callback_data: 'get_usd_from_wise' }],
-          [{ text: 'Уже потрачено', callback_data: 'amount_already_spent' }],
-          [{ text: 'How many taxes to pay in current month', callback_data: 'how_many_taxes_to_pay_in_current_month' }],
-          [{ text: 'Total saved money on gsheets', callback_data: 'total_saved_money_from_google_sheet' }],
-          [{ text: 'Последние 3 траты в gsheets', callback_data: 'get_last_3_expenses_in_google_sheet' }],
-          [{ text: 'Последние 10 транзакций в моно', callback_data: 'get_last_10_transactions_from_mono' }],
-          [{ text: 'Удалить все текущие сообщения',  callback_data: 'delete_all_todays_messages' }],
-          [{ text: 'Кто кому сколько должен',  callback_data: 'expenses_to_return_from_vika' }],
-          [{ text: 'Info current month',  callback_data: 'info_current_month' }],
-          [{ text: 'Enter wise salary',  callback_data: 'enter_wise_salary' }],
-          [{ text: 'Внести расходы',  callback_data: 'enter_expenses' }],
-          [{ text: 'Главное меню',  callback_data: 'start_again' }],
-        ],
-      })
+      respond_with(
+        :message,
+        text: 'Выбери действие:',
+        reply_markup: {
+          keyboard: MAIN_BUTTONS,
+          resize_keyboard: true,
+          one_time_keyboard: true,
+          is_persistent: false,
+          selective: true,
+        }
+      )
     else
       respond_with(:message, text: 'You are not authorized')
     end
@@ -35,37 +46,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def callback_query(data)
     case data
-    when 'start_again'
-      set_default_values_in_session!
-      start!
-    when 'get_current_mono_balance_from_google_sheet'
-      get_current_mono_balance_from_google_sheet
-    when 'get_current_mono_balance_from_monobank'
-      get_current_mono_balance_from_monobank
-    when 'get_usd_fop_from_google_sheet'
-      get_usd_fop_from_google_sheet
-    when 'get_usd_fop_from_monobank'
-      get_usd_fop_from_monobank
-    when 'get_usd_from_wise'
-      get_usd_from_wise
-    when 'amount_already_spent'
-      amount_already_spent
-    when 'how_many_taxes_to_pay_in_current_month'
-      how_many_taxes_to_pay_in_current_month
-    when 'total_saved_money_from_google_sheet'
-      total_saved_money_from_google_sheet
-    when 'get_last_3_expenses_in_google_sheet'
-      get_last_3_expenses_in_google_sheet
-    when 'get_last_10_transactions_from_mono'
-      get_last_10_transactions_from_mono
-    when 'delete_all_todays_messages'
-      delete_all_todays_messages
-    when 'expenses_to_return_from_vika'
-      expenses_to_return_from_vika
-    when 'info_current_month'
-      info_current_month
-    when 'enter_wise_salary'
-      ask_to_enter_wise_salary
     when 'calculate_as_mykola_paid_half_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
       ask_type_of_expenses
@@ -75,9 +55,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'calculate_as_our_full_expenses'
       redis.set('how_calculate_expenses_between_us', 'calculate_as_our_full_expenses')
       ask_type_of_expenses
-    when 'enter_expenses'
-      set_default_values_in_session!
-      ask_half_price_or_full_price
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
@@ -278,6 +255,55 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
+    message_text = message["text"]
+
+    if 'Buttons to get info' == message_text
+      return respond_with(
+        :message,
+        text: 'Выбери действие:',
+        reply_markup: {
+          keyboard: BUTTONS_INFO,
+          resize_keyboard: true,
+          one_time_keyboard: true,
+          is_persistent: false,
+          selective: true,
+        }
+      )
+    end
+
+    if message_text == 'Внести расходы'
+      set_default_values_in_session!
+      return ask_half_price_or_full_price
+    end
+
+    if message_text == 'Enter wise salary'
+      return ask_to_enter_wise_salary
+    end
+
+    if BUTTONS_INFO.flat_map(&:first).include?(message_text)
+      mapping = [
+        { text: 'UAH на gsheets', method_to_call: 'get_current_mono_balance_from_google_sheet' },
+        { text: 'UAH на monobank', method_to_call: 'get_current_mono_balance_from_monobank' },
+        { text: 'USD FOP на gsheets', method_to_call: 'get_usd_fop_from_google_sheet' },
+        { text: 'USD FOP на monobank', method_to_call: 'get_usd_fop_from_monobank' },
+        { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
+        { text: 'USD on Wise', method_to_call: 'get_usd_from_wise' },
+        { text: 'Уже потрачено', method_to_call: 'amount_already_spent' },
+        { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
+        { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
+        { text: 'Последние 3 траты в gsheets', method_to_call: 'get_last_3_expenses_in_google_sheet' },
+        { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
+        { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
+        { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
+        { text: 'Info current month',  method_to_call: 'info_current_month' },
+      ]
+      found_mapping = mapping.detect { |current_mapping| current_mapping[:text] == message_text }
+
+      if found_mapping
+        return send(found_mapping[:method_to_call])
+      end
+    end
+
     return respond_with(:message, text: 'invalid message') if message["photo"].blank? && message["document"].blank?
 
     HandleInputPhotoJob.perform_later(message)
@@ -307,11 +333,19 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   private
 
   def get_usd_fop_from_google_sheet
-    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call)
+    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
   end
 
   def get_usd_fop_from_monobank
-    respond_with(:message, text: ReceiveUsdFopFromMonobank.call)
+    respond_with(:message, text: ReceiveUsdFopFromMonobank.call, reply_markup: reply_markup_main_buttons)
+  end
+
+  def uah_and_usd_all
+    respond_with(
+      :message,
+      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}",
+      reply_markup: reply_markup_main_buttons
+    )
   end
 
   def get_usd_from_wise
@@ -320,15 +354,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def total_saved_money_from_google_sheet
-    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call)
+    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
   end
 
   def get_last_3_expenses_in_google_sheet
-    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call)
+    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call, reply_markup: reply_markup_main_buttons)
   end
 
   def get_last_10_transactions_from_mono
-    respond_with(:message, text: GetLastTenTransactionsFromMonobank.call)
+    respond_with(:message, text: GetLastTenTransactionsFromMonobank.call, reply_markup: reply_markup_main_buttons)
   end
 
   def ask_half_price_or_full_price
@@ -365,7 +399,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Долларовая карта',  callback_data: 'dollar_card' }],
           [**wise_expenses],
           [**wise_lend_money],
-          [{ text: 'Главное меню',  callback_data: 'start_again' }],
         ],
       }
     )
@@ -402,11 +435,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     set_default_values_in_session!
 
-    respond_with(:message,
-      text: 'В меню',
-      reply_markup: {
-        inline_keyboard: [[{ text: 'Главное меню',  callback_data: 'start_again' }]],
-      }
+    respond_with(
+      :message,
+      text: 'Выбери действие:',
+      reply_markup: reply_markup_main_buttons
     )
   end
 
@@ -436,26 +468,19 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         callback_data: "finish_remember_total_price_of_products"
       }
     ]
-    start_again = [
-      {
-        text: "Главное меню",
-        callback_data: "start_again"
-      }
-    ]
 
     prepare_categories.push(finish_remember_total_price_of_products)
-    prepare_categories.push(start_again)
 
     respond_with(:message, text: 'Выбери категорию:', reply_markup: { inline_keyboard: prepare_categories })
   end
 
 
   def get_current_mono_balance_from_google_sheet
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call)
+    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
   end
 
   def get_current_mono_balance_from_monobank
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromMono.call)
+    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromMono.call, reply_markup: reply_markup_main_buttons)
   end
 
   def category_to_sub_categories
@@ -574,11 +599,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def amount_already_spent
-    respond_with(:message, text: ReceiveCurrentMonthBalance.call)
+    respond_with(:message, text: ReceiveCurrentMonthBalance.call, reply_markup: reply_markup_main_buttons)
   end
 
   def how_many_taxes_to_pay_in_current_month
-    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call)
+    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call, reply_markup: reply_markup_main_buttons)
   end
 
   def respond_with(type, *)
@@ -606,10 +631,25 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     text = "Вика потратила гривен: #{result[:vika_total_spent_uah]}\nВика потратила $: #{result[:vika_total_spent_usd]}\nМикола потратила гривен: #{result[:mykola_total_spent_uah]}\nМикола потратил $: #{result[:mykola_total_spent_usd]}\n#{who_should_return}"
 
-    respond_with(:message, text: text)
+    respond_with(:message, text: text, reply_markup: reply_markup_main_buttons)
   end
 
   def info_current_month
-    respond_with(:message, text: "```#{FindCellsCurrentMonth.call}```", parse_mode: :MarkdownV2)
+    respond_with(
+      :message,
+      text: "```#{FindCellsCurrentMonth.call}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: reply_markup_main_buttons,
+    )
+  end
+
+  def reply_markup_main_buttons
+    {
+      keyboard: MAIN_BUTTONS,
+      resize_keyboard: true,
+      one_time_keyboard: true,
+      is_persistent: false,
+      selective: true,
+    }
   end
 end

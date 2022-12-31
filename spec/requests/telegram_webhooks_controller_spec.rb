@@ -4981,7 +4981,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when wise salary', freezed_time: '2022-12-18T08:07:00+00:00', perform_enqueued: true do
+  context 'when wise salary', freezed_time: '2023-01-28T08:38:00+00:00', perform_enqueued: true do
     let(:telegram_bot_params_main_menu) do
       {
           "callback_query" => {
@@ -5008,24 +5008,18 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
     let(:telegram_bot_params_enter_wise_salary) do
       {
-          "callback_query" => {
-              "chat_instance" => ENV['CHAT_INSTANCE'],
-              "data" => "enter_wise_salary",
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670051828,
               **message_from,
-              "id" => "1651136317267389846",
-              "message" => {
-                  **chat,
-                  "date" => 1670051828,
-                  "from" => {
-                      "first_name" => ENV['BOT_NAME'],
-                      "id" => ENV['BOT_ID'],
-                      "is_bot" => true,
-                      "username" => ENV['BOT_USER_NAME']
-                  },
-                  "message_id" => 35160,
-                  **reply_markup_all_info,
-                  "text" => "Enter wise salary:"
-              }
+              "message_id" => 35160,
+              "text" => "Enter wise salary"
           },
           "update_id" => 20479564
       }
@@ -5061,7 +5055,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when wise lend money', freezed_time: '2022-12-19T01:16:00+00:00', perform_enqueued: true do
+  context 'when wise lend money', freezed_time: '2023-01-28T08:40:00+00:00', perform_enqueued: true do
     let(:telegram_bot_params_main_menu) do
       {
           "callback_query" => {
@@ -5088,24 +5082,18 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
     let(:telegram_bot_params_enter_expenses) do
       {
-          "callback_query" => {
-              "chat_instance" => ENV['CHAT_INSTANCE'],
-              "data" => "enter_expenses",
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670051828,
               **message_from,
-              "id" => "1651136317267389846",
-              "message" => {
-                  **chat,
-                  "date" => 1670051828,
-                  "from" => {
-                      "first_name" => ENV['BOT_NAME'],
-                      "id" => ENV['BOT_ID'],
-                      "is_bot" => true,
-                      "username" => ENV['BOT_USER_NAME']
-                  },
-                  "message_id" => 35160,
-                  **reply_markup_all_info,
-                  "text" => "Выбери действие:"
-              }
+              "message_id" => 35160,
+              "text" => "Внести расходы"
           },
           "update_id" => 20479564
       }
