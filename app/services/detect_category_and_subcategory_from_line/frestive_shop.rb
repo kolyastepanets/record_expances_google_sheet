@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer? || wine?
+      beer? || wine? || champagne?
     end
 
     def beer?
@@ -14,6 +14,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wine?
       @line.include?('hatten')
+    end
+
+    def champagne?
+      @line.include?('sababay') && @line.include?('ascaro')
     end
 
     ####
@@ -200,7 +204,8 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
-        eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish?
+        eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
+        red_onion?
     end
 
     def potato?
@@ -277,6 +282,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def radish?
       @line.include?('red') && @line.include?('radish')
+    end
+
+    def red_onion?
+      @line.include?('red') && @line.include?('onion')
     end
 
     ####
@@ -541,6 +550,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pampers?
       @line.include?('makuku') && @line.include?('slim')
+    end
+
+    ####
+
+    def home_stuff?
+      coal?
+    end
+
+    def coal?
+      @line.include?('wood') && @line.include?('charcoal')
     end
   end
 end
