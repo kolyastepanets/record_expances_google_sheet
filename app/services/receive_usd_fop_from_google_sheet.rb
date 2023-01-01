@@ -14,7 +14,7 @@ class ReceiveUsdFopFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def end_line_to_search
-    30
+    3000
   end
 
   def find_by_word

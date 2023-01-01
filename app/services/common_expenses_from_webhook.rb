@@ -34,6 +34,9 @@ class CommonExpensesFromWebhook
     when -> (description) { description == kolya_mama && Date.today.day == 1 }
       @params[:category_name] = 'Подарки'
       @params[:sub_category_name] = 'мама Коли'
+    when -> (description) { description == liliia_papa && Date.today.day == 1 }
+      @params[:category_name] = 'Подарки'
+      @params[:sub_category_name] = 'Папа Лили'
     when kladovka_1
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'кладовка'
@@ -102,6 +105,10 @@ class CommonExpensesFromWebhook
 
   def kolya_mama
     "516875******6402"
+  end
+
+  def liliia_papa
+    "414949******0254"
   end
 
   def digital_ocean

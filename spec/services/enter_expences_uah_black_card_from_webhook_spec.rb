@@ -207,6 +207,71 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when liliia papa 1st date of month', freezed_time: '2023-01-01' do
+    let(:transaction_data) do
+      {
+        amount: -300000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "414949******0254",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -300000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        category_name: 'Подарки',
+        sub_category_name: 'Папа Лили',
+        price_in_uah: 3000.0,
+        operation_amount: 3000.0,
+        current_month: Date.today.month,
+        mono_description: "414949******0254",
+        currency_rate: 1.0,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when kolya mama other day', freezed_time: '2023-01-02' do
+    let(:transaction_data) do
+      {
+        amount: -200000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "414949******0254",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        currency_rate: 200.0,
+      }
+    end
+
+    it 'does not call job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
   context 'when kladovka_1' do
     let(:transaction_data) do
       {
