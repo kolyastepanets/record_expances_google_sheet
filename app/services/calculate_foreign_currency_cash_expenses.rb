@@ -98,6 +98,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
           if value == KEY_FIND_CELL_TOTAL_MONEY
             calculated_total_withraw_foreign_money = value_array[value_index + 1].to_f
           end
+          break if !calculated_total_withraw_foreign_money.zero?
         end
       end
 
@@ -106,6 +107,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
           if value == KEY_FIND_CELL_NOW_MONEY
             now_foreign_money = value_array[value_index + 1].to_f
           end
+          break if !now_foreign_money.zero?
         end
       end
     end
