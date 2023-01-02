@@ -9,12 +9,13 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
 
   def initialize
     @current_month = Date.today.month
+    @value_render_option = 'FORMULA'
   end
 
   private
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: 'FORMULA' })
+    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: @value_render_option })
   end
 
   def parse_response
@@ -44,7 +45,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         break if withdraw_foreign_money.is_a?(String) && withdraw_foreign_money.present?
       end
     end
-    coordinates_of_withdraw_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_withdraw_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -55,7 +56,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         break if currency_rate_uah_to_foreigh_currency.is_a?(String) && currency_rate_uah_to_foreigh_currency.present?
       end
     end
-    coordinates_of_currency_rate_uah_to_foreigh_currency = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -72,34 +73,55 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
       value_array.each do |value|
         if value == KEY_FIND_CELL_SPENT_MONEY
           index_line_to_remember = value_array_index
-          spent_foreign_money = value_array[index_value_to_update]
+          spent_foreign_money = value_array[index_value_to_update].to_f
         end
       end
     end
-    coordinates_of_value_spent_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_spent_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
         if value == KEY_FIND_CELL_NOW_MONEY
           index_line_to_remember = value_array_index
-          now_foreign_money = value_array[index_value_to_update]
+          now_foreign_money = value_array[index_value_to_update].to_f
         end
       end
     end
-    coordinates_of_value_now_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_now_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+
+    if calculated_total_withraw_foreign_money.zero? || now_foreign_money.zero?
+      @value_render_option = 'UNFORMATTED_VALUE'
+      make_request
+
+      @response.values.each do |value_array|
+        value_array.each_with_index do |value, value_index|
+          if value == KEY_FIND_CELL_TOTAL_MONEY
+            calculated_total_withraw_foreign_money = value_array[value_index + 1].to_f
+          end
+        end
+      end
+
+      @response.values.each do |value_array|
+        value_array.each_with_index do |value, value_index|
+          if value == KEY_FIND_CELL_NOW_MONEY
+            now_foreign_money = value_array[value_index + 1].to_f
+          end
+        end
+      end
+    end
 
     {
       withdraw_foreign_money: withdraw_foreign_money,
-      coordinates_of_value_to_change_withdraw_foreign_money: coordinates_of_withdraw_foreign_money,
+      coordinates_of_value_to_change_withdraw_foreign_money: coordinates_of_value_to_change_withdraw_foreign_money,
 
       currency_rate_uah_to_foreigh_currency: currency_rate_uah_to_foreigh_currency,
-      coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency: coordinates_of_currency_rate_uah_to_foreigh_currency,
+      coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency: coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency,
 
-      spent_foreign_money: spent_foreign_money.to_f,
-      coordinates_of_value_to_change_spent_foreign_money: coordinates_of_value_spent_money,
+      spent_foreign_money: spent_foreign_money,
+      coordinates_of_value_to_change_spent_foreign_money: coordinates_of_value_to_change_spent_foreign_money,
 
-      now_foreign_money: now_foreign_money.to_f,
-      coordinates_of_value_to_change_now_foreign_money: coordinates_of_value_now_money,
+      now_foreign_money: now_foreign_money,
+      coordinates_of_value_to_change_now_foreign_money: coordinates_of_value_to_change_now_foreign_money,
 
       total_withraw_foreign_money: calculated_total_withraw_foreign_money,
       total_withraw_foreign_money_formula: total_withraw_foreign_money,
