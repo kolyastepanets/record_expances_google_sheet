@@ -5214,6 +5214,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when parse photo' do
+    # 1 category not parsed in photo: spec/images/not_parsed_one_category.jpeg
     let(:caption) { "uah 0.0024 v" }
     let(:telegram_bot_params_upload_photo) do
       {
@@ -5226,262 +5227,262 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
               "type" => "private",
               "username" => ENV['MY_USER_NAME']
             },
-            "date" => 1672196545,
+            "date" => 1672649172,
             **message_from,
-            "message_id" => 46728,
+            "message_id" => 51490,
             "photo" => [
-                {
-                    "file_id" => "AgACAgIAAxkBAAK2iGOrscGmlwg4TsO0VYqC8vgkVm2uAAJvwDEbkKlhSZM-vDjuZ37DAQADAgADcwADLAQ",
-                    "file_size" => 1242,
-                    "file_unique_id" => "AQADb8AxG5CpYUl4",
-                    "height" => 90,
-                    "width" => 67
-                },
-                {
-                    "file_id" => "AgACAgIAAxkBAAK2iGOrscGmlwg4TsO0VYqC8vgkVm2uAAJvwDEbkKlhSZM-vDjuZ37DAQADAgADbQADLAQ",
-                    "file_size" => 21857,
-                    "file_unique_id" => "AQADb8AxG5CpYUly",
-                    "height" => 320,
-                    "width" => 240
-                },
-                {
-                    "file_id" => "AgACAgIAAxkBAAK2iGOrscGmlwg4TsO0VYqC8vgkVm2uAAJvwDEbkKlhSZM-vDjuZ37DAQADAgADeAADLAQ",
-                    "file_size" => 110078,
-                    "file_unique_id" => "AQADb8AxG5CpYUl9",
-                    "height" => 800,
-                    "width" => 600
-                },
-                {
-                    "file_id" => "AgACAgIAAxkBAAK2iGOrscGmlwg4TsO0VYqC8vgkVm2uAAJvwDEbkKlhSZM-vDjuZ37DAQADAgADeQADLAQ",
-                    "file_size" => 163630,
-                    "file_unique_id" => "AQADb8AxG5CpYUl-",
-                    "height" => 1280,
-                    "width" => 960
-                }
+              {
+                  "file_id" => "AgACAgIAAxkBAALBdGOymdRJoMGjOztkyAuknncpw7tpAAL7yDEbUOSYSYgo8Qsq29DjAQADAgADcwADLQQ",
+                  "file_size" => 1263,
+                  "file_unique_id" => "AQAD-8gxG1DkmEl4",
+                  "height" => 90,
+                  "width" => 67
+              },
+              {
+                  "file_id" => "AgACAgIAAxkBAALBdGOymdRJoMGjOztkyAuknncpw7tpAAL7yDEbUOSYSYgo8Qsq29DjAQADAgADbQADLQQ",
+                  "file_size" => 21722,
+                  "file_unique_id" => "AQAD-8gxG1DkmEly",
+                  "height" => 320,
+                  "width" => 240
+              },
+              {
+                  "file_id" => "AgACAgIAAxkBAALBdGOymdRJoMGjOztkyAuknncpw7tpAAL7yDEbUOSYSYgo8Qsq29DjAQADAgADeAADLQQ",
+                  "file_size" => 103820,
+                  "file_unique_id" => "AQAD-8gxG1DkmEl9",
+                  "height" => 800,
+                  "width" => 600
+              },
+              {
+                  "file_id" => "AgACAgIAAxkBAALBdGOymdRJoMGjOztkyAuknncpw7tpAAL7yDEbUOSYSYgo8Qsq29DjAQADAgADeQADLQQ",
+                  "file_size" => 151497,
+                  "file_unique_id" => "AQAD-8gxG1DkmEl-",
+                  "height" => 1280,
+                  "width" => 960
+              }
             ]
         },
-        "update_id" => 20480509
+        "update_id" => 20680800
       }
     end
     let(:telegram_bot_params_choose_category) do
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADb8AxG5CpYUl-:68000.0",
+            "data" => "Еда: f_id:AQAD-8gxG1DkmEl-:24500.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
                 **chat,
-                "date" => 1670052388,
+                "date" => 1672650172,
                 "from" => {
                     "first_name" => ENV['BOT_NAME'],
                     "id" => ENV['BOT_ID'],
                     "is_bot" => true,
                     "username" => ENV['BOT_USER_NAME']
                 },
-                "message_id" => 46734,
+                "message_id" => 51491,
                 "reply_markup" => {
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Транспорт: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Еда: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Развлечения: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Подарки: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Для дома: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Коля: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Валди: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Непредвиденное: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Марк: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Лиля: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Путешествия: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Авто бмоно: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Крупные покупки: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Капитал: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Кэш: f_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Кэш"
                             }
                         ]
                     ]
                 },
-                "text" => "Выбери категорию чтобы сохранить для 68000.0:"
+                "text" => "Выбери категорию чтобы сохранить для 24500.0:"
             }
         },
-        "update_id" => 20480510
+        "update_id" => 20680900
       }
     end
     let(:telegram_bot_params_choose_sub_category) do
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADb8AxG5CpYUl-:68000.0",
+            "data" => "Молочка: f1_id:AQAD-8gxG1DkmEl-:24500.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
                 **chat,
-                "date" => 1670052388,
+                "date" => 1672651172,
                 "from" => {
                     "first_name" => ENV['BOT_NAME'],
                     "id" => ENV['BOT_ID'],
                     "is_bot" => true,
                     "username" => ENV['BOT_USER_NAME']
                 },
-                "message_id" => 46748,
+                "message_id" => 51499,
                 "reply_markup" => {
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Молочка: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Готовая: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Фрукты: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Овощи: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Сладости: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Бакалея: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Новопочта: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Рыба: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Яйца: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Вода: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Алкоголь: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "К пиву: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Мясо: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADb8AxG5CpYUl-:68000.0",
+                                "callback_data" => "Детское питание: f1_id:AQAD-8gxG1DkmEl-:24500.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -5496,12 +5497,12 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "text" => "Выбери подкатегорию:"
             }
         },
-        "update_id" => 20480526
+        "update_id" => 20680950
       }
     end
 
     context 'when uah expenses' do
-      context 'when vika payed', freezed_time: '2022-12-28T05:06:00+00:00', perform_enqueued: true do
+      context 'when vika payed', freezed_time: '2023-01-02T08:51:00+00:00', perform_enqueued: true do
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark v' do
             # upload photo
@@ -5516,7 +5517,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
         end
       end
 
-      context 'when mykola payed', freezed_time: '2022-12-28T05:09:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-02T09:02:00+00:00', perform_enqueued: true do
         let(:caption) { "uah 0.0024 m" }
 
         context 'when 1 category was not parsed' do
@@ -5533,7 +5534,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
         end
       end
 
-      context 'when all our expenses', freezed_time: '2022-12-28T05:17:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-02T09:03:00+00:00', perform_enqueued: true do
         let(:caption) { "uah 0.0024" }
 
         context 'when 1 category was not parsed' do
@@ -5552,7 +5553,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     end
 
     context 'when usd expenses' do
-      context 'when mykola payed', freezed_time: '2022-12-28T05:26:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-02T09:04:00+00:00', perform_enqueued: true do
         let(:caption) { "usd 15593.0528 m" }
 
         context 'when 1 category was not parsed' do
@@ -5569,7 +5570,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
         end
       end
 
-      context 'when all our expenses', freezed_time: '2022-12-28T05:29:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-02T09:07:00+00:00', perform_enqueued: true do
         let(:caption) { "usd 15593.0528" }
 
         context 'when 1 category was not parsed' do
