@@ -414,7 +414,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         }
       end
 
-      it 'saves to google sheet, increase cash value', freezed_time: '2022-12-20T14:07:00+00:00', perform_enqueued: true do
+      it 'saves to google sheet, increase cash value', freezed_time: '2023-01-08T14:30:00+00:00', perform_enqueued: true do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)

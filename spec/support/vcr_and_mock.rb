@@ -22,6 +22,10 @@ VCR.configure do |c|
 
   c.configure_rspec_metadata!
 
+  c.register_request_matcher :telegram_get_file_custom_matcher do |r1, r2|
+    r1.body.split(/file_/)[0] == r2.body.split(/file_/)[0]
+  end
+
   # uncomment to see what vcr does
   # c.debug_logger = STDERR
 end

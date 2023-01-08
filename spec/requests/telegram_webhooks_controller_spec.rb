@@ -2734,7 +2734,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when cash foreign currency' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-20T14:43:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2023-01-08T14:11:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3057,7 +3057,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2022-12-20T14:47:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2023-01-08T14:12:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3380,7 +3380,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2022-12-20T14:48:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2023-01-08T14:14:00+00:00', perform_enqueued: true do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -5213,7 +5213,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     end
   end
 
-  context 'when parse photo' do
+  context 'when parse photo', vcr: { match_requests_on: [:method, :body, :telegram_get_file_custom_matcher] } do
     # 1 category not parsed in photo: spec/images/not_parsed_one_category.jpeg
     let(:caption) { "uah 0.0024 v" }
     let(:telegram_bot_params_upload_photo) do

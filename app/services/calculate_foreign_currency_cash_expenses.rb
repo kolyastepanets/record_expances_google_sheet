@@ -26,6 +26,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
     total_withraw_foreign_money = 0
     spent_foreign_money = 0
     now_foreign_money = 0
+    calculated_total_withraw_foreign_money = 0
 
     @response.values.each do |value_array|
       value_array.each_with_index do |value, index|
@@ -66,7 +67,6 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    calculated_total_withraw_foreign_money = total_withraw_foreign_money.delete('=').split('+').sum(&:to_f)
     coordinates_of_total_withraw_foreign_money_formula = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
@@ -89,26 +89,24 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
     end
     coordinates_of_value_to_change_now_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
-    if calculated_total_withraw_foreign_money.zero? || now_foreign_money.zero?
-      @value_render_option = 'UNFORMATTED_VALUE'
-      make_request
+    @value_render_option = 'UNFORMATTED_VALUE'
+    make_request
 
-      @response.values.each do |value_array|
-        value_array.each_with_index do |value, value_index|
-          if value == KEY_FIND_CELL_TOTAL_MONEY
-            calculated_total_withraw_foreign_money = value_array[value_index + 1].to_f
-          end
-          break if !calculated_total_withraw_foreign_money.zero?
+    @response.values.each do |value_array|
+      value_array.each_with_index do |value, value_index|
+        if value == KEY_FIND_CELL_TOTAL_MONEY
+          calculated_total_withraw_foreign_money = value_array[value_index + 1].to_f
         end
+        break if !calculated_total_withraw_foreign_money.zero?
       end
+    end
 
-      @response.values.each do |value_array|
-        value_array.each_with_index do |value, value_index|
-          if value == KEY_FIND_CELL_NOW_MONEY
-            now_foreign_money = value_array[value_index + 1].to_f
-          end
-          break if !now_foreign_money.zero?
+    @response.values.each do |value_array|
+      value_array.each_with_index do |value, value_index|
+        if value == KEY_FIND_CELL_NOW_MONEY
+          now_foreign_money = value_array[value_index + 1].to_f
         end
+        break if !now_foreign_money.zero?
       end
     end
 
