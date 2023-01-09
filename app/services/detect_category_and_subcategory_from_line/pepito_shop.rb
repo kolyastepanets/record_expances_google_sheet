@@ -134,7 +134,8 @@ module DetectCategoryAndSubcategoryFromLine
       magnum_icecream? || oreo_cake? || lindt? || kit_kat? || oreo_biscuit? || milk_chocolate? ||
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
-        bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate?
+        bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
+        cadbury_lickabler? || marshmallow?
     end
 
     def magnum_icecream?
@@ -231,6 +232,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bruxel_chocolate?
       @line.include?('bruxel') && @line.include?('chocolate')
+    end
+
+    def cadbury_lickabler?
+      @line.include?('cadbury') && @line.include?('lickabler')
+    end
+
+    def marshmallow?
+      @line.include?('chomp') && @line.include?('mrsmlw')
     end
 
     ####
@@ -424,7 +433,7 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
-        cheddar? || sour_cream? || mini_cheese? || anchor_dairy?
+        cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini?
     end
 
     def milk?
@@ -487,6 +496,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.any? { |word| word.include?('anchor') }
     end
 
+    def bocconcini?
+      @line.include?('bocconcini') && @line.include?('fresh')
+    end
+
     ####
 
     def bread?
@@ -520,7 +533,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken?
+      chicken_breast? || chicken? || pork?
     end
 
     def chicken_breast?
@@ -529,6 +542,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken?
       @line.include?('chicken')
+    end
+
+    def pork?
+      @line.include?('pork') && @line.include?('fillet')
     end
 
     ####
