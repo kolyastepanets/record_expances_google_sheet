@@ -405,7 +405,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def rucola?
-      @line.include?('rucola')
+      @line.include?('rucola') || @line.include?('rucolla')
     end
 
     def beetroot?
@@ -433,7 +433,7 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
-        cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini?
+        cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela?
     end
 
     def milk?
@@ -500,6 +500,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bocconcini') && @line.include?('fresh')
     end
 
+    def mozzarela?
+      @line.include?('mozzarella') && @line.include?('fresh')
+    end
+
     ####
 
     def bread?
@@ -533,7 +537,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken? || pork?
+      chicken_breast? || chicken? || pork? || beef?
     end
 
     def chicken_breast?
@@ -546,6 +550,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pork?
       @line.include?('pork') && @line.include?('fillet')
+    end
+
+    def beef?
+      @line.include?('prime') && @line.include?('beef')
     end
 
     ####
@@ -620,7 +628,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def for_beer?
-      lays? || pistachios? || pringles? || thins_chips? || corn_sticks?
+      lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps?
     end
 
     def lays?
@@ -641,6 +649,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def corn_sticks?
       @line.include?('cheeto') && @line.any? { |word| word.include?('puffs') }
+    end
+
+    def crisps?
+      @line.include?('lrz') && @line.include?('nat') && @line.include?('classic')
     end
 
     ####
@@ -808,7 +820,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def pampers?
-      sweety? || merries?
+      sweety? || merries? || diaper_baby?
     end
 
     def sweety?
@@ -817,6 +829,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def merries?
       @line.include?('merries') && @line.any? { |word| word.include?('good') }
+    end
+
+    def diaper_baby?
+      @line.include?('diaper') && @line.include?('baby')
     end
 
     ####
