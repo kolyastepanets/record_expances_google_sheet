@@ -297,7 +297,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
-        bel_cheese? || baros_gouda? || ricta?
+        bel_cheese? || baros_gouda? || ricta? || bega?
     end
 
     def ricotta?
@@ -334,6 +334,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def ricta?
       @line.include?('yummy') && @line.include?('ricta')
+    end
+
+    def bega?
+      @line.include?('bega') && @line.any? { |word| word.include?('slices') }
     end
 
     def butter?
