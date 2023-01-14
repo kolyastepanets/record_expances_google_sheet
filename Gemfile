@@ -15,6 +15,7 @@ gem 'figaro'
 gem 'faraday'
 gem 'sidekiq', '= 5.2.10'
 gem 'rtesseract'
+gem 'whenever', require: false
 
 group :development do
   gem 'listen'
