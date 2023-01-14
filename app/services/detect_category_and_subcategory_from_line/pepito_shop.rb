@@ -85,7 +85,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
-        oil? || sugar_2? || tomat_for_borsch? || soda?
+        oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary?
     end
 
     def kikko_soy_souce?
@@ -128,6 +128,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('soda')
     end
 
+    def rosemary?
+      @line.include?('nat') && @line.include?('rosemry')
+    end
+
     ####
 
     def sweets?
@@ -135,7 +139,7 @@ module DetectCategoryAndSubcategoryFromLine
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
-        cadbury_lickabler? || marshmallow?
+        cadbury_lickabler? || marshmallow? || dilan?
     end
 
     def magnum_icecream?
@@ -240,6 +244,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def marshmallow?
       @line.include?('chomp') && @line.include?('mrsmlw')
+    end
+
+    def dilan?
+      @line.include?('dilan') && @line.include?('crnchy')
     end
 
     ####
@@ -433,7 +441,8 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
-        cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela?
+        cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
+        yogurt?
     end
 
     def milk?
@@ -504,10 +513,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mozzarella') && @line.include?('fresh')
     end
 
+    def yogurt?
+      @line.include?('plain') && @line.include?('yogurt')
+    end
+
     ####
 
     def bread?
-      donut? || bread_sticks? || toast? || wrap? || yeast? || waffels?
+      donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour?
     end
 
     def donut?
@@ -532,6 +545,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def waffels?
       @line.include?('bruxel') && @line.include?('original')
+    end
+
+    def flour?
+      @line.include?('kunci') && @line.include?('br')
     end
 
     ####
@@ -628,7 +645,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def for_beer?
-      lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps?
+      lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
+        lorenz?
     end
 
     def lays?
@@ -653,6 +671,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def crisps?
       @line.include?('lrz') && @line.include?('nat') && @line.include?('classic')
+    end
+
+    def lorenz?
+      @line.include?('lorenz') && @line.include?('parmesan')
     end
 
     ####
@@ -790,7 +812,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray?
+        some_spray? || wet_wipes?
     end
 
     def bataries?
@@ -815,6 +837,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def some_spray?
       @line.include?('phrn') && @line.include?('merah')
+    end
+
+    def wet_wipes?
+      @line.include?('neppi') && @line.include?('baby') && !@line.include?('diaper')
     end
 
     ####
