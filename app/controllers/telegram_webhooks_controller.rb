@@ -129,7 +129,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
-      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq, nil, nil)
     when -> (input_category) { input_category.include?('h_id') }
       category_name = data.split(': ')[0]
       transaction_id = data.split(': ')[1].split('h_id:')[1]
@@ -154,11 +154,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       transaction_id = "f1_id:#{transaction_id}:#{price}"
       show_sub_categories_by_category(category_name, transaction_id)
     when -> (input_sub_category) { input_sub_category.include?('f1_id') }
-      params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
+      params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete, transaction_id = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
-      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
       PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
-      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
+      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq, transaction_id, params_to_save_to_google_sheet[:price_in_usd])
     else
       # return help
     end
@@ -544,7 +544,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def remove_messages(data)
     transaction_id = data.split(': ')[1]
     params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
-    DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    DeleteMessagesJob.perform_later(params[:message_ids].uniq, nil, nil)
   end
 
   def amount_already_spent

@@ -11,6 +11,8 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def call_job
+    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: "Данные перед сохранением: #{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}")
+
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
 
     SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(currency_rate: currency_rate))

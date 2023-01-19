@@ -31,6 +31,8 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def call_job
+    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: "Данные перед сохранением: #{ReceiveUsdFopFromGoogleSheet.call}")
+
     return EnterSalaryFromSwiftJob.perform_later(@params) if @params[:swift_salary]
     return DecreaseDollarsJob.perform_later(@params) if @params[:sold_dollars_to_uah_fop_for_taxes]
     return EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]

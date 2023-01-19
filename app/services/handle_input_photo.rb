@@ -32,6 +32,20 @@ class HandleInputPhoto
 
     first_cell_number = 0
     last_cell_number = 0
+    total_sum_categories = @prices_with_categories.size
+    total_sum_auto_entered_categories = 0
+    total_sum_manually_entered_categories = 0
+
+    if !@vika_paid
+      if @currency_to_usd
+        total_sum_usd_in_receipt = total_sum_of_money / @currency_to_usd
+      end
+      if @currency_to_uah
+        total_sum_usd_in_receipt = total_sum_of_money * @currency_to_usd / MonobankCurrencyRates.call('USD', 'UAH')
+      end
+      send_message("Общая цена в чеке в долларах: #{total_sum_usd_in_receipt}")
+      send_message("Общая сумма перед заполнением: #{total_sum_of_money}")
+    end
 
     @prices_with_categories.each.with_index(1) do |price_with_category, index|
       current_price = price_with_category[:price]
@@ -95,6 +109,8 @@ class HandleInputPhoto
         end
 
         SendNotificationMessageToBot.call(params_to_save_to_google_sheet)
+
+        total_sum_auto_entered_categories += 1
       else
         categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
@@ -109,6 +125,7 @@ class HandleInputPhoto
           message_ids: [response["result"]["message_id"]],
           who_paid: @who_paid,
         }
+        total_sum_manually_entered_categories += 1
       end
     end
 
@@ -136,6 +153,16 @@ class HandleInputPhoto
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,
         calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
       )
+    end
+
+    if !@vika_paid && total_sum_categories == total_sum_auto_entered_categories
+      send_message("Общая сумма после заполнения: #{total_sum_of_money}")
+    else
+      @params << {
+        total_sum_categories: total_sum_categories,
+        total_sum_auto_entered_categories: total_sum_auto_entered_categories,
+        total_sum_manually_entered_categories: total_sum_manually_entered_categories,
+      }
     end
 
     save_to_redis
@@ -198,5 +225,15 @@ class HandleInputPhoto
 
   def save_to_redis
     @redis.set(@file_id, @params.to_json, ex: 2.days)
+  end
+
+  def total_sum_of_money
+    if @currency_to_usd
+      return ReceiveUsdFopFromGoogleSheet.call
+    end
+
+    if @currency_to_uah
+      return ReceiveCurrentBalanceInMonobankFromGoogleSheet.call
+    end
   end
 end

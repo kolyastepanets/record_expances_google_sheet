@@ -11,6 +11,6 @@ class DeleteAllTodaysMessages
 
     return if messages.nil?
 
-    DeleteMessagesJob.perform_later(JSON.parse(messages))
+    DeleteMessagesJob.perform_later(JSON.parse(messages), nil, nil, nil)
   end
 end
