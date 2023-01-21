@@ -154,11 +154,24 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       transaction_id = "f1_id:#{transaction_id}:#{price}"
       show_sub_categories_by_category(category_name, transaction_id)
     when -> (input_sub_category) { input_sub_category.include?('f1_id') }
-      params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete, transaction_id = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
+      params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
       PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
-      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq, transaction_id, params_to_save_to_google_sheet[:price_in_usd])
+      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+
+      data_hash = params.detect { |pri| pri[:total_sum_manually_entered_categories] }
+      if data_hash[:total_sum_manually_entered_categories].present? && data_hash[:total_sum_manually_entered_categories].zero?
+        sleep 5 # I hope it will be enough to delete message and then send how much money was left. I do not want to DeleteMessagesJob do anything else then delete messages
+
+        data_text = TextMessagesAfterEnterPrices.call(
+          !!params_to_save_to_google_sheet[:price_in_usd],
+          !!params_to_save_to_google_sheet[:price_in_uah],
+          data_hash[:total_sum_of_money_before_save]
+        )
+        respond_with(:message, text: data_text[:total_sum_after_money_was_saved])
+        respond_with(:message, text: data_text[:difference_of_saved_money])
+      end
     else
       # return help
     end

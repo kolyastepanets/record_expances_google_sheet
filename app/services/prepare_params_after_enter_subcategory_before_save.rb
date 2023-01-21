@@ -13,11 +13,11 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
     @last_price_to_message = params.select { |pri| pri["price"] == @price }[-1]
 
     new_params_for_redis = params - [@last_price_to_message]
-    # new_params_for_redis = new_params_for_redis.detect { |current_param| current_param.key?(:total_sum_categories) }
-    # new_params_for_redis
+    new_params_for_redis.detect { |pri| pri[:total_sum_manually_entered_categories] -= 1 }
+
     @redis.set(@transaction_id, new_params_for_redis.to_json, ex: 2.days)
 
-    [params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete, @transaction_id]
+    [params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete]
   end
 
   private
