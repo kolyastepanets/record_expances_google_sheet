@@ -48,31 +48,7 @@ class HandleInputPhoto
     end
 
     @prices_with_categories.each.with_index(1) do |price_with_category, index|
-      current_price = price_with_category[:price]
-
-      price_in_usd = {}
-      if @currency_to_usd.present?
-        price_in_usd = {
-          price_in_usd: (current_price / @currency_to_usd).round(2),
-          price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
-        }
-      end
-
-      price_in_uah = {}
-      if @currency_to_uah.present?
-        price_in_uah = {
-          price_in_uah: (current_price * @currency_to_uah).round(2),
-          price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
-        }
-      end
-
-      params_to_save_to_google_sheet = {
-        category_name: price_with_category[:category_name],
-        sub_category_name: price_with_category[:sub_category_name],
-        operation_amount: current_price,
-        **price_in_usd,
-        **price_in_uah,
-      }
+      params_to_save_to_google_sheet = build_params_to_save_to_google_sheet(price_with_category)
 
       if price_with_category[:category_name].present?
         sleep(1) # prevent google api sheet limit
@@ -114,12 +90,12 @@ class HandleInputPhoto
       else
         categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
-            { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{current_price}" }
+            { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{price_with_category[:price]}" }
           end
         end
-        response = send_message_with_categories(current_price, categories_to_show)
+        response = send_message_with_categories(price_with_category[:price], categories_to_show)
         @params << {
-          price: current_price,
+          price: price_with_category[:price],
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
           message_ids: [response["result"]["message_id"]],
@@ -235,5 +211,33 @@ class HandleInputPhoto
     if @currency_to_uah
       return ReceiveCurrentBalanceInMonobankFromGoogleSheet.call
     end
+  end
+
+  def build_params_to_save_to_google_sheet(price_with_category)
+    current_price = price_with_category[:price]
+
+    price_in_usd = {}
+    if @currency_to_usd.present?
+      price_in_usd = {
+        price_in_usd: (current_price / @currency_to_usd).round(2),
+        price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
+      }
+    end
+
+    price_in_uah = {}
+    if @currency_to_uah.present?
+      price_in_uah = {
+        price_in_uah: (current_price * @currency_to_uah).round(2),
+        price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      }
+    end
+
+    {
+      category_name: price_with_category[:category_name],
+      sub_category_name: price_with_category[:sub_category_name],
+      operation_amount: current_price,
+      **price_in_usd,
+      **price_in_uah,
+    }
   end
 end
