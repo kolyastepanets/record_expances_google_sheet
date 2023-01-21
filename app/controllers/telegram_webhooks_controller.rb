@@ -85,6 +85,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'common_expenses'
       session[:is_grivnas] = true
       start_remember_total_price_of_products
+      send_message("Общая сумма перед заполнением: #{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}")
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
@@ -129,7 +130,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
-      DeleteMessagesJob.perform_later(params[:message_ids].uniq, nil, nil)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('h_id') }
       category_name = data.split(': ')[0]
       transaction_id = data.split(': ')[1].split('h_id:')[1]
@@ -375,6 +376,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def finish_remember_total_price_of_products
     show_total_price_of_products
+
     if !session[:foreigh_cash_amount].zero?
       result = CalculateForeignCurrencyCashExpenses.call
       UpdateCellInGoogleSheet.call(
@@ -557,7 +559,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def remove_messages(data)
     transaction_id = data.split(': ')[1]
     params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
-    DeleteMessagesJob.perform_later(params[:message_ids].uniq, nil, nil)
+    DeleteMessagesJob.perform_later(params[:message_ids].uniq)
   end
 
   def amount_already_spent
