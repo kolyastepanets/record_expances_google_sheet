@@ -139,7 +139,7 @@ module DetectCategoryAndSubcategoryFromLine
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
-        cadbury_lickabler? || marshmallow? || dilan?
+        cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut?
     end
 
     def magnum_icecream?
@@ -248,6 +248,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dilan?
       @line.include?('dilan') && @line.include?('crnchy')
+    end
+
+    def ice_cream?
+      @line.include?('walls') && @line.include?('mini') && @line.include?('crnt')
+    end
+
+    def truffle_coconut?
+      @line.include?('truffle') && @line.include?('coconut')
     end
 
     ####
@@ -442,7 +450,7 @@ module DetectCategoryAndSubcategoryFromLine
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
-        yogurt?
+        yogurt? || sour_cream_2?
     end
 
     def milk?
@@ -517,6 +525,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('plain') && @line.include?('yogurt')
     end
 
+    def sour_cream_2?
+      @line.include?('milk') && @line.include?('sour') && @line.include?('cream')
+    end
+
     ####
 
     def bread?
@@ -576,7 +588,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      marlin? || gravad? || mahi?
+      marlin? || gravad? || mahi? || tuna?
     end
 
     def marlin?
@@ -589,6 +601,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mahi?
       @line.include?('mahi') && @line.include?('fillet')
+    end
+
+    def tuna?
+      @line.include?('tuna') && @line.include?('fille')
     end
 
     ####
@@ -681,7 +697,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
-        rice_noodle? || oats_2? || red_lentils?
+        rice_noodle? || oats_2? || red_lentils? || conhiglie?
     end
 
     def rice?
@@ -718,6 +734,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def red_lentils?
       @line.include?('red') && @line.include?('lentils')
+    end
+
+    def conhiglie?
+      @line.include?('conhiglie') && @line.include?('rigate')
     end
 
     ####
