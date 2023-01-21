@@ -483,7 +483,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def for_beer?
-      pistachios? || thins? || sunflower_seeds? || pringles? || cashewnuts? || some_seeds?
+      pistachios? || thins? || sunflower_seeds? || pringles? || cashewnuts? || some_seeds? ||
+        crisps?
     end
 
     def pistachios?
@@ -508,6 +509,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def some_seeds?
       @line.include?('rebo') && @line.include?('kuaci')
+    end
+
+    def crisps?
+      @line.include?('lorenz') && @line.include?('barbecue')
     end
 
     ####
