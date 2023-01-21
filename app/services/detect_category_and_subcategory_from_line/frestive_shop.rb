@@ -92,7 +92,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
-        nutella? || schogetten? || cookies? || kit_kat?
+        nutella? || schogetten? || cookies? || kit_kat? || kitkat?
     end
 
     def honey?
@@ -157,6 +157,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kit_kat?
       @line.include?('kit') && @line.include?('kat')
+    end
+
+    def kitkat?
+      @line.include?('kitkat')
     end
 
     ####
@@ -445,7 +449,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      bernardi? || el_primo? || ham? || kanzler? || smoke_leg? || salami?
+      bernardi? || el_primo? || ham? || kanzler? || smoke_leg? || salami? || salami_2?
     end
 
     def bernardi?
@@ -470,6 +474,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def salami?
       @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('salam') }
+    end
+
+    def salami_2?
+      @line.any? { |word| word.include?('salami') } && @line.any? { |word| word.include?('italia') }
     end
 
     ####
