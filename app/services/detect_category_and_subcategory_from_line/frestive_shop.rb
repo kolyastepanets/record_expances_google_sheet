@@ -176,7 +176,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      banana? || apple? || melon? || pineapple? || watermelon? || mango?
+      banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry?
     end
 
     def banana?
@@ -201,6 +201,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mango?
       @line.include?('mango')
+    end
+
+    def cherry?
+      @line.include?('cherry') && !@line.include?('tomato')
     end
 
     ####
