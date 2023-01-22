@@ -89,4 +89,27 @@ RSpec.describe PrepareParamsAfterEnterSubcategoryBeforeSave do
       )
     end
   end
+
+  context 'when decrease total_sum_manually_entered_categories' do
+    let(:redis_params) { "[{\"price\":2.99,\"currency_to_usd\":0.8707,\"currency_to_uah\":null,\"message_ids\":[26582]},{\"total_sum_manually_entered_categories\":3}]" }
+
+    it 'returns total_sum_manually_entered_categories 2' do
+      expect(subject).to eq(
+        [
+          {
+            :category_name=>nil,
+            :sub_category_name=>"Полуфабрикаты/морозилка",
+            :operation_amount=>2.99,
+            :who_paid=>nil,
+            :price_in_usd=>3.4340186057195363,
+            :price_in_usd_to_save_in_google_sheet=>"=2,99 / 0,8707"
+          },
+          [
+            {"total_sum_manually_entered_categories"=>2}
+          ],
+          [26582]
+        ]
+      )
+    end
+  end
 end
