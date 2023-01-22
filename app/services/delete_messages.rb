@@ -6,7 +6,7 @@ class DeleteMessages
   end
 
   def call
-    message_ids.each do |message_id|
+    @message_ids.each do |message_id|
       Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
     end
 

@@ -81,6 +81,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       show_categories_to_choose
     when 'common_expenses'
       session[:is_grivnas] = true
@@ -387,11 +390,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
 
     message_ids = redis.get("messages_at_#{Date.today.to_s}")
-    DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
-    is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
-    is_uah = session[:is_grivnas]
-    can_show_final_message = true
-    SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, session[:total_sum_of_money_before_save])
+    DeleteMessages.call((JSON.parse(message_ids) + [payload["message"]["message_id"]]).uniq)
+
+    if session[:is_grivnas] || session[:is_metro] || !!session[:receipt_dollar_foreign_currency_exchange_rate]
+      is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
+      is_uah = session[:is_grivnas] || session[:is_metro]
+      can_show_final_message = true
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, session[:total_sum_of_money_before_save])
+    end
 
     set_default_values_in_session!
 
@@ -539,7 +545,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def set_default_values_in_session!
     session[:is_wise] = nil
-    session[:is_grivnas] = nil
+    session[:is_grivnas] = false
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
     session[:receipt_dollar_foreign_currency_exchange_rate] = nil
