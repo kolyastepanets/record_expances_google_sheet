@@ -18,7 +18,7 @@ class TextMessagesAfterEnterPrices
     end
 
     {
-      total_sum_after_money_was_saved: "Общая сумма уже сохраненная после заполнения: #{total_sum_of_money}"
+      total_sum_after_money_was_saved: "Общая сумма уже сохраненная после заполнения: \n#{total_sum_of_money}",
       difference_of_saved_money: "Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: #{(@total_sum_of_money_before_save - total_sum_of_money_after_save)}"
     }
   end

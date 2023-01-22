@@ -2,8 +2,13 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   private
 
   def build_params
+    is_usd = false
+    is_uah = true
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
+
     @params = {
       price_in_uah: @transaction_data[:amount].to_i.abs / 100.0,
+      total_sum_of_money_before_save: @total_sum_of_money_before_save,
       **@params,
     }
 
@@ -11,11 +16,16 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   end
 
   def call_job
-    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: "Данные перед сохранением: #{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}")
-
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
 
-    SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(currency_rate: currency_rate))
+    SendMessageToBotToAskToEnterExpences.call(
+      {
+        currency_rate: currency_rate,
+        total_sum_of_money_before_save: @total_sum_of_money_before_save,
+        can_show_final_sum: true,
+        **@transaction_data,
+      }
+    )
   end
 
   def currency_rate

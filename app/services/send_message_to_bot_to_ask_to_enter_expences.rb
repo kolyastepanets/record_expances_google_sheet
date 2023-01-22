@@ -8,6 +8,8 @@ class SendMessageToBotToAskToEnterExpences
     @id = transaction_data[:id]
     @description = transaction_data[:description]
     @currency_rate = transaction_data[:currency_rate]
+    @total_sum_of_money_before_save = transaction_data[:total_sum_of_money_before_save]
+    @can_show_final_sum = transaction_data[:can_show_final_sum]
     @price_in_uah = transaction_data[:amount].to_i.abs / 100.0 if !transaction_data[:is_fop_dollar]
     @price_in_usd = transaction_data[:amount].to_i.abs / 100.0 if transaction_data[:is_fop_dollar]
     @operation_amount = transaction_data[:operationAmount].to_i.abs / 100.0
@@ -38,6 +40,8 @@ class SendMessageToBotToAskToEnterExpences
       operation_amount: @operation_amount,
       currency_rate: @currency_rate,
       message_ids: [],
+      total_sum_of_money_before_save: @total_sum_of_money_before_save,
+      can_show_final_sum: @can_show_final_sum,
     }
   end
 

@@ -85,11 +85,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'common_expenses'
       session[:is_grivnas] = true
       start_remember_total_price_of_products
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(false, session[:is_grivnas])
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(false, session[:is_grivnas])
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       ask_to_enter_left_foreign_cash

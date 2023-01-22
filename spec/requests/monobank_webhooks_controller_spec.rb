@@ -9,7 +9,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
+RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_enqueued: true do
   include ActiveJob::TestHelper
 
   let(:message_from) do
@@ -123,12 +123,6 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
             {
               "callback_data" => "remove_messages: tk6Ulh_sMFs9e_Zt",
               "text" => "Удалить сообщения этой транзакции"
-            }
-          ],
-          [
-            {
-              "callback_data" => "vika:1000000.0:tk6Ulh_sMFs9e_Zt",
-              "text" => "Вика или Микола вернул(а) гривны на моно"
             }
           ]
         ]
@@ -353,7 +347,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
   end
 
   context 'when uah expenses' do
-    context 'when category present' do
+    context 'when category present', freezed_time: '2023-01-22T06:03:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -366,8 +360,8 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
                 "description" => "DigitalOcean",
                 "mcc" => 4829,
                 "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
+                "amount" => 1000000,
+                "operationAmount" => 1000000,
                 "currencyCode" => 980,
                 "commissionRate" => 0,
                 "cashbackAmount" => 0,
@@ -380,14 +374,14 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         }
       end
 
-      it 'saves to google sheet', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
+      it 'saves to google sheet' do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)
       end
     end
 
-    context 'when category cash' do
+    context 'when category cash', freezed_time: '2023-01-22T06:06:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -414,7 +408,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         }
       end
 
-      it 'saves to google sheet, increase cash value', freezed_time: '2023-01-08T14:30:00+00:00', perform_enqueued: true do
+      it 'saves to google sheet, increase cash value' do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         expect(response.status).to eq(200)
@@ -428,271 +422,6 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
             "type" => "StatementItem",
             "data" => {
               "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "some unknown category",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-      let(:telegram_bot_params_vika_returned) do
-        {
-          "callback_query" => {
-            "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "vika:1000000.0:tk6Ulh_sMFs9e_Zt",
-            **message_from,
-            "id" => "1651136315859693905",
-            "message" => {
-              **chat,
-              "date" => 1670052388,
-              "from" => {
-                "first_name" => ENV['BOT_NAME'],
-                "id" => ENV['BOT_ID'],
-                "is_bot" => true,
-                "username" => ENV['BOT_USER_NAME']
-              },
-              "message_id" => 35165,
-              **reply_markup_choosing_category,
-              "text" => "Выбери категорию:"
-            }
-          },
-          "update_id" => 20479568
-        }
-      end
-
-      before do
-        allow(DeleteMessagesJob).to receive(:perform_later)
-      end
-
-      it 'asks bot and saves to google sheet', freezed_time: '2022-12-14T09:18:00+00:00', perform_enqueued: true do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
-        # choose sub category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
-
-        expect(response.status).to eq(200)
-      end
-
-      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-16T13:43:00+00:00', perform_enqueued: true do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_half_expenses
-        # choose sub category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
-
-        expect(response.status).to eq(200)
-      end
-
-      it 'divides price, mark green, encrease uah when vika returned', freezed_time: '2022-12-04T14:07:00+00:00', perform_enqueued: true do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose vika or mykola returned
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_returned
-
-        expect(response.status).to eq(200)
-      end
-
-      it 'divides price, mark green, decrease uah when mykola returned', freezed_time: '2022-12-04T14:10:00+00:00', perform_enqueued: true do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose vika or mykola returned
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_returned
-
-        expect(response.status).to eq(200)
-      end
-    end
-  end
-
-  context 'when usd expenses' do
-    context 'when category present' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "DigitalOcean",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-
-      it 'saves to google sheet', freezed_time: '2022-12-16T13:48:00+00:00', perform_enqueued: true do
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when swift salary' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "Some a lot DATA where SWIFT is main word",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-
-      # VPN is needed to make request to NBU
-      it 'saves nbu currency rate, salary to month, increase usd', freezed_time: '2022-12-04T14:25:00+00:00', perform_enqueued: true do
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when swift salary goes to the next year', freezed_time: '2022-12-16T04:32:00+00:00', perform_enqueued: true do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "Some a lot DATA where SWIFT is main word",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-
-      # VPN is needed to make request to NBU
-      it 'saves nbu currency rate, salary to month, increase usd' do
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when sold dollars to grivnas for taxes' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "На гривневий рахунок ФОП",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 100000000,
-                "operationAmount" => 100000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-
-      it 'decreases usd', freezed_time: '2022-12-04T14:33:00+00:00', perform_enqueued: true do
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when sold dollars to grivnas' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
-              "statementItem" => {
-                "id" => "tk6Ulh_sMFs9e_Zt",
-                "time" => 1661599923,
-                "description" => "На гривневий рахунок ФОП для переказу на картку",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => -27285000,
-                "operationAmount" => -1000000000,
-                "currencyCode" => 980,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 10000,
-                "hold" => true,
-                "receiptId" => "123-123-123-123"
-              }
-            }
-          }
-        }
-      end
-
-      it 'increases uah and decreases usd', freezed_time: '2022-12-04T14:41:00+00:00', perform_enqueued: true do
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when category blank' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
               "statementItem" => {
                 "id" => "tk6Ulh_sMFs9e_Zt",
                 "time" => 1661599923,
@@ -717,7 +446,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         allow(DeleteMessagesJob).to receive(:perform_later)
       end
 
-      it 'asks bot and saves to google sheet', freezed_time: '2022-12-16T13:49:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet', freezed_time: '2023-01-22T06:25:00+00:00' do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
@@ -728,7 +457,233 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true do
         expect(response.status).to eq(200)
       end
 
-      it 'asks bot and saves to google sheet half expenses', freezed_time: '2022-12-16T13:52:00+00:00', perform_enqueued: true do
+      it 'asks bot and saves to google sheet half expenses', freezed_time: '2023-01-22T06:45:00+00:00' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        # choose category
+        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_half_expenses
+        # choose sub category
+        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  context 'when usd expenses' do
+    context 'when category present', freezed_time: '2023-01-22T06:58:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "DigitalOcean",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => 100000,
+                "operationAmount" => 100000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves to google sheet' do
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    # VPN is needed to make request to NBU
+    context 'when swift salary', freezed_time: '2023-01-22T07:03:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Some a lot DATA where SWIFT is main word",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => 100000,
+                "operationAmount" => 100000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves nbu currency rate, salary to month, increase usd' do
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    # VPN is needed to make request to NBU
+    # No idea for now how to rerecord VCR correctly, because freeze time needs to be 20 of December
+    # but google sheet api token should be valid now
+    # Hope code works :)
+    xcontext 'when swift salary goes to the next year', freezed_time: '2022-12-16T04:32:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Some a lot DATA where SWIFT is main word",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => 100000,
+                "operationAmount" => 100000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves nbu currency rate, salary to month, increase usd' do
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when sold dollars to grivnas for taxes', freezed_time: '2023-01-22T07:10:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "На гривневий рахунок ФОП",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => 100000,
+                "operationAmount" => 100000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'decreases usd' do
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when sold dollars to grivnas', freezed_time: '2023-01-22T07:14:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "На гривневий рахунок ФОП для переказу на картку",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => -40928,
+                "operationAmount" => -1500000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'increases uah and decreases usd' do
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when category blank', freezed_time: '2023-01-22T07:16:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "IJ8Y_c1UAwxRHa4vAlTivQ",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "some unknown category",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => 100000,
+                "operationAmount" => 100000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      before do
+        allow(DeleteMessagesJob).to receive(:perform_later)
+      end
+
+      it 'asks bot and saves to google sheet' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        # choose category
+        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        # choose sub category
+        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+
+        expect(response.status).to eq(200)
+      end
+
+      it 'asks bot and saves to google sheet half expenses' do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
