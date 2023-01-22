@@ -25,40 +25,21 @@ class HandleInputPhoto
 
     return send_message("не смог распарсить все цены в чеке :(((, сумма всех цен: #{collected_prices_sum.round(2)}, сумма: #{@total_sum_in_receipt}") if !can_enter_expenses?
 
-    send_message("Общая цена в чеке: #{collected_prices_sum}")
+    send_message("Общая цена в чеке в иностранной валюте: #{collected_prices_sum}")
+    send_message("Общая цена в чеке: #{collected_prices_sum_in_uad_or_in_uah}")
+    send_messages_before_enter_prices
 
     total_sum_usd = 0
     total_sum_uah = 0
 
     first_cell_number = 0
     last_cell_number = 0
+    total_sum_categories = @prices_with_categories.size
+    total_sum_auto_entered_categories = 0
+    total_sum_manually_entered_categories = 0
 
     @prices_with_categories.each.with_index(1) do |price_with_category, index|
-      current_price = price_with_category[:price]
-
-      price_in_usd = {}
-      if @currency_to_usd.present?
-        price_in_usd = {
-          price_in_usd: (current_price / @currency_to_usd).round(2),
-          price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
-        }
-      end
-
-      price_in_uah = {}
-      if @currency_to_uah.present?
-        price_in_uah = {
-          price_in_uah: (current_price * @currency_to_uah).round(2),
-          price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
-        }
-      end
-
-      params_to_save_to_google_sheet = {
-        category_name: price_with_category[:category_name],
-        sub_category_name: price_with_category[:sub_category_name],
-        operation_amount: current_price,
-        **price_in_usd,
-        **price_in_uah,
-      }
+      params_to_save_to_google_sheet = build_params_to_save_to_google_sheet(price_with_category)
 
       if price_with_category[:category_name].present?
         sleep(1) # prevent google api sheet limit
@@ -95,20 +76,23 @@ class HandleInputPhoto
         end
 
         SendNotificationMessageToBot.call(params_to_save_to_google_sheet)
+
+        total_sum_auto_entered_categories += 1
       else
         categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
-            { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{current_price}" }
+            { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{price_with_category[:price]}" }
           end
         end
-        response = send_message_with_categories(current_price, categories_to_show)
+        response = send_message_with_categories(price_with_category[:price], categories_to_show)
         @params << {
-          price: current_price,
+          price: price_with_category[:price],
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
           message_ids: [response["result"]["message_id"]],
           who_paid: @who_paid,
         }
+        total_sum_manually_entered_categories += 1
       end
     end
 
@@ -136,6 +120,17 @@ class HandleInputPhoto
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,
         calculate_total_spent_usd_and_uah[:coordinates_of_total_left_uah_money],
       )
+    end
+
+    if total_sum_categories == total_sum_auto_entered_categories
+      send_messages_after_enter_prices
+    else
+      @params << {
+        total_sum_categories: total_sum_categories,
+        total_sum_auto_entered_categories: total_sum_auto_entered_categories,
+        total_sum_manually_entered_categories: total_sum_manually_entered_categories,
+        total_sum_of_money_before_save: @total_sum_of_money_before_save,
+      }
     end
 
     save_to_redis
@@ -198,5 +193,48 @@ class HandleInputPhoto
 
   def save_to_redis
     @redis.set(@file_id, @params.to_json, ex: 2.days)
+  end
+
+  def build_params_to_save_to_google_sheet(price_with_category)
+    current_price = price_with_category[:price]
+
+    price_in_usd = {}
+    if @currency_to_usd.present?
+      price_in_usd = {
+        price_in_usd: (current_price / @currency_to_usd).round(2),
+        price_in_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_usd.to_s.gsub(".", ",")}"
+      }
+    end
+
+    price_in_uah = {}
+    if @currency_to_uah.present?
+      price_in_uah = {
+        price_in_uah: (current_price * @currency_to_uah).round(2),
+        price_in_uah_converted_to_usd_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_uah.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+      }
+    end
+
+    {
+      category_name: price_with_category[:category_name],
+      sub_category_name: price_with_category[:sub_category_name],
+      operation_amount: current_price,
+      **price_in_usd,
+      **price_in_uah,
+    }
+  end
+
+  def send_messages_before_enter_prices
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah)
+  end
+
+  def send_messages_after_enter_prices
+    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, @total_sum_of_money_before_save)
+    send_message(data_text[:total_sum_after_money_was_saved])
+    send_message(data_text[:difference_of_saved_money])
+  end
+
+  def collected_prices_sum_in_uad_or_in_uah
+    return "$#{(collected_prices_sum / @currency_to_usd).round(2)}" if @currency_to_usd
+    return "#{(collected_prices_sum * @currency_to_uah).round(2)} грн" if @currency_to_uah
   end
 end

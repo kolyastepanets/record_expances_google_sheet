@@ -10,6 +10,7 @@ class CommonExpensesFromWebhook
       current_month: Date.today.month,
       mono_description: @transaction_data[:description],
       currency_rate: currency_rate,
+      can_show_final_sum: true,
     }
   end
 

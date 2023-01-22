@@ -9,12 +9,13 @@
 
 require 'rails_helper'
 
-RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
+RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_enqueued: true do
   include ActiveJob::TestHelper
 
   before do
-    allow(DeleteAllTodaysMessages).to receive(:call)
-    allow(DeleteMessagesJob).to receive(:perform_later)
+    # allow(DeleteAllTodaysMessages).to receive(:call)
+    # allow(DeleteMessagesJob).to receive(:perform_later)
+    allow(Telegram.bot).to receive(:delete_message)
   end
 
   let(:reply_markup_all_info) do
@@ -315,8 +316,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     }
   end
 
-  context 'when metro expenses' do
-    context 'when all our metro expenses 2 times', freezed_time: '2022-12-14T09:30:00+00:00', perform_enqueued: true do
+  context 'when metro expenses', freezed_time: '2023-01-22T07:37:00+00:00' do
+    context 'when all our metro expenses 2 times' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -495,7 +496,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670052690,
                 **message_from,
                 "message_id" => 35169,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479570
         }
@@ -561,7 +562,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670072000,
                 **message_from,
                 "message_id" => 35891,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479616
         }
@@ -621,7 +622,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when common expenses' do
-    context 'when vika payed', freezed_time: '2022-12-16T13:53:00+00:00', perform_enqueued: true do
+    context 'when vika payed', freezed_time: '2023-01-22T07:39:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -800,7 +801,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670052690,
                 **message_from,
                 "message_id" => 35169,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479570
         }
@@ -852,7 +853,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika payed 2 times', freezed_time: '2022-12-16T13:56:00+00:00', perform_enqueued: true do
+    context 'when vika payed 2 times', freezed_time: '2023-01-22T07:42:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1031,7 +1032,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670052690,
                 **message_from,
                 "message_id" => 35169,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479570
         }
@@ -1155,7 +1156,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola payed 2 times', freezed_time: '2022-12-16T13:58:00+00:00', perform_enqueued: true do
+    context 'when mykola payed 2 times', freezed_time: '2023-01-22T07:44:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1334,7 +1335,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670052690,
                 **message_from,
                 "message_id" => 35169,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479570
         }
@@ -1400,7 +1401,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670072000,
                 **message_from,
                 "message_id" => 35891,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479616
         }
@@ -1458,7 +1459,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when all our expenses 2 times', freezed_time: '2022-12-14T09:35:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2023-01-22T07:46:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1637,7 +1638,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670052690,
                 **message_from,
                 "message_id" => 35169,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479570
         }
@@ -1703,7 +1704,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670072000,
                 **message_from,
                 "message_id" => 35891,
-                "text" => "1000000"
+                "text" => "10000"
             },
             "update_id" => 20479616
         }
@@ -1763,7 +1764,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when uah in foreign currency expenses' do
-    context 'when all our receipt foreigh currency expenses 2 times', freezed_time: '2022-12-14T09:38:00+00:00', perform_enqueued: true do
+    context 'when all our receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:48:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -1960,7 +1961,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "date" => 1670052690,
             **message_from,
             "message_id" => 35169,
-            "text" => "1000000"
+            "text" => "100000"
           },
           "update_id" => 20479570
         }
@@ -2026,7 +2027,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670072000,
                 **message_from,
                 "message_id" => 35891,
-                "text" => "1000000"
+                "text" => "100000"
             },
             "update_id" => 20479616
         }
@@ -2086,7 +2087,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-16T14:00:00+00:00', perform_enqueued: true do
+    context 'when mykola paid receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:56:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -2283,7 +2284,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             "date" => 1670052690,
             **message_from,
             "message_id" => 35169,
-            "text" => "1000000"
+            "text" => "100000"
           },
           "update_id" => 20479570
         }
@@ -2349,7 +2350,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
                 "date" => 1670072000,
                 **message_from,
                 "message_id" => 35891,
-                "text" => "1000000"
+                "text" => "100000"
             },
             "update_id" => 20479616
         }
@@ -2409,7 +2410,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid receipt foreigh currency expenses 2 times', freezed_time: '2022-12-16T14:02:00+00:00', perform_enqueued: true do
+    context 'when vika paid receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:58:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -2734,7 +2735,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when cash foreign currency' do
-    context 'when all our expenses 2 times', freezed_time: '2023-01-08T14:11:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2023-01-08T14:11:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3057,7 +3058,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2023-01-08T14:12:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2023-01-08T14:12:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3380,7 +3381,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2023-01-08T14:14:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2023-01-08T14:14:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -3705,7 +3706,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when dollar card' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-16T14:08:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2023-01-22T09:40:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -4028,7 +4029,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when mykola paid 2 times', freezed_time: '2022-12-16T14:08:00+00:00', perform_enqueued: true do
+    context 'when mykola paid 2 times', freezed_time: '2023-01-22T09:41:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -4351,7 +4352,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
       end
     end
 
-    context 'when vika paid 2 times', freezed_time: '2022-12-16T14:09:00+00:00', perform_enqueued: true do
+    context 'when vika paid 2 times', freezed_time: '2023-01-22T09:43:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -4676,7 +4677,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
   end
 
   context 'when wise expenses' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-18T07:55:00+00:00', perform_enqueued: true do
+    context 'when all our expenses 2 times', freezed_time: '2022-12-18T07:55:00+00:00' do
       let(:telegram_bot_params_main_menu) do
         {
             "callback_query" => {
@@ -5502,7 +5503,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     end
 
     context 'when uah expenses' do
-      context 'when vika payed', freezed_time: '2023-01-02T08:51:00+00:00', perform_enqueued: true do
+      context 'when vika payed', freezed_time: '2023-01-22T09:53:00+00:00' do
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark v' do
             # upload photo
@@ -5517,7 +5518,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
         end
       end
 
-      context 'when mykola payed', freezed_time: '2023-01-02T09:02:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-22T09:55:00+00:00' do
         let(:caption) { "uah 0.0024 m" }
 
         context 'when 1 category was not parsed' do
@@ -5532,9 +5533,1019 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
             expect(response.status).to eq(200)
           end
         end
+
+        context 'when 4 categories were not parsed', freezed_time: '2023-01-22T12:10:00+00:00' do
+          # 4 categories not parsed in photo: spec/images/not_parsed_4_categories.jpeg
+          let(:telegram_bot_params_upload_photo) do
+            {
+              "message" => {
+                  "caption" => caption,
+                  "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                  },
+                  "date" => 1672649172,
+                  **message_from,
+                  "message_id" => 51490,
+                  "photo" => [
+                    {
+                      "file_id" => "AgACAgIAAxkBAALV6mPNJI5SVyeBDj2fvRdk2N5GX13VAAKbwjEbQfxoSlka85P9NUEkAQADAgADcwADLQQ",
+                      "file_size" => 1395,
+                      "file_unique_id" => "AQADm8IxG0H8aEp4",
+                      "height" => 90,
+                      "width" => 67
+                    },
+                    {
+                      "file_id" => "AgACAgIAAxkBAALV6mPNJI5SVyeBDj2fvRdk2N5GX13VAAKbwjEbQfxoSlka85P9NUEkAQADAgADbQADLQQ",
+                      "file_size" => 23749,
+                      "file_unique_id" => "AQADm8IxG0H8aEpy",
+                      "height" => 320,
+                      "width" => 240
+                    },
+                    {
+                      "file_id" => "AgACAgIAAxkBAALV6mPNJI5SVyeBDj2fvRdk2N5GX13VAAKbwjEbQfxoSlka85P9NUEkAQADAgADeAADLQQ",
+                      "file_size" => 105973,
+                      "file_unique_id" => "AQADm8IxG0H8aEp9",
+                      "height" => 800,
+                      "width" => 600
+                    },
+                    {
+                      "file_id" => "AgACAgIAAxkBAALV6mPNJI5SVyeBDj2fvRdk2N5GX13VAAKbwjEbQfxoSlka85P9NUEkAQADAgADeQADLQQ",
+                      "file_size" => 150912,
+                      "file_unique_id" => "AQADm8IxG0H8aEp-",
+                      "height" => 1280,
+                      "width" => 960
+                    }
+                  ]
+              },
+              "update_id" => 20680800
+            }
+          end
+          let(:telegram_bot_params_choose_category_1) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Еда: f_id:AQADm8IxG0H8aEp-:81500.0",
+                  **message_from,
+                  "id" => "1651136316635507601",
+                  "message" => {
+                      **chat,
+                      "date" => 1672650172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51491,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Транспорт: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Транспорт"
+                                  },
+                                  {
+                                      "callback_data" => "Еда: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Еда"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Развлечения: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Развлечения"
+                                  },
+                                  {
+                                      "callback_data" => "Подарки: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Подарки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Для дома: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Для дома"
+                                  },
+                                  {
+                                      "callback_data" => "Коля: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Коля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Валди: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Валди"
+                                  },
+                                  {
+                                      "callback_data" => "Непредвиденное: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Непредвиденное"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Марк: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Марк"
+                                  },
+                                  {
+                                      "callback_data" => "Лиля: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Лиля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Путешествия: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Путешествия"
+                                  },
+                                  {
+                                      "callback_data" => "Инвестиции, фз: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Инвестиции, фз"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Авто бмоно: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Авто бмоно"
+                                  },
+                                  {
+                                      "callback_data" => "Крупные покупки: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Крупные покупки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Капитал: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Капитал"
+                                  },
+                                  {
+                                      "callback_data" => "Кэш: f_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Кэш"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери категорию чтобы сохранить для 81500.0:"
+                  }
+              },
+              "update_id" => 20680900
+            }
+          end
+          let(:telegram_bot_params_choose_sub_category_1) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                  **message_from,
+                  "id" => "1651136315469696445",
+                  "message" => {
+                      **chat,
+                      "date" => 1672651172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51499,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Молочка"
+                                  },
+                                  {
+                                      "callback_data" => "Готовая: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Готовая"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Полуфабрикаты/м_: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Полуфабрикаты/м_"
+                                  },
+                                  {
+                                      "callback_data" => "Фрукты: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Фрукты"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Овощи: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Овощи"
+                                  },
+                                  {
+                                      "callback_data" => "Сладости: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Сладости"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Бакалея: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Бакалея"
+                                  },
+                                  {
+                                      "callback_data" => "Специи, приправ_: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Специи, приправ_"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Колбаса, сосиск_: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Колбаса, сосиск_"
+                                  },
+                                  {
+                                      "callback_data" => "Кофе, Чай: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Кофе, Чай"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Новопочта: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Новопочта"
+                                  },
+                                  {
+                                      "callback_data" => "Рыба: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Рыба"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Яйца: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Яйца"
+                                  },
+                                  {
+                                      "callback_data" => "Вода: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Вода"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Хлеб и др: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Хлеб и др"
+                                  },
+                                  {
+                                      "callback_data" => "Алкоголь: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Алкоголь"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "К пиву: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "К пиву"
+                                  },
+                                  {
+                                      "callback_data" => "Мясо: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Мясо"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Детское питание: f1_id:AQADm8IxG0H8aEp-:81500.0",
+                                      "text" => "Детское питание"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "categor_without_subcategor",
+                                      "text" => "Без подкатегории"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери подкатегорию:"
+                  }
+              },
+              "update_id" => 20680950
+            }
+          end
+          let(:telegram_bot_params_choose_category_2) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Еда: f_id:AQADm8IxG0H8aEp-:27000.0",
+                  **message_from,
+                  "id" => "1651136316635507601",
+                  "message" => {
+                      **chat,
+                      "date" => 1672650172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51491,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Транспорт: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Транспорт"
+                                  },
+                                  {
+                                      "callback_data" => "Еда: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Еда"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Развлечения: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Развлечения"
+                                  },
+                                  {
+                                      "callback_data" => "Подарки: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Подарки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Для дома: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Для дома"
+                                  },
+                                  {
+                                      "callback_data" => "Коля: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Коля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Валди: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Валди"
+                                  },
+                                  {
+                                      "callback_data" => "Непредвиденное: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Непредвиденное"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Марк: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Марк"
+                                  },
+                                  {
+                                      "callback_data" => "Лиля: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Лиля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Путешествия: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Путешествия"
+                                  },
+                                  {
+                                      "callback_data" => "Инвестиции, фз: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Инвестиции, фз"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Авто бмоно: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Авто бмоно"
+                                  },
+                                  {
+                                      "callback_data" => "Крупные покупки: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Крупные покупки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Капитал: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Капитал"
+                                  },
+                                  {
+                                      "callback_data" => "Кэш: f_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Кэш"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери категорию чтобы сохранить для 27000.0:"
+                  }
+              },
+              "update_id" => 20680900
+            }
+          end
+          let(:telegram_bot_params_choose_sub_category_2) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                  **message_from,
+                  "id" => "1651136315469696445",
+                  "message" => {
+                      **chat,
+                      "date" => 1672651172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51499,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Молочка"
+                                  },
+                                  {
+                                      "callback_data" => "Готовая: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Готовая"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Полуфабрикаты/м_: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Полуфабрикаты/м_"
+                                  },
+                                  {
+                                      "callback_data" => "Фрукты: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Фрукты"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Овощи: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Овощи"
+                                  },
+                                  {
+                                      "callback_data" => "Сладости: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Сладости"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Бакалея: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Бакалея"
+                                  },
+                                  {
+                                      "callback_data" => "Специи, приправ_: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Специи, приправ_"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Колбаса, сосиск_: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Колбаса, сосиск_"
+                                  },
+                                  {
+                                      "callback_data" => "Кофе, Чай: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Кофе, Чай"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Новопочта: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Новопочта"
+                                  },
+                                  {
+                                      "callback_data" => "Рыба: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Рыба"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Яйца: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Яйца"
+                                  },
+                                  {
+                                      "callback_data" => "Вода: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Вода"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Хлеб и др: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Хлеб и др"
+                                  },
+                                  {
+                                      "callback_data" => "Алкоголь: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Алкоголь"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "К пиву: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "К пиву"
+                                  },
+                                  {
+                                      "callback_data" => "Мясо: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Мясо"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Детское питание: f1_id:AQADm8IxG0H8aEp-:27000.0",
+                                      "text" => "Детское питание"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "categor_without_subcategor",
+                                      "text" => "Без подкатегории"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери подкатегорию:"
+                  }
+              },
+              "update_id" => 20680950
+            }
+          end
+          let(:telegram_bot_params_choose_category_3) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Еда: f_id:AQADm8IxG0H8aEp-:31000.0",
+                  **message_from,
+                  "id" => "1651136316635507601",
+                  "message" => {
+                      **chat,
+                      "date" => 1672650172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51491,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Транспорт: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Транспорт"
+                                  },
+                                  {
+                                      "callback_data" => "Еда: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Еда"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Развлечения: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Развлечения"
+                                  },
+                                  {
+                                      "callback_data" => "Подарки: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Подарки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Для дома: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Для дома"
+                                  },
+                                  {
+                                      "callback_data" => "Коля: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Коля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Валди: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Валди"
+                                  },
+                                  {
+                                      "callback_data" => "Непредвиденное: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Непредвиденное"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Марк: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Марк"
+                                  },
+                                  {
+                                      "callback_data" => "Лиля: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Лиля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Путешествия: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Путешествия"
+                                  },
+                                  {
+                                      "callback_data" => "Инвестиции, фз: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Инвестиции, фз"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Авто бмоно: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Авто бмоно"
+                                  },
+                                  {
+                                      "callback_data" => "Крупные покупки: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Крупные покупки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Капитал: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Капитал"
+                                  },
+                                  {
+                                      "callback_data" => "Кэш: f_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Кэш"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери категорию чтобы сохранить для 31000.0:"
+                  }
+              },
+              "update_id" => 20680900
+            }
+          end
+          let(:telegram_bot_params_choose_sub_category_3) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                  **message_from,
+                  "id" => "1651136315469696445",
+                  "message" => {
+                      **chat,
+                      "date" => 1672651172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51499,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Молочка"
+                                  },
+                                  {
+                                      "callback_data" => "Готовая: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Готовая"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Полуфабрикаты/м_: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Полуфабрикаты/м_"
+                                  },
+                                  {
+                                      "callback_data" => "Фрукты: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Фрукты"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Овощи: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Овощи"
+                                  },
+                                  {
+                                      "callback_data" => "Сладости: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Сладости"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Бакалея: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Бакалея"
+                                  },
+                                  {
+                                      "callback_data" => "Специи, приправ_: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Специи, приправ_"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Колбаса, сосиск_: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Колбаса, сосиск_"
+                                  },
+                                  {
+                                      "callback_data" => "Кофе, Чай: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Кофе, Чай"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Новопочта: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Новопочта"
+                                  },
+                                  {
+                                      "callback_data" => "Рыба: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Рыба"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Яйца: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Яйца"
+                                  },
+                                  {
+                                      "callback_data" => "Вода: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Вода"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Хлеб и др: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Хлеб и др"
+                                  },
+                                  {
+                                      "callback_data" => "Алкоголь: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Алкоголь"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "К пиву: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "К пиву"
+                                  },
+                                  {
+                                      "callback_data" => "Мясо: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Мясо"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Детское питание: f1_id:AQADm8IxG0H8aEp-:31000.0",
+                                      "text" => "Детское питание"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "categor_without_subcategor",
+                                      "text" => "Без подкатегории"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери подкатегорию:"
+                  }
+              },
+              "update_id" => 20680950
+            }
+          end
+          let(:telegram_bot_params_choose_category_4) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Еда: f_id:AQADm8IxG0H8aEp-:54000.0",
+                  **message_from,
+                  "id" => "1651136316635507601",
+                  "message" => {
+                      **chat,
+                      "date" => 1672650172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51491,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Транспорт: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Транспорт"
+                                  },
+                                  {
+                                      "callback_data" => "Еда: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Еда"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Развлечения: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Развлечения"
+                                  },
+                                  {
+                                      "callback_data" => "Подарки: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Подарки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Для дома: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Для дома"
+                                  },
+                                  {
+                                      "callback_data" => "Коля: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Коля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Валди: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Валди"
+                                  },
+                                  {
+                                      "callback_data" => "Непредвиденное: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Непредвиденное"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Марк: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Марк"
+                                  },
+                                  {
+                                      "callback_data" => "Лиля: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Лиля"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Путешествия: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Путешествия"
+                                  },
+                                  {
+                                      "callback_data" => "Инвестиции, фз: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Инвестиции, фз"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Авто бмоно: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Авто бмоно"
+                                  },
+                                  {
+                                      "callback_data" => "Крупные покупки: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Крупные покупки"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Капитал: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Капитал"
+                                  },
+                                  {
+                                      "callback_data" => "Кэш: f_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Кэш"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери категорию чтобы сохранить для 54000.0:"
+                  }
+              },
+              "update_id" => 20680900
+            }
+          end
+          let(:telegram_bot_params_choose_sub_category_4) do
+            {
+              "callback_query" => {
+                  "chat_instance" => ENV['CHAT_INSTANCE'],
+                  "data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                  **message_from,
+                  "id" => "1651136315469696445",
+                  "message" => {
+                      **chat,
+                      "date" => 1672651172,
+                      "from" => {
+                          "first_name" => ENV['BOT_NAME'],
+                          "id" => ENV['BOT_ID'],
+                          "is_bot" => true,
+                          "username" => ENV['BOT_USER_NAME']
+                      },
+                      "message_id" => 51499,
+                      "reply_markup" => {
+                          "inline_keyboard" => [
+                              [
+                                  {
+                                      "callback_data" => "Молочка: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Молочка"
+                                  },
+                                  {
+                                      "callback_data" => "Готовая: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Готовая"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Полуфабрикаты/м_: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Полуфабрикаты/м_"
+                                  },
+                                  {
+                                      "callback_data" => "Фрукты: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Фрукты"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Овощи: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Овощи"
+                                  },
+                                  {
+                                      "callback_data" => "Сладости: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Сладости"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Бакалея: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Бакалея"
+                                  },
+                                  {
+                                      "callback_data" => "Специи, приправ_: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Специи, приправ_"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Колбаса, сосиск_: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Колбаса, сосиск_"
+                                  },
+                                  {
+                                      "callback_data" => "Кофе, Чай: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Кофе, Чай"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Новопочта: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Новопочта"
+                                  },
+                                  {
+                                      "callback_data" => "Рыба: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Рыба"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Яйца: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Яйца"
+                                  },
+                                  {
+                                      "callback_data" => "Вода: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Вода"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Хлеб и др: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Хлеб и др"
+                                  },
+                                  {
+                                      "callback_data" => "Алкоголь: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Алкоголь"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "К пиву: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "К пиву"
+                                  },
+                                  {
+                                      "callback_data" => "Мясо: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Мясо"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "Детское питание: f1_id:AQADm8IxG0H8aEp-:54000.0",
+                                      "text" => "Детское питание"
+                                  }
+                              ],
+                              [
+                                  {
+                                      "callback_data" => "categor_without_subcategor",
+                                      "text" => "Без подкатегории"
+                                  }
+                              ]
+                          ]
+                      },
+                      "text" => "Выбери подкатегорию:"
+                  }
+              },
+              "update_id" => 20680950
+            }
+          end
+          it 'saves half price from not parsed category and mark m' do
+            # upload photo
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_1
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_1
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_2
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_2
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_3
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_3
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_4
+            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_4
+
+            expect(response.status).to eq(200)
+          end
+        end
       end
 
-      context 'when all our expenses', freezed_time: '2023-01-02T09:03:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-22T10:03:00+00:00' do
         let(:caption) { "uah 0.0024" }
 
         context 'when 1 category was not parsed' do
@@ -5553,7 +6564,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
     end
 
     context 'when usd expenses' do
-      context 'when mykola payed', freezed_time: '2023-01-02T09:04:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-22T10:03:00+00:00' do
         let(:caption) { "usd 15593.0528 m" }
 
         context 'when 1 category was not parsed' do
@@ -5570,7 +6581,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true do
         end
       end
 
-      context 'when all our expenses', freezed_time: '2023-01-02T09:07:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-22T10:08:00+00:00' do
         let(:caption) { "usd 15593.0528" }
 
         context 'when 1 category was not parsed' do

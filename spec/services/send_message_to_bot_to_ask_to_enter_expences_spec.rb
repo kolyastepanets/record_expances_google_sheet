@@ -74,12 +74,14 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       subject
 
       expect(JSON.parse(redis.get(id)).deep_symbolize_keys).to eq({
+        can_show_final_sum: nil,
         description: "Amazon.co.uk",
         message_ids: [123, 456, 456],
         price_in_uah: 533.62,
         operation_amount: 11.95,
         price_in_usd: nil,
         currency_rate: 0.8707,
+        total_sum_of_money_before_save: nil,
       })
     end
   end
@@ -319,12 +321,14 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       subject
 
       expect(JSON.parse(redis.get(id)).deep_symbolize_keys).to eq({
+        can_show_final_sum: nil,
         description: "Amazon.co.uk",
         message_ids: [123, 456, 456],
         price_in_uah: nil,
         operation_amount: 11.95,
         price_in_usd: 533.62,
         currency_rate: 0.8707,
+        total_sum_of_money_before_save: nil,
       })
     end
   end

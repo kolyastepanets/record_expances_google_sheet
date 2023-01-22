@@ -2,8 +2,13 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
   private
 
   def build_params
+    is_usd = true
+    is_uah = false
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
+
     @params = {
       price_in_usd: @transaction_data[:amount].to_i.abs / 100.0,
+      total_sum_of_money_before_save: @total_sum_of_money_before_save,
       **@params,
     }
 
@@ -36,7 +41,13 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
     return EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]
     return PutExpencesFopDollarCardJob.perform_later(@params) if @params[:category_name].present?
 
-    SendMessageToBotToAskToEnterExpences.call(@transaction_data.merge(is_fop_dollar: true, currency_rate: currency_rate))
+    SendMessageToBotToAskToEnterExpences.call({
+      is_fop_dollar: true,
+      currency_rate: currency_rate,
+      total_sum_of_money_before_save: @total_sum_of_money_before_save,
+      can_show_final_sum: true,
+      **@transaction_data
+    })
   end
 
   def sold_dollars_from_fop

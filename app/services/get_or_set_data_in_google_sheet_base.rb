@@ -3,7 +3,6 @@ class GetOrSetDataInGoogleSheetBase
 
   VALUE_INPUT_OPTION = 'USER_ENTERED'.freeze
   SCOPE = 'https://www.googleapis.com/auth/spreadsheets'.freeze
-  FIN_PLAN_SPREAD_SHEET_ID = '1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg'.freeze
 
   def call
     prepare_request_data
@@ -18,7 +17,7 @@ class GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range)
+    @response = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range)
   end
 
   def parse_response

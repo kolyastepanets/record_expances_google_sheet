@@ -81,13 +81,22 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       show_categories_to_choose
     when 'common_expenses'
       session[:is_grivnas] = true
       start_remember_total_price_of_products
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
+      is_usd = false
+      is_uah = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       ask_to_enter_left_foreign_cash
@@ -156,13 +165,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when -> (input_sub_category) { input_sub_category.include?('f1_id') }
       params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
-      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
       PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
-      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
+      DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+      is_usd = !!params_to_save_to_google_sheet[:price_in_usd]
+      is_uah = !!params_to_save_to_google_sheet[:price_in_uah]
+      data_hash = new_params_for_redis.detect { |pri| pri["total_sum_manually_entered_categories"] }
+      can_show_final_message = data_hash["total_sum_manually_entered_categories"].present? && data_hash["total_sum_manually_entered_categories"].zero?
+      total_sum_of_money_before_save = data_hash["total_sum_of_money_before_save"]
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, total_sum_of_money_before_save)
     else
       # return help
     end
-
   rescue StandardError => e
     if Rails.env.production?
       respond_with(:message, text: "Что то пошло не так: #{e.message}")
@@ -238,6 +252,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_dollar_foreign_currency_exchange_rate!(exchange_rate, *args)
     session[:receipt_dollar_foreign_currency_exchange_rate] = exchange_rate.to_f
     session[:total_price_of_products_in_foreign_currency] = 0
+    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false)
     start_remember_total_price_of_products
     show_categories_to_choose
   end
@@ -362,6 +377,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def finish_remember_total_price_of_products
     show_total_price_of_products
+
     if !session[:foreigh_cash_amount].zero?
       result = CalculateForeignCurrencyCashExpenses.call
       UpdateCellInGoogleSheet.call(
@@ -374,7 +390,16 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       )
     end
 
-    DeleteAllTodaysMessages.call
+    message_ids = redis.get("messages_at_#{Date.today.to_s}")
+    DeleteMessages.call((JSON.parse(message_ids) + [payload["message"]["message_id"]]).uniq)
+
+    if session[:is_grivnas] || session[:is_metro] || !!session[:receipt_dollar_foreign_currency_exchange_rate]
+      is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
+      is_uah = session[:is_grivnas] || session[:is_metro]
+      can_show_final_message = true
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, session[:total_sum_of_money_before_save])
+    end
+
     set_default_values_in_session!
 
     respond_with(:message,
@@ -521,7 +546,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def set_default_values_in_session!
     session[:is_wise] = nil
-    session[:is_grivnas] = nil
+    session[:is_grivnas] = false
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
     session[:receipt_dollar_foreign_currency_exchange_rate] = nil
@@ -533,6 +558,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:foreigh_spent_cash_amount] = 0
     session[:total_withraw_foreign_money] = 0
     session[:total_price_of_products_in_foreign_currency] = 0
+    session[:total_sum_of_money_before_save] = 0
 
     redis.del('how_calculate_expenses_between_us')
   end

@@ -1,8 +1,6 @@
 class UpdateCellBackgroundColor
   include CallableService
 
-  EVERY_DAY_EXPENSES_PAGE = 2079267030
-
   def initialize(who_paid, all_cells)
     @who_paid = who_paid
     @all_cells = all_cells
@@ -11,7 +9,7 @@ class UpdateCellBackgroundColor
   def call
     return if @who_paid.blank?
 
-    UpdateCellBackgroundColorRequest.call(EVERY_DAY_EXPENSES_PAGE, @all_cells[0], (@all_cells[-1] + 1), color)
+    UpdateCellBackgroundColorRequest.call(ENV['EVERY_DAY_EXPENSES_PAGE'], @all_cells[0], (@all_cells[-1] + 1), color)
   end
 
   private
