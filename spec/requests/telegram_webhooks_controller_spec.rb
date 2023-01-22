@@ -5503,7 +5503,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when uah expenses' do
-      context 'when vika payed', freezed_time: '2023-01-02T08:51:00+00:00', perform_enqueued: true do
+      context 'when vika payed', freezed_time: '2023-01-22T09:53:00+00:00' do
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark v' do
             # upload photo
@@ -5518,7 +5518,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         end
       end
 
-      context 'when mykola payed', freezed_time: '2023-01-02T09:02:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-22T09:55:00+00:00' do
         let(:caption) { "uah 0.0024 m" }
 
         context 'when 1 category was not parsed' do
@@ -5535,7 +5535,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         end
       end
 
-      context 'when all our expenses', freezed_time: '2023-01-02T09:03:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-22T10:03:00+00:00' do
         let(:caption) { "uah 0.0024" }
 
         context 'when 1 category was not parsed' do
@@ -5554,7 +5554,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when usd expenses' do
-      context 'when mykola payed', freezed_time: '2023-01-02T09:04:00+00:00', perform_enqueued: true do
+      context 'when mykola payed', freezed_time: '2023-01-22T10:03:00+00:00' do
         let(:caption) { "usd 15593.0528 m" }
 
         context 'when 1 category was not parsed' do
@@ -5571,7 +5571,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         end
       end
 
-      context 'when all our expenses', freezed_time: '2023-01-02T09:07:00+00:00', perform_enqueued: true do
+      context 'when all our expenses', freezed_time: '2023-01-22T10:08:00+00:00' do
         let(:caption) { "usd 15593.0528" }
 
         context 'when 1 category was not parsed' do

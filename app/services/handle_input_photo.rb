@@ -25,7 +25,9 @@ class HandleInputPhoto
 
     return send_message("не смог распарсить все цены в чеке :(((, сумма всех цен: #{collected_prices_sum.round(2)}, сумма: #{@total_sum_in_receipt}") if !can_enter_expenses?
 
-    send_message("Общая цена в чеке: #{collected_prices_sum}")
+    send_message("Общая цена в чеке в иностранной валюте: #{collected_prices_sum}")
+    send_message("Общая цена в чеке: #{collected_prices_sum_in_uad_or_in_uah}")
+    send_messages_before_enter_prices
 
     total_sum_usd = 0
     total_sum_uah = 0
@@ -35,10 +37,6 @@ class HandleInputPhoto
     total_sum_categories = @prices_with_categories.size
     total_sum_auto_entered_categories = 0
     total_sum_manually_entered_categories = 0
-
-    if !@vika_paid
-      send_messages_before_enter_prices
-    end
 
     @prices_with_categories.each.with_index(1) do |price_with_category, index|
       params_to_save_to_google_sheet = build_params_to_save_to_google_sheet(price_with_category)
@@ -124,7 +122,7 @@ class HandleInputPhoto
       )
     end
 
-    if !@vika_paid && total_sum_categories == total_sum_auto_entered_categories
+    if total_sum_categories == total_sum_auto_entered_categories
       send_messages_after_enter_prices
     else
       @params << {
@@ -233,5 +231,10 @@ class HandleInputPhoto
     data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, @total_sum_of_money_before_save)
     send_message(data_text[:total_sum_after_money_was_saved])
     send_message(data_text[:difference_of_saved_money])
+  end
+
+  def collected_prices_sum_in_uad_or_in_uah
+    return "$#{(collected_prices_sum / @currency_to_usd).round(2)}" if @currency_to_usd
+    return "#{(collected_prices_sum * @currency_to_uah).round(2)} грн" if @currency_to_uah
   end
 end

@@ -13,7 +13,7 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
     @last_price_to_message = params.select { |pri| pri["price"] == @price }[-1]
 
     new_params_for_redis = params - [@last_price_to_message]
-    new_params_for_redis.detect { |pri| pri[:total_sum_manually_entered_categories] -= 1 }
+    new_params_for_redis.detect { |pri| pri["total_sum_manually_entered_categories"] -= 1 }
 
     @redis.set(@transaction_id, new_params_for_redis.to_json, ex: 2.days)
 

@@ -170,8 +170,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
       is_usd = !!params_to_save_to_google_sheet[:price_in_usd]
       is_uah = !!params_to_save_to_google_sheet[:price_in_uah]
-      can_show_final_message = data_hash[:total_sum_manually_entered_categories].present? && data_hash[:total_sum_manually_entered_categories].zero?
-      total_sum_of_money_before_save = data_hash[:total_sum_of_money_before_save]
+      data_hash = new_params_for_redis.detect { |pri| pri["total_sum_manually_entered_categories"] }
+      can_show_final_message = data_hash["total_sum_manually_entered_categories"].present? && data_hash["total_sum_manually_entered_categories"].zero?
+      total_sum_of_money_before_save = data_hash["total_sum_of_money_before_save"]
       SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, total_sum_of_money_before_save)
     else
       # return help
