@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe EnterExpencesFopDollarCardFromWebhook do
   subject{ described_class.call(transaction_data) }
 
+  before do
+    allow(SendTextMessagesBeforeEnterPrices).to receive(:call).and_return(12345)
+  end
+
   context 'when youtube' do
     let(:transaction_data) do
       {
@@ -23,6 +27,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Для дома',
         sub_category_name: 'youtube',
         price_in_usd: 4.0,
@@ -30,6 +35,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "YouTube",
         currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -60,6 +66,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Лиля',
         sub_category_name: nil,
         price_in_usd: 500.0,
@@ -67,6 +74,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лиля ❤️",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -82,6 +90,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       {
         amount: -50000,
         balance: 2876000,
+        can_show_final_sum: true,
         cashbackAmount: 0,
         commissionRate: 0,
         currencyCode: 980,
@@ -95,10 +104,12 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         time: 1661541332,
         is_fop_dollar: true,
         currency_rate: 1.0,
+        total_sum_of_money_before_save: true,
       }
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Лиля',
         sub_category_name: nil,
         price_in_usd: 500.0,
@@ -106,6 +117,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лиля ❤️",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -137,6 +149,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Для дома',
         sub_category_name: 'google',
         price_in_usd: 2.0,
@@ -144,6 +157,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Google",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -174,6 +188,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Подарки',
         sub_category_name: 'мама Коли',
         price_in_usd: 100.0,
@@ -181,6 +196,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "516875******6402",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -196,6 +212,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       {
         amount: -10000,
         balance: 2876000,
+        can_show_final_sum: true,
         cashbackAmount: 0,
         commissionRate: 0,
         currencyCode: 980,
@@ -209,6 +226,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         time: 1661541332,
         is_fop_dollar: true,
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -240,6 +258,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Для дома',
         sub_category_name: 'кладовка',
         price_in_usd: 100.0,
@@ -247,6 +266,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "536354******0388",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -277,6 +297,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Для дома',
         sub_category_name: 'кладовка',
         price_in_usd: 750.0,
@@ -284,6 +305,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "431414******3237",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -314,6 +336,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Для дома',
         sub_category_name: 'Сервак, впн',
         price_in_usd: 45.0,
@@ -321,6 +344,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "DigitalOcean",
         currency_rate: 1,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -352,6 +376,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       end
       let(:params) do
         {
+          can_show_final_sum: true,
           category_name: 'Транспорт',
           sub_category_name: 'Автобус',
           price_in_usd: 4.0,
@@ -359,6 +384,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "STGCOACH/CTYLINK",
           currency_rate: 2.5,
+          total_sum_of_money_before_save: 12345,
         }
       end
 
@@ -389,6 +415,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       end
       let(:params) do
         {
+          can_show_final_sum: true,
           category_name: 'Транспорт',
           sub_category_name: 'Автобус',
           price_in_usd: 4.0,
@@ -396,6 +423,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "THE COACH YARD",
           currency_rate: 2.5,
+          total_sum_of_money_before_save: 12345,
         }
       end
 
@@ -426,6 +454,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       end
       let(:params) do
         {
+          can_show_final_sum: true,
           category_name: 'Еда',
           sub_category_name: 'Готовая',
           price_in_usd: 4.0,
@@ -433,6 +462,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "WASABI, SUSHI & BENTO",
           currency_rate: 2.5,
+          total_sum_of_money_before_save: 12345,
         }
       end
 
@@ -463,6 +493,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       end
       let(:params) do
         {
+          can_show_final_sum: true,
           category_name: 'Транспорт',
           sub_category_name: 'Поезд',
           price_in_usd: 4.0,
@@ -470,6 +501,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "thetrainline.com",
           currency_rate: 2.5,
+          total_sum_of_money_before_save: 12345,
         }
       end
 
@@ -500,6 +532,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       end
       let(:params) do
         {
+          can_show_final_sum: true,
           category_name: 'Транспорт',
           sub_category_name: 'Поезд',
           price_in_usd: 4.0,
@@ -507,6 +540,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "trainline",
           currency_rate: 2.5,
+          total_sum_of_money_before_save: 12345,
         }
       end
 
@@ -538,6 +572,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Еда',
         sub_category_name: 'Готовая',
         price_in_usd: 4.0,
@@ -545,6 +580,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonald’s",
         currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -575,6 +611,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Еда',
         sub_category_name: 'Готовая',
         price_in_usd: 4.0,
@@ -582,6 +619,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonalds",
         currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -612,6 +650,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Путешествия',
         sub_category_name: 'Авиа билеты',
         price_in_usd: 4.0,
@@ -619,6 +658,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Wizz Air",
         currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -649,6 +689,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Путешествия',
         sub_category_name: 'аренда кв',
         price_in_usd: 4.0,
@@ -656,6 +697,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "AIRBNB",
         currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
       }
     end
 
@@ -726,6 +768,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
     end
     let(:params) do
       {
+        can_show_final_sum: true,
         category_name: 'Путешествия',
         sub_category_name: 'Авиа билеты',
         price_in_usd: 1.38,
@@ -733,6 +776,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Wizz Air",
         currency_rate: 0.8695,
+        total_sum_of_money_before_save: 12345,
       }
     end
 

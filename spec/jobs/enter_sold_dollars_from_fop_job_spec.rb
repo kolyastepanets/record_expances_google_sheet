@@ -20,6 +20,7 @@ RSpec.describe EnterSoldDollarsFromFopJob do
 
   before do
     allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return(calculate_total_spent_usd_and_uah)
+    allow(ReceiveUsdFopFromGoogleSheet).to receive(:call).and_return(1234)
   end
 
   it 'calls UpdateCellInGoogleSheet, SendNotificationMessageToBot' do
