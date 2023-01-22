@@ -85,10 +85,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'common_expenses'
       session[:is_grivnas] = true
       start_remember_total_price_of_products
-      send_message("Общая сумма перед заполнением: #{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}")
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(false, session[:is_grivnas])
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(false, session[:is_grivnas])
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       ask_to_enter_left_foreign_cash
@@ -159,24 +160,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
-      DeleteMessagesJob.perform_later((messages_to_delete + [payload["message"]["message_id"]]).uniq)
-
-      data_hash = params.detect { |pri| pri[:total_sum_manually_entered_categories] }
-      if data_hash[:total_sum_manually_entered_categories].present? && data_hash[:total_sum_manually_entered_categories].zero?
-        sleep 5 # I hope it will be enough to delete message and then send how much money was left. I do not want to DeleteMessagesJob do anything else then delete messages
-
-        data_text = TextMessagesAfterEnterPrices.call(
-          !!params_to_save_to_google_sheet[:price_in_usd],
-          !!params_to_save_to_google_sheet[:price_in_uah],
-          data_hash[:total_sum_of_money_before_save]
-        )
-        respond_with(:message, text: data_text[:total_sum_after_money_was_saved])
-        respond_with(:message, text: data_text[:difference_of_saved_money])
-      end
+      DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+      is_usd = !!params_to_save_to_google_sheet[:price_in_usd]
+      is_uah = !!params_to_save_to_google_sheet[:price_in_uah]
+      can_show_final_message = data_hash[:total_sum_manually_entered_categories].present? && data_hash[:total_sum_manually_entered_categories].zero?
+      total_sum_of_money_before_save = data_hash[:total_sum_of_money_before_save]
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, total_sum_of_money_before_save)
     else
       # return help
     end
-
   rescue StandardError => e
     if Rails.env.production?
       respond_with(:message, text: "Что то пошло не так: #{e.message}")
@@ -252,6 +244,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_dollar_foreign_currency_exchange_rate!(exchange_rate, *args)
     session[:receipt_dollar_foreign_currency_exchange_rate] = exchange_rate.to_f
     session[:total_price_of_products_in_foreign_currency] = 0
+    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false)
     start_remember_total_price_of_products
     show_categories_to_choose
   end
@@ -389,7 +382,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       )
     end
 
-    DeleteAllTodaysMessages.call
+    message_ids = redis.get("messages_at_#{Date.today.to_s}")
+    DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
+    is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
+    is_uah = session[:is_grivnas]
+    can_show_final_message = true
+    SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, session[:total_sum_of_money_before_save])
+
     set_default_values_in_session!
 
     respond_with(:message,
@@ -548,6 +547,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:foreigh_spent_cash_amount] = 0
     session[:total_withraw_foreign_money] = 0
     session[:total_price_of_products_in_foreign_currency] = 0
+    session[:total_sum_of_money_before_save] = 0
 
     redis.del('how_calculate_expenses_between_us')
   end

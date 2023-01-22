@@ -131,7 +131,6 @@ class HandleInputPhoto
         total_sum_categories: total_sum_categories,
         total_sum_auto_entered_categories: total_sum_auto_entered_categories,
         total_sum_manually_entered_categories: total_sum_manually_entered_categories,
-        total_sum_usd_in_receipt: @total_sum_usd_in_receipt,
         total_sum_of_money_before_save: @total_sum_of_money_before_save,
       }
     end
@@ -227,18 +226,7 @@ class HandleInputPhoto
   end
 
   def send_messages_before_enter_prices
-    if @currency_to_usd
-      total_sum_of_money = ReceiveUsdFopFromGoogleSheet.call
-      @total_sum_of_money_before_save = total_sum_of_money.split("usd fop in google sheet: $")[-1].gsub(/[[:space:]]+/, "").to_f
-      @total_sum_usd_in_receipt = @total_sum_of_money_before_save / @currency_to_usd
-    end
-    if @currency_to_uah
-      total_sum_of_money = ReceiveCurrentBalanceInMonobankFromGoogleSheet.call
-      @total_sum_of_money_before_save = total_sum_of_money.split("uah in google sheet: ")[-1].split("грн")[0].gsub(/[[:space:]]+/, "").to_f
-      @total_sum_usd_in_receipt = @total_sum_of_money_before_save * @currency_to_usd / MonobankCurrencyRates.call('USD', 'UAH')
-    end
-    send_message("Общая цена в чеке в долларах: #{@total_sum_usd_in_receipt}")
-    send_message("Общая сумма перед заполнением: #{total_sum_of_money}")
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah)
   end
 
   def send_messages_after_enter_prices
