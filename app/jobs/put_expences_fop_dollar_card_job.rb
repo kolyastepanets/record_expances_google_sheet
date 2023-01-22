@@ -38,11 +38,11 @@ class PutExpencesFopDollarCardJob < ApplicationJob
     )
 
     SendNotificationMessageToBot.call(params)
+
     if params[:can_show_final_sum]
       is_usd = true
       is_uah = false
-      can_show_final_message = true
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, params[:total_sum_of_money_before_save])
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, params[:total_sum_of_money_before_save])
     end
   rescue StandardError => e
     if Rails.env.production?

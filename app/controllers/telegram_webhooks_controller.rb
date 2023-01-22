@@ -165,15 +165,16 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when -> (input_sub_category) { input_sub_category.include?('f1_id') }
       params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
-      PutExpencesUahBlackCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_uah]
-      PutExpencesFopDollarCardJob.perform_later(params_to_save_to_google_sheet) if params_to_save_to_google_sheet[:price_in_usd]
-      DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
-      is_usd = !!params_to_save_to_google_sheet[:price_in_usd]
-      is_uah = !!params_to_save_to_google_sheet[:price_in_uah]
       data_hash = new_params_for_redis.detect { |pri| pri["total_sum_manually_entered_categories"] }
-      can_show_final_message = data_hash["total_sum_manually_entered_categories"].present? && data_hash["total_sum_manually_entered_categories"].zero?
-      total_sum_of_money_before_save = data_hash["total_sum_of_money_before_save"]
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, total_sum_of_money_before_save)
+      updated_params = {
+        **params_to_save_to_google_sheet,
+        can_show_final_sum: data_hash["total_sum_manually_entered_categories"].present? && data_hash["total_sum_manually_entered_categories"].zero?,
+        total_sum_of_money_before_save: data_hash["total_sum_of_money_before_save"],
+      }
+
+      PutExpencesUahBlackCardJob.perform_later(updated_params) if updated_params[:price_in_uah]
+      PutExpencesFopDollarCardJob.perform_later(updated_params) if updated_params[:price_in_usd]
+      DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
     else
       # return help
     end
@@ -396,8 +397,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if session[:is_grivnas] || session[:is_metro] || !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_uah = session[:is_grivnas] || session[:is_metro]
-      can_show_final_message = true
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, can_show_final_message, session[:total_sum_of_money_before_save])
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, session[:total_sum_of_money_before_save])
     end
 
     set_default_values_in_session!
