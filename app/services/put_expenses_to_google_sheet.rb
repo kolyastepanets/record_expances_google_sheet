@@ -30,7 +30,7 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
 
   def make_request
     @response = service_google_sheet.append_spreadsheet_value(
-      FIN_PLAN_SPREAD_SHEET_ID,
+      ENV['FIN_PLAN_SPREAD_SHEET_ID'],
       @range,
       { values: @values },
       value_input_option: VALUE_INPUT_OPTION

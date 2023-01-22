@@ -11,7 +11,7 @@ class SaveDataFromMonoWebhook < GetOrSetDataInGoogleSheetBase
 
   def make_request
     @response = service_google_sheet.append_spreadsheet_value(
-      FIN_PLAN_SPREAD_SHEET_ID,
+      ENV['FIN_PLAN_SPREAD_SHEET_ID'],
       @range,
       { values: [[@params.to_s]] },
       value_input_option: VALUE_INPUT_OPTION

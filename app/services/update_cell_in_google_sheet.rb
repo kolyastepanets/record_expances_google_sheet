@@ -14,7 +14,7 @@ class UpdateCellInGoogleSheet < GetOrSetDataInGoogleSheetBase
 
   def make_request
     service_google_sheet.update_spreadsheet_value(
-      FIN_PLAN_SPREAD_SHEET_ID,
+      ENV['FIN_PLAN_SPREAD_SHEET_ID'],
       @range,
       { values: @values },
       value_input_option: VALUE_INPUT_OPTION

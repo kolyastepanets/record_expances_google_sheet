@@ -21,7 +21,7 @@ class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    service_google_sheet.batch_update_spreadsheet(FIN_PLAN_SPREAD_SHEET_ID, @batch_update)
+    service_google_sheet.batch_update_spreadsheet(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @batch_update)
   end
 
   def parse_response

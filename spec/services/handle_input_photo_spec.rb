@@ -7,8 +7,8 @@ RSpec.describe HandleInputPhoto do
     let(:message_params) do
       {
         "message_id"=>26318,
-        "from"=>{"id"=>384435131, "is_bot"=>false, "first_name"=>"Nikolay", "last_name"=>"Stepanets", "username"=>ENV['MY_USER_NAME'], "language_code"=>"en"},
-        "chat"=>{"id"=>384435131, "first_name"=>"Nikolay", "last_name"=>"Stepanets", "username"=>ENV['MY_USER_NAME'], "type"=>"private"},
+        "from"=>{"id"=>ENV['MY_TELEGRAM_ID'], "is_bot"=>false, "first_name"=>"Nikolay", "last_name"=>"Stepanets", "username"=>ENV['MY_USER_NAME'], "language_code"=>"en"},
+        "chat"=>{"id"=>ENV['MY_TELEGRAM_ID'], "first_name"=>"Nikolay", "last_name"=>"Stepanets", "username"=>ENV['MY_USER_NAME'], "type"=>"private"},
         "date"=>1663427720,
         "photo"=>[
           {"file_id"=>"AgACAgIAAxkBAAJmzmMl5Ijq_uV3T2BfhulWCdL9pkKbAAJOvDEbR_gxSXhC7HjCBn8cAQADAgADcwADKQQ", "file_unique_id"=>"AQADTrwxG0f4MUl4", "file_size"=>1282, "width"=>67, "height"=>90},

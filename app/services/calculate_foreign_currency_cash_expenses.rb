@@ -15,7 +15,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
   private
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: @value_render_option })
+    @response = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, { value_render_option: @value_render_option })
   end
 
   def parse_response

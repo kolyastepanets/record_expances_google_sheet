@@ -23,7 +23,7 @@ RSpec.describe UpdateCellBackgroundColor do
   context 'when mykola paid' do
     context 'when price from uah black card' do
       it 'calls UpdateCellBackgroundColorRequest' do
-        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, 5389, 5395, 'yellow')
+        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(ENV['EVERY_DAY_EXPENSES_PAGE'], 5389, 5395, 'yellow')
 
         subject
       end
@@ -31,7 +31,7 @@ RSpec.describe UpdateCellBackgroundColor do
 
     context 'when price from usd card' do
       it 'calls UpdateCellBackgroundColorRequest' do
-        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, 5389, 5395, 'yellow')
+        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(ENV['EVERY_DAY_EXPENSES_PAGE'], 5389, 5395, 'yellow')
 
         subject
       end
@@ -43,7 +43,7 @@ RSpec.describe UpdateCellBackgroundColor do
 
     context 'when price from uah black card' do
       it 'calls UpdateCellBackgroundColorRequest' do
-        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, 5389, 5395, "orange")
+        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(ENV['EVERY_DAY_EXPENSES_PAGE'], 5389, 5395, "orange")
 
         subject
       end
@@ -51,7 +51,7 @@ RSpec.describe UpdateCellBackgroundColor do
 
     context 'when price from usd card' do
       it 'calls UpdateCellBackgroundColorRequest' do
-        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(2079267030, 5389, 5395, 'orange')
+        expect(UpdateCellBackgroundColorRequest).to receive(:call).with(ENV['EVERY_DAY_EXPENSES_PAGE'], 5389, 5395, 'orange')
 
         subject
       end

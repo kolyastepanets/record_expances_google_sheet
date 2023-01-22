@@ -10,7 +10,7 @@ class FindCellValueInEveryDayExpensesPage < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(FIN_PLAN_SPREAD_SHEET_ID, @range, { value_render_option: 'FORMULA' })
+    @response = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, { value_render_option: 'FORMULA' })
   end
 
   def parse_response
