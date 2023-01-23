@@ -43,6 +43,7 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
     end
     total_left_uah_money = total_left_uah_money.gsub(/[[:space:]]+/, "")
     total_left_uah_money = total_left_uah_money.remove("грн") if total_left_uah_money.include?("грн")
+    total_left_uah_money = total_left_uah_money.gsub(",", ".")
     coordinates_of_total_left_uah_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
@@ -56,6 +57,7 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
     end
     total_left_usd_money = total_left_usd_money.gsub(/[[:space:]]+/, "")
     total_left_usd_money = total_left_usd_money.remove("$") if total_left_usd_money.include?("$")
+    total_left_usd_money = total_left_usd_money.gsub(",", ".")
     coordinates_of_total_left_usd_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     {
