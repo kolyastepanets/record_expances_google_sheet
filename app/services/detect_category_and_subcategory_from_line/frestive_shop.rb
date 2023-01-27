@@ -92,7 +92,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
-        nutella? || schogetten? || cookies? || kit_kat? || kitkat?
+        nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey?
     end
 
     def honey?
@@ -161,6 +161,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kitkat?
       @line.include?('kitkat')
+    end
+
+    def hershey?
+      @line.include?('hershey') && @line.any? { |word| word.include?('crm') }
     end
 
     ####
@@ -532,7 +536,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      tissue? || kitchen_ware? || sponge? || mitu_blue?
+      tissue? || kitchen_ware? || sponge? || mitu_blue? || bio?
     end
 
     def tissue?
@@ -551,6 +555,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mitu') && @line.include?('blue')
     end
 
+    def bio?
+      @line.any? { |word| word.include?('bio') } && @line.include?('jrk')
+    end
+
     ####
 
     def food_bag_or_delivery?
@@ -560,11 +568,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      toilet_paper?
+      toilet_paper? || crystal?
     end
 
     def toilet_paper?
       @line.include?('bagus') && @line.include?('klap')
+    end
+
+    def crystal?
+      @line.any? { |word| word.include?('crystal') } && @line.include?('proclin')
     end
 
     ####
