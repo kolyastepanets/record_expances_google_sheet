@@ -139,7 +139,8 @@ module DetectCategoryAndSubcategoryFromLine
         like_m_and_ms? || kinder? || schogetten? || nutella? || zaini? || halls? || peachy? ||
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
-        cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut?
+        cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
+        vanila?
     end
 
     def magnum_icecream?
@@ -256,6 +257,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def truffle_coconut?
       @line.include?('truffle') && @line.include?('coconut')
+    end
+
+    def vanila?
+      @line.include?('gelato') && @line.include?('vanilla')
     end
 
     ####
