@@ -252,7 +252,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ice_cream?
-      @line.include?('walls') && @line.include?('mini') && @line.include?('crnt')
+      @line.include?('walls') && @line.include?('crnt')
     end
 
     def truffle_coconut?
@@ -667,7 +667,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz?
+        lorenz? || loren?
     end
 
     def lays?
@@ -696,6 +696,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def lorenz?
       @line.include?('lorenz') && @line.include?('parmesan')
+    end
+
+    def loren?
+      @line.include?('loren') && @line.include?('brez')      
     end
 
     ####
