@@ -140,7 +140,7 @@ module DetectCategoryAndSubcategoryFromLine
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
-        vanila?
+        vanila? || bar_bar_2? || berry_bliss? || milka?
     end
 
     def magnum_icecream?
@@ -261,6 +261,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def vanila?
       @line.include?('gelato') && @line.include?('vanilla')
+    end
+
+    def bar_bar_2?
+      @line.include?('bar') && @line.include?('share') && @line.include?('pack')
+    end
+
+    def berry_bliss?
+      @line.include?('berry') && @line.include?('bliss')
+    end
+
+    def milka?
+      @line.any? { |word| word.include?('milka') }
     end
 
     ####
@@ -455,7 +467,7 @@ module DetectCategoryAndSubcategoryFromLine
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
-        yogurt? || sour_cream_2?
+        yogurt? || sour_cream_2? || greenfields_cheese?
     end
 
     def milk?
@@ -532,6 +544,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sour_cream_2?
       @line.include?('milk') && @line.include?('sour') && @line.include?('cream')
+    end
+
+    def greenfields_cheese?
+      @line.include?('greenfields') && @line.include?('bocconcini')
     end
 
     ####
@@ -616,7 +632,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
-        mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham?
+        mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? || mamas_sausage?
     end
 
     def mamas_ham?
@@ -661,6 +677,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def smoke_ham?
       @line.include?('smoke') && @line.include?('ham')
+    end
+
+    def mamas_sausage?
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('kalberwurst') }
     end
 
     ####
