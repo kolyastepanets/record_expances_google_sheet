@@ -4,8 +4,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
   MAIN_BUTTONS = [
-    ['Buttons to get info'],
-    ['Enter wise salary', 'Внести расходы'],
+    ['All buttons', 'Внести расходы'],
   ]
   BUTTONS_INFO = [
     ['UAH на gsheets'],
@@ -20,6 +19,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Последние 3 траты в gsheets'],
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
+    ['Enter wise salary'],
     ['Кто кому сколько должен'],
     ['Info current month'],
   ].freeze
@@ -257,7 +257,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def message(message)
     message_text = message["text"]
 
-    if 'Buttons to get info' == message_text
+    if 'All buttons' == message_text
       return respond_with(
         :message,
         text: 'Выбери действие:',
@@ -276,10 +276,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       return ask_half_price_or_full_price
     end
 
-    if message_text == 'Enter wise salary'
-      return ask_to_enter_wise_salary
-    end
-
     if BUTTONS_INFO.flat_map(&:first).include?(message_text)
       mapping = [
         { text: 'UAH на gsheets', method_to_call: 'get_current_mono_balance_from_google_sheet' },
@@ -294,6 +290,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Последние 3 траты в gsheets', method_to_call: 'get_last_3_expenses_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
+        { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
         { text: 'Info current month',  method_to_call: 'info_current_month' },
       ]
@@ -317,7 +314,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_wise_salary!(wise_salary, *args)
     IncreaseWiseUsdSavedAmountJob.perform_later(wise_salary)
-    respond_with(:message, text: 'Wise salary has been saved')
+    respond_with(:message, text: 'Wise salary has been saved', reply_markup: reply_markup_main_buttons)
   end
 
   def ask_to_enter_wise_amount_to_lend_money
@@ -327,7 +324,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_wise_lend_money!(wise_lend_money, *args)
     DecreaseWiseUsdSavedAmountJob.perform_later(wise_lend_money)
-    respond_with(:message, text: 'Entered amount has been withdrawn')
+    respond_with(:message, text: 'Entered amount has been withdrawn', reply_markup: reply_markup_main_buttons)
   end
 
   private
