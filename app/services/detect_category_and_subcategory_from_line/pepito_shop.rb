@@ -34,7 +34,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
-        berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink?
+        berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
+        mango_juice?
     end
 
     def green_tea?
@@ -81,11 +82,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bianka') && @line.include?('coconut')
     end
 
+    def mango_juice?
+      @line.include?('mango') && @line.any? { |word| word.include?('jungle') }
+    end
+
     ####
 
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
-        oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary?
+        oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil?
     end
 
     def kikko_soy_souce?
@@ -130,6 +135,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def rosemary?
       @line.include?('nat') && @line.include?('rosemry')
+    end
+
+    def sunflower_oil?
+      @line.include?('sunflower') && @line.any? { |word| word.include?('borges') }
     end
 
     ####
