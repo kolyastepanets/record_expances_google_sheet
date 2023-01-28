@@ -68,7 +68,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      cook_cream? || sunflower_oil? || mayonaise? || mustard?
+      cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2?
     end
 
     def cook_cream?
@@ -87,12 +87,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('french') && @line.any? { |word| word.include?('mstd') }
     end
 
+    def mayonaise_2?
+      @line.include?('mayo') && @line.include?('mamasuka')
+    end
+
     ####
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
-        nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey?
+        nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack?
     end
 
     def honey?
@@ -167,6 +171,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('hershey') && @line.any? { |word| word.include?('crm') }
     end
 
+    def promo_pack?
+      @line.include?('promo') && @line.include?('pack')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -217,7 +225,7 @@ module DetectCategoryAndSubcategoryFromLine
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
-        red_onion?
+        red_onion? || corn?
     end
 
     def potato?
@@ -298,6 +306,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def red_onion?
       @line.include?('red') && @line.include?('onion')
+    end
+
+    def corn?
+      @line.include?('daucy') && @line.any? { |word| word.include?('swtcorn') }
     end
 
     ####
@@ -435,7 +447,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna? || shrimp? || barramundi? || fish_steak?
+      tuna? || shrimp? || barramundi? || fish_steak? || canned_fish?
     end
 
     def tuna?
@@ -452,6 +464,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fish_steak?
       @line.any? { |word| word.include?('fish') } && @line.include?('steak')
+    end
+
+    def canned_fish?
+      @line.include?('bestanaku') && @line.include?('oil')
     end
 
     ####
