@@ -28,7 +28,8 @@ class ReceiveCurrentBalanceInMonobankFromMono
   def parse_response
     res = JSON.parse(@response.body)
     account = res["accounts"].detect { |acc| acc["iban"] == BLACK_MONO_CARD_IBAN }
-    coins = account["balance"] - account["creditLimit"]
-    "uah in mono: #{coins / 100} грн"
+    total_balance = account["balance"] - account["creditLimit"]
+    coins = total_balance.to_s.last(2)
+    "uah in mono: #{total_balance.to_s.split(coins)[0] << ",#{coins}"} грн"
   end
 end
