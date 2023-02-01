@@ -3,9 +3,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
-  MAIN_BUTTONS = [
-    ['All buttons', 'Внести расходы'],
-  ]
   BUTTONS_INFO = [
     ['UAH на gsheets'],
     ['UAH на monobank'],
@@ -32,7 +29,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         :message,
         text: 'Выбери действие:',
         reply_markup: {
-          keyboard: MAIN_BUTTONS,
+          keyboard: AllConstants::MAIN_BUTTONS,
           resize_keyboard: true,
           one_time_keyboard: true,
           is_persistent: false,
@@ -314,7 +311,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_wise_salary!(wise_salary, *args)
     IncreaseWiseUsdSavedAmountJob.perform_later(wise_salary)
-    respond_with(:message, text: 'Wise salary has been saved', reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: 'Wise salary has been saved', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def ask_to_enter_wise_amount_to_lend_money
@@ -324,42 +321,42 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_wise_lend_money!(wise_lend_money, *args)
     DecreaseWiseUsdSavedAmountJob.perform_later(wise_lend_money)
-    respond_with(:message, text: 'Entered amount has been withdrawn', reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: 'Entered amount has been withdrawn', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   private
 
   def get_usd_fop_from_google_sheet
-    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def get_usd_fop_from_monobank
-    respond_with(:message, text: ReceiveUsdFopFromMonobank.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveUsdFopFromMonobank.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def uah_and_usd_all
     respond_with(
       :message,
       text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}",
-      reply_markup: reply_markup_main_buttons
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
 
   def get_usd_from_wise
     total_sum = TakeWiseSavedAmount.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
-    respond_with(:message, text: "on wise: $#{total_sum}")
+    respond_with(:message, text: "on wise: $#{total_sum}", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def total_saved_money_from_google_sheet
-    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def get_last_3_expenses_in_google_sheet
-    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def get_last_10_transactions_from_mono
-    respond_with(:message, text: GetLastTenTransactionsFromMonobank.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: GetLastTenTransactionsFromMonobank.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def ask_half_price_or_full_price
@@ -435,7 +432,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(
       :message,
       text: 'Выбери действие:',
-      reply_markup: reply_markup_main_buttons
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
 
@@ -473,11 +470,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
 
   def get_current_mono_balance_from_google_sheet
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def get_current_mono_balance_from_monobank
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromMono.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromMono.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def category_to_sub_categories
@@ -596,11 +593,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def amount_already_spent
-    respond_with(:message, text: ReceiveCurrentMonthBalance.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveCurrentMonthBalance.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def how_many_taxes_to_pay_in_current_month
-    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def respond_with(type, *)
@@ -628,7 +625,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     text = "Вика потратила гривен: #{result[:vika_total_spent_uah]}\nВика потратила $: #{result[:vika_total_spent_usd]}\nМикола потратила гривен: #{result[:mykola_total_spent_uah]}\nМикола потратил $: #{result[:mykola_total_spent_usd]}\n#{who_should_return}"
 
-    respond_with(:message, text: text, reply_markup: reply_markup_main_buttons)
+    respond_with(:message, text: text, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def info_current_month
@@ -636,17 +633,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       :message,
       text: "```#{FindCellsCurrentMonth.call}```",
       parse_mode: :MarkdownV2,
-      reply_markup: reply_markup_main_buttons,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )
-  end
-
-  def reply_markup_main_buttons
-    {
-      keyboard: MAIN_BUTTONS,
-      resize_keyboard: true,
-      one_time_keyboard: true,
-      is_persistent: false,
-      selective: true,
-    }
   end
 end

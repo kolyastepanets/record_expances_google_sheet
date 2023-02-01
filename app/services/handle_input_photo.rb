@@ -154,10 +154,14 @@ class HandleInputPhoto
     false
   end
 
-  def send_message(text)
+  def send_message(text, show_reply_markup_main_buttons: false)
+    reply_markup_main_buttons = {}
+    reply_markup_main_buttons = { reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS } if show_reply_markup_main_buttons
+
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
       text: text,
+      **reply_markup_main_buttons,
     )
   end
 
@@ -230,7 +234,7 @@ class HandleInputPhoto
   def send_messages_after_enter_prices
     data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, @total_sum_of_money_before_save)
     send_message(data_text[:total_sum_after_money_was_saved])
-    send_message(data_text[:difference_of_saved_money])
+    send_message(data_text[:difference_of_saved_money], show_reply_markup_main_buttons: true)
   end
 
   def collected_prices_sum_in_uad_or_in_uah
