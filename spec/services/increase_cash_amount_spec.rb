@@ -37,7 +37,7 @@ RSpec.describe IncreaseCashAmount do
   context 'when cash category' do
     it 'calls UpdateCellInGoogleSheet' do
       expect(UpdateCellInGoogleSheet).to receive(:call).with("=4000000+1000000+1000000,0", "CB64")
-      expect(UpdateCellInGoogleSheet).to receive(:call).with("=(0,00251325+0,0024+0,0024)/3,0", "CB65")
+      expect(UpdateCellInGoogleSheet).to receive(:call).with("=(0,00251325+0,0024+0,0024)/3", "CB65")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3236000, "CB75")
       expect(UpdateCellInGoogleSheet).to receive(:call).with("=786000+4000000+300000+1000000+1000000+1000000,0", "CB76")
 
@@ -45,7 +45,7 @@ RSpec.describe IncreaseCashAmount do
     end
   end
 
-  context 'when another data' do
+  context 'when 1 currency rate from previous month' do
     let(:foreign_cash_expenses) do
       {
         withdraw_foreign_money: "=0",
@@ -64,7 +64,34 @@ RSpec.describe IncreaseCashAmount do
 
     it 'calls UpdateCellInGoogleSheet' do
       expect(UpdateCellInGoogleSheet).to receive(:call).with("=0+1000000,0", "CE64")
-      expect(UpdateCellInGoogleSheet).to receive(:call).with("=(0,0+0,0024)/2,0", "CE65")
+      expect(UpdateCellInGoogleSheet).to receive(:call).with("=(BX65+0,0024)/2", "CE65")
+      expect(UpdateCellInGoogleSheet).to receive(:call).with(1000000, "CE75")
+      expect(UpdateCellInGoogleSheet).to receive(:call).with("=BX75+1000000,0", "CE76")
+
+      subject
+    end
+  end
+
+  context 'when 1 currency rate from previous year' do
+    let(:foreign_cash_expenses) do
+      {
+        withdraw_foreign_money: "=0",
+        coordinates_of_value_to_change_withdraw_foreign_money: "CE64",
+        currency_rate_uah_to_foreigh_currency: "=('2022'!CB75)/1",
+        coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency: "CE65",
+        spent_foreign_money: 0.0,
+        coordinates_of_value_to_change_spent_foreign_money: "CE74",
+        now_foreign_money: 0.0,
+        coordinates_of_value_to_change_now_foreign_money: "CE75",
+        total_withraw_foreign_money: 0.0,
+        total_withraw_foreign_money_formula: "=BX75",
+        coordinates_of_total_withraw_foreign_money_formula: "CE76"
+      }
+    end
+
+    it 'calls UpdateCellInGoogleSheet' do
+      expect(UpdateCellInGoogleSheet).to receive(:call).with("=0+1000000,0", "CE64")
+      expect(UpdateCellInGoogleSheet).to receive(:call).with("=('2022'!CB75+0,0024)/2", "CE65")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000000, "CE75")
       expect(UpdateCellInGoogleSheet).to receive(:call).with("=BX75+1000000,0", "CE76")
 

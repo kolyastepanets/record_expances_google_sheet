@@ -76,7 +76,7 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $24.8")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая сумма уже сохраненная после заполнения: 123")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321", show_reply_markup_main_buttons: true)
 
           expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0 / 2", "m").and_return(response_after_save_expenses)
           expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0 / 2", "m")
@@ -147,7 +147,7 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 912.43 грн")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая сумма уже сохраненная после заполнения: 123")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321", show_reply_markup_main_buttons: true)
 
           expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406 / 2", "m").and_return(response_after_save_expenses)
           expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406 / 2", "m")

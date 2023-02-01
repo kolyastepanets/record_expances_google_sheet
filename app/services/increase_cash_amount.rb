@@ -27,11 +27,10 @@ class IncreaseCashAmount
 
   def add_currency_rate
     currency_formula = @result[:currency_rate_uah_to_foreigh_currency]
-    in_brakets, divider = currency_formula.split('/')
-    currency_rates = in_brakets.delete('=').delete('(').delete(')').split('+').map { |rate| rate.gsub(',', '.').to_f }
-    new_currency_rates = currency_rates << @currency_rate
-    new_divider = (divider.to_f + 1).to_s.gsub('.', ',')
-    final_formula = "=(#{currency_rates.map{ |rate| rate.to_s.gsub('.', ',') }.join('+')})/#{new_divider}"
+    in_brakets, _divider = currency_formula.split('/')
+    currency_rates = in_brakets.delete('=').delete('(').delete(')').split('+')
+    new_currency_rates = currency_rates << @currency_rate.to_s.gsub('.', ',')
+    final_formula = "=(#{currency_rates.join('+')})/#{new_currency_rates.size}"
 
     UpdateCellInGoogleSheet.call(
       final_formula,
