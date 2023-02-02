@@ -95,7 +95,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
     @response.values.each do |value_array|
       value_array.each_with_index do |value, value_index|
         if value == KEY_FIND_CELL_TOTAL_MONEY
-          calculated_total_withraw_foreign_money = value_array[value_index + 1].to_f
+          calculated_total_withraw_foreign_money = value_array[index_value_to_update].to_f
         end
         break if !calculated_total_withraw_foreign_money.zero?
       end
@@ -104,7 +104,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
     @response.values.each do |value_array|
       value_array.each_with_index do |value, value_index|
         if value == KEY_FIND_CELL_NOW_MONEY
-          now_foreign_money = value_array[value_index + 1].to_f
+          now_foreign_money = value_array[index_value_to_update].to_f
         end
         break if !now_foreign_money.zero?
       end
