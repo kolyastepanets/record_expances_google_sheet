@@ -533,7 +533,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sour_cream?
-      @line.include?('yummy') && @line.include?('sour') && @line.include?('cream')
+      @line.include?('yummy') && @line.include?('cream')
     end
 
     def mini_cheese?
@@ -627,7 +627,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      marlin? || gravad? || mahi? || tuna?
+      marlin? || gravad? || mahi? || tuna? || salmon?
     end
 
     def marlin?
@@ -644,6 +644,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tuna?
       @line.include?('tuna') && @line.include?('fille')
+    end
+
+    def salmon?
+      @line.include?('salmon') && @line.include?('fillet')
     end
 
     ####
