@@ -30,7 +30,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
-        aqua_water? || cheers_water?
+        aqua_water? || cheers_water? || mango_juice?
     end
 
     def coca_cola?
@@ -65,6 +65,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('cheers') && @line.include?('water')
     end
 
+    def mango_juice?
+      @line.include?('sunfrsh') && @line.any? { |word| word.include?('mango') }
+    end
+
     ####
 
     def spices_and_seasonings?
@@ -96,7 +100,8 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
-        nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack?
+        nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
+        dark_chocolate?
     end
 
     def honey?
@@ -173,6 +178,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def promo_pack?
       @line.include?('promo') && @line.include?('pack')
+    end
+
+    def dark_chocolate?
+      @line.include?('dark') && @line.include?('milkcho')
     end
 
     ####
@@ -316,7 +325,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
-        plain_yogurt? || sour_cream_3?
+        plain_yogurt? || sour_cream_3? || butter_2?
     end
 
     def cheese?
@@ -390,6 +399,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sour_cream_3?
       @line.any? { |word| word.include?('sour') } && @line.any? { |word| word.include?('milk') }
+    end
+
+    def butter_2?
+      @line.include?('metzgr') && @line.include?('cafe')
     end
 
     ####
