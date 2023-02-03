@@ -367,7 +367,8 @@ module DetectCategoryAndSubcategoryFromLine
       cucumber? || pepper? || tomato? || avocado? || brokoli? || potato? || canned_pepper? ||
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
-        beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas?
+        beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
+        mushroom?
     end
 
     def cucumber?
@@ -468,6 +469,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bond_peas?
       @line.include?('bond') && @line.include?('peas')
+    end
+
+    def mushroom?
+      @line.include?('mushroom')
     end
 
     ####
@@ -596,7 +601,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken? || pork? || beef?
+      chicken_breast? || chicken? || pork? || beef? || pork_2?
     end
 
     def chicken_breast?
@@ -613,6 +618,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def beef?
       @line.include?('prime') && @line.include?('beef')
+    end
+
+    def pork_2?
+      @line.include?('pork') && @line.include?('roast')      
     end
 
     ####
@@ -835,7 +844,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
-        kids_toothpaste?
+        kids_toothpaste? || floss?
     end
 
     def clear_gel?
@@ -864,6 +873,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kids_toothpaste?
       @line.include?('kids') && @line.include?('toothpaste')
+    end
+
+    def floss?
+      @line.include?('dental') && @line.any? { |word| word.include?('floss') }      
     end
 
     ####
