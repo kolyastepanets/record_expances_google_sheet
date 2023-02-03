@@ -7123,4 +7123,52 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
     end
   end
+
+  context 'when return some money after withdraw cash', freezed_time: '2023-02-03T13:50:00+00:00' do
+    let(:telegram_bot_params_return_some_money) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670051828,
+              **message_from,
+              "message_id" => 35160,
+              "text" => "Вернуть часть денег после снятия кэша"
+          },
+          "update_id" => 20479564
+      }
+    end
+    let(:telegram_bot_params_grivnas_and_foreign_money) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670052690,
+              **message_from,
+              "message_id" => 35169,
+              "text" => "1468 600000"
+          },
+          "update_id" => 20479570
+      }
+    end
+
+    it 'withdraws money from wise amount' do
+      # choose return some money
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_return_some_money
+      # enter grivnas and foreign money
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_grivnas_and_foreign_money
+
+      expect(response.status).to eq(200)
+    end
+  end
 end

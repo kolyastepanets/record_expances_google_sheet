@@ -16,6 +16,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Последние 3 траты в gsheets'],
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
+    ['Вернуть часть денег после снятия кэша'],
     ['Enter wise salary'],
     ['Кто кому сколько должен'],
     ['Info current month'],
@@ -287,6 +288,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Последние 3 траты в gsheets', method_to_call: 'get_last_3_expenses_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
+        { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
         { text: 'Info current month',  method_to_call: 'info_current_month' },
@@ -322,6 +324,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_wise_lend_money!(wise_lend_money, *args)
     DecreaseWiseUsdSavedAmountJob.perform_later(wise_lend_money)
     respond_with(:message, text: 'Entered amount has been withdrawn', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def ask_grivnas_and_foreign_money_returned!(grivnas_returned, *args)
+    grivnas = grivnas_returned
+    foreign_cash = args.first
+    HandleMoneyReturnedCashAndGrivnas.call(grivnas.to_f, foreign_cash.to_f)
+    respond_with(:message, text: 'money has been handled!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   private
@@ -635,5 +644,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       parse_mode: :MarkdownV2,
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )
+  end
+
+  def return_part_money_after_withdraw_cash
+    save_context(:ask_grivnas_and_foreign_money_returned!)
+    respond_with(:message, text: 'Enter how much grivnas and foreign cash were returned, "1468 600000" :')
   end
 end
