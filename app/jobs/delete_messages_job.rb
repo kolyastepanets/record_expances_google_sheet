@@ -1,13 +1,10 @@
 class DeleteMessagesJob < ApplicationJob
   queue_as :default
 
-  after_perform do
-    redis = Redis.new
-    key = "messages_at_#{Date.today.to_s}"
-    redis.del(key)
-  end
-
   def perform(message_ids)
+    key = "messages_at_#{Date.today.to_s}"
+    Redis.new.del(key)
+
     message_ids.each do |message_id|
       Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
     end
