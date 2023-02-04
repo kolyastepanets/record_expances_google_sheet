@@ -852,7 +852,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
-        kids_toothpaste? || floss?
+        kids_toothpaste? || floss? || local_vanish_2?
     end
 
     def clear_gel?
@@ -885,6 +885,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def floss?
       @line.include?('dental') && @line.any? { |word| word.include?('floss') }      
+    end
+
+    def local_vanish_2?
+      @line.include?('proc') && @line.include?('wht') && @line.include?('crti')
     end
 
     ####
@@ -964,6 +968,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def carefree_fresh?
       @line.include?('carefree') && @line.include?('fresh')
+    end
+
+    ####
+
+    def liliia_clothes?
+      for_hair?
+    end
+
+    def for_hair?
+      @line.include?('jepit') && @line.include?('rambut')
     end
   end
 end

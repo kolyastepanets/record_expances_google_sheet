@@ -79,6 +79,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif liliia_bath_stuff?
         category_name = 'Лиля'
         sub_category_name = 'Ванные принадлежности'
+      elsif liliia_clothes?
+        category_name = 'Лиля'
+        sub_category_name = 'Одежда'
       elsif pharmacy?
         category_name = 'Для дома'
         sub_category_name = 'Аптека'
@@ -159,6 +162,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pharmacy?
+    end
+
+    def liliia_clothes?
     end
   end
 end
