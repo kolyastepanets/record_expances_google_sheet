@@ -149,7 +149,7 @@ module DetectCategoryAndSubcategoryFromLine
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
-        vanila? || bar_bar_2? || berry_bliss? || milka?
+        vanila? || bar_bar_2? || berry_bliss? || milka? || haribo?
     end
 
     def magnum_icecream?
@@ -282,6 +282,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def milka?
       @line.any? { |word| word.include?('milka') }
+    end
+
+    def haribo?
+      @line.include?('haribo')
     end
 
     ####
