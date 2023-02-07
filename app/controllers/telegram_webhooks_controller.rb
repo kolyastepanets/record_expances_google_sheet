@@ -155,7 +155,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   rescue StandardError => e
     if Rails.env.production?
-      respond_with(:message, text: "Что то пошло не так: #{e.message}")
+      respond_with(:message, text: "Что то пошло не так: #{e.message}", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
     else
       raise e
     end
@@ -214,7 +214,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   rescue StandardError => e
     if Rails.env.production?
       error_message = "Упс, что-то пошло не так, категория: #{category_name}, подкатегория: #{sub_category_name}, ошибка: #{e.message}"
-      respond_with(:message, text: error_message)
+      respond_with(:message, text: error_message, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
     else
       raise e
     end

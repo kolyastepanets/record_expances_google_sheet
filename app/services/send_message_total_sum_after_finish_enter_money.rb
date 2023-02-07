@@ -13,13 +13,7 @@ class SendMessageTotalSumAfterFinishEnterMoney
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
       text: data_text[:difference_of_saved_money],
-      reply_markup: {
-        keyboard: AllConstants::MAIN_BUTTONS,
-        resize_keyboard: true,
-        one_time_keyboard: true,
-        is_persistent: false,
-        selective: true,
-      }
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
 end

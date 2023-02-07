@@ -50,7 +50,7 @@ class PutExpencesUahBlackCardJob < ApplicationJob
   rescue StandardError => e
     if Rails.env.production?
       error_message = { exception: e, message: e.message }
-      SendNotificationMessageToBot.call(error_message)
+      SendNotificationMessageToBot.call(error_message, show_reply_markup_main_buttons: true)
     else
       raise e
     end

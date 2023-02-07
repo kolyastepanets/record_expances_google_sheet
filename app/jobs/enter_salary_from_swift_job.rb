@@ -7,18 +7,12 @@ class EnterSalaryFromSwiftJob < ApplicationJob
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
       text: "Данные после сохранения: #{ReceiveUsdFopFromGoogleSheet.call}",
-      reply_markup: {
-        keyboard: AllConstants::MAIN_BUTTONS,
-        resize_keyboard: true,
-        one_time_keyboard: true,
-        is_persistent: false,
-        selective: true,
-      }
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   rescue StandardError => e
     if Rails.env.production?
       error_message = { exception: e, message: e.message }
-      SendNotificationMessageToBot.call(error_message)
+      SendNotificationMessageToBot.call(error_message, show_reply_markup_main_buttons: true)
     else
       raise e
     end
