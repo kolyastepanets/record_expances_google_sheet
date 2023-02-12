@@ -6174,4 +6174,31 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       expect(response.status).to eq(200)
     end
   end
+
+  context 'when round in google sheet like in monobank', freezed_time: '2023-02-12T12:58:00+00:00' do
+    let(:telegram_bot_params_return_round_money) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670051828,
+              **message_from,
+              "message_id" => 35160,
+              "text" => "Выровнять в гугл таблице как в монобанке"
+          },
+          "update_id" => 20479564
+      }
+    end
+
+    it 'makes money the same as in monobank' do
+      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_return_round_money
+
+      expect(response.status).to eq(200)
+    end
+  end
 end
