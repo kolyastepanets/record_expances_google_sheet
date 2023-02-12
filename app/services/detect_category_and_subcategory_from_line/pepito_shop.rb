@@ -90,7 +90,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
-        oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil?
+        oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
+        sunflower_oil_2?
     end
 
     def kikko_soy_souce?
@@ -139,6 +140,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sunflower_oil?
       @line.include?('sunflower') && @line.any? { |word| word.include?('borges') }
+    end
+
+    def sunflower_oil_2?
+      @line.include?('mazola') && @line.include?('sunflwr') && @line.include?('oil')
     end
 
     ####
@@ -625,7 +630,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pork_2?
-      @line.include?('pork') && @line.include?('roast')      
+      @line.include?('pork') && @line.include?('roast')
     end
 
     ####
@@ -745,7 +750,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def loren?
-      @line.include?('loren') && @line.include?('brez')      
+      @line.include?('loren') && @line.include?('brez')
     end
 
     ####

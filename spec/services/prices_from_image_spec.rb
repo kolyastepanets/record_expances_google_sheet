@@ -1438,7 +1438,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>95040.0},
             {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>3900.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>59900.0},
-            {:category_name=>nil, :sub_category_name=>nil, :price=>88900.0}, # skip for test "not_parsed_one_category"
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>88900.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>57600.0}
           ],
           332455.0,
@@ -2457,6 +2457,29 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>14000.0}
           ],
           387455.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt frestive not parsed one fake product', freezed_time: '2023-02-12T03:42:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/not_parsed_one_fake_product.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>nil, :sub_category_name=>nil, :price=>30192.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>31540.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>110500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>24500.0}
+          ],
+          196732.0,
           nil
         ]
       )

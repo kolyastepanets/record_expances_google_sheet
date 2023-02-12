@@ -575,7 +575,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      barilla? || rice?
+      barilla? || rice? || spaghetti?
     end
 
     def barilla?
@@ -584,6 +584,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def rice?
       @line.include?('rice')
+    end
+
+    def spaghetti?
+      @line.include?('spaghetti')
     end
 
     ####
