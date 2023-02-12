@@ -136,7 +136,7 @@ class PricesFromImage
     string_price = line[-1]
 
     if is_pepito_supermarket? || is_bali_direct_store?
-      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/))
+      matched_price = string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\.\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/)
       matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
       return matched_price
     end

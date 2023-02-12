@@ -154,7 +154,7 @@ module DetectCategoryAndSubcategoryFromLine
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
-        vanila? || bar_bar_2? || berry_bliss? || milka? || haribo?
+        vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2?
     end
 
     def magnum_icecream?
@@ -186,7 +186,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kinder?
-      @line.include?('kinder')
+      @line.include?('kinder') || @line.any? { |word| word.include?('kinder') }
     end
 
     def schogetten?
@@ -291,6 +291,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def haribo?
       @line.include?('haribo')
+    end
+
+    def lindt_2?
+      @line.any? { |word| word.include?('lin') } && @line.any? { |word| word.include?('whole') }
     end
 
     ####
@@ -453,7 +457,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def radish?
-      @line.include?('red') && @line.include?('radish')
+      @line.include?('red') && @line.any? { |word| word.include?('radish') }
     end
 
     def rucola?
@@ -490,7 +494,7 @@ module DetectCategoryAndSubcategoryFromLine
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
-        yogurt? || sour_cream_2? || greenfields_cheese?
+        yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2?
     end
 
     def milk?
@@ -542,7 +546,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sour_cream?
-      @line.include?('yummy') && @line.include?('cream')
+      @line.any? { |word| word.include?('yummy') } && @line.include?('cream')
     end
 
     def mini_cheese?
@@ -573,10 +577,19 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('greenfields') && @line.include?('bocconcini')
     end
 
+    def president_cheese?
+      @line.include?('president') && @line.include?('gouda') && @line.include?('tasty')
+    end
+
+    def cheese_2?
+      @line.include?('rossa') && @line.include?('renkol')
+    end
+
     ####
 
     def bread?
-      donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour?
+      donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
+        batard?
     end
 
     def donut?
@@ -605,6 +618,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def flour?
       @line.include?('kunci') && @line.include?('br')
+    end
+
+    def batard?
+      @line.include?('batard') && @line.include?('bread')
     end
 
     ####
@@ -656,14 +673,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def salmon?
-      @line.include?('salmon') && @line.include?('fillet')
+      @line.include?('salmon')
     end
 
     ####
 
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
-        mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? || mamas_sausage?
+        mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
+        mamas_sausage? || smoked_sausage?
     end
 
     def mamas_ham?
@@ -691,7 +709,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mamas_salami?
-      @line.include?('mamas') && @line.include?('salami')
+      @line.any? { |word| word.include?('mamas') } && @line.include?('salami')
     end
 
     def triple_ham?
@@ -712,6 +730,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mamas_sausage?
       @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('kalberwurst') }
+    end
+
+    def smoked_sausage?
+      @line.include?('smoked') && @line.include?('sausage')
     end
 
     ####
@@ -857,7 +879,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
-        kids_toothpaste? || floss? || local_vanish_2?
+        kids_toothpaste? || floss? || local_vanish_2? || luquid_soap_2? || tooth_brush? ||
+        shampoo?
     end
 
     def clear_gel?
@@ -889,11 +912,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def floss?
-      @line.include?('dental') && @line.any? { |word| word.include?('floss') }      
+      @line.include?('dental') && @line.any? { |word| word.include?('floss') }
     end
 
     def local_vanish_2?
       @line.include?('proc') && @line.include?('wht') && @line.include?('crti')
+    end
+
+    def luquid_soap_2?
+      @line.include?('j') && @line.include?('&') && @line.any? { |word| word.include?('wash') }
+    end
+
+    def tooth_brush?
+      @line.include?('tbrush') && @line.include?('sanrio')
+    end
+
+    def shampoo?
+      @line.include?('shampoo') && @line.include?('ginseng')
     end
 
     ####
