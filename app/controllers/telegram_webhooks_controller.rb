@@ -17,6 +17,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
     ['Вернуть часть денег после снятия кэша'],
+    ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
     ['Кто кому сколько должен'],
     ['Info current month'],
@@ -289,6 +290,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
+        { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
         { text: 'Info current month',  method_to_call: 'info_current_month' },
@@ -635,6 +637,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     text = "Вика потратила гривен: #{result[:vika_total_spent_uah]}\nВика потратила $: #{result[:vika_total_spent_usd]}\nМикола потратила гривен: #{result[:mykola_total_spent_uah]}\nМикола потратил $: #{result[:mykola_total_spent_usd]}\n#{who_should_return}"
 
     respond_with(:message, text: text, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def round_in_google_sheet_like_in_monobank
+    uah_and_usd_all
+    RoundInGoogleSheetLikeInMonobank.call
+    uah_and_usd_all
   end
 
   def info_current_month

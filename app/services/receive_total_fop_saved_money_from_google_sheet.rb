@@ -1,4 +1,4 @@
-class ReceiveTotalSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
+class ReceiveTotalFopSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   private
 
   def next_index_value_to_find
@@ -18,10 +18,10 @@ class ReceiveTotalSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def find_by_word
-    'СУММА мои все'
+    'СУММА ФОП'
   end
 
   def parse_response
-    "total saved money in google sheet: #{balance_to_return}"
+    "total fop saved money in google sheet: #{balance_to_return}"
   end
 end
