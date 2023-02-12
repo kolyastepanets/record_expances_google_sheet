@@ -681,7 +681,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
-        mamas_sausage? || smoked_sausage?
+        mamas_sausage? || smoked_sausage? || bratwurst?
     end
 
     def mamas_ham?
@@ -734,6 +734,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def smoked_sausage?
       @line.include?('smoked') && @line.include?('sausage')
+    end
+
+    def bratwurst?
+      @line.include?('garlic') && @line.include?('bratwurs')
     end
 
     ####
