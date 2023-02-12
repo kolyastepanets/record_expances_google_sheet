@@ -2,3 +2,8 @@
 every "0 18 10 * *" do
   runner "SendReminderToPayTaxes.call"
 end
+
+# test
+every "0 18 10 * *" do
+  runner "SendReminderToPayTaxes.call"
+end
