@@ -77,7 +77,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil?
+        oil? || sunflower_oil_2?
     end
 
     def cook_cream?
@@ -106,6 +106,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def oil?
       @line.include?('filippo') && @line.any? { |word| word.include?('oil') }
+    end
+
+    def sunflower_oil_2?
+      @line.include?('snflower') && @line.any? { |word| word.include?('oil') }
     end
 
     ####
@@ -251,7 +255,7 @@ module DetectCategoryAndSubcategoryFromLine
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
-        red_onion? || corn? || broccoli? || corn_2?
+        red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2?
     end
 
     def potato?
@@ -344,6 +348,15 @@ module DetectCategoryAndSubcategoryFromLine
 
     def corn_2?
       @line.include?('chile') && @line.include?('corn')
+    end
+
+    def champignon?
+      @line.include?('champignon')
+    end
+
+    def herb_2?
+      # but should recognize as dill, not oill
+      @line.include?('leaf') && @line.any? { |word| word.include?('oill') }
     end
 
     ####
