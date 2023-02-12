@@ -2464,6 +2464,33 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 28', freezed_time: '2023-02-12T04:44:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out53.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>320775.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>36096.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>40704.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>81500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>27000.0},
+            {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>31000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>54000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>52500.0}
+          ],
+          643575.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive not parsed one fake product', freezed_time: '2023-02-12T03:42:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/not_parsed_one_fake_product.jpeg") }
 

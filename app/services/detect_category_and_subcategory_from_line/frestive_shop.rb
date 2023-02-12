@@ -76,7 +76,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce?
+      cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
+        oil?
     end
 
     def cook_cream?
@@ -101,6 +102,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def soy_souce?
       @line.include?('kikkoman')
+    end
+
+    def oil?
+      @line.include?('filippo') && @line.any? { |word| word.include?('oil') }
     end
 
     ####
@@ -246,7 +251,7 @@ module DetectCategoryAndSubcategoryFromLine
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
-        red_onion? || corn? || broccoli?
+        red_onion? || corn? || broccoli? || corn_2?
     end
 
     def potato?
@@ -335,6 +340,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def broccoli?
       @line.include?('broccoli')
+    end
+
+    def corn_2?
+      @line.include?('chile') && @line.include?('corn')
     end
 
     ####
@@ -450,7 +459,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken? || chicken_leg? || chicken_2? || pork? || bacon? || beef?
+      chicken? || chicken_leg? || chicken_2? || pork? || bacon? || beef? ||
+        pork_slices?
     end
 
     def chicken?
@@ -475,6 +485,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def beef?
       @line.include?('beef')
+    end
+
+    def pork_slices?
+      @line.include?('svenschoc') && @line.any? { |word| word.include?('pork') }
     end
 
     ####
