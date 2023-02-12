@@ -4,6 +4,6 @@ every "0 18 10 * *" do
 end
 
 # test
-every "0 18 10 * *" do
+every "58 1 12 * *" do
   runner "SendReminderToPayTaxes.call"
 end
