@@ -170,7 +170,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kit_kat?
-      @line.any? { |word| word.include?('kit') } && @line.include?('kat')
+      (@line.any? { |word| word.include?('kit') } && @line.include?('kat')) || @line.any? { |word| word.include?('kitkat') }
     end
 
     def oreo_biscuit?
