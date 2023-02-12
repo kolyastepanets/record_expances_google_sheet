@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer? || wine? || champagne?
+      beer? || wine? || champagne? || beer_2?
     end
 
     def beer?
@@ -18,6 +18,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def champagne?
       @line.include?('sababay') && @line.include?('ascaro')
+    end
+
+    def beer_2?
+      @line.include?('bali') && @line.include?('hai') && @line.any? { |word| word.include?('can') }
     end
 
     ####
@@ -72,7 +76,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2?
+      cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce?
     end
 
     def cook_cream?
@@ -93,6 +97,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mayonaise_2?
       @line.include?('mayo') && @line.include?('mamasuka')
+    end
+
+    def soy_souce?
+      @line.include?('kikkoman')
     end
 
     ####
@@ -238,7 +246,7 @@ module DetectCategoryAndSubcategoryFromLine
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
-        red_onion? || corn?
+        red_onion? || corn? || broccoli?
     end
 
     def potato?
@@ -325,6 +333,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('daucy') && @line.any? { |word| word.include?('swtcorn') }
     end
 
+    def broccoli?
+      @line.include?('broccoli')
+    end
+
     ####
 
     def dairy?
@@ -334,7 +346,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
-        bel_cheese? || baros_gouda? || ricta? || bega?
+        bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese?
     end
 
     def ricotta?
@@ -375,6 +387,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bega?
       @line.include?('bega') && @line.any? { |word| word.include?('slices') }
+    end
+
+    def smoked_cheese?
+      @line.include?('emina') && @line.include?('smok') && @line.include?('ches')
     end
 
     def butter?
