@@ -82,10 +82,19 @@ namespace :deploy do
     end
   end
 
+  task :update_crontab do
+    on roles(:app) do
+      within current_path do
+        execute :bundle, :exec, :whenever, "--update-crontab", "#{current_path}/config/schedule.rb"
+      end
+    end
+  end
+
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after  :finishing,    :update_crontab
 end
 
 namespace :sidekiq do
