@@ -29,7 +29,8 @@ class ReceiveUsdFopFromMonobank
     res = JSON.parse(@response.body)
     account = res["accounts"].detect { |acc| acc["iban"] == BLACK_MONO_CARD_IBAN }
     total_balance = account["balance"] - account["creditLimit"]
+    integer_before_decimal_point = total_balance.to_s[0...-2]
     coins = total_balance.to_s.last(2)
-    "usd fop in mono: $#{total_balance.to_s.split(coins)[0] << ",#{coins}"}"
+    "usd fop in mono: $#{integer_before_decimal_point << ",#{coins}"}"
   end
 end
