@@ -7,12 +7,12 @@ class PutExpencesWiseDollarCardJob < ApplicationJob
     PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
-      params[:price],
+      params[:price_in_usd],
       params[:who_paid]
     )
 
     result = ReceiveWiseFromGoogleSheet.call
-    price_to_put_in_sheets = "#{result[:wise_formula]} - #{price.to_s.gsub(".", ",")}"
+    price_to_put_in_sheets = "#{result[:wise_formula]} - #{params[:price_in_usd]}"
 
     UpdateCellInGoogleSheet.call(
       price_to_put_in_sheets,

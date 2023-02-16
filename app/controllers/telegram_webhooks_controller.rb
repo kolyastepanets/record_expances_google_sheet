@@ -142,9 +142,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
+      who_paid = nil
 
-      DecreaseWiseUsdSavedAmountJob.perform_later(price_to_calculate)
-      PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, who_paid)
+      DecreaseWiseUsdSavedAmountJob.perform_later(params[:price_in_usd])
+      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month, who_paid)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
       category_name = data.split(': ')[0]

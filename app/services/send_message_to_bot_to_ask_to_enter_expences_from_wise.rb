@@ -3,21 +3,17 @@ class SendMessageToBotToAskToEnterExpencesFromWise
 
   SHOW_ITEMS_PER_LINE = 2
 
-  def initialize(transaction_data)
-    # @id = transaction_data[:id]
-    # @description = transaction_data[:description]
-    # @currency_rate = transaction_data[:currency_rate]
-    # @total_sum_of_money_before_save = transaction_data[:total_sum_of_money_before_save]
-    # @can_show_final_sum = transaction_data[:can_show_final_sum]
-    # @price_in_uah = transaction_data[:amount].to_i.abs / 100.0 if !transaction_data[:is_fop_dollar]
-    # @price_in_usd = transaction_data[:amount].to_i.abs / 100.0 if transaction_data[:is_fop_dollar]
-    # @operation_amount = transaction_data[:operationAmount].to_i.abs / 100.0
+  def initialize(params)
+    @id = params[:id]
     @redis = Redis.new
     @categories = ReceiveCategories.call
+    @params = {
+      price_in_usd: params[:price_in_usd],
+      message_ids: [],
+    }
   end
 
   def call
-    build_params
     response = send_message_with_params
     save_message_id(response["result"]["message_id"])
     response = send_message_with_categories
@@ -26,18 +22,6 @@ class SendMessageToBotToAskToEnterExpencesFromWise
   end
 
   private
-
-  def build_params
-    @params = {
-      description: @description,
-      price_in_usd: @price_in_usd,
-      operation_amount: @operation_amount,
-      currency_rate: @currency_rate,
-      message_ids: [],
-      total_sum_of_money_before_save: @total_sum_of_money_before_save,
-      can_show_final_sum: @can_show_final_sum,
-    }
-  end
 
   def send_message_with_params
     Telegram.bot.send_message(
