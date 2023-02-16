@@ -126,6 +126,26 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_category) { input_category.include?('w_id') }
+      category_name = data.split(': ')[0]
+      transaction_id = data.split(': ')[1].split('w_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:category_name] = category_name
+      params[:message_ids] << payload["message"]["message_id"]
+      redis.set(transaction_id, params.to_json, ex: 1.week)
+
+      transaction_id = "w1_id:#{transaction_id}"
+      show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_sub_category) { input_sub_category.include?('w1_id') }
+      sub_category_name = find_full_sub_category_name(data.split(': ')[0])
+      transaction_id = data.split(': ')[1].split('w1_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:message_ids] << payload["message"]["message_id"]
+      params[:sub_category_name] = sub_category_name
+
+      DecreaseWiseUsdSavedAmountJob.perform_later(price_to_calculate)
+      PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, who_paid)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
       category_name = data.split(': ')[0]
       transaction_id, price = data.split(': ')[1].split('f_id:')[1].split(":")
