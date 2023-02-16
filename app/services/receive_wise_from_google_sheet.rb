@@ -1,4 +1,4 @@
-class TakeWiseSavedAmount < GetOrSetDataInGoogleSheetBase
+class ReceiveWiseFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   COLUMN_LETTER = ('A'..'G').to_a
   KEY_FIND_CELL_LEFT_WISE_MONEY = "in Wise".freeze
   NEXT_SECOND_CELL = 2
