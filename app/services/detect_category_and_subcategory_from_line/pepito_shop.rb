@@ -502,7 +502,8 @@ module DetectCategoryAndSubcategoryFromLine
       milk? || greenfields_milk? || kin_milk? || greenfields_yog? || biokul_yog? || kin_yog? ||
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
-        yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2?
+        yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
+        greenfields_milk_2?
     end
 
     def milk?
@@ -591,6 +592,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese_2?
       @line.include?('rossa') && @line.include?('renkol')
+    end
+
+    def greenfields_milk_2?
+      @line.include?('greenfield') && @line.include?('fullcream')
     end
 
     ####
