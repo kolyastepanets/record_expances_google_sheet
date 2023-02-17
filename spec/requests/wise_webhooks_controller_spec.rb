@@ -250,42 +250,31 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
     allow(DeleteMessagesJob).to receive(:perform_later)
   end
 
-  context 'when receive usd on wise', freezed_time: '2023-02-16T14:53:00+00:00' do
-    context 'when p 2 p' do
-      let(:wise_webhook_params) do
-        {
-          "wise_webhook" => {
-            "data" => {
-              "amount" => 100000.0,
-              "currency" => "USD",
-              "occurred_at" => "2023-02-16T11:54:36Z",
-              "post_transaction_balance_amount" => 20,
-              "transaction_type" => "credit",
-              "resource" => {
-                "id" => 18365450,
-              },
+  context 'when receive usd on wise', freezed_time: '2023-02-17T13:31:00+00:00' do
+    let(:wise_webhook_params) do
+      {
+        "wise_webhook" => {
+          "data" => {
+            "amount" => 100000.0,
+            "currency" => "USD",
+            "occurred_at" => "2023-02-16T11:54:36Z",
+            "post_transaction_balance_amount" => 20,
+            "transaction_type" => "credit",
+            "resource" => {
+              "id" => 18365450,
             },
-            "event_type" => "balances#credit",
-            "schema_version" => "2.0.0",
-            "sent_at" => "2023-02-16T11:54:36Z",
-            "subscription_id" => "123-123-123-123-123"
-          }
+          },
+          "event_type" => "balances#credit",
+          "schema_version" => "2.0.0",
+          "sent_at" => "2023-02-16T11:54:36Z",
+          "subscription_id" => "123-123-123-123-123"
         }
-      end
-
-      it 'saves to google sheet' do
-        post '/wise_webhooks', params: wise_webhook_params
-        expect(response.status).to eq(200)
-      end
+      }
     end
 
-    context 'when from shiphawk', freezed_time: '2023-02-16T15:15:00+00:00' do
-      let(:tranfer_id) { 610299690 }
-
-      it 'saves to google sheet' do
-        post '/wise_webhooks', params: wise_webhook_params
-        expect(response.status).to eq(200)
-      end
+    it 'saves to google sheet' do
+      post '/wise_webhooks', params: wise_webhook_params
+      expect(response.status).to eq(200)
     end
   end
 
