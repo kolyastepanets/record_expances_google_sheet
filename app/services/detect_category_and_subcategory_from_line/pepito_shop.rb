@@ -154,7 +154,7 @@ module DetectCategoryAndSubcategoryFromLine
         super_shrooms? || hello_kitty? || jelly? || honey? || cake? || bar_almond? ||
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
-        vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2?
+        vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears?
     end
 
     def magnum_icecream?
@@ -297,6 +297,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.any? { |word| word.include?('lin') } && @line.any? { |word| word.include?('whole') }
     end
 
+    def bears?
+      @line.include?('bears')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -381,7 +385,7 @@ module DetectCategoryAndSubcategoryFromLine
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
-        mushroom?
+        mushroom? || chinese_cabbage?
     end
 
     def cucumber?
@@ -486,6 +490,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mushroom?
       @line.include?('mushroom')
+    end
+
+    def chinese_cabbage?
+      @line.include?('sawi') && @line.include?('putih')
     end
 
     ####
