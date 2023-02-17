@@ -562,7 +562,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mozzarela?
-      @line.include?('mozzarella') && @line.include?('fresh')
+      @line.include?('mozzarella')
     end
 
     def yogurt?
@@ -1022,6 +1022,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_hair?
       @line.include?('jepit') && @line.include?('rambut')
+    end
+
+    ####
+
+    def mykola_bath_stuff?
+      foam?
+    end
+
+    def foam?
+      @line.include?('gillete')
     end
   end
 end

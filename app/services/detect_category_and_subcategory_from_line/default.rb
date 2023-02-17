@@ -85,6 +85,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif pharmacy?
         category_name = 'Для дома'
         sub_category_name = 'Аптека'
+      elsif mykola_bath_stuff?
+        category_name = 'Коля'
+        sub_category_name = 'Ванные принадлежности'
       end
 
       [category_name, sub_category_name]
@@ -165,6 +168,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def liliia_clothes?
+    end
+
+    def mykola_bath_stuff?
     end
   end
 end
