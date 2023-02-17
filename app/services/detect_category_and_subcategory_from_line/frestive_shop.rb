@@ -323,7 +323,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def green_onion?
-      @line.include?('daun') && @line.include?('bawang') && @line.include?('besar')
+      @line.include?('daun') && @line.include?('bawang')
     end
 
     def zucchini_2?
@@ -368,7 +368,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
-        bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese?
+        bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri?
     end
 
     def ricotta?
@@ -413,6 +413,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def smoked_cheese?
       @line.include?('emina') && @line.include?('smok') && @line.include?('ches')
+    end
+
+    def kiri?
+      @line.include?('kiri') && @line.include?('cheese')
     end
 
     def butter?
@@ -652,7 +656,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      toilet_paper? || crystal?
+      toilet_paper? || crystal? || oralb?
     end
 
     def toilet_paper?
@@ -661,6 +665,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def crystal?
       @line.any? { |word| word.include?('crystal') } && @line.include?('proclin')
+    end
+
+    def oralb?
+      @line.include?('oralb') && @line.include?('winnie')
     end
 
     ####
@@ -677,6 +685,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def coal?
       @line.include?('wood') && @line.include?('charcoal')
+    end
+
+    ####
+
+    def liliia_bath_stuff?
+      laurier?
+    end
+
+    def laurier?
+      @line.include?('laurier')
     end
   end
 end
