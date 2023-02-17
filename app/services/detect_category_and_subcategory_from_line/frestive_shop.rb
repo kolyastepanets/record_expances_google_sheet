@@ -77,7 +77,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil? || sunflower_oil_2?
+        oil? || sunflower_oil_2? || sugar?
     end
 
     def cook_cream?
@@ -110,6 +110,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sunflower_oil_2?
       @line.include?('snflower') && @line.any? { |word| word.include?('oil') }
+    end
+
+    def sugar?
+      @line.include?('gula')
     end
 
     ####
@@ -218,7 +222,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry?
+      banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
+        strawberry?
     end
 
     def banana?
@@ -247,6 +252,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cherry?
       @line.include?('cherry') && !@line.include?('tomato')
+    end
+
+    def strawberry?
+      @line.include?('strawberry')
     end
 
     ####
