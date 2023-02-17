@@ -2,7 +2,7 @@ class DecreaseWiseUsdSavedAmountJob < ApplicationJob
   queue_as :default
 
   def perform(price)
-    result = TakeWiseSavedAmount.call
+    result = ReceiveWiseFromGoogleSheet.call
     price_to_put_in_sheets = "#{result[:wise_formula]} - #{price.to_s.gsub(".", ",")}"
 
     UpdateCellInGoogleSheet.call(

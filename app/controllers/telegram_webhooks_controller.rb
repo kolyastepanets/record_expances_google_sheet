@@ -126,6 +126,27 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_category) { input_category.include?('w_id') }
+      category_name = data.split(': ')[0]
+      transaction_id = data.split(': ')[1].split('w_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:category_name] = category_name
+      params[:message_ids] << payload["message"]["message_id"]
+      redis.set(transaction_id, params.to_json, ex: 1.week)
+
+      transaction_id = "w1_id:#{transaction_id}"
+      show_sub_categories_by_category(category_name, transaction_id)
+    when -> (input_sub_category) { input_sub_category.include?('w1_id') }
+      sub_category_name = find_full_sub_category_name(data.split(': ')[0])
+      transaction_id = data.split(': ')[1].split('w1_id:')[1]
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:message_ids] << payload["message"]["message_id"]
+      params[:sub_category_name] = sub_category_name
+      who_paid = nil
+
+      DecreaseWiseUsdSavedAmountJob.perform_later(params[:price_in_usd])
+      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month, who_paid)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
       category_name = data.split(': ')[0]
       transaction_id, price = data.split(': ')[1].split('f_id:')[1].split(":")
@@ -346,15 +367,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def uah_and_usd_all
+    usd_wise_in_google_sheet = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
+    usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet}"
+
     respond_with(
       :message,
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}",
+      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
 
   def get_usd_from_wise
-    total_sum = TakeWiseSavedAmount.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
+    total_sum = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
     respond_with(:message, text: "on wise: $#{total_sum}", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
