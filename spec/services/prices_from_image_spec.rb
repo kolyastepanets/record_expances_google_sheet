@@ -1694,6 +1694,45 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 39', freezed_time: '2023-02-18T12:20:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out61.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>65000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>68000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>22000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>17200.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>59300.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>46500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>44000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>45360.0},
+            {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>84960.0},
+            {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>46080.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>32600.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>47900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>40000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>17000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>22950.0},
+            {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>21780.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>28400.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>56300.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11000.0}
+          ],
+          832330.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
