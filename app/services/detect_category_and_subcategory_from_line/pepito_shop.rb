@@ -770,7 +770,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren?
+        lorenz? || loren? || chitato?
     end
 
     def lays?
@@ -803,6 +803,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def loren?
       @line.include?('loren') && @line.include?('brez')
+    end
+
+    def chitato?
+      @line.include?('chitato') && @line.include?('beef')
     end
 
     ####
