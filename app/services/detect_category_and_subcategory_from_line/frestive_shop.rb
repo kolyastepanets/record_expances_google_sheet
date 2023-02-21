@@ -377,7 +377,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
-        bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri?
+        bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri? ||
+        laughing_cow_cheese?
     end
 
     def ricotta?
@@ -426,6 +427,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kiri?
       @line.include?('kiri') && @line.include?('cheese')
+    end
+
+    def laughing_cow_cheese?
+      @line.include?('laughng') && @line.any? { |word| word.include?('cw') }
     end
 
     def butter?
