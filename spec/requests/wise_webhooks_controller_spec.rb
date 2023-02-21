@@ -1,5 +1,3 @@
-# ALLOW_BOT_REAL_REQUEST=1 use before running test to make real request to bot
-#
 # !!! WARNING !!!
 # prepare data in google sheet, because requests are making to prod !!!!
 #
@@ -294,9 +292,9 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
       it 'asks bot and saves to google sheet' do
         post '/wise_webhooks', params: wise_webhook_params
         # choose category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # choose sub category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
 
         expect(response.status).to eq(200)
       end

@@ -1,5 +1,3 @@
-# ALLOW_BOT_REAL_REQUEST=1 use before running test to make real request to bot
-#
 # !!! WARNING !!!
 # prepare data in google sheet, because requests are making to prod !!!!
 #
@@ -594,27 +592,27 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_metro_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_metro_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -833,21 +831,21 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page and do not decrease uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # vika paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_common_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -1130,27 +1128,27 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and do not decrease uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # vika paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_common_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -1433,27 +1431,27 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_mykola_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_common_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -1736,27 +1734,27 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_common_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -2059,29 +2057,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # all our expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # receipt foreigh currency expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_receipt_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
         # enter currency rate
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_uah_foreign_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_foreign_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -2382,29 +2380,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_mykola_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
         # receipt foreigh currency expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_receipt_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
         # enter currency rate
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_uah_foreign_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_foreign_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -2705,29 +2703,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # vika paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # receipt foreigh currency expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_receipt_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
         # enter currency rate
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_uah_foreign_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_foreign_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -3030,29 +3028,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # all our expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # cash expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_cash_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
         # enter left cash
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_how_much_left_foreign
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -3353,29 +3351,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_mykola_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
         # cash expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_cash_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
         # enter left cash
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_how_much_left_foreign
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -3676,29 +3674,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # vika paid expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # cash expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_cash_foreign_currency_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
         # enter left cash
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_how_much_left_foreign
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -4001,29 +3999,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases dollar value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # all our expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # dollar card
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_card
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
         # dollar currency rate
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -4324,29 +4322,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_mykola_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
         # cash expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_card
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
         # enter left cash
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -4647,29 +4645,29 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and does not decrease usd value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # vika paid expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_vika_paid
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # dollar card
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_card
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
         # dollar currency rate
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_dollar_currency_rate
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_currency_rate
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -4954,27 +4952,27 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # main menu
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
         # mykola paid
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_expenses
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_wise_expenses
         # transport category
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
         # taxi subcategory
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
         # taxi price
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
         # transport category 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_transport_category_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
         # taxi subcategory 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_subcategory_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
         # taxi price 2
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_taxi_price_2
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
         # finish enter prices
-        post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_finish_enter_prices
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
       end
@@ -5045,11 +5043,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
     it 'saves wise salary to page total savings' do
       # main menu
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
       # choose wise salary
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_wise_salary
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_wise_salary
       # enter salary
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_salary
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_wise_salary
 
       expect(response.status).to eq(200)
     end
@@ -5188,15 +5186,15 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
     it 'withdraws money from wise amount' do
       # main menu
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_main_menu
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
       # enter expenses
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_enter_expenses
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
       # all our expenses
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_our_all_expenses
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
       # choose to lend money
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_lend_money
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_wise_lend_money
       # enter amount to lend
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_wise_lend_amount
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_wise_lend_amount
 
       expect(response.status).to eq(200)
     end
@@ -5221,30 +5219,30 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
             "message_id" => 51490,
             "photo" => [
               {
-                  "file_id" => "AgACAgIAAxkBAALy12PoZTgcRnX2cLXLLxssdN_zCnXOAAK8xTEbq-RBSyBQb9fSlhR7AQADAgADcwADLgQ",
+                  "file_id" => "AgACAgIAAxkBAAIBpmP0j_JHs4xgAU_c6MfAepXRi4YyAAKBxzEbBSShS8nm2ITU1lXrAQADAgADcwADLgQ",
                   "file_size" => 1272,
-                  "file_unique_id" => "AQADvMUxG6vkQUt4",
+                  "file_unique_id" => "AQADgccxGwUkoUt4",
                   "height" => 90,
                   "width" => 67
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy12PoZTgcRnX2cLXLLxssdN_zCnXOAAK8xTEbq-RBSyBQb9fSlhR7AQADAgADbQADLgQ",
+                  "file_id" => "AgACAgIAAxkBAAIBpmP0j_JHs4xgAU_c6MfAepXRi4YyAAKBxzEbBSShS8nm2ITU1lXrAQADAgADbQADLgQ",
                   "file_size" => 21903,
-                  "file_unique_id" => "AQADvMUxG6vkQUty",
+                  "file_unique_id" => "AQADgccxGwUkoUty",
                   "height" => 320,
                   "width" => 240
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy12PoZTgcRnX2cLXLLxssdN_zCnXOAAK8xTEbq-RBSyBQb9fSlhR7AQADAgADeAADLgQ",
+                  "file_id" => "AgACAgIAAxkBAAIBpmP0j_JHs4xgAU_c6MfAepXRi4YyAAKBxzEbBSShS8nm2ITU1lXrAQADAgADeAADLgQ",
                   "file_size" => 104261,
-                  "file_unique_id" => "AQADvMUxG6vkQUt9",
+                  "file_unique_id" => "AQADgccxGwUkoUt9",
                   "height" => 800,
                   "width" => 600
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy12PoZTgcRnX2cLXLLxssdN_zCnXOAAK8xTEbq-RBSyBQb9fSlhR7AQADAgADeQADLgQ",
+                  "file_id" => "AgACAgIAAxkBAAIBpmP0j_JHs4xgAU_c6MfAepXRi4YyAAKBxzEbBSShS8nm2ITU1lXrAQADAgADeQADLgQ",
                   "file_size" => 151847,
-                  "file_unique_id" => "AQADvMUxG6vkQUt-",
+                  "file_unique_id" => "AQADgccxGwUkoUt-",
                   "height" => 1280,
                   "width" => 960
               }
@@ -5257,7 +5255,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADvMUxG6vkQUt-:30192.0",
+            "data" => "Еда: f_id:AQADgccxGwUkoUt-:30192.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
@@ -5274,81 +5272,81 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Транспорт: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Еда: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Развлечения: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Подарки: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Для дома: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Коля: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Валди: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Непредвиденное: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Марк: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Лиля: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Путешествия: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Авто бмоно: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Крупные покупки: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Капитал: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Кэш: f_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Кэш"
                             }
                         ]
@@ -5364,7 +5362,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADvMUxG6vkQUt-:30192.0",
+            "data" => "Молочка: f1_id:AQADgccxGwUkoUt-:30192.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
@@ -5381,97 +5379,97 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Молочка: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Готовая: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Фрукты: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Овощи: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Сладости: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Бакалея: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Новопочта: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Рыба: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Яйца: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Вода: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Алкоголь: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "К пиву: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Мясо: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADvMUxG6vkQUt-:30192.0",
+                                "callback_data" => "Детское питание: f1_id:AQADgccxGwUkoUt-:30192.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -5489,6 +5487,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         "update_id" => 20680950
       }
     end
+    # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
     let(:telegram_bot_params_upload_photo_two_products_were_not_parsed) do
       {
         "message" => {
@@ -5505,32 +5504,32 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
             "message_id" => 51490,
             "photo" => [
               {
-                  "file_id" => "AgACAgIAAxkBAALy8mPoZvUvGP_UC96FxPa62SDYSvh8AAK9xTEbq-RBS2jmas43AAEVZQEAAwIAA3MAAy4E",
-                  "file_size" => 1272,
-                  "file_unique_id" => "AQADvcUxG6vkQUt4",
-                  "height" => 90,
-                  "width" => 67
+                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADcwADLgQ",
+                  "file_size": 1272,
+                  "file_unique_id": "AQADoccxGwUkoUt4",
+                  "height": 90,
+                  "width": 67
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy8mPoZvUvGP_UC96FxPa62SDYSvh8AAK9xTEbq-RBS2jmas43AAEVZQEAAwIAA20AAy4E",
-                  "file_size" => 22034,
-                  "file_unique_id" => "AQADvcUxG6vkQUty",
-                  "height" => 320,
-                  "width" => 240
+                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADbQADLgQ",
+                  "file_size": 22034,
+                  "file_unique_id": "AQADoccxGwUkoUty",
+                  "height": 320,
+                  "width": 240
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy8mPoZvUvGP_UC96FxPa62SDYSvh8AAK9xTEbq-RBS2jmas43AAEVZQEAAwIAA3gAAy4E",
-                  "file_size" => 104446,
-                  "file_unique_id" => "AQADvcUxG6vkQUt9",
-                  "height" => 800,
-                  "width" => 600
+                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADeAADLgQ",
+                  "file_size": 104446,
+                  "file_unique_id": "AQADoccxGwUkoUt9",
+                  "height": 800,
+                  "width": 600
               },
               {
-                  "file_id" => "AgACAgIAAxkBAALy8mPoZvUvGP_UC96FxPa62SDYSvh8AAK9xTEbq-RBS2jmas43AAEVZQEAAwIAA3kAAy4E",
-                  "file_size" => 151935,
-                  "file_unique_id" => "AQADvcUxG6vkQUt-",
-                  "height" => 1280,
-                  "width" => 960
+                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADeQADLgQ",
+                  "file_size": 151935,
+                  "file_unique_id": "AQADoccxGwUkoUt-",
+                  "height": 1280,
+                  "width": 960
               }
             ]
         },
@@ -5541,7 +5540,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADvcUxG6vkQUt-:30192.0",
+            "data" => "Еда: f_id:AQADoccxGwUkoUt-:30192.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
@@ -5558,81 +5557,81 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Транспорт: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Еда: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Развлечения: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Подарки: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Для дома: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Коля: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Валди: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Непредвиденное: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Марк: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Лиля: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Путешествия: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Авто бмоно: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Крупные покупки: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Капитал: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Кэш: f_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Кэш"
                             }
                         ]
@@ -5648,7 +5647,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADvcUxG6vkQUt-:30192.0",
+            "data" => "Молочка: f1_id:AQADoccxGwUkoUt-:30192.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
@@ -5665,97 +5664,97 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Молочка: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Готовая: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Фрукты: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Овощи: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Сладости: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Бакалея: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Новопочта: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Рыба: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Яйца: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Вода: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Алкоголь: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "К пиву: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Мясо: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADvcUxG6vkQUt-:30192.0",
+                                "callback_data" => "Детское питание: f1_id:AQADoccxGwUkoUt-:30192.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -5777,7 +5776,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADvcUxG6vkQUt-:31540.0",
+            "data" => "Еда: f_id:AQADoccxGwUkoUt-:31540.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
@@ -5794,81 +5793,81 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Транспорт: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Еда: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Развлечения: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Подарки: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Для дома: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Коля: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Валди: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Непредвиденное: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Марк: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Лиля: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Путешествия: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Авто бмоно: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Крупные покупки: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Капитал: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Кэш: f_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Кэш"
                             }
                         ]
@@ -5884,7 +5883,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADvcUxG6vkQUt-:31540.0",
+            "data" => "Молочка: f1_id:AQADoccxGwUkoUt-:31540.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
@@ -5901,97 +5900,97 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Молочка: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Готовая: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Фрукты: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Овощи: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Сладости: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Бакалея: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Новопочта: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Рыба: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Яйца: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Вода: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Алкоголь: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "К пиву: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Мясо: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADvcUxG6vkQUt-:31540.0",
+                                "callback_data" => "Детское питание: f1_id:AQADoccxGwUkoUt-:31540.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -6015,11 +6014,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark v' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
             # choose category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6032,11 +6031,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
             # choose category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6047,11 +6046,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
           it 'saves half price from not parsed category and mark m' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
 
             expect(response.status).to eq(200)
           end
@@ -6064,11 +6063,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
             # choose category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6083,11 +6082,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
             # choose category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6097,11 +6096,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
 
           it 'saves half price from not parsed category and mark m' do
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
 
             expect(response.status).to eq(200)
           end
@@ -6114,11 +6113,11 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_upload_photo
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
             # choose category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
-            post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_choose_sub_category
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6167,9 +6166,9 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
     it 'withdraws money from wise amount' do
       # choose return some money
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_return_some_money
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_return_some_money
       # enter grivnas and foreign money
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_grivnas_and_foreign_money
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_grivnas_and_foreign_money
 
       expect(response.status).to eq(200)
     end
@@ -6196,7 +6195,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     it 'makes money the same as in monobank' do
-      post '/telegram/lNt4E9U-9ZtnxGH6dfkGbY0t8pU', params: telegram_bot_params_return_round_money
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_return_round_money
 
       expect(response.status).to eq(200)
     end

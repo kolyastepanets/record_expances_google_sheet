@@ -60,10 +60,6 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  if !ENV['ALLOW_BOT_REAL_REQUEST']
-    config.after { Telegram.bot.reset }
-  end
-
   config.before :example, perform_enqueued: true do
     @old_perform_enqueued_jobs = ActiveJob::Base.queue_adapter.perform_enqueued_jobs
     @old_perform_enqueued_at_jobs = ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs
