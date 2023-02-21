@@ -223,7 +223,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
-        strawberry?
+        strawberry? || blueberry?
     end
 
     def banana?
@@ -256,6 +256,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def strawberry?
       @line.include?('strawberry')
+    end
+
+    def blueberry?
+      @line.include?('blueberry')
     end
 
     ####
@@ -468,7 +472,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      just_bread? || bread_for_hot_dog? || for_wrap? || flour?
+      just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread?
     end
 
     def just_bread?
@@ -485,6 +489,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def flour?
       @line.include?('kunci') && @line.include?('biru')
+    end
+
+    def some_bread?
+      @line.include?('roti') && @line.include?('bgb')
     end
 
     ####
@@ -575,7 +583,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def salami?
-      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('salam') }
+      @line.any? { |word| word.include?('mamas') } && (@line.any? { |word| word.include?('salam') } || @line.any? { |word| word.include?('slm') })
     end
 
     def salami_2?
