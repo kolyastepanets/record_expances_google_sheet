@@ -707,7 +707,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
-        mamas_sausage? || smoked_sausage? || bratwurst?
+        mamas_sausage? || sausage? || bratwurst?
     end
 
     def mamas_ham?
@@ -758,8 +758,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('kalberwurst') }
     end
 
-    def smoked_sausage?
-      @line.include?('smoked') && @line.include?('sausage')
+    def sausage?
+      @line.include?('sausage')
     end
 
     def bratwurst?
@@ -973,7 +973,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray? || wet_wipes?
+        some_spray? || wet_wipes? || raincoat?
     end
 
     def bataries?
@@ -1002,6 +1002,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wet_wipes?
       @line.include?('neppi') && @line.include?('baby') && !@line.include?('diaper')
+    end
+
+    def raincoat?
+      @line.include?('hujan') && @line.include?('ponco')
     end
 
     ####
