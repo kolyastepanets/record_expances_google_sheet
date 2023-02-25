@@ -155,7 +155,7 @@ module DetectCategoryAndSubcategoryFromLine
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
-        cake_2? || belgian_chocolate?
+        cake_2? || belgian_chocolate? || ice_cream_paletas?
     end
 
     def magnum_icecream?
@@ -308,6 +308,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def belgian_chocolate?
       @line.include?('belgian') && @line.include?('milk') && @line.include?('hazel')
+    end
+
+    def ice_cream_paletas?
+      @line.include?('paletas') && @line.include?('strawberry')
     end
 
     ####
@@ -981,7 +985,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray? || wet_wipes? || raincoat?
+        some_spray? || wet_wipes? || raincoat? || glue?
     end
 
     def bataries?
@@ -1014,6 +1018,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def raincoat?
       @line.include?('hujan') && @line.include?('ponco')
+    end
+
+    def glue?
+      @line.include?('castol') && @line.include?('besar')
     end
 
     ####
