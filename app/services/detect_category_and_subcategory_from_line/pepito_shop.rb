@@ -615,7 +615,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
-        batard?
+        batard? || just_bread?
     end
 
     def donut?
@@ -648,6 +648,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def batard?
       @line.include?('batard') && @line.include?('bread')
+    end
+
+    def just_bread?
+      @line.include?('bread')
     end
 
     ####
@@ -707,7 +711,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
-        mamas_sausage? || sausage? || bratwurst?
+        mamas_sausage? || sausage? || bratwurst? || breakfast_ham?
     end
 
     def mamas_ham?
@@ -764,6 +768,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bratwurst?
       @line.include?('garlic') && @line.include?('bratwurs')
+    end
+
+    def breakfast_ham?
+      @line.include?('breakfast') && @line.include?('ham')
     end
 
     ####
