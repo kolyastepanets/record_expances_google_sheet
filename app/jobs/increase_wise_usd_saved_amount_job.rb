@@ -10,5 +10,7 @@ class IncreaseWiseUsdSavedAmountJob < ApplicationJob
       result[:coordinates_of_wise_formula],
       page: 'Статистика накоплений'
     )
+
+    PutSalaryToIncomePage.call(price, AllConstants::SALARY_ON_WISE)
   end
 end

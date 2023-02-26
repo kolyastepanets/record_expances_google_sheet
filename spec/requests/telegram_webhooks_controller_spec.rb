@@ -4979,7 +4979,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when wise salary', freezed_time: '2023-01-28T08:38:00+00:00', perform_enqueued: true do
+  context 'when wise salary', freezed_time: '2023-02-26T12:57:00+00:00', perform_enqueued: true do
     let(:telegram_bot_params_main_menu) do
       {
           "callback_query" => {
