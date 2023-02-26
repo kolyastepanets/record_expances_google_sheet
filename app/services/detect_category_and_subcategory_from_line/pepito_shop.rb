@@ -35,7 +35,7 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
-        mango_juice?
+        mango_juice? || snake_fruit?
     end
 
     def green_tea?
@@ -84,6 +84,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mango_juice?
       @line.include?('mango') && @line.any? { |word| word.include?('jungle') }
+    end
+
+    def snake_fruit?
+      @line.any? { |word| word.include?('salak') } && @line.include?('bali')
     end
 
     ####
@@ -430,7 +434,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def carrot?
-      @line.include?('wortel') && @line.any? { |word| word.include?('medan') }
+      @line.any? { |word| word.include?('wortel') } && @line.any? { |word| word.include?('medan') }
     end
 
     def kale?
@@ -790,7 +794,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pistachios?
-      @line.include?('pistachios') || @line.include?('pischio')
+      @line.include?('pistachios') || @line.include?('pischio') || @line.include?('pistacio')
     end
 
     def pringles?
