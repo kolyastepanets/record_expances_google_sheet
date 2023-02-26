@@ -466,6 +466,40 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         expect(response.status).to eq(200)
       end
     end
+
+    context 'when category withdraw cashback', freezed_time: '2023-02-26T12:56:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Виведення кешбеку",
+                "mcc" => 4829,
+                "originalMcc" => 4829,
+                "amount" => -244832,
+                "operationAmount" => -100000000,
+                "currencyCode" => 980,
+                "commissionRate" => 0,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'adds income to income page' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
   end
 
   context 'when usd expenses' do
@@ -503,7 +537,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
     end
 
     # VPN is needed to make request to NBU
-    context 'when swift salary', freezed_time: '2023-01-22T07:03:00+00:00' do
+    context 'when swift salary', freezed_time: '2023-02-26T12:56:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {

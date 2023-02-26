@@ -14,6 +14,7 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(12, 2022, "Заплата 1ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2022)
 
@@ -23,6 +24,7 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters nbu rate' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       allow_any_instance_of(described_class).to receive(:nbu_usd_rate).and_return(36.56)
       allow_any_instance_of(described_class).to receive(:coordinates_of_cell_to_enter_nbu_rate).and_return('BX80')
       expect(UpdateCellInGoogleSheet).to receive(:call).with(36.56, 'BX80', page: 2022)
@@ -33,11 +35,21 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters left usd fop' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       allow_any_instance_of(described_class).to receive(:coordinates_to_enter_left_usd_and_usd).and_return({
         total_left_usd_money: 10,
         coordinates_of_total_left_usd_money: 'BX80',
       })
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1010, 'BX80', page: 2022)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end
@@ -51,6 +63,7 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(12, 2022, "Заплата 1ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2022)
 
@@ -60,6 +73,7 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters nbu rate' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       allow_any_instance_of(described_class).to receive(:nbu_usd_rate).and_return(36.56)
       allow_any_instance_of(described_class).to receive(:coordinates_of_cell_to_enter_nbu_rate).and_return('BX80')
       expect(UpdateCellInGoogleSheet).to receive(:call).with(36.56, "BX80", page: 2022)
@@ -70,11 +84,21 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters left usd fop' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       allow_any_instance_of(described_class).to receive(:coordinates_to_enter_left_usd_and_usd).and_return({
         total_left_usd_money: 10,
         coordinates_of_total_left_usd_money: 'BX80',
       })
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1010, 'BX80', page: 2022)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end
@@ -88,8 +112,18 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(12, 2022, "Заплата 2ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2022)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end
@@ -103,8 +137,18 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(11, 2022, "Заплата 2ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2022)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end
@@ -118,8 +162,18 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(1, 2023, "Заплата 1ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2023)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end
@@ -133,8 +187,18 @@ RSpec.describe EnterSalaryFromSwift do
     it 'enters salary' do
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
       expect(FindCellToEnterSalaryOrNbuCurrencyRate).to receive(:call).with(12, 2022, "Заплата 2ая половина $")
       expect(UpdateCellInGoogleSheet).to receive(:call).with(1000, nil, page: 2022)
+
+      subject
+    end
+
+    it 'enters salary to income page' do
+      allow_any_instance_of(described_class).to receive(:enter_salary)
+      allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
+      allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
 
       subject
     end

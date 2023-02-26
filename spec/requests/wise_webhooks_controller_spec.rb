@@ -248,7 +248,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
     allow(DeleteMessagesJob).to receive(:perform_later)
   end
 
-  context 'when receive usd on wise', freezed_time: '2023-02-17T13:31:00+00:00' do
+  context 'when receive usd on wise', freezed_time: '2023-02-26T12:53:00+00:00' do
     let(:wise_webhook_params) do
       {
         "wise_webhook" => {

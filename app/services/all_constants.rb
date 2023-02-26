@@ -11,4 +11,6 @@ module AllConstants
     is_persistent: false,
     selective: true,
   }.freeze
+  SALARY_ON_WISE = 'wise'.freeze
+  SALARY_ON_USD_FOP = 'usd fop'.freeze
 end
