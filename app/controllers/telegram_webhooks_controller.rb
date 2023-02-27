@@ -20,6 +20,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
     ['Кто кому сколько должен'],
+    ['Получить статистику по категории'],
     ['Info current month'],
   ].freeze
 
@@ -84,6 +85,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       show_categories_to_choose
     when 'wise_lend_money'
       ask_to_enter_wise_amount_to_lend_money
+    when -> (input_category) { input_category.include?('category_for_statistic') }
+      category_name = data.split(':')[0]
+      session[:category_for_statistic] = category_name
+      ask_to_choose_month_for_statistic
+    when -> (input_category) { input_category.include?('date_for_statistic') }
+      show_statistic(data)
     when -> (input_category) { input_category.include?('only_category') }
       category_name = data.split(': ')[0]
       show_sub_categories_by_category(category_name)
@@ -314,7 +321,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
-        { text: 'Info current month',  method_to_call: 'info_current_month' },
+        { text: 'Получить статистику по категории', method_to_call: 'get_statistic_by_category' },
+        { text: 'Info current month',  method_to_call: 'info_current_month' }
       ]
       found_mapping = mapping.detect { |current_mapping| current_mapping[:text] == message_text }
 
@@ -613,6 +621,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:total_withraw_foreign_money] = 0
     session[:total_price_of_products_in_foreign_currency] = 0
     session[:total_sum_of_money_before_save] = 0
+    session[:category_for_statistic] = nil
 
     redis.del('how_calculate_expenses_between_us')
   end
@@ -635,8 +644,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
-  def respond_with(type, *)
+  def respond_with(type, *args)
     result = super
+
+    return if args[0][:parse_mode].present?
 
     SaveMessageIdToRedis.call(payload["message_id"].presence || payload.dig("message", "message_id"))
     SaveMessageIdToRedis.call(result["result"]["message_id"])
@@ -689,6 +700,44 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       parse_mode: :MarkdownV2,
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )
+  end
+
+  def get_statistic_by_category
+    prepare_categories = categories.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+      categories_array.map do |category|
+        { text: category, callback_data: "#{category}: category_for_statistic" }
+      end
+    end
+
+    respond_with(:message, text: 'Выбери категорию для статистики:', reply_markup: { inline_keyboard: prepare_categories })
+  end
+
+  def ask_to_choose_month_for_statistic
+    dates = (Date.parse('01-09-2022')..Date.today.end_of_month).to_a.select { |current_date| current_date.day == 1 }.map { |current_date| "#{Date::ABBR_MONTHNAMES[current_date.month]} #{current_date.year}" }
+
+    prepare_dates = dates.each_slice(SHOW_ITEMS_PER_LINE).map do |dates_array|
+      dates_array.map do |category|
+        { text: category, callback_data: "#{category}: date_for_statistic" }
+      end
+    end
+
+    respond_with(:message, text: 'Выбери месяц для статистики:', reply_markup: { inline_keyboard: prepare_dates })
+  end
+
+  def show_statistic(date_for_statistic)
+    month, year = date_for_statistic.split(':')[0].split
+    months = [Date::ABBR_MONTHNAMES.index(month).to_s, "#{Date::ABBR_MONTHNAMES.index(month).to_s},1"]
+
+    respond_with(
+      :message,
+      text: "```#{GetGroupedExpensesFromGoogleSheet.call(session[:category_for_statistic], months, year)}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
+    )
+
+    DeleteAllTodaysMessages.call
+
+    set_default_values_in_session!
   end
 
   def return_part_money_after_withdraw_cash
