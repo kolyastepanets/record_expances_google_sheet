@@ -482,7 +482,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def rucola?
-      @line.include?('rucola') || @line.include?('rucolla')
+      @line.include?('rucola') || @line.include?('rucolla') || @line.include?('rocola')
     end
 
     def beetroot?
