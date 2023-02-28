@@ -4,6 +4,7 @@ class SendMessageToBotToAskToEnterExpencesFromWise
   SHOW_ITEMS_PER_LINE = 2
 
   def initialize(params)
+    @params_to_display = params
     @id = params[:id]
     @redis = Redis.new
     @categories = ReceiveCategories.call
@@ -26,14 +27,14 @@ class SendMessageToBotToAskToEnterExpencesFromWise
   def send_message_with_params
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: @params,
+      text: @params_to_display,
     )
   end
 
   def send_message_with_categories
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: 'Выбери категорию чтобы сохранить:',
+      text: 'Выбери категорию чтобы сохранить wise транзакцию:',
       reply_markup: { inline_keyboard:  categories_to_show },
     )
   end
