@@ -472,7 +472,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread?
+      just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread? || flour_2?
     end
 
     def just_bread?
@@ -493,6 +493,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def some_bread?
       @line.include?('roti') && @line.include?('bgb')
+    end
+
+    def flour_2?
+      @line.include?('cakra') && @line.include?('kembar') && @line.any? { |word| word.include?('terigu') }
     end
 
     ####
