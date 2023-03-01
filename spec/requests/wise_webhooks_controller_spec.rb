@@ -248,27 +248,8 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
     allow(DeleteMessagesJob).to receive(:perform_later)
   end
 
-  context 'when receive usd on wise', freezed_time: '2023-02-26T12:53:00+00:00' do
-    let(:wise_webhook_params) do
-      {
-        "wise_webhook" => {
-          "data" => {
-            "amount" => 100000.0,
-            "currency" => "USD",
-            "occurred_at" => "2023-02-16T11:54:36Z",
-            "post_transaction_balance_amount" => 20,
-            "transaction_type" => "credit",
-            "resource" => {
-              "id" => 18365450,
-            },
-          },
-          "event_type" => "balances#credit",
-          "schema_version" => "2.0.0",
-          "sent_at" => "2023-02-16T11:54:36Z",
-          "subscription_id" => "123-123-123-123-123"
-        }
-      }
-    end
+  context 'when receive usd on wise', freezed_time: '2023-03-01T09:17:00+00:00' do
+    let(:tranfer_id) { 620774424 }
 
     it 'saves to google sheet' do
       post '/wise_webhooks', params: wise_webhook_params
@@ -277,7 +258,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
   end
 
   context 'when withdraw usd from wise' do
-    context 'when mark kindergaten', freezed_time: '2023-02-16T14:43:00+00:00' do
+    context 'when mark kindergaten', freezed_time: '2023-03-01T09:22:00+00:00' do
       let(:tranfer_id) { 609876859 }
 
       it 'saves to google sheet' do
@@ -286,7 +267,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
       end
     end
 
-    context 'when unknown category', freezed_time: '2023-02-16T14:45:00+00:00' do
+    context 'when unknown category', freezed_time: '2023-03-01T09:23:00+00:00' do
       let(:tranfer_id) { 609852598 }
 
       it 'asks bot and saves to google sheet' do

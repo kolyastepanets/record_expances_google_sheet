@@ -12,5 +12,7 @@ class IncreaseWiseUsdSavedAmountJob < ApplicationJob
     )
 
     PutSalaryToIncomePage.call(price, AllConstants::SALARY_ON_WISE)
+
+    SendNotificationMessageToBot.call("wise salary has been saved: #{price}")
   end
 end
