@@ -12,5 +12,6 @@ module AllConstants
     selective: true,
   }.freeze
   SALARY_ON_WISE = 'wise'.freeze
-  SALARY_ON_USD_FOP = 'usd fop'.freeze
+  SALARY_ON_USD_FOP = 'usd fop mono'.freeze
+  SALARY_ON_UAH_BLACK_MONO = 'uah black mono'.freeze
 end

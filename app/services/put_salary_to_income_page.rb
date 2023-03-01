@@ -3,6 +3,7 @@ class PutSalaryToIncomePage
 
   ESV_IN_UAH_PER_MONTH = 1474
   SINGLE_TAX = "0,05"
+  USD_CURRENCY_CODE = 840
 
   def initialize(salary_in_usd, money_placed_to)
     @money_placed_to = money_placed_to

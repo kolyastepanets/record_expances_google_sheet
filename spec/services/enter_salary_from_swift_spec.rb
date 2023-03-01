@@ -32,7 +32,7 @@ RSpec.describe EnterSalaryFromSwift do
       subject
     end
 
-    it 'enters left usd fop' do
+    it 'enters left usd fop mono' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
@@ -49,7 +49,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
@@ -81,7 +81,7 @@ RSpec.describe EnterSalaryFromSwift do
       subject
     end
 
-    it 'enters left usd fop' do
+    it 'enters left usd fop mono' do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
@@ -98,7 +98,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
@@ -123,7 +123,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
@@ -148,7 +148,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
@@ -173,7 +173,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
@@ -198,7 +198,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_nbu_rate)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
-      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop')
+      expect(PutSalaryToIncomePage).to receive(:call).with(1000, 'usd fop mono')
 
       subject
     end
