@@ -17,7 +17,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
 
   def call_job
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
-    return PutCashbackToIncomePageJob.perform_later(@params[:price_in_uah]) if @transaction_data[:description] == "Виведення кешбеку"
+    return PutCashbackToIncomePageJob.perform_later(@params[:price_in_uah]) if @transaction_data[:description].include?("Виведення кешбеку")
 
     SendMessageToBotToAskToEnterExpences.call(
       {

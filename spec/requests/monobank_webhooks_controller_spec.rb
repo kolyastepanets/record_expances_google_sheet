@@ -477,7 +477,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
               "statementItem" => {
                 "id" => "tk6Ulh_sMFs9e_Zt",
                 "time" => 1661599923,
-                "description" => "Виведення кешбеку",
+                "description" => "Виведення кешбеку 123",
                 "mcc" => 4829,
                 "originalMcc" => 4829,
                 "amount" => -244832,
