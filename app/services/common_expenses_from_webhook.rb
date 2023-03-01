@@ -29,7 +29,7 @@ class CommonExpensesFromWebhook
     when -> (description) { description == "Лиля ❤️" && Date.today.day == 1 && (@params[:price_in_uah].present? ? (@params[:price_in_uah] > 10000) : false) }
       @params[:category_name] = 'Лиля'
       @params[:sub_category_name] = nil
-    when -> (description) { (description == "Лиля ❤️" || description == "Лілія С.") && Date.today.day == 1 && (@params[:price_in_uah].present? ? (@params[:price_in_uah] < 10000) : false) }
+    when -> (description) { (description == "Лиля ❤️" || description.include?("Лілія С")) && Date.today.day == 1 && (@params[:price_in_uah].present? ? (@params[:price_in_uah] < 10000) : false) }
       @params[:category_name] = 'Марк'
       @params[:sub_category_name] = nil
     when google_disk

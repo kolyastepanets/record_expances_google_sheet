@@ -163,6 +163,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when Mark salary 3', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -250000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лілія С",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -250000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Марк',
+        sub_category_name: nil,
+        price_in_uah: 2500.0,
+        operation_amount: 2500.0,
+        current_month: Date.today.month,
+        mono_description: "Лілія С",
+        currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when Liliia another day', freezed_time: '2022-08-02' do
     let(:transaction_data) do
       {
