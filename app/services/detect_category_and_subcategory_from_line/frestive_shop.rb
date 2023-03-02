@@ -77,7 +77,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil? || sunflower_oil_2? || sugar?
+        oil? || sunflower_oil_2? || sugar? || salt?
     end
 
     def cook_cream?
@@ -114,6 +114,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sugar?
       @line.include?('gula')
+    end
+
+    def salt?
+      @line.include?('pura') && @line.include?('sea') && @line.include?('slt')
     end
 
     ####
@@ -472,7 +476,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread? || flour_2?
+      just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread? || flour_2? ||
+        bread_2?
     end
 
     def just_bread?
@@ -497,6 +502,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def flour_2?
       @line.include?('cakra') && @line.include?('kembar') && @line.any? { |word| word.include?('terigu') }
+    end
+
+    def bread_2?
+      @line.include?('rumah') && @line.include?('roti') && @line.include?('brown')
     end
 
     ####
