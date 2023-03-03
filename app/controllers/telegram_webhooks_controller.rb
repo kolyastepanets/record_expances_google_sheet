@@ -4,13 +4,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
   BUTTONS_INFO = [
-    ['UAH на gsheets'],
-    ['UAH на monobank'],
-    ['USD FOP на gsheets'],
-    ['USD FOP на monobank'],
     ['UAH and USD all'],
-    ['USD on Wise'],
-    ['Уже потрачено'],
     ['How many taxes to pay in current month'],
     ['Total saved money on gsheets'],
     ['Последние 3 траты в gsheets'],
@@ -305,13 +299,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     if BUTTONS_INFO.flat_map(&:first).include?(message_text)
       mapping = [
-        { text: 'UAH на gsheets', method_to_call: 'get_current_mono_balance_from_google_sheet' },
-        { text: 'UAH на monobank', method_to_call: 'get_current_mono_balance_from_monobank' },
-        { text: 'USD FOP на gsheets', method_to_call: 'get_usd_fop_from_google_sheet' },
-        { text: 'USD FOP на monobank', method_to_call: 'get_usd_fop_from_monobank' },
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
-        { text: 'USD on Wise', method_to_call: 'get_usd_from_wise' },
-        { text: 'Уже потрачено', method_to_call: 'amount_already_spent' },
         { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
         { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
         { text: 'Последние 3 траты в gsheets', method_to_call: 'get_last_3_expenses_in_google_sheet' },
@@ -366,14 +354,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   private
 
-  def get_usd_fop_from_google_sheet
-    respond_with(:message, text: ReceiveUsdFopFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
-  end
-
-  def get_usd_fop_from_monobank
-    respond_with(:message, text: ReceiveUsdFopFromMonobank.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
-  end
-
   def uah_and_usd_all
     usd_wise_in_google_sheet = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
     usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet}"
@@ -383,11 +363,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
-  end
-
-  def get_usd_from_wise
-    total_sum = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
-    respond_with(:message, text: "on wise: $#{total_sum}", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def total_saved_money_from_google_sheet
@@ -511,15 +486,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Выбери категорию:', reply_markup: { inline_keyboard: prepare_categories })
   end
 
-
-  def get_current_mono_balance_from_google_sheet
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
-  end
-
-  def get_current_mono_balance_from_monobank
-    respond_with(:message, text: ReceiveCurrentBalanceInMonobankFromMono.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
-  end
-
   def category_to_sub_categories
     @category_to_sub_categories ||= ReceiveCategories.call
   end
@@ -634,10 +600,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     transaction_id = data.split(': ')[1]
     params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
     DeleteMessagesJob.perform_later(params[:message_ids].uniq)
-  end
-
-  def amount_already_spent
-    respond_with(:message, text: ReceiveCurrentMonthBalance.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def how_many_taxes_to_pay_in_current_month
