@@ -202,6 +202,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when subscription to fairy tales', freezed_time: '2022-08-13' do
+    let(:transaction_data) do
+      {
+        amount: -4500,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Apple",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -299,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Марк',
+        sub_category_name: 'Книги',
+        price_in_uah: 45.0,
+        operation_amount: 2.99,
+        current_month: 8,
+        mono_description: "Apple",
+        currency_rate: 15.0501,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when Liliia another day', freezed_time: '2022-08-02' do
     let(:transaction_data) do
       {
@@ -260,6 +299,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Google",
         currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when google through Apple', freezed_time: '2022-08-03' do
+    let(:transaction_data) do
+      {
+        amount: -4500,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Apple",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -199,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Для дома',
+        sub_category_name: 'google',
+        price_in_uah: 45.0,
+        operation_amount: 1.99,
+        current_month: 8,
+        mono_description: "Apple",
+        currency_rate: 22.613,
         total_sum_of_money_before_save: 12345,
       }
     end
