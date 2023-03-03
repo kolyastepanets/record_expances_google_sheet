@@ -281,4 +281,40 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
       end
     end
   end
+
+  context 'when different types of transactions' do
+    let(:wise_webhook_params) do
+      {
+        "wise_webhook" => {
+          "data" => {
+            "current_state" => current_state,
+            "occurred_at" => "2023-02-16T12:38:27Z",
+            "previous_state" => "funds_converted",
+          },
+          "event_type" => "transfers#state-change",
+          "schema_version" => "2.0.0",
+          "sent_at" => "2023-02-16T12:38:28Z",
+          "subscription_id" => "123-123-123-123-123"
+        }
+      }
+    end
+
+    ["incoming_payment_waiting", "processing", "funds_converted"].each do |transaction_type|
+      context "when #{transaction_type}" do
+        let(:current_state) { transaction_type }
+
+        it 'does not call SendMessageToBotToAskToEnterExpencesFromWise' do
+          expect(SendMessageToBotToAskToEnterExpencesFromWise).to_not receive(:call)
+
+          post '/wise_webhooks', params: wise_webhook_params
+        end
+
+        it 'does not call TestJob' do
+          expect(TestJob).to_not receive(:perform_later)
+
+          post '/wise_webhooks', params: wise_webhook_params
+        end
+      end
+    end
+  end
 end
