@@ -77,7 +77,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil? || sunflower_oil_2? || sugar? || salt?
+        oil? || sunflower_oil_2? || sugar? || salt? || leaves?
     end
 
     def cook_cream?
@@ -120,13 +120,17 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('pura') && @line.include?('sea') && @line.include?('slt')
     end
 
+    def leaves?
+      @line.include?('jays') && @line.include?('bay') && @line.include?('leaves')
+    end
+
     ####
 
     def sweets?
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
-        dark_chocolate? || haribo?
+        dark_chocolate? || haribo? || icecream_2?
     end
 
     def honey?
@@ -211,6 +215,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def haribo?
       @line.include?('haribo')
+    end
+
+    def icecream_2?
+      @line.include?('haagendazs')
     end
 
     ####
