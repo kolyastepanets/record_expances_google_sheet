@@ -16,17 +16,6 @@ class BuildPrice
       price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
     end
 
-      puts "\n"
-      puts "\n"
-      puts "\n"
-      puts "="*80
-      puts "!@session_object[:foreigh_cash_amount]: "
-      pp !@session_object[:foreigh_cash_amount]
-      puts "="*80
-      puts "\n"
-      puts "\n"
-      puts "\n"
-
     if !@session_object[:foreigh_cash_amount].zero?
       price_to_calculate = current_price
       price_to_put_in_sheets = BuildCashForeignCurrencyFormulaPrice.call(current_price)

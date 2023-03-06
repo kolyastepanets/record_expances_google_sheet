@@ -40,18 +40,6 @@ class ReceiveWiseFromGoogleSheet < GetOrSetDataInGoogleSheetBase
           index_line_to_remember = value_array_index
         end
       end
-
-      puts "\n"
-      puts "\n"
-      puts "\n"
-      puts "="*80
-      puts "!index_line_to_remember: "
-      pp !index_line_to_remember
-      puts "="*80
-      puts "\n"
-      puts "\n"
-      puts "\n"
-
       break if !index_line_to_remember.zero?
     end
 
