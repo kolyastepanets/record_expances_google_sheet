@@ -49,6 +49,17 @@ class GetOrSetDataInGoogleSheetBase
         if value == Date.today.month.to_s
           index_column_to_remember = index
         end
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!index_column_to_remember: "
+      pp !index_column_to_remember
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
         break if !index_column_to_remember.zero?
       end
     end

@@ -164,6 +164,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
       data_hash = new_params_for_redis.detect { |pri| pri["total_sum_manually_entered_categories"] }
+
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "data_hash: "
+      pp data_hash
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
       updated_params = {
         **params_to_save_to_google_sheet,
         can_show_final_sum: data_hash["total_sum_manually_entered_categories"].present? && data_hash["total_sum_manually_entered_categories"].zero?,
@@ -223,6 +235,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     remember_total_price_of_products_in_foreign_currency(price.to_f)
 
     respond_with(:message, text: "Текущая общая стоимость продуктов в чеке: #{session[:total_price_of_products]}")
+
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "session[:total_price_of_products_in_foreign_currency]: "
+      pp session[:total_price_of_products_in_foreign_currency]
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
     respond_with(:message, text: "Текущая общая стоимость продуктов в чеке (валюта): #{session[:total_price_of_products_in_foreign_currency]}") unless session[:total_price_of_products_in_foreign_currency].zero?
     if !session[:foreigh_cash_amount].zero?
       money_left_to_enter = session[:total_withraw_foreign_money] - session[:foreigh_cash_amount] - session[:total_price_of_products] - session[:foreigh_spent_cash_amount]
@@ -456,6 +480,19 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def show_total_price_of_products
     respond_with(:message, text: "Общая цена продуктов: #{session[:total_price_of_products]}")
+
+
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "session[:total_price_of_products_in_foreign_currency]: "
+      pp session[:total_price_of_products_in_foreign_currency]
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
     respond_with(:message, text: "Общая цена продуктов в валюте: #{session[:total_price_of_products_in_foreign_currency]}") unless session[:total_price_of_products_in_foreign_currency].zero?
   end
 
@@ -557,6 +594,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def detect_month
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!session[:foreigh_cash_amount]: "
+      pp !session[:foreigh_cash_amount]
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
     if !session[:foreigh_cash_amount].zero?
       "#{Date.today.month},1"
     end

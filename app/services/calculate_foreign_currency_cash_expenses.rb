@@ -32,6 +32,17 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
       value_array.each_with_index do |value, index|
         index_column_to_remember = index if value.to_s == "#{@current_month}#{MONTH_POINT_ONE}"
       end
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!index_column_to_remember: "
+      pp !index_column_to_remember
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
       break if !index_column_to_remember.zero?
     end
 
@@ -97,6 +108,17 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         if value == KEY_FIND_CELL_TOTAL_MONEY
           calculated_total_withraw_foreign_money = value_array[index_value_to_update].to_f
         end
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!calculated_total_withraw_foreign_money: "
+      pp !calculated_total_withraw_foreign_money
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
         break if !calculated_total_withraw_foreign_money.zero?
       end
     end
@@ -106,6 +128,17 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         if value == KEY_FIND_CELL_NOW_MONEY
           now_foreign_money = value_array[index_value_to_update].to_f
         end
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!now_foreign_money: "
+      pp !now_foreign_money
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
         break if !now_foreign_money.zero?
       end
     end

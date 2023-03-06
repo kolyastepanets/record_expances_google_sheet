@@ -25,6 +25,19 @@ class FindCellToEnterSalaryOrNbuCurrencyRate < GetOrSetDataInGoogleSheetBase
       value_array.each_with_index do |value, index|
         index_column_to_remember = index if value == @month.to_s
       end
+
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      puts "="*80
+      puts "!index_column_to_remember: "
+      pp !index_column_to_remember
+      puts "="*80
+      puts "\n"
+      puts "\n"
+      puts "\n"
+
+
       break if !index_column_to_remember.zero?
     end
 
