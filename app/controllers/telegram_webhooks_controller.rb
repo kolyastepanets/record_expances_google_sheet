@@ -357,7 +357,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def uah_and_usd_all
     usd_wise_in_google_sheet = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
-    usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet}"
+    usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet.round(2)}"
 
     respond_with(
       :message,
