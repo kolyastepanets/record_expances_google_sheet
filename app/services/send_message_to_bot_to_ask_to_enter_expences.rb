@@ -25,8 +25,6 @@ class SendMessageToBotToAskToEnterExpences
     save_message_id(response["result"]["message_id"])
     response = send_message_with_categories
     save_message_id(response["result"]["message_id"])
-    response = send_message_with_categories_when_calculate_as_half_expenses
-    save_message_id(response["result"]["message_id"])
     save_to_redis
   end
 
