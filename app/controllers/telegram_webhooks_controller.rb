@@ -295,7 +295,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     if message_text == 'Внести расходы'
       set_default_values_in_session!
-      return ask_half_price_or_full_price
+      return ask_type_of_expenses
     end
 
     if BUTTONS_INFO.flat_map(&:first).include?(message_text)
@@ -393,12 +393,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def ask_type_of_expenses
-    wise_expenses = {}
-    wise_lend_money = {}
-    if redis.get('how_calculate_expenses_between_us') == 'calculate_as_our_full_expenses'
-      wise_expenses = { text: 'Wise',  callback_data: 'wise' }
-      wise_lend_money = { text: 'Wise lend money',  callback_data: 'wise_lend_money' }
-    end
+    wise_expenses = { text: 'Wise',  callback_data: 'wise' }
+    wise_lend_money = { text: 'Wise lend money',  callback_data: 'wise_lend_money' }
 
     respond_with(
       :message,
