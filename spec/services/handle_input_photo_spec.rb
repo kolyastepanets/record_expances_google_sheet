@@ -78,15 +78,13 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая сумма уже сохраненная после заполнения: 123")
           expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321", show_reply_markup_main_buttons: true)
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0 / 2", "m").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 15202,0 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 15202,0")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(3075.2, "BC81")
-
-          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -149,15 +147,13 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая сумма уже сохраненная после заполнения: 123")
           expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321", show_reply_markup_main_buttons: true)
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406 / 2", "m").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 * 0,00242025 / 37,4406 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406 / 2", "m")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 * 0,00242025 / 37,4406")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 * 0,00242025 / 37,4406")
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(2187.57, "BC81")
-
-          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -314,15 +310,13 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $24.8")
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0 / 2", "m").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(282500.0, request_params_1).and_return(result1)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(3094.87, "BC81")
-
-          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -365,15 +359,13 @@ RSpec.describe HandleInputPhoto do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: 912.43 грн")
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406 / 2", "m").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 * 0,00242025 / 37,4406").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 * 0,00242025 / 37,4406")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(282500.0, request_params_1).and_return(result1)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406 / 2", "m")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 * 0,00242025 / 37,4406")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with(16500.0, request_params_2).and_return(result2)
 
           expect(UpdateCellInGoogleSheet).to receive(:call).with(2911.22, "BC81")
-
-          expect(UpdateCellBackgroundColor).to receive(:call).with('m', [5389, 5390, 5391, 5392, 5393])
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
@@ -526,7 +518,6 @@ RSpec.describe HandleInputPhoto do
       before do
         allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({ total_left_usd_money: 10, total_left_uah_money: 10 })
         allow(UpdateCellInGoogleSheet).to receive(:call)
-        allow(UpdateCellBackgroundColor).to receive(:call)
       end
 
       context 'when sum of all prices less than 200 of total_sum_in_receipt' do

@@ -7,8 +7,7 @@ class PutExpencesWiseDollarCardJob < ApplicationJob
     PutExpensesToGoogleSheet.call(
       params[:category_name],
       params[:sub_category_name],
-      params[:price_in_usd],
-      params[:who_paid]
+      params[:price_in_usd]
     )
 
     result = ReceiveWiseFromGoogleSheet.call

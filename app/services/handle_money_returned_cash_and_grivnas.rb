@@ -19,8 +19,7 @@ class HandleMoneyReturnedCashAndGrivnas
     sub_category_name = nil
     price_to_put_in_sheets = "=-(#{@grivnas.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")})"
     detect_month = nil
-    who_paid = nil
-    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, who_paid)
+    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month)
   end
 
   def increase_uah_amount

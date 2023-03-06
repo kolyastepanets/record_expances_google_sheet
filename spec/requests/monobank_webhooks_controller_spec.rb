@@ -295,30 +295,6 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       "update_id" => 20479568
     }
   end
-  let(:telegram_bot_params_transport_category_half_expenses) do
-    {
-      "callback_query" => {
-          "chat_instance" => ENV['CHAT_INSTANCE'],
-          "data" => "Транспорт: h_id:tk6Ulh_sMFs9e_Zt",
-          **message_from,
-          "id" => "1651136315859693905",
-          "message" => {
-              **chat,
-              "date" => 1670052388,
-              "from" => {
-                  "first_name" => ENV['BOT_NAME'],
-                  "id" => ENV['BOT_ID'],
-                  "is_bot" => true,
-                  "username" => ENV['BOT_USER_NAME']
-              },
-              "message_id" => 35165,
-              **reply_markup_choosing_category_half_expenses,
-              "text" => "Выбери категорию:"
-          }
-      },
-      "update_id" => 20479568
-    }
-  end
   let(:telegram_bot_params_taxi_subcategory) do
     {
       "callback_query" => {
@@ -444,22 +420,11 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         allow(DeleteMessagesJob).to receive(:perform_later)
       end
 
-      it 'asks bot and saves to google sheet', freezed_time: '2023-01-22T06:25:00+00:00' do
+      it 'asks bot and saves to google sheet', freezed_time: '2023-03-07T01:07:00+00:00' do
         # monobank webhook
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # choose sub category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-
-        expect(response.status).to eq(200)
-      end
-
-      it 'asks bot and saves to google sheet half expenses', freezed_time: '2023-01-22T06:45:00+00:00' do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_half_expenses
         # choose sub category
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
 
@@ -503,7 +468,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when usd expenses' do
-    context 'when category present', freezed_time: '2023-01-22T06:58:00+00:00' do
+    context 'when category present', freezed_time: '2023-03-07T01:04:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -673,7 +638,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category blank', freezed_time: '2023-01-22T07:16:00+00:00' do
+    context 'when category blank', freezed_time: '2023-03-06T15:02:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -709,17 +674,6 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         post '/monobank_webhooks', params: monobank_webhook_params
         # choose category
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # choose sub category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-
-        expect(response.status).to eq(200)
-      end
-
-      it 'asks bot and saves to google sheet half expenses' do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        # choose category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_half_expenses
         # choose sub category
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
 

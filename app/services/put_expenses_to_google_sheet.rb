@@ -1,5 +1,5 @@
 class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
-  def initialize(category, sub_category, price, who_paid, current_month: nil)
+  def initialize(category, sub_category, price, current_month: nil)
     @category = category
     @sub_category = sub_category
     @price = price
@@ -7,7 +7,6 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
     @current_day = @date_today.day
     @current_month = current_month || @date_today.month
     @current_year = @date_today.year
-    @who_paid = who_paid
   end
 
   private
@@ -22,8 +21,7 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
       @current_year,
       @date_today.strftime("%d.%m.%Y"),
       MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ","),
-      MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ","),
-      @who_paid
+      MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ",")
     ]]
     @range = "'Повседневные'!A:J"
   end

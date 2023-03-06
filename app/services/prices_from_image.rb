@@ -47,7 +47,7 @@ class PricesFromImage
     response = Telegram.bot.get_file(file_id: file_id)
     @unique_file_id = response["result"]["file_unique_id"]
 
-    url = "https://api.telegram.org/file/bot#{ENV['TELEGRAM_BOT_TOKEN']}/#{response["result"]["file_path"]}"
+    url = "https://api.telegram.org/file/bot#{Telegram.bots_config[:default]}/#{response["result"]["file_path"]}"
     Faraday.new(url: url).get.body
   end
 

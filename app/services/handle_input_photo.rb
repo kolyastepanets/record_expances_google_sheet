@@ -9,12 +9,9 @@ class HandleInputPhoto
   def initialize(message_params)
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
-    currency_code, currency_rate, who_paid = @message_params[:caption].split(' ')
+    currency_code, currency_rate = @message_params[:caption].split(' ')
     @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
-    @who_paid = who_paid&.downcase
-    @mykola_paid = true if @who_paid == AllConstants::MYKOLA_PAYED
-    @vika_paid = true if @who_paid == AllConstants::VIKA_PAYED
     @params = []
   end
 
@@ -32,8 +29,6 @@ class HandleInputPhoto
     total_sum_usd = 0
     total_sum_uah = 0
 
-    first_cell_number = 0
-    last_cell_number = 0
     total_sum_categories = @prices_with_categories.size
     total_sum_auto_entered_categories = 0
     total_sum_manually_entered_categories = 0
@@ -44,33 +39,25 @@ class HandleInputPhoto
       if price_with_category[:category_name].present?
         sleep(1) # prevent google api sheet limit
         if @currency_to_usd.present?
-          price_to_put_in_sheets = @who_paid.nil? ? params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet] : "#{params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet]} / 2"
+          price_to_put_in_sheets = params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet]
 
-          response = PutExpensesToGoogleSheet.call(
+          PutExpensesToGoogleSheet.call(
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
             price_to_put_in_sheets,
-            @who_paid,
           )
-          if index == 1
-            first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
-          end
 
           total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
         end
 
         if @currency_to_uah.present?
-          price_to_put_in_sheets = @who_paid.nil? ? params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet] : "#{params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet]} / 2"
+          price_to_put_in_sheets = params_to_save_to_google_sheet[:price_in_uah_converted_to_usd_to_save_in_google_sheet]
 
-          response = PutExpensesToGoogleSheet.call(
+          PutExpensesToGoogleSheet.call(
             params_to_save_to_google_sheet[:category_name],
             params_to_save_to_google_sheet[:sub_category_name],
             price_to_put_in_sheets,
-            @who_paid,
           )
-          if index == 1
-            first_cell_number = response.table_range.split(":")[-1].match(/\d.*/)[0].to_i
-          end
 
           total_sum_uah += params_to_save_to_google_sheet[:price_in_uah]
         end
@@ -90,7 +77,6 @@ class HandleInputPhoto
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
           message_ids: [response["result"]["message_id"]],
-          who_paid: @who_paid,
         }
         total_sum_manually_entered_categories += 1
       end
@@ -98,11 +84,6 @@ class HandleInputPhoto
 
     total_sum_usd = total_sum_usd.round(2)
     total_sum_uah = total_sum_uah.round(2)
-
-    last_cell_number = first_cell_number + (@prices_with_categories.size - 1)
-    all_cells = (first_cell_number..last_cell_number).to_a
-
-    UpdateCellBackgroundColor.call(@who_paid, all_cells)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
 
@@ -114,7 +95,7 @@ class HandleInputPhoto
       )
     end
 
-    if @currency_to_uah.present? && !@vika_paid
+    if @currency_to_uah.present?
       # decrease uah spent amount
       UpdateCellInGoogleSheet.call(
         calculate_total_spent_usd_and_uah[:total_left_uah_money] - total_sum_uah,

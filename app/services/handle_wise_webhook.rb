@@ -53,7 +53,6 @@ class HandleWiseWebhook
       category_name: 'Марк',
       sub_category_name: 'Дет сад',
       price_in_usd: @params[:price_in_usd],
-      who_paid: nil,
       wise: true,
     }
     PutExpencesWiseDollarCardJob.perform_later(kindergaten_params)

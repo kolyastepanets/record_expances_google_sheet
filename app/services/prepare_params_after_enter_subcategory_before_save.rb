@@ -52,7 +52,6 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
       category_name: @last_price_to_message["category_name"],
       sub_category_name: @sub_category_name,
       operation_amount: @price,
-      who_paid: @last_price_to_message["who_paid"],
       **price_in_usd,
       **price_in_uah,
     }

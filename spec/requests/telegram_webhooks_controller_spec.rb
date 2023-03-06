@@ -316,97 +316,22 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
   context 'when metro expenses', freezed_time: '2023-01-22T07:37:00+00:00' do
     context 'when all our metro expenses 2 times' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_metro_expenses) do
@@ -591,12 +516,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_metro_expenses
         # transport category
@@ -620,935 +541,23 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when common expenses' do
-    context 'when vika payed', freezed_time: '2023-01-22T07:39:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_vika_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_vika_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_common_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "common_expenses",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670052690,
-                **message_from,
-                "message_id" => 35169,
-                "text" => "10000"
-            },
-            "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318519661742",
-                "message" => {
-                    **chat,
-                    "date" => 1670052694,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35173,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479571
-        }
-      end
-
-      it 'saves data to every day expenses page and do not decrease uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # vika paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
-        # common expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when vika payed 2 times', freezed_time: '2023-01-22T07:42:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_vika_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_vika_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_common_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "common_expenses",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670052690,
-                **message_from,
-                "message_id" => 35169,
-                "text" => "10000"
-            },
-            "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "10000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and do not decrease uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # vika paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
-        # common expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when mykola payed 2 times', freezed_time: '2023-01-22T07:44:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_mykola_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_mykola_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_common_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "common_expenses",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670052690,
-                **message_from,
-                "message_id" => 35169,
-                "text" => "10000"
-            },
-            "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "10000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
-        # common expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
     context 'when all our expenses 2 times', freezed_time: '2023-01-22T07:46:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_common_expenses) do
@@ -1733,12 +742,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_common_expenses
         # transport category
@@ -1763,97 +768,22 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
   context 'when uah in foreign currency expenses' do
     context 'when all our receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:48:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_receipt_foreign_currency_expenses) do
@@ -2056,658 +986,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # all our expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
-        # receipt foreigh currency expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
-        # enter currency rate
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_foreign_currency_rate
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when mykola paid receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:56:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_mykola_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_mykola_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_receipt_foreign_currency_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "receipt_foreign_currency",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_enter_uah_foreign_currency_rate) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "0.0024"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "100000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "100000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
-        # receipt foreigh currency expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
-        # enter currency rate
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_foreign_currency_rate
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when vika paid receipt foreigh currency expenses 2 times', freezed_time: '2023-01-22T07:58:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_vika_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_vika_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_receipt_foreign_currency_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "receipt_foreign_currency",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_enter_uah_foreign_currency_rate) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "0.0024"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # vika paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # receipt foreigh currency expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_receipt_foreign_currency_expenses
         # enter currency rate
@@ -2734,97 +1014,22 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
   context 'when cash foreign currency' do
     context 'when all our expenses 2 times', freezed_time: '2023-01-08T14:11:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_cash_foreign_currency_expenses) do
@@ -3027,658 +1232,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # all our expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
-        # cash expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
-        # enter left cash
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when mykola paid 2 times', freezed_time: '2023-01-08T14:12:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_mykola_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_mykola_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_cash_foreign_currency_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "cash_foreign_currency",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_enter_how_much_left_foreign) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "300000+23000"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
-        # cash expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
-        # enter left cash
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when vika paid 2 times', freezed_time: '2023-01-08T14:14:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_vika_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_vika_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_cash_foreign_currency_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "cash_foreign_currency",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_enter_how_much_left_foreign) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "300000+23000"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # vika paid expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # cash expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
         # enter left cash
@@ -3705,97 +1260,22 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
   context 'when dollar card' do
     context 'when all our expenses 2 times', freezed_time: '2023-01-22T09:40:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_dollar_card) do
@@ -3998,658 +1478,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases dollar value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # all our expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
-        # dollar card
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
-        # dollar currency rate
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_currency_rate
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when mykola paid 2 times', freezed_time: '2023-01-22T09:41:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_mykola_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_mykola_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_dollar_card) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "dollar_card",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_dollar_currency_rate) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "15640.25"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_mykola_paid
-        # cash expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
-        # enter left cash
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_currency_rate
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when vika paid 2 times', freezed_time: '2023-01-22T09:43:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
-                **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_vika_paid) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_vika_paid_half_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
-        }
-      end
-      let(:telegram_bot_params_dollar_card) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "dollar_card",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_dollar_currency_rate) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "15640.25"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35165,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35166,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35887,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35888,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and does not decrease usd value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # vika paid expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_vika_paid
         # dollar card
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_dollar_card
         # dollar currency rate
@@ -4675,98 +1505,23 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when wise expenses' do
-    context 'when all our expenses 2 times', freezed_time: '2022-12-18T07:55:00+00:00' do
-      let(:telegram_bot_params_main_menu) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "start_again",
-                **message_from,
-                "id" => "1651136317895074902",
-                "message" => {
-                    **chat,
-                    "date" => 1670051818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35159,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
-            },
-            "update_id" => 20479563
-        }
-      end
+    context 'when all our expenses 2 times', freezed_time: '2023-03-07T09:09:00+00:00' do
       let(:telegram_bot_params_enter_expenses) do
         {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "enter_expenses",
+            "message" => {
+                "chat" => {
+                    "first_name" => "Nikolay",
+                    "id" => ENV['MY_TELEGRAM_ID'],
+                    "last_name" => "Stepanets",
+                    "type" => "private",
+                    "username" => ENV['MY_USER_NAME']
+                },
+                "date" => 1670052690,
                 **message_from,
-                "id" => "1651136317267389846",
-                "message" => {
-                    **chat,
-                    "date" => 1670051828,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35160,
-                    **reply_markup_all_info,
-                    "text" => "Выбери действие:"
-                }
+                "message_id" => 35169,
+                "text" => "Внести расходы"
             },
-            "update_id" => 20479564
-        }
-      end
-      let(:telegram_bot_params_our_all_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "calculate_as_our_full_expenses",
-                **message_from,
-                "id" => "1651136318113433528",
-                "message" => {
-                    **chat,
-                    "date" => 1670052068,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35161,
-                    "reply_markup" => {
-                        "inline_keyboard" => [
-                            [
-                                {
-                                    "callback_data" => "calculate_as_our_full_expenses",
-                                    "text" => "Все расходы наши"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_mykola_paid_half_expenses",
-                                    "text" => "Микола заплатил (половина)"
-                                }
-                            ],
-                            [
-                                {
-                                    "callback_data" => "calculate_as_vika_paid_half_expenses",
-                                    "text" => "Вика заплатила (половина)"
-                                }
-                            ]
-                        ]
-                    },
-                    "text" => "как считать расходы?"
-                }
-            },
-            "update_id" => 20479566
+            "update_id" => 20479570
         }
       end
       let(:telegram_bot_params_wise_expenses) do
@@ -4951,12 +1706,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # main menu
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
         # enter expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # mykola paid
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_our_all_expenses
         # common expenses
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_wise_expenses
         # transport category
@@ -5202,7 +1953,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
 
   context 'when parse photo', vcr: { match_requests_on: [:method, :body, :telegram_get_file_custom_matcher] } do
     # 1 product is not parsed in photo: spec/images/not_parsed_one_fake_product
-    let(:caption) { "uah 0.0024 v" }
+    let(:caption) { "uah 0.0024" }
     let(:telegram_bot_params_upload_photo) do
       {
         "message" => {
@@ -5504,30 +2255,30 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
             "message_id" => 51490,
             "photo" => [
               {
-                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADcwADLgQ",
+                  "file_id": "AgACAgIAAxkBAAJGkGQHB6Dmfzh3fgx1xe2_U72Qsbx5AAIGxjEb870xSMwTpJGsnYYiAQADAgADcwADLgQ",
                   "file_size": 1272,
-                  "file_unique_id": "AQADoccxGwUkoUt4",
+                  "file_unique_id": "AQADBsYxG_O9MUh4",
                   "height": 90,
                   "width": 67
               },
               {
-                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADbQADLgQ",
+                  "file_id": "AgACAgIAAxkBAAJGkGQHB6Dmfzh3fgx1xe2_U72Qsbx5AAIGxjEb870xSMwTpJGsnYYiAQADAgADbQADLgQ",
                   "file_size": 22034,
-                  "file_unique_id": "AQADoccxGwUkoUty",
+                  "file_unique_id": "AQADBsYxG_O9MUhy",
                   "height": 320,
                   "width": 240
               },
               {
-                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADeAADLgQ",
+                  "file_id": "AgACAgIAAxkBAAJGkGQHB6Dmfzh3fgx1xe2_U72Qsbx5AAIGxjEb870xSMwTpJGsnYYiAQADAgADeAADLgQ",
                   "file_size": 104446,
-                  "file_unique_id": "AQADoccxGwUkoUt9",
+                  "file_unique_id": "AQADBsYxG_O9MUh9",
                   "height": 800,
                   "width": 600
               },
               {
-                  "file_id": "AgACAgIAAxkBAAIBu2P0lspomC43vQ_948PbJr1UhNkaAAKhxzEbBSShSx9lJL92xELAAQADAgADeQADLgQ",
+                  "file_id": "AgACAgIAAxkBAAJGkGQHB6Dmfzh3fgx1xe2_U72Qsbx5AAIGxjEb870xSMwTpJGsnYYiAQADAgADeQADLgQ",
                   "file_size": 151935,
-                  "file_unique_id": "AQADoccxGwUkoUt-",
+                  "file_unique_id": "AQADBsYxG_O9MUh-",
                   "height": 1280,
                   "width": 960
               }
@@ -5540,7 +2291,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADoccxGwUkoUt-:30192.0",
+            "data" => "Еда: f_id:AQADBsYxG_O9MUh-:30192.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
@@ -5557,81 +2308,81 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Транспорт: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Еда: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Развлечения: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Подарки: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Для дома: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Коля: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Валди: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Непредвиденное: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Марк: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Лиля: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Путешествия: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Авто бмоно: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Крупные покупки: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Капитал: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Кэш: f_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Кэш"
                             }
                         ]
@@ -5647,7 +2398,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADoccxGwUkoUt-:30192.0",
+            "data" => "Молочка: f1_id:AQADBsYxG_O9MUh-:30192.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
@@ -5664,97 +2415,97 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Молочка: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Готовая: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Фрукты: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Овощи: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Сладости: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Бакалея: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Новопочта: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Рыба: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Яйца: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Вода: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Алкоголь: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "К пиву: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Мясо: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADoccxGwUkoUt-:30192.0",
+                                "callback_data" => "Детское питание: f1_id:AQADBsYxG_O9MUh-:30192.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -5776,7 +2527,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Еда: f_id:AQADoccxGwUkoUt-:31540.0",
+            "data" => "Еда: f_id:AQADBsYxG_O9MUh-:31540.0",
             **message_from,
             "id" => "1651136316635507601",
             "message" => {
@@ -5793,81 +2544,81 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Транспорт: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Транспорт: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Транспорт"
                             },
                             {
-                                "callback_data" => "Еда: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Еда: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Еда"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Развлечения: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Развлечения: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Развлечения"
                             },
                             {
-                                "callback_data" => "Подарки: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Подарки: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Подарки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Для дома: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Для дома: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Для дома"
                             },
                             {
-                                "callback_data" => "Коля: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Коля: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Коля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Валди: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Валди: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Валди"
                             },
                             {
-                                "callback_data" => "Непредвиденное: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Непредвиденное: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Непредвиденное"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Марк: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Марк: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Марк"
                             },
                             {
-                                "callback_data" => "Лиля: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Лиля: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Лиля"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Путешествия: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Путешествия: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Путешествия"
                             },
                             {
-                                "callback_data" => "Инвестиции, фз: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Инвестиции, фз: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Инвестиции, фз"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Авто бмоно: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Авто бмоно: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Авто бмоно"
                             },
                             {
-                                "callback_data" => "Крупные покупки: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Крупные покупки: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Крупные покупки"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Капитал: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Капитал: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Капитал"
                             },
                             {
-                                "callback_data" => "Кэш: f_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Кэш: f_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Кэш"
                             }
                         ]
@@ -5883,7 +2634,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       {
         "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Молочка: f1_id:AQADoccxGwUkoUt-:31540.0",
+            "data" => "Молочка: f1_id:AQADBsYxG_O9MUh-:31540.0",
             **message_from,
             "id" => "1651136315469696445",
             "message" => {
@@ -5900,97 +2651,97 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                     "inline_keyboard" => [
                         [
                             {
-                                "callback_data" => "Молочка: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Молочка: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Молочка"
                             },
                             {
-                                "callback_data" => "Готовая: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Готовая: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Готовая"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Полуфабрикаты/м_: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Полуфабрикаты/м_"
                             },
                             {
-                                "callback_data" => "Фрукты: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Фрукты: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Фрукты"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Овощи: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Овощи: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Овощи"
                             },
                             {
-                                "callback_data" => "Сладости: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Сладости: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Сладости"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Бакалея: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Бакалея: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Бакалея"
                             },
                             {
-                                "callback_data" => "Специи, приправ_: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Специи, приправ_: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Специи, приправ_"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Колбаса, сосиск_: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Колбаса, сосиск_"
                             },
                             {
-                                "callback_data" => "Кофе, Чай: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Кофе, Чай: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Кофе, Чай"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Новопочта: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Новопочта: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Новопочта"
                             },
                             {
-                                "callback_data" => "Рыба: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Рыба: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Рыба"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Яйца: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Яйца: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Яйца"
                             },
                             {
-                                "callback_data" => "Вода: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Вода: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Вода"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Хлеб и др: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Хлеб и др: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Хлеб и др"
                             },
                             {
-                                "callback_data" => "Алкоголь: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Алкоголь: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Алкоголь"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "К пиву: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "К пиву: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "К пиву"
                             },
                             {
-                                "callback_data" => "Мясо: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Мясо: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Мясо"
                             }
                         ],
                         [
                             {
-                                "callback_data" => "Детское питание: f1_id:AQADoccxGwUkoUt-:31540.0",
+                                "callback_data" => "Детское питание: f1_id:AQADBsYxG_O9MUh-:31540.0",
                                 "text" => "Детское питание"
                             }
                         ],
@@ -6010,24 +2761,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when uah expenses' do
-      context 'when vika payed', freezed_time: '2023-02-12T04:08:00+00:00' do
-        context 'when 1 category was not parsed' do
-          it 'saves half price from not parsed category and mark v' do
-            # upload photo
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
-            # choose category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
-            # choose sub category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
-
-            expect(response.status).to eq(200)
-          end
-        end
-      end
-
-      context 'when mykola payed', freezed_time: '2023-02-12T04:10:00+00:00' do
-        let(:caption) { "uah 0.0024 m" }
-
+      context 'when all our expenses', freezed_time: '2023-02-12T04:30:00+00:00' do
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
@@ -6041,33 +2775,16 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           end
         end
 
-        context 'when 2 products were not parsed', freezed_time: '2023-02-12T04:24:00+00:00' do
+        context 'when 2 products were not parsed', freezed_time: '2023-03-07T09:51:00+00:00' do
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
 
-          it 'saves half price from not parsed category and mark m' do
+          it 'saves price from not parsed category' do
             # upload photo
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
-
-            expect(response.status).to eq(200)
-          end
-        end
-      end
-
-      context 'when all our expenses', freezed_time: '2023-02-12T04:30:00+00:00' do
-        let(:caption) { "uah 0.0024" }
-
-        context 'when 1 category was not parsed' do
-          it 'saves half price from not parsed category and mark m' do
-            # upload photo
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
-            # choose category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
-            # choose sub category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
 
             expect(response.status).to eq(200)
           end
@@ -6076,37 +2793,6 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when usd expenses' do
-      context 'when mykola payed', freezed_time: '2023-02-12T04:31:00+00:00' do
-        let(:caption) { "usd 15593.0528 m" }
-
-        context 'when 1 category was not parsed' do
-          it 'saves half price from not parsed category and mark m' do
-            # upload photo
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
-            # choose category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
-            # choose sub category
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
-
-            expect(response.status).to eq(200)
-          end
-        end
-
-        context 'when 2 products were not parsed', freezed_time: '2023-02-12T04:35:00+00:00' do
-          # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
-
-          it 'saves half price from not parsed category and mark m' do
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
-            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
-
-            expect(response.status).to eq(200)
-          end
-        end
-      end
-
       context 'when all our expenses', freezed_time: '2023-02-12T04:41:00+00:00' do
         let(:caption) { "usd 15593.0528" }
 
@@ -6118,6 +2804,20 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
             # choose sub category
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
+
+            expect(response.status).to eq(200)
+          end
+        end
+
+        context 'when 2 products were not parsed', freezed_time: '2023-03-07T09:51:00+00:00' do
+          # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
+
+          it 'saves price from not parsed category' do
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_1_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category_2_two_products_were_not_parsed
+            post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category_2_two_products_were_not_parsed
 
             expect(response.status).to eq(200)
           end

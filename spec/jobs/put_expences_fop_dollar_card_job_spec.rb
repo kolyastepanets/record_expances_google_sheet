@@ -30,60 +30,9 @@ RSpec.describe PutExpencesFopDollarCardJob do
     )
   end
 
-  context 'when mykola paid' do
-    before do
-      Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
-    end
-
-    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0 / 2", "m").and_return(response_after_save_expenses)
-      expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
-      expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
-      expect(SendNotificationMessageToBot).to receive(:call).with(params)
-
-      perform_enqueued_jobs { subject }
-    end
-
-    context 'when price_in_usd_to_save_in_google_sheet nil' do
-      let(:params) do
-        {
-          category_name: 'Еда',
-          sub_category_name: 'Фрукты',
-          price_in_usd: 100,
-          price_in_usd_to_save_in_google_sheet: nil
-        }
-      end
-
-      it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
-        expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=100 / 2", "m").and_return(response_after_save_expenses)
-        expect(UpdateCellBackgroundColor).to receive(:call).with("m", [5389])
-        expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
-        expect(SendNotificationMessageToBot).to receive(:call).with(params)
-
-        perform_enqueued_jobs { subject }
-      end
-    end
-  end
-
-  context 'when vika paid' do
-    before do
-      Redis.new.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
-    end
-
-    it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0 / 2", "v").and_return(response_after_save_expenses)
-      expect(UpdateCellBackgroundColor).to receive(:call).with("v", [5389])
-      expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
-      expect(SendNotificationMessageToBot).to receive(:call).with(params)
-
-      perform_enqueued_jobs { subject }
-    end
-  end
-
   context 'when our expenses' do
     it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
-      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0", nil).and_return(response_after_save_expenses)
-      expect(UpdateCellBackgroundColor).to receive(:call).with(nil, [5389])
+      expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=15000,0 / 15202,0").and_return(response_after_save_expenses)
       expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
       expect(SendNotificationMessageToBot).to receive(:call).with(params)
 
@@ -101,8 +50,7 @@ RSpec.describe PutExpencesFopDollarCardJob do
       end
 
       it 'calls PutExpensesToGoogleSheet, UpdateCellBackgroundColor' do
-        expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=100", nil).and_return(response_after_save_expenses)
-        expect(UpdateCellBackgroundColor).to receive(:call).with(nil, [5389])
+        expect(PutExpensesToGoogleSheet).to receive(:call).with('Еда', 'Фрукты', "=100").and_return(response_after_save_expenses)
         expect(UpdateCellInGoogleSheet).to receive(:call).with(3576.0, 'BQ81')
         expect(SendNotificationMessageToBot).to receive(:call).with(params)
 

@@ -13,7 +13,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Вернуть часть денег после снятия кэша'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
-    ['Кто кому сколько должен'],
     ['Получить статистику по категории'],
     ['Info current month'],
   ].freeze
@@ -40,15 +39,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def callback_query(data)
     case data
-    when 'calculate_as_mykola_paid_half_expenses'
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
-      ask_type_of_expenses
-    when 'calculate_as_vika_paid_half_expenses'
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_vika_paid_half_expenses')
-      ask_type_of_expenses
-    when 'calculate_as_our_full_expenses'
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_our_full_expenses')
-      ask_type_of_expenses
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
@@ -123,7 +113,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:category_name] = category_name
       params[:message_ids] << payload["message"]["message_id"]
       redis.set(transaction_id, params.to_json, ex: 1.week)
-      redis.set('how_calculate_expenses_between_us', 'calculate_as_mykola_paid_half_expenses')
 
       transaction_id = "c1_id:#{transaction_id}"
       show_sub_categories_by_category(category_name, transaction_id)
@@ -143,10 +132,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
-      who_paid = nil
 
       DecreaseWiseUsdSavedAmountJob.perform_later(params[:price_in_usd])
-      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month, who_paid)
+      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
       SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
@@ -188,7 +176,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_data_to_google_sheet!(price, *args)
     price_to_put_in_sheets, price_to_calculate = BuildPrice.call(price, session)
 
-    if !session[:receipt_dollar_foreign_currency_exchange_rate].nil? && redis.get('how_calculate_expenses_between_us') != 'calculate_as_vika_paid_half_expenses'
+    if !session[:receipt_dollar_foreign_currency_exchange_rate].nil?
       currency_uah_to_usd = price_to_put_in_sheets.split(" ")[-1].gsub(",", ".").to_f
       price_in_uah = price.to_f / session[:receipt_dollar_foreign_currency_exchange_rate].to_f * currency_uah_to_usd
       price_in_usd = price_to_calculate
@@ -196,7 +184,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       DecreaseUsdSavedAmountJob.perform_later({ price_in_usd: price_in_usd })
     end
 
-    if session[:is_grivnas] && redis.get('how_calculate_expenses_between_us') != 'calculate_as_vika_paid_half_expenses'
+    if session[:is_grivnas]
       DecreaseUahSavedAmountJob.perform_later({ price_in_uah: price_to_calculate })
     end
 
@@ -210,15 +198,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     sub_category_name = session[:last_chosen_sub_category]
     category_name = session[:last_chosen_category]
-    who_paid = case redis.get('how_calculate_expenses_between_us')
-               when 'calculate_as_mykola_paid_half_expenses'
-                 AllConstants::MYKOLA_PAYED
-               when 'calculate_as_vika_paid_half_expenses'
-                 AllConstants::VIKA_PAYED
-               else
-                 nil
-               end
-    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month, who_paid)
+    PutExpensesToGoogleSheetJob.perform_later(category_name, sub_category_name, price_to_put_in_sheets, detect_month)
 
     remember_total_price_of_products(price_to_calculate)
     remember_total_price_of_products_in_foreign_currency(price.to_f)
@@ -309,7 +289,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
-        { text: 'Кто кому сколько должен',  method_to_call: 'expenses_to_return_from_vika' },
         { text: 'Получить статистику по категории', method_to_call: 'get_statistic_by_category' },
         { text: 'Info current month',  method_to_call: 'info_current_month' }
       ]
@@ -378,24 +357,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: GetLastTenTransactionsFromMonobank.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
-  def ask_half_price_or_full_price
-    respond_with(
-      :message,
-      text: 'как считать расходы?',
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: 'Все расходы наши', callback_data: 'calculate_as_our_full_expenses' }],
-          [{ text: 'Микола заплатил (половина)', callback_data: 'calculate_as_mykola_paid_half_expenses' }],
-          [{ text: 'Вика заплатила (половина)', callback_data: 'calculate_as_vika_paid_half_expenses' }],
-        ],
-      }
-    )
-  end
-
   def ask_type_of_expenses
-    wise_expenses = { text: 'Wise',  callback_data: 'wise' }
-    wise_lend_money = { text: 'Wise lend money',  callback_data: 'wise_lend_money' }
-
     respond_with(
       :message,
       text: 'как заполнять?',
@@ -406,8 +368,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Чек иностранная валюта',  callback_data: 'receipt_foreign_currency' }],
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
           [{ text: 'Долларовая карта',  callback_data: 'dollar_card' }],
-          [**wise_expenses],
-          [**wise_lend_money],
+          [{ text: 'Wise',  callback_data: 'wise' }],
+          [{ text: 'Wise lend money',  callback_data: 'wise_lend_money' }],
         ],
       }
     )
@@ -585,8 +547,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:total_price_of_products_in_foreign_currency] = 0
     session[:total_sum_of_money_before_save] = 0
     session[:category_for_statistic] = nil
-
-    redis.del('how_calculate_expenses_between_us')
   end
 
   def redis
@@ -614,23 +574,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def delete_all_todays_messages
     DeleteAllTodaysMessages.call
-  end
-
-  def expenses_to_return_from_vika
-    result = FindCellToEnterVikaHalfExpenses.call
-
-    who_should_return = ''
-    if (result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]) > 0
-      who_should_return = "Итого: Микола должен #{result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]} грн"
-    elsif (result[:mykola_total_spent_uah] - result[:vika_total_spent_uah]) > 0
-      who_should_return = "Итого: Вика должна #{result[:mykola_total_spent_uah] - result[:vika_total_spent_uah]} грн"
-    elsif (result[:vika_total_spent_uah] - result[:mykola_total_spent_uah]) == 0
-      who_should_return = 'Никто ничего никому не должен'
-    end
-
-    text = "Вика потратила гривен: #{result[:vika_total_spent_uah]}\nВика потратила $: #{result[:vika_total_spent_usd]}\nМикола потратила гривен: #{result[:mykola_total_spent_uah]}\nМикола потратил $: #{result[:mykola_total_spent_usd]}\n#{who_should_return}"
-
-    respond_with(:message, text: text, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def round_in_google_sheet_like_in_monobank
