@@ -65,8 +65,8 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       }
     end
 
-    it 'calls SendMessageToBotToAskToEnterExpences' do
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call)
+    it 'calls SendMessageToBotToAskToEnterExpencesJob' do
+      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later)
 
       subject
     end
@@ -104,8 +104,8 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       }
     end
 
-    it 'calls SendMessageToBotToAskToEnterExpences' do
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call)
+    it 'calls SendMessageToBotToAskToEnterExpencesJob' do
+      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later)
 
       subject
     end
@@ -143,8 +143,8 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       }
     end
 
-    it 'calls SendMessageToBotToAskToEnterExpences' do
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call)
+    it 'calls SendMessageToBotToAskToEnterExpencesJob' do
+      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later)
 
       subject
     end
@@ -188,7 +188,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
 
     it 'does not call job PutExpencesFopDollarCardJob' do
       expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
 
       subject
     end
@@ -297,7 +297,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
 
     it 'does not call job PutExpencesFopDollarCardJob' do
       expect(PutExpencesFopDollarCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
 
       subject
     end
@@ -892,8 +892,8 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
 
-    it 'does not call SendMessageToBotToAskToEnterExpences' do
-      expect(SendMessageToBotToAskToEnterExpences).to_not receive(:call)
+    it 'does not call SendMessageToBotToAskToEnterExpencesJob' do
+      expect(SendMessageToBotToAskToEnterExpencesJob).to_not receive(:perform_later)
 
       subject
     end
@@ -945,8 +945,8 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
 
-    it 'does not call SendMessageToBotToAskToEnterExpences' do
-      expect(SendMessageToBotToAskToEnterExpences).to_not receive(:call)
+    it 'does not call SendMessageToBotToAskToEnterExpencesJob' do
+      expect(SendMessageToBotToAskToEnterExpencesJob).to_not receive(:perform_later)
 
       subject
     end

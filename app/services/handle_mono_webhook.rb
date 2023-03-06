@@ -8,6 +8,7 @@ class HandleMonoWebhook
     @params = JSON.parse(params.to_json).deep_symbolize_keys
   end
 
+  # code must be executed less than 5 sec to not receive one mpre webhook
   def call
     return if @params.empty?
 

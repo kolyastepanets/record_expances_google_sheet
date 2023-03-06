@@ -41,7 +41,7 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
     return EnterSoldDollarsFromFopJob.perform_later(@params) if @params[:sold_dollars_from_fop]
     return PutExpencesFopDollarCardJob.perform_later(@params) if @params[:category_name].present?
 
-    SendMessageToBotToAskToEnterExpences.call({
+    SendMessageToBotToAskToEnterExpencesJob.perform_later({
       is_fop_dollar: true,
       currency_rate: currency_rate,
       total_sum_of_money_before_save: @total_sum_of_money_before_save,
