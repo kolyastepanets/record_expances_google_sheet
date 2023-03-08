@@ -592,7 +592,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def yogurt?
-      @line.include?('plain') && @line.include?('yogurt')
+      @line.include?('plain') && (@line.include?('yogurt') || @line.include?('yog'))
     end
 
     def sour_cream_2?
@@ -829,7 +829,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
-        rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle?
+        rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle? ||
+        granola?
     end
 
     def rice?
@@ -874,6 +875,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def farfalle?
       @line.include?('farfalle')
+    end
+
+    def granola?
+      @line.include?('yava') && @line.include?('granola')
     end
 
     ####
