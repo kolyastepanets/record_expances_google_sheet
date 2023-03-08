@@ -1,7 +1,6 @@
 class HandleInputPhoto
   include CallableService
 
-  SHOW_ITEMS_PER_LINE = 2
   ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM = 0.5
   ACCEPTABLE_DIFFERENCE_BETWEEN_PRICES_SUM_AND_TOTAL_SUM_INDONESIA = 200
   USUALLY_MIN_SUM_IN_INDONESIA = 50_000
@@ -66,9 +65,9 @@ class HandleInputPhoto
 
         total_sum_auto_entered_categories += 1
       else
-        categories_to_show = get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+        categories_to_show = get_categories.keys.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
-            { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{price_with_category[:price]}" }
+            { text: category, callback_data: "#{category}:f_id:#{@file_id}:#{price_with_category[:price]}" }
           end
         end
         response = send_message_with_categories(price_with_category[:price], categories_to_show)
@@ -157,7 +156,7 @@ class HandleInputPhoto
   def categories_to_show_by_price
     @collected_prices.map do |price|
       {
-        price => get_categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+        price => get_categories.keys.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
             { text: category, callback_data: "#{category}: f_id:#{@file_id}:#{price}" }
           end

@@ -108,7 +108,6 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       it 'does not call telegram bot' do
         expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
         expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
-        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories_when_calculate_as_half_expenses)
 
         subject
       end
@@ -140,7 +139,6 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
       it 'does not call telegram bot' do
         expect_any_instance_of(described_class).to_not receive(:send_message_with_params)
         expect_any_instance_of(described_class).to_not receive(:send_message_with_categories)
-        expect_any_instance_of(described_class).to_not receive(:send_message_with_categories_when_calculate_as_half_expenses)
 
         subject
       end
@@ -155,36 +153,36 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
     let(:result) do
       [
         [
-          {callback_data: "Транспорт: c_id:6mIsfyeVdVbitoSl", text: "Транспорт"},
-          {callback_data: "Еда: c_id:6mIsfyeVdVbitoSl", text: "Еда"}
+          {callback_data: "Транспорт:c_id:6mIsfyeVdVbitoSl:533.62", text: "Транспорт"},
+          {callback_data: "Еда:c_id:6mIsfyeVdVbitoSl:533.62", text: "Еда"}
         ],
         [
-          {callback_data: "Развлечения: c_id:6mIsfyeVdVbitoSl", text: "Развлечения"},
-          {callback_data: "Подарки: c_id:6mIsfyeVdVbitoSl", text: "Подарки"}
+          {callback_data: "Развлечения:c_id:6mIsfyeVdVbitoSl:533.62", text: "Развлечения"},
+          {callback_data: "Подарки:c_id:6mIsfyeVdVbitoSl:533.62", text: "Подарки"}
         ],
         [
-          {callback_data: "Для дома: c_id:6mIsfyeVdVbitoSl", text: "Для дома"},
-          {callback_data: "Коля: c_id:6mIsfyeVdVbitoSl", text: "Коля"}
+          {callback_data: "Для дома:c_id:6mIsfyeVdVbitoSl:533.62", text: "Для дома"},
+          {callback_data: "Коля:c_id:6mIsfyeVdVbitoSl:533.62", text: "Коля"}
         ],
         [
-          {callback_data: "Валди: c_id:6mIsfyeVdVbitoSl", text: "Валди"},
-          {callback_data: "Непредвиденное: c_id:6mIsfyeVdVbitoSl", text: "Непредвиденное"}
+          {callback_data: "Валди:c_id:6mIsfyeVdVbitoSl:533.62", text: "Валди"},
+          {callback_data: "Непредвиденное:c_id:6mIsfyeVdVbitoSl:533.62", text: "Непредвиденное"}
         ],
         [
-          {callback_data: "Марк: c_id:6mIsfyeVdVbitoSl", text: "Марк"},
-          {callback_data: "Лиля: c_id:6mIsfyeVdVbitoSl", text: "Лиля"}
+          {callback_data: "Марк:c_id:6mIsfyeVdVbitoSl:533.62", text: "Марк"},
+          {callback_data: "Лиля:c_id:6mIsfyeVdVbitoSl:533.62", text: "Лиля"}
         ],
         [
-          {callback_data: "Путешествия: c_id:6mIsfyeVdVbitoSl", text: "Путешествия"},
-          {callback_data: "Инвестиции, фз: c_id:6mIsfyeVdVbitoSl", text: "Инвестиции, фз"}
+          {callback_data: "Путешествия:c_id:6mIsfyeVdVbitoSl:533.62", text: "Путешествия"},
+          {callback_data: "Инвестиции, фз:c_id:6mIsfyeVdVbitoSl:533.62", text: "Инвестиции, фз"}
         ],
         [
-          {callback_data: "Авто бмоно: c_id:6mIsfyeVdVbitoSl", text: "Авто бмоно"},
-          {callback_data: "Крупные покупки: c_id:6mIsfyeVdVbitoSl", text: "Крупные покупки"}
+          {callback_data: "Авто бмоно:c_id:6mIsfyeVdVbitoSl:533.62", text: "Авто бмоно"},
+          {callback_data: "Крупные покупки:c_id:6mIsfyeVdVbitoSl:533.62", text: "Крупные покупки"}
         ],
         [
-          {callback_data: "Капитал: c_id:6mIsfyeVdVbitoSl", text: "Капитал"},
-          {callback_data: "Кэш: c_id:6mIsfyeVdVbitoSl", text: "Кэш"}
+          {callback_data: "Капитал:c_id:6mIsfyeVdVbitoSl:533.62", text: "Капитал"},
+          {callback_data: "Кэш:c_id:6mIsfyeVdVbitoSl:533.62", text: "Кэш"}
         ],
         [
           {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"},
@@ -194,52 +192,6 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
 
     it 'returns categories and btn messages to delete' do
       expect(described_class.new(transaction_data).send(:categories_to_show)).to eq(result)
-    end
-  end
-
-  context '#categories_to_show_as_half_expenses' do
-    let(:result) do
-      [
-        [
-          {callback_data: "Транспорт: h_id:6mIsfyeVdVbitoSl", text: "Транспорт"},
-          {callback_data: "Еда: h_id:6mIsfyeVdVbitoSl", text: "Еда"}
-        ],
-        [
-          {callback_data: "Развлечения: h_id:6mIsfyeVdVbitoSl", text: "Развлечения"},
-          {callback_data: "Подарки: h_id:6mIsfyeVdVbitoSl", text: "Подарки"}
-        ],
-        [
-          {callback_data: "Для дома: h_id:6mIsfyeVdVbitoSl", text: "Для дома"},
-          {callback_data: "Коля: h_id:6mIsfyeVdVbitoSl", text: "Коля"}
-        ],
-        [
-          {callback_data: "Валди: h_id:6mIsfyeVdVbitoSl", text: "Валди"},
-          {callback_data: "Непредвиденное: h_id:6mIsfyeVdVbitoSl", text: "Непредвиденное"}
-        ],
-        [
-          {callback_data: "Марк: h_id:6mIsfyeVdVbitoSl", text: "Марк"},
-          {callback_data: "Лиля: h_id:6mIsfyeVdVbitoSl", text: "Лиля"}
-        ],
-        [
-          {callback_data: "Путешествия: h_id:6mIsfyeVdVbitoSl", text: "Путешествия"},
-          {callback_data: "Инвестиции, фз: h_id:6mIsfyeVdVbitoSl", text: "Инвестиции, фз"}
-        ],
-        [
-          {callback_data: "Авто бмоно: h_id:6mIsfyeVdVbitoSl", text: "Авто бмоно"},
-          {callback_data: "Крупные покупки: h_id:6mIsfyeVdVbitoSl", text: "Крупные покупки"}
-        ],
-        [
-          {callback_data: "Капитал: h_id:6mIsfyeVdVbitoSl", text: "Капитал"},
-          {callback_data: "Кэш: h_id:6mIsfyeVdVbitoSl", text: "Кэш"}
-        ],
-        [
-          {callback_data: "remove_messages: 6mIsfyeVdVbitoSl", text: "Удалить сообщения этой транзакции"}
-        ]
-      ]
-    end
-
-    it 'returns categories and btn messages to delete' do
-      expect(described_class.new(transaction_data).send(:categories_to_show_as_half_expenses)).to eq(result)
     end
   end
 

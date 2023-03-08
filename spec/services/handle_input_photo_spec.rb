@@ -219,36 +219,36 @@ RSpec.describe HandleInputPhoto do
       let(:request_params_1) do
         [
           [
-            {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:282500.0", text: "Транспорт"},
-            {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:282500.0", text: "Еда"}
+            {callback_data: "Транспорт:f_id:AQADuLwxG--FGEl-:282500.0", text: "Транспорт"},
+            {callback_data: "Еда:f_id:AQADuLwxG--FGEl-:282500.0", text: "Еда"}
           ],
           [
-            {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:282500.0", text: "Развлечения"},
-            {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:282500.0", text: "Подарки"}
+            {callback_data: "Развлечения:f_id:AQADuLwxG--FGEl-:282500.0", text: "Развлечения"},
+            {callback_data: "Подарки:f_id:AQADuLwxG--FGEl-:282500.0", text: "Подарки"}
           ],
           [
-            {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:282500.0", text: "Для дома"},
-            {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:282500.0", text: "Коля"}
+            {callback_data: "Для дома:f_id:AQADuLwxG--FGEl-:282500.0", text: "Для дома"},
+            {callback_data: "Коля:f_id:AQADuLwxG--FGEl-:282500.0", text: "Коля"}
           ],
           [
-            {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:282500.0", text: "Валди"},
-            {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:282500.0", text: "Непредвиденное"}
+            {callback_data: "Валди:f_id:AQADuLwxG--FGEl-:282500.0", text: "Валди"},
+            {callback_data: "Непредвиденное:f_id:AQADuLwxG--FGEl-:282500.0", text: "Непредвиденное"}
           ],
           [
-            {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:282500.0", text: "Марк"},
-            {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:282500.0", text: "Лиля"}
+            {callback_data: "Марк:f_id:AQADuLwxG--FGEl-:282500.0", text: "Марк"},
+            {callback_data: "Лиля:f_id:AQADuLwxG--FGEl-:282500.0", text: "Лиля"}
           ],
           [
-            {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:282500.0", text: "Путешествия"},
-            {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:282500.0", text: "Инвестиции, фз"}
+            {callback_data: "Путешествия:f_id:AQADuLwxG--FGEl-:282500.0", text: "Путешествия"},
+            {callback_data: "Инвестиции, фз:f_id:AQADuLwxG--FGEl-:282500.0", text: "Инвестиции, фз"}
           ],
           [
-            {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:282500.0", text: "Авто бмоно"},
-            {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:282500.0", text: "Крупные покупки"}
+            {callback_data: "Авто бмоно:f_id:AQADuLwxG--FGEl-:282500.0", text: "Авто бмоно"},
+            {callback_data: "Крупные покупки:f_id:AQADuLwxG--FGEl-:282500.0", text: "Крупные покупки"}
           ],
           [
-            {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:282500.0", text: "Капитал"},
-            {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:282500.0", text: "Кэш"}
+            {callback_data: "Капитал:f_id:AQADuLwxG--FGEl-:282500.0", text: "Капитал"},
+            {callback_data: "Кэш:f_id:AQADuLwxG--FGEl-:282500.0", text: "Кэш"}
           ]
         ]
       end
@@ -262,36 +262,36 @@ RSpec.describe HandleInputPhoto do
       let(:request_params_2) do
         [
           [
-            {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:16500.0", text: "Транспорт"},
-            {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:16500.0", text: "Еда"}
+            {callback_data: "Транспорт:f_id:AQADuLwxG--FGEl-:16500.0", text: "Транспорт"},
+            {callback_data: "Еда:f_id:AQADuLwxG--FGEl-:16500.0", text: "Еда"}
           ],
           [
-            {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:16500.0", text: "Развлечения"},
-            {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:16500.0", text: "Подарки"}
+            {callback_data: "Развлечения:f_id:AQADuLwxG--FGEl-:16500.0", text: "Развлечения"},
+            {callback_data: "Подарки:f_id:AQADuLwxG--FGEl-:16500.0", text: "Подарки"}
           ],
           [
-            {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:16500.0", text: "Для дома"},
-            {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:16500.0", text: "Коля"}
+            {callback_data: "Для дома:f_id:AQADuLwxG--FGEl-:16500.0", text: "Для дома"},
+            {callback_data: "Коля:f_id:AQADuLwxG--FGEl-:16500.0", text: "Коля"}
           ],
           [
-            {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:16500.0", text: "Валди"},
-            {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:16500.0", text: "Непредвиденное"}
+            {callback_data: "Валди:f_id:AQADuLwxG--FGEl-:16500.0", text: "Валди"},
+            {callback_data: "Непредвиденное:f_id:AQADuLwxG--FGEl-:16500.0", text: "Непредвиденное"}
           ],
           [
-            {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:16500.0", text: "Марк"},
-            {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:16500.0", text: "Лиля"}
+            {callback_data: "Марк:f_id:AQADuLwxG--FGEl-:16500.0", text: "Марк"},
+            {callback_data: "Лиля:f_id:AQADuLwxG--FGEl-:16500.0", text: "Лиля"}
           ],
           [
-            {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:16500.0", text: "Путешествия"},
-            {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:16500.0", text: "Инвестиции, фз"}
+            {callback_data: "Путешествия:f_id:AQADuLwxG--FGEl-:16500.0", text: "Путешествия"},
+            {callback_data: "Инвестиции, фз:f_id:AQADuLwxG--FGEl-:16500.0", text: "Инвестиции, фз"}
           ],
           [
-            {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:16500.0", text: "Авто бмоно"},
-            {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:16500.0", text: "Крупные покупки"}
+            {callback_data: "Авто бмоно:f_id:AQADuLwxG--FGEl-:16500.0", text: "Авто бмоно"},
+            {callback_data: "Крупные покупки:f_id:AQADuLwxG--FGEl-:16500.0", text: "Крупные покупки"}
           ],
           [
-            {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:16500.0", text: "Капитал"},
-            {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:16500.0", text: "Кэш"}
+            {callback_data: "Капитал:f_id:AQADuLwxG--FGEl-:16500.0", text: "Капитал"},
+            {callback_data: "Кэш:f_id:AQADuLwxG--FGEl-:16500.0", text: "Кэш"}
           ]
         ]
       end
@@ -431,36 +431,36 @@ RSpec.describe HandleInputPhoto do
       let(:request_params_1) do
         [
           [
-            {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:15000.0", text: "Транспорт"},
-            {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:15000.0", text: "Еда"}
+            {callback_data: "Транспорт:f_id:AQADuLwxG--FGEl-:15000.0", text: "Транспорт"},
+            {callback_data: "Еда:f_id:AQADuLwxG--FGEl-:15000.0", text: "Еда"}
           ],
           [
-            {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:15000.0", text: "Развлечения"},
-            {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:15000.0", text: "Подарки"}
+            {callback_data: "Развлечения:f_id:AQADuLwxG--FGEl-:15000.0", text: "Развлечения"},
+            {callback_data: "Подарки:f_id:AQADuLwxG--FGEl-:15000.0", text: "Подарки"}
           ],
           [
-            {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:15000.0", text: "Для дома"},
-            {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:15000.0", text: "Коля"}
+            {callback_data: "Для дома:f_id:AQADuLwxG--FGEl-:15000.0", text: "Для дома"},
+            {callback_data: "Коля:f_id:AQADuLwxG--FGEl-:15000.0", text: "Коля"}
           ],
           [
-            {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:15000.0", text: "Валди"},
-            {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:15000.0", text: "Непредвиденное"}
+            {callback_data: "Валди:f_id:AQADuLwxG--FGEl-:15000.0", text: "Валди"},
+            {callback_data: "Непредвиденное:f_id:AQADuLwxG--FGEl-:15000.0", text: "Непредвиденное"}
           ],
           [
-            {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:15000.0", text: "Марк"},
-            {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:15000.0", text: "Лиля"}
+            {callback_data: "Марк:f_id:AQADuLwxG--FGEl-:15000.0", text: "Марк"},
+            {callback_data: "Лиля:f_id:AQADuLwxG--FGEl-:15000.0", text: "Лиля"}
           ],
           [
-            {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:15000.0", text: "Путешествия"},
-            {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:15000.0", text: "Инвестиции, фз"}
+            {callback_data: "Путешествия:f_id:AQADuLwxG--FGEl-:15000.0", text: "Путешествия"},
+            {callback_data: "Инвестиции, фз:f_id:AQADuLwxG--FGEl-:15000.0", text: "Инвестиции, фз"}
           ],
           [
-            {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:15000.0", text: "Авто бмоно"},
-            {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:15000.0", text: "Крупные покупки"}
+            {callback_data: "Авто бмоно:f_id:AQADuLwxG--FGEl-:15000.0", text: "Авто бмоно"},
+            {callback_data: "Крупные покупки:f_id:AQADuLwxG--FGEl-:15000.0", text: "Крупные покупки"}
           ],
           [
-            {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:15000.0", text: "Капитал"},
-            {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:15000.0", text: "Кэш"}
+            {callback_data: "Капитал:f_id:AQADuLwxG--FGEl-:15000.0", text: "Капитал"},
+            {callback_data: "Кэш:f_id:AQADuLwxG--FGEl-:15000.0", text: "Кэш"}
           ]
         ]
       end
@@ -474,36 +474,36 @@ RSpec.describe HandleInputPhoto do
       let(:request_params_2) do
         [
           [
-            {callback_data: "Транспорт: f_id:AQADuLwxG--FGEl-:38000.0", text: "Транспорт"},
-            {callback_data: "Еда: f_id:AQADuLwxG--FGEl-:38000.0", text: "Еда"}
+            {callback_data: "Транспорт:f_id:AQADuLwxG--FGEl-:38000.0", text: "Транспорт"},
+            {callback_data: "Еда:f_id:AQADuLwxG--FGEl-:38000.0", text: "Еда"}
           ],
           [
-            {callback_data: "Развлечения: f_id:AQADuLwxG--FGEl-:38000.0", text: "Развлечения"},
-            {callback_data: "Подарки: f_id:AQADuLwxG--FGEl-:38000.0", text: "Подарки"}
+            {callback_data: "Развлечения:f_id:AQADuLwxG--FGEl-:38000.0", text: "Развлечения"},
+            {callback_data: "Подарки:f_id:AQADuLwxG--FGEl-:38000.0", text: "Подарки"}
           ],
           [
-            {callback_data: "Для дома: f_id:AQADuLwxG--FGEl-:38000.0", text: "Для дома"},
-            {callback_data: "Коля: f_id:AQADuLwxG--FGEl-:38000.0", text: "Коля"}
+            {callback_data: "Для дома:f_id:AQADuLwxG--FGEl-:38000.0", text: "Для дома"},
+            {callback_data: "Коля:f_id:AQADuLwxG--FGEl-:38000.0", text: "Коля"}
           ],
           [
-            {callback_data: "Валди: f_id:AQADuLwxG--FGEl-:38000.0", text: "Валди"},
-            {callback_data: "Непредвиденное: f_id:AQADuLwxG--FGEl-:38000.0", text: "Непредвиденное"}
+            {callback_data: "Валди:f_id:AQADuLwxG--FGEl-:38000.0", text: "Валди"},
+            {callback_data: "Непредвиденное:f_id:AQADuLwxG--FGEl-:38000.0", text: "Непредвиденное"}
           ],
           [
-            {callback_data: "Марк: f_id:AQADuLwxG--FGEl-:38000.0", text: "Марк"},
-            {callback_data: "Лиля: f_id:AQADuLwxG--FGEl-:38000.0", text: "Лиля"}
+            {callback_data: "Марк:f_id:AQADuLwxG--FGEl-:38000.0", text: "Марк"},
+            {callback_data: "Лиля:f_id:AQADuLwxG--FGEl-:38000.0", text: "Лиля"}
           ],
           [
-            {callback_data: "Путешествия: f_id:AQADuLwxG--FGEl-:38000.0", text: "Путешествия"},
-            {callback_data: "Инвестиции, фз: f_id:AQADuLwxG--FGEl-:38000.0", text: "Инвестиции, фз"}
+            {callback_data: "Путешествия:f_id:AQADuLwxG--FGEl-:38000.0", text: "Путешествия"},
+            {callback_data: "Инвестиции, фз:f_id:AQADuLwxG--FGEl-:38000.0", text: "Инвестиции, фз"}
           ],
           [
-            {callback_data: "Авто бмоно: f_id:AQADuLwxG--FGEl-:38000.0", text: "Авто бмоно"},
-            {callback_data: "Крупные покупки: f_id:AQADuLwxG--FGEl-:38000.0", text: "Крупные покупки"}
+            {callback_data: "Авто бмоно:f_id:AQADuLwxG--FGEl-:38000.0", text: "Авто бмоно"},
+            {callback_data: "Крупные покупки:f_id:AQADuLwxG--FGEl-:38000.0", text: "Крупные покупки"}
           ],
           [
-            {callback_data: "Капитал: f_id:AQADuLwxG--FGEl-:38000.0", text: "Капитал"},
-            {callback_data: "Кэш: f_id:AQADuLwxG--FGEl-:38000.0", text: "Кэш"}
+            {callback_data: "Капитал:f_id:AQADuLwxG--FGEl-:38000.0", text: "Капитал"},
+            {callback_data: "Кэш:f_id:AQADuLwxG--FGEl-:38000.0", text: "Кэш"}
           ]
         ]
       end

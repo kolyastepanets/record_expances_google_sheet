@@ -1,8 +1,6 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
 
-  SHOW_ITEMS_PER_LINE = 2
-  SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
   BUTTONS_INFO = [
     ['UAH and USD all'],
     ['How many taxes to pay in current month'],
@@ -86,19 +84,25 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       finish_remember_total_price_of_products
     when -> (input_data) { input_data.include?('remove_messages') }
       remove_messages(data)
-    when -> (input_category) { input_category.include?('c_id') }
-      category_name = data.split(': ')[0]
-      transaction_id = data.split(': ')[1].split('c_id:')[1]
+    when -> (input_string) { input_string.include?('<<:') }
+      _sign, kind_of_transaction, transaction_id, price = data.split(':')
+      params = JSON.parse(redis.get(transaction_id))
+      if params.is_a?(Array)
+        last_price_to_message = params.select { |pri| pri["price"] == price.to_f }[-1]
+        message_id = last_price_to_message["message_ids"].last
+      else
+        message_id = params["message_ids"].last
+      end
+      Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: BuildArrayOfCategories.call(kind_of_transaction, transaction_id, price) })
+    when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') }
+      category_name, kind_of_transaction, transaction_id, price = data.split(':')
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:category_name] = category_name
-      params[:message_ids] << payload["message"]["message_id"]
       redis.set(transaction_id, params.to_json, ex: 1.week)
-
-      transaction_id = "c1_id:#{transaction_id}"
-      show_sub_categories_by_category(category_name, transaction_id)
+      Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: params[:message_ids].last, reply_markup: { inline_keyboard: BuildArrayOfSubCategories.call(category_name, kind_of_transaction.insert(1, "1"), transaction_id, price) })
     when -> (input_sub_category) { input_sub_category.include?('c1_id') }
-      sub_category_name = find_full_sub_category_name(data.split(': ')[0])
-      transaction_id = data.split(': ')[1].split('c1_id:')[1]
+      short_subcategory_name, _kind_of_transaction, transaction_id, _price = data.split(":")
+      sub_category_name = find_full_sub_category_name(short_subcategory_name)
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
@@ -106,29 +110,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
-    when -> (input_category) { input_category.include?('h_id') }
-      category_name = data.split(': ')[0]
-      transaction_id = data.split(': ')[1].split('h_id:')[1]
-      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
-      params[:category_name] = category_name
-      params[:message_ids] << payload["message"]["message_id"]
-      redis.set(transaction_id, params.to_json, ex: 1.week)
-
-      transaction_id = "c1_id:#{transaction_id}"
-      show_sub_categories_by_category(category_name, transaction_id)
-    when -> (input_category) { input_category.include?('w_id') }
-      category_name = data.split(': ')[0]
-      transaction_id = data.split(': ')[1].split('w_id:')[1]
-      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
-      params[:category_name] = category_name
-      params[:message_ids] << payload["message"]["message_id"]
-      redis.set(transaction_id, params.to_json, ex: 1.week)
-
-      transaction_id = "w1_id:#{transaction_id}"
-      show_sub_categories_by_category(category_name, transaction_id)
     when -> (input_sub_category) { input_sub_category.include?('w1_id') }
-      sub_category_name = find_full_sub_category_name(data.split(': ')[0])
-      transaction_id = data.split(': ')[1].split('w1_id:')[1]
+      short_subcategory_name, _kind_of_transaction, transaction_id, _price = data.split(":")
+      sub_category_name = find_full_sub_category_name(short_subcategory_name)
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
@@ -138,17 +122,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
-      category_name = data.split(': ')[0]
-      transaction_id, price = data.split(': ')[1].split('f_id:')[1].split(":")
+      category_name, kind_of_transaction, transaction_id, price = data.split(':')
       params = JSON.parse(redis.get(transaction_id))
       last_price_to_message = params.select { |pri| pri["price"] == price.to_f }[-1]
-      last_price_to_message["message_ids"] << payload["message"]["message_id"]
       last_price_to_message["category_name"] = category_name
-
       redis.set(transaction_id, params.to_json, ex: 1.week)
-
-      transaction_id = "f1_id:#{transaction_id}:#{price}"
-      show_sub_categories_by_category(category_name, transaction_id)
+      Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: last_price_to_message["message_ids"].last, reply_markup: { inline_keyboard: BuildArrayOfSubCategories.call(category_name, kind_of_transaction.insert(1, "1"), transaction_id, price) })
     when -> (input_sub_category) { input_sub_category.include?('f1_id') }
       params_to_save_to_google_sheet, new_params_for_redis, messages_to_delete = PrepareParamsAfterEnterSubcategoryBeforeSave.call(data)
 
@@ -427,7 +406,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def show_categories_to_choose
-    prepare_categories = categories.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+    prepare_categories = categories.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
         { text: category, callback_data: "#{category}: only_category" }
       end
@@ -464,19 +443,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Внеси цену товара:')
   end
 
-  def show_sub_categories_by_category(category_name, transaction_id = nil)
+  def show_sub_categories_by_category(category_name)
     save_category_to_session!(category_name)
-    show_per_line = category_name == 'Путешествия' ? SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE : SHOW_ITEMS_PER_LINE
+    show_per_line = category_name == 'Путешествия' ? AllConstants::SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE : AllConstants::SHOW_ITEMS_PER_LINE
 
     prepare_sub_categories = category_to_sub_categories[category_name].each_slice(show_per_line)
                                                                       .map do |sub_categories_array|
       sub_categories_array.map do |sub_category|
-        if transaction_id.present?
-          sub_category = sub_category.first(15) + "_" if sub_category.size > 15
-
-          next { text: sub_category, callback_data: "#{sub_category}: #{transaction_id}" }
-        end
-
         { text: sub_category, callback_data: sub_category }
       end
     end
@@ -605,7 +578,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def get_statistic_by_category
-    prepare_categories = categories.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+    prepare_categories = categories.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
         { text: category, callback_data: "#{category}: category_for_statistic" }
       end
@@ -617,7 +590,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def ask_to_choose_month_for_statistic
     dates = (Date.parse('01-09-2022')..Date.today.end_of_month).to_a.select { |current_date| current_date.day == 1 }.map { |current_date| "#{Date::ABBR_MONTHNAMES[current_date.month]} #{current_date.year}" }
 
-    prepare_dates = dates.each_slice(SHOW_ITEMS_PER_LINE).map do |dates_array|
+    prepare_dates = dates.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |dates_array|
       dates_array.map do |category|
         { text: category, callback_data: "#{category}: date_for_statistic" }
       end

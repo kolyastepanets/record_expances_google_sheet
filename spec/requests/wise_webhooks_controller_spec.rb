@@ -181,7 +181,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
     {
       "callback_query" => {
         "chat_instance" => ENV['CHAT_INSTANCE'],
-        "data" => "Транспорт: w_id:#{tranfer_id}",
+        "data" => "Транспорт:w_id:#{tranfer_id}",
         **message_from,
         "id" => "1651136315859693905",
         "message" => {

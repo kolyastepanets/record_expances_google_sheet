@@ -2,9 +2,10 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
   include CallableService
 
   def initialize(telegram_message)
-    @transaction_id, price = telegram_message.split(': ')[1].split('f1_id:')[1].split(":")
+    short_subcategory_name, _kind_of_transaction, transaction_id, price = telegram_message.split(":")
+    @transaction_id = transaction_id
     @price = price.to_f
-    @sub_category_name = find_full_sub_category_name(telegram_message.split(': ')[0])
+    @sub_category_name = find_full_sub_category_name(short_subcategory_name)
     @redis = Redis.new
   end
 

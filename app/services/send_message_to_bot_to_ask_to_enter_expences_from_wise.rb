@@ -1,8 +1,6 @@
 class SendMessageToBotToAskToEnterExpencesFromWise
   include CallableService
 
-  SHOW_ITEMS_PER_LINE = 2
-
   def initialize(params)
     @params_to_display = params
     @id = params[:id]
@@ -44,9 +42,9 @@ class SendMessageToBotToAskToEnterExpencesFromWise
   end
 
   def categories_to_show
-    categories = @categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+    categories = @categories.keys.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
-        { text: category, callback_data: "#{category}: w_id:#{@id}" }
+        { text: category, callback_data: "#{category}:w_id:#{@id}:#{@params[:price_in_usd]}" }
       end
     end
 

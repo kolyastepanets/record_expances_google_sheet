@@ -2,7 +2,6 @@ class SendMessageToBotToAskToEnterExpences
   include CallableService
 
   EXPENSES_TO_SKIP = ["На награду в моно", "З гривневого рахунка ФОП"].freeze
-  SHOW_ITEMS_PER_LINE = 2
 
   def initialize(transaction_data)
     @id = transaction_data[:id]
@@ -58,22 +57,14 @@ class SendMessageToBotToAskToEnterExpences
     )
   end
 
-  def send_message_with_categories_when_calculate_as_half_expenses
-    Telegram.bot.send_message(
-      chat_id: ENV['MY_TELEGRAM_ID'],
-      text: 'Выбери категорию чтобы сохранить если делить пополам:',
-      reply_markup: { inline_keyboard:  categories_to_show_as_half_expenses },
-    )
-  end
-
   def save_to_redis
     @redis.set(@id, @params.to_json, ex: 2.weeks)
   end
 
   def categories_to_show
-    categories = @categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
+    categories = @categories.keys.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
-        { text: category, callback_data: "#{category}: c_id:#{@id}" }
+        { text: category, callback_data: "#{category}:c_id:#{@id}:#{@price_in_uah.presence || @price_in_usd}" }
       end
     end
 
@@ -87,23 +78,6 @@ class SendMessageToBotToAskToEnterExpences
     categories.push(remove_messages)
 
     categories
-  end
-
-  def categories_to_show_as_half_expenses
-    categories = @categories.keys.each_slice(SHOW_ITEMS_PER_LINE).map do |categories_array|
-      categories_array.map do |category|
-        { text: category, callback_data: "#{category}: h_id:#{@id}" }
-      end
-    end
-
-    remove_messages = [
-      {
-        text: "Удалить сообщения этой транзакции",
-        callback_data: "remove_messages: #{@id}"
-      }
-    ]
-
-    categories.push(remove_messages)
   end
 
   def save_message_id(message_id)
