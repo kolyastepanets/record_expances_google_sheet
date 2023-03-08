@@ -15,12 +15,15 @@ class BuildArrayOfCategories
       end
     end
 
-    remove_messages = [
-      {
-        text: "Удалить сообщения этой транзакции",
-        callback_data: "remove_messages: #{@transaction_id}"
-      }
-    ]
+    remove_messages = []
+    if @transaction_id
+      remove_messages = [
+        {
+          text: "Удалить сообщения этой транзакции",
+          callback_data: "remove_messages: #{@transaction_id}"
+        }
+      ]
+    end
 
     categories.push(remove_messages)
 

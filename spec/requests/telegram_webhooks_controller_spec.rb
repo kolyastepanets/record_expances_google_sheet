@@ -1013,6 +1013,20 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when cash foreign currency' do
+    # NOTE:
+    # to be able to run test
+    # - make real request from bot
+    # - choose category
+    # - remember message id and paste in test
+    # - choose sub category
+    # - enter price
+    # - choose category
+    # - remember message id and paste in test
+    # - choose sub category
+    # - enter price
+    # - Choose << for both messages where subcategories are shown so when test is running it will change categories to subcategories
+    #
+    # message are pinned, do not forget to press back
     context 'when all our expenses 2 times', freezed_time: '2023-01-08T14:11:00+00:00' do
       let(:telegram_bot_params_enter_expenses) do
         {
@@ -1078,7 +1092,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         {
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
+                "data" => "Транспорт:sub_category",
                 **message_from,
                 "id" => "1651136315859693905",
                 "message" => {
@@ -1090,7 +1104,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                         "is_bot" => true,
                         "username" => ENV['BOT_USER_NAME']
                     },
-                    "message_id" => 35165,
+                    "message_id" => 19988,
                     **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
@@ -1102,7 +1116,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         {
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
+                "data" => "Такси:sub1_category::",
                 **message_from,
                 "id" => "1651136315537290214",
                 "message" => {
@@ -1114,7 +1128,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                         "is_bot" => true,
                         "username" => ENV['BOT_USER_NAME']
                     },
-                    "message_id" => 35166,
+                    "message_id" => 19988,
                     **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }
@@ -1144,7 +1158,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         {
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт: only_category",
+                "data" => "Транспорт:sub_category",
                 **message_from,
                 "id" => "1651136318620605451",
                 "message" => {
@@ -1156,7 +1170,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                         "is_bot" => true,
                         "username" => ENV['BOT_USER_NAME']
                     },
-                    "message_id" => 35887,
+                    "message_id" => 19995,
                     **reply_markup_choosing_category,
                     "text" => "Выбери категорию:"
                 }
@@ -1168,7 +1182,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         {
             "callback_query" => {
                 "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси",
+                "data" => "Такси:sub1_category::",
                 **message_from,
                 "id" => "1651136315526205282",
                 "message" => {
@@ -1180,7 +1194,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
                         "is_bot" => true,
                         "username" => ENV['BOT_USER_NAME']
                     },
-                    "message_id" => 35888,
+                    "message_id" => 19995,
                     **reply_markup_choosing_subcategory,
                     "text" => "Выбери подкатегорию:"
                 }

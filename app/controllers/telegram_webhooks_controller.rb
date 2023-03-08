@@ -73,11 +73,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_to_choose_month_for_statistic
     when -> (input_category) { input_category.include?('date_for_statistic') }
       show_statistic(data)
-    when -> (input_category) { input_category.include?('only_category') }
-      category_name = data.split(': ')[0]
-      show_sub_categories_by_category(category_name)
-    when *sub_categories
-      ask_for_price(data)
+    when -> (input_string) { input_string.include?('sub_category') && !input_string.include?('<<:') }
+      category_name = data.split(':')[0]
+      save_category_to_session!(category_name)
+      Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: payload["message"]["message_id"], reply_markup: { inline_keyboard: BuildArrayOfSubCategories.call(category_name, 'sub1_category', '', '') })
+    when -> (input_data) { input_data.include?('sub1_category') }
+      ask_for_price(find_full_sub_category_name(data.split(":")[0]))
     when 'categor_without_subcategor'
       ask_for_price(nil)
     when 'finish_remember_total_price_of_products'
@@ -86,13 +87,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       remove_messages(data)
     when -> (input_string) { input_string.include?('<<:') }
       _sign, kind_of_transaction, transaction_id, price = data.split(':')
-      params = JSON.parse(redis.get(transaction_id))
-      if params.is_a?(Array)
-        last_price_to_message = params.select { |pri| pri["price"] == price.to_f }[-1]
-        message_id = last_price_to_message["message_ids"].last
-      else
-        message_id = params["message_ids"].last
-      end
+      message_id = FindMessageId.call(transaction_id, price, payload["message"]["message_id"])
       Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: BuildArrayOfCategories.call(kind_of_transaction, transaction_id, price) })
     when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') }
       category_name, kind_of_transaction, transaction_id, price = data.split(':')
@@ -408,7 +403,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def show_categories_to_choose
     prepare_categories = categories.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
       categories_array.map do |category|
-        { text: category, callback_data: "#{category}: only_category" }
+        { text: category, callback_data: "#{category}:sub_category" }
       end
     end
 
@@ -441,28 +436,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: "Выбранная подкатегория: #{sub_category}")
     save_context(:save_data_to_google_sheet!)
     respond_with(:message, text: 'Внеси цену товара:')
-  end
-
-  def show_sub_categories_by_category(category_name)
-    save_category_to_session!(category_name)
-    show_per_line = category_name == 'Путешествия' ? AllConstants::SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE : AllConstants::SHOW_ITEMS_PER_LINE
-
-    prepare_sub_categories = category_to_sub_categories[category_name].each_slice(show_per_line)
-                                                                      .map do |sub_categories_array|
-      sub_categories_array.map do |sub_category|
-        { text: sub_category, callback_data: sub_category }
-      end
-    end
-
-    category_without_subcategory = [
-      {
-        text: "Без подкатегории",
-        callback_data: "categor_without_subcategor"
-      }
-    ]
-    prepare_sub_categories.push(category_without_subcategory)
-
-    respond_with(:message, text: 'Выбери подкатегорию:', reply_markup: { inline_keyboard: prepare_sub_categories })
   end
 
   def find_full_sub_category_name(sub_category_name)
