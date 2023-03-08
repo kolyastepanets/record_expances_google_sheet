@@ -25,7 +25,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
       allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
-      allow_any_instance_of(described_class).to receive(:nbu_usd_rate).and_return(36.56)
+      allow(NbuUsdRate).to receive(:call).and_return(36.56)
       allow_any_instance_of(described_class).to receive(:coordinates_of_cell_to_enter_nbu_rate).and_return('BX80')
       expect(UpdateCellInGoogleSheet).to receive(:call).with(36.56, 'BX80', page: 2022)
 
@@ -74,7 +74,7 @@ RSpec.describe EnterSalaryFromSwift do
       allow_any_instance_of(described_class).to receive(:enter_salary)
       allow_any_instance_of(described_class).to receive(:enter_left_usd_fop)
       allow_any_instance_of(described_class).to receive(:put_salary_to_income_page)
-      allow_any_instance_of(described_class).to receive(:nbu_usd_rate).and_return(36.56)
+      allow(NbuUsdRate).to receive(:call).and_return(36.56)
       allow_any_instance_of(described_class).to receive(:coordinates_of_cell_to_enter_nbu_rate).and_return('BX80')
       expect(UpdateCellInGoogleSheet).to receive(:call).with(36.56, "BX80", page: 2022)
 

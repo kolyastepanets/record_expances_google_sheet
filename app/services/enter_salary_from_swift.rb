@@ -1,8 +1,6 @@
 class EnterSalaryFromSwift
   include CallableService
 
-  USD_CURRENCY_CODE = 840
-
   def initialize(params)
     @params = params.deep_symbolize_keys
     @today_day = Date.today.day
@@ -56,7 +54,7 @@ class EnterSalaryFromSwift
 
   def enter_nbu_rate
     UpdateCellInGoogleSheet.call(
-      nbu_usd_rate,
+      NbuUsdRate.call,
       coordinates_of_cell_to_enter_nbu_rate,
       page: year_sheet,
     )
@@ -86,10 +84,5 @@ class EnterSalaryFromSwift
     end
 
     year_sheet
-  end
-
-  def nbu_usd_rate
-    nbu_currency_rates = JSON.parse(Faraday.new(url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json").get.body)
-    nbu_currency_rates.detect { |rate| rate["r030"] == USD_CURRENCY_CODE }["rate"]
   end
 end

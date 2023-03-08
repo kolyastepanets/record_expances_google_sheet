@@ -3,7 +3,6 @@ class PutSalaryToIncomePage
 
   ESV_IN_UAH_PER_MONTH = 1474
   SINGLE_TAX = "0,05"
-  USD_CURRENCY_CODE = 840
 
   def initialize(salary_in_usd, money_placed_to)
     @money_placed_to = money_placed_to
@@ -37,16 +36,10 @@ class PutSalaryToIncomePage
       esv_taxes = 0
 
       if Date.today.day.between?(10, 20)
-        esv_taxes = "#{ESV_IN_UAH_PER_MONTH} / #{nbu_usd_rate.to_s.gsub(".", ",")}"
+        esv_taxes = "#{ESV_IN_UAH_PER_MONTH} / #{NbuUsdRate.call.to_s.gsub(".", ",")}"
       end
 
       "= #{salary_in_usd} - (#{salary_in_usd} * #{SINGLE_TAX}) - (#{esv_taxes})"
     end
-  end
-
-  # VPN is needed to make request to NBU
-  def nbu_usd_rate
-    nbu_currency_rates = JSON.parse(Faraday.new(url: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json").get.body)
-    nbu_currency_rates.detect { |rate| rate["r030"] == USD_CURRENCY_CODE }["rate"]
   end
 end
