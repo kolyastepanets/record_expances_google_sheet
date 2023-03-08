@@ -1244,6 +1244,54 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
             "update_id" => 20479617
         }
       end
+      let(:telegram_bot_params_rollback_1) do
+        {
+            "callback_query" => {
+                "chat_instance" => ENV['CHAT_INSTANCE'],
+                "data" => "<<:sub_category::",
+                **message_from,
+                "id" => "1651136315859693905",
+                "message" => {
+                    **chat,
+                    "date" => 1670052388,
+                    "from" => {
+                        "first_name" => ENV['BOT_NAME'],
+                        "id" => ENV['BOT_ID'],
+                        "is_bot" => true,
+                        "username" => ENV['BOT_USER_NAME']
+                    },
+                    "message_id" => 19988,
+                    **reply_markup_choosing_category,
+                    "text" => "Выбери категорию:"
+                }
+            },
+            "update_id" => 20479568
+        }
+      end
+      let(:telegram_bot_params_rollback_2) do
+        {
+            "callback_query" => {
+                "chat_instance" => ENV['CHAT_INSTANCE'],
+                "data" => "<<:sub_category::",
+                **message_from,
+                "id" => "1651136318620605451",
+                "message" => {
+                    **chat,
+                    "date" => 1670071810,
+                    "from" => {
+                        "first_name" => ENV['BOT_NAME'],
+                        "id" => ENV['BOT_ID'],
+                        "is_bot" => true,
+                        "username" => ENV['BOT_USER_NAME']
+                    },
+                    "message_id" => 19995,
+                    **reply_markup_choosing_category,
+                    "text" => "Выбери категорию:"
+                }
+            },
+            "update_id" => 20479614
+        }
+      end
 
       it 'saves data to every day expenses page 2 times and decreases uah value' do
         # enter expenses
@@ -1268,6 +1316,10 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
 
         expect(response.status).to eq(200)
+
+        # just to automate rollback to previous state
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_rollback_1
+        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_rollback_2
       end
     end
   end
