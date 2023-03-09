@@ -18,6 +18,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   def call_job
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
     return PutCashbackToIncomePageJob.perform_later(@params[:price_in_uah]) if @transaction_data[:description].include?("Виведення кешбеку")
+    return MoneyTransferedForTaxesJob.perform_later(taxes_info) if money_transfered_for_taxes?
 
     SendMessageToBotToAskToEnterExpencesJob.perform_later({
       currency_rate: currency_rate,
@@ -35,5 +36,17 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
     currency_rate = currency_rate.to_s
     currency_rate = currency_rate.split('.')
     "#{currency_rate[0]}.#{currency_rate[1].first(4)}".to_f
+  end
+
+  def money_transfered_for_taxes?
+    return false if @transaction_data[:description] != "З гривневого рахунка ФОП"
+
+    @params[:price_in_uah] == taxes_info[:taxes_amount].to_f
+  end
+
+  def taxes_info
+    return @taxes_info if defined? @taxes_info
+
+    @taxes_info = ReceiveCurrentMonthTaxesToPay.call
   end
 end

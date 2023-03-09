@@ -1062,4 +1062,64 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
       subject
     end
   end
+
+  context 'when sold dollars from fop usd' do
+    let(:transaction_data) do
+      {
+        time: 1667098010,
+        description: "З гривневого рахунка ФОП",
+        mcc: 6011,
+        originalMcc: 6011,
+        amount: amount,
+        operationAmount: amount,
+        currencyCode: 360,
+        commissionRate: 4819,
+        cashbackAmount: 0,
+        balance: 123,
+        hold: true,
+      }
+    end
+    let(:params) do
+      {
+        taxes_amount: "1474",
+        taxes_amount_coordinates: "P79",
+        full_text: "To pay taxes in March: 1474 uah"
+      }
+    end
+
+    before do
+      allow(ReceiveCurrentMonthTaxesToPay).to receive(:call).and_return(params)
+    end
+
+    context 'when uah amount matches sum to pay taxes' do
+      let(:amount) { 147400 }
+
+      it 'calls job MoneyTransferedForTaxesJob' do
+        expect(MoneyTransferedForTaxesJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+
+    context 'when uah amount matches sum to pay taxes' do
+      let(:amount) { -147400 }
+
+      it 'calls job MoneyTransferedForTaxesJob' do
+        expect(MoneyTransferedForTaxesJob).to receive(:perform_later).with(params)
+
+        subject
+      end
+    end
+
+    context 'when uah sum does not match sum to pay taxes' do
+      let(:amount) { 147500 }
+
+      it 'does not call job MoneyTransferedForTaxesJob' do
+        expect(MoneyTransferedForTaxesJob).to_not receive(:perform_later).with(params)
+        expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later)
+
+        subject
+      end
+    end
+  end
 end

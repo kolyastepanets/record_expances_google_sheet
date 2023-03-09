@@ -506,7 +506,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def how_many_taxes_to_pay_in_current_month
-    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call[:full_text], reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def respond_with(type, *args)
