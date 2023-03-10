@@ -5,7 +5,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['UAH and USD all'],
     ['How many taxes to pay in current month'],
     ['Total saved money on gsheets'],
-    ['Последние 3 траты в gsheets'],
+    ['Траты в gsheets за текущий день'],
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
     ['Вернуть часть денег после снятия кэша'],
@@ -37,6 +37,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def callback_query(data)
     case data
+    when 'main_menu'
+      start!
     when 'metro_expenses'
       session[:is_metro] = true
       start_remember_total_price_of_products
@@ -67,6 +69,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       show_categories_to_choose
     when 'wise_lend_money'
       ask_to_enter_wise_amount_to_lend_money
+    when 'previous_day'
+      session[:requested_date_to_show_expenses] -= 1.day
+      get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: session[:requested_date_to_show_expenses])
     when -> (input_category) { input_category.include?('category_for_statistic') }
       category_name = data.split(':')[0]
       session[:category_for_statistic] = category_name
@@ -257,7 +262,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
         { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
         { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
-        { text: 'Последние 3 траты в gsheets', method_to_call: 'get_last_3_expenses_in_google_sheet' },
+        { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
@@ -323,8 +328,20 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
-  def get_last_3_expenses_in_google_sheet
-    respond_with(:message, text: GetLastThreeExpensesInGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  def get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: Date.today)
+    session[:requested_date_to_show_expenses] = requested_date_to_show_expenses
+
+    respond_with(
+      :message,
+      text: "```#{GetExpensesForTodayFromGoogleSheet.call(session[:requested_date_to_show_expenses])}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: 'previous day', callback_data: 'previous_day' }],
+          [{ text: 'main menu', callback_data: 'main_menu' }],
+        ]
+      }
+    )
   end
 
   def get_last_10_transactions_from_mono
@@ -493,6 +510,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:total_price_of_products_in_foreign_currency] = 0
     session[:total_sum_of_money_before_save] = 0
     session[:category_for_statistic] = nil
+    session[:requested_date_to_show_expenses] = nil
   end
 
   def redis
