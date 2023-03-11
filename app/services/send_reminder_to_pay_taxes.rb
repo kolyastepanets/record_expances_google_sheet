@@ -4,7 +4,7 @@ class SendReminderToPayTaxes
   def call
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: ReceiveCurrentMonthTaxesToPay.call,
+      text: ReceiveCurrentMonthTaxesToPay.call[:full_text],
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end

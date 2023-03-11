@@ -1,8 +1,8 @@
 class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
-  def initialize(sheet_id, cell_start, cell_end, color)
+  def initialize(sheet_id, row_index, column_index, color)
     @sheet_id = sheet_id
-    @cell_start = cell_start
-    @cell_end = cell_end
+    @row_index = row_index
+    @column_index = column_index
     @color = color
   end
 
@@ -31,21 +31,25 @@ class UpdateCellBackgroundColorRequest < GetOrSetDataInGoogleSheetBase
   def requests
     [
       {
-        repeat_cell: {
+        update_cells: {
           range: {
             sheet_id: @sheet_id,
-            start_row_index: @cell_start,
-            end_row_index: @cell_end,
-            start_column_index: 2,
-            end_column_index: 3
+            start_row_index: @row_index,
+            start_column_index: @column_index,
           },
-          cell: {
-            user_entered_format: {
-              background_color: {
-                **detect_hash_color,
-              }
+          rows: [
+            {
+              values: [
+                {
+                  user_entered_format: {
+                    background_color: {
+                      **detect_hash_color,
+                    }
+                  }
+                }
+              ]
             }
-          },
+          ],
           fields: "userEnteredFormat.backgroundColor"
         }
       }
