@@ -1,6 +1,7 @@
 class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   START_COLUMN_FROM_1_ST_SEPTEMBER_2022 = 'A5163' # start writing expenses in usd
   MAX_CHARACTERS_IN_STRING_COLUMN = 14
+  MAX_ARRAY_SIZE_TO_FIT_TELEGRAM_MESSAGE_SIZE = 120
   EXPIRE_TIME = 30.minutes
 
   def initialize(requested_date_to_show_expenses)
@@ -96,7 +97,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
     end
 
     data_for_markdown_as_table << "|#{@dashes}|#{@dashes}|"
-    data_for_markdown_as_table.join("\n")
+    data_for_markdown_as_table.each_slice(MAX_ARRAY_SIZE_TO_FIT_TELEGRAM_MESSAGE_SIZE).to_a
   end
 
   def save_to_redis!(values)

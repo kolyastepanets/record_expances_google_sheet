@@ -330,18 +330,25 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: Date.today)
     session[:requested_date_to_show_expenses] = requested_date_to_show_expenses
+    arrays_of_data = GetExpensesForTodayFromGoogleSheet.call(session[:requested_date_to_show_expenses])
+    arrays_of_data.each_with_index do |array_of_data, index|
+      reply_markup = {}
+      reply_markup = {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: 'previous day', callback_data: 'previous_day' }],
+            [{ text: 'main menu', callback_data: 'main_menu' }],
+          ]
+        }
+      } if index == (arrays_of_data.size - 1)
 
-    respond_with(
-      :message,
-      text: "```#{GetExpensesForTodayFromGoogleSheet.call(session[:requested_date_to_show_expenses])}```",
-      parse_mode: :MarkdownV2,
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: 'previous day', callback_data: 'previous_day' }],
-          [{ text: 'main menu', callback_data: 'main_menu' }],
-        ]
-      }
-    )
+      respond_with(
+        :message,
+        text: "```#{array_of_data.join("\n")}```",
+        parse_mode: :MarkdownV2,
+        **reply_markup,
+      )
+    end
   end
 
   def get_last_10_transactions_from_mono
