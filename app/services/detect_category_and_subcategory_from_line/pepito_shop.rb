@@ -955,7 +955,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
         kids_toothpaste? || floss? || local_vanish_2? || luquid_soap_2? || tooth_brush? ||
-        shampoo?
+        shampoo? || shampoo_2?
     end
 
     def clear_gel?
@@ -1006,11 +1006,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('shampoo') && @line.include?('ginseng')
     end
 
+    def shampoo_2?
+      @line.include?('tea') && @line.include?('tree') && @line.include?('oil')
+    end
+
     ####
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray? || wet_wipes? || raincoat? || glue?
+        some_spray? || wet_wipes? || raincoat? || glue? || humidity_gatering?
     end
 
     def bataries?
@@ -1047,6 +1051,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def glue?
       @line.include?('castol') && @line.include?('besar')
+    end
+
+    def humidity_gatering?
+      @line.include?('bagus') && @line.include?('serap') && @line.include?('air')
     end
 
     ####

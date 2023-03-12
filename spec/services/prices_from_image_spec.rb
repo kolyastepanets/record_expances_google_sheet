@@ -1956,6 +1956,41 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 48', freezed_time: '2023-03-12T04:03:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out70.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>53700.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>49500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>45000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>31000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>46000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>55300.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>45235.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>33480.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>68000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>7200.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12558.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>41900.0},
+            {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>44700.0},
+            {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>163770.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14268.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15080.0}
+          ],
+          726691.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
