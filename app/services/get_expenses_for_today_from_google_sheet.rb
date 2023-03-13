@@ -79,7 +79,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
 
       current_string = ""
       second_part_array_of_text.each_with_index do |word, index|
-        word = word.gsub(/[[:space:]]+/, "")
+        word = word.to_s.gsub(/[[:space:]]+/, "")
         if index == 0
           max_characters = 22
         end
