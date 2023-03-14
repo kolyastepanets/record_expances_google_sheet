@@ -8,6 +8,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Траты в gsheets за текущий день'],
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
+    ['Сегодня пришла Komank'],
     ['Вернуть часть денег после снятия кэша'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
@@ -265,6 +266,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
+        { text: 'Сегодня пришла Komank',  method_to_call: 'today_came_komank' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
@@ -545,6 +547,22 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def delete_all_todays_messages
     DeleteAllTodaysMessages.call
+  end
+
+  def today_came_komank
+    updated_rows = RecordTodayVisitKomankToGoogleSheet.call
+    if updated_rows == 1
+      return respond_with(
+        :message,
+        text: "Дата визита сохранена",
+        reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
+      )
+    end
+    respond_with(
+      :message,
+      text: "Что то случилось, дата визита НЕ сохранена",
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
+    )
   end
 
   def round_in_google_sheet_like_in_monobank
