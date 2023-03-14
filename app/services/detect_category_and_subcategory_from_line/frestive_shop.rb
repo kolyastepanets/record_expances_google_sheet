@@ -130,7 +130,7 @@ module DetectCategoryAndSubcategoryFromLine
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
-        dark_chocolate? || haribo? || icecream_2?
+        dark_chocolate? || haribo? || icecream_2? || excellence_chocolate?
     end
 
     def honey?
@@ -219,6 +219,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def icecream_2?
       @line.include?('haagendazs')
+    end
+
+    def excellence_chocolate?
+      @line.include?('excellence') && @line.include?('ex')
     end
 
     ####
