@@ -13,6 +13,16 @@ class DecreaseDollarsJob < ApplicationJob
     )
 
     SendNotificationMessageToBot.call(params)
+
+    taxes_info = ReceiveCurrentMonthTaxesToPay.call
+    current_sheets_info = ReceiveCurrentSheetsInfo.call
+    sheet_id = current_sheets_info.detect { |sheet| sheet[:title] == Date.today.year.to_s }[:sheet_id]
+    row_index = taxes_info[:taxes_amount_coordinates].delete('^0-9').to_i - 1
+    letter = taxes_info[:taxes_amount_coordinates].delete('^A-Z')
+    column_index = letter.ord - 'A'.ord
+    UpdateCellBackgroundColorRequest.call(sheet_id, row_index, column_index, 'green')
+    SendNotificationMessageToBot.call("tax column marked as green")
+
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
       text: "Данные после сохранения: #{ReceiveUsdFopFromGoogleSheet.call}",

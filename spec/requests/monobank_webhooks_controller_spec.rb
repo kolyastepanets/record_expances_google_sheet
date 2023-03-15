@@ -371,39 +371,6 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         expect(response.status).to eq(200)
       end
     end
-
-    context 'when sell usd for taxes', freezed_time: '2023-03-11T14:17:00+00:00' do
-      let(:monobank_webhook_params) do
-        {
-          "monobank_webhook" => {
-            "type" => "StatementItem",
-            "data" => {
-              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
-              "statementItem" => {
-                "id" => "v996Ua4btBuQ0dZC",
-                "time" => 1665753624,
-                "description" => "З гривневого рахунка ФОП",
-                "mcc" => 4829,
-                "originalMcc" => 4829,
-                "amount" => 147400,
-                "operationAmount" => 147400,
-                "currencyCode" => 840,
-                "commissionRate" => 0,
-                "cashbackAmount" => 0,
-                "balance" => 311913,
-                "hold" => true
-              }
-            }
-          }
-        }
-      end
-
-      it 'marks green taxes as paid' do
-        # monobank webhook
-        post '/monobank_webhooks', params: monobank_webhook_params
-        expect(response.status).to eq(200)
-      end
-    end
   end
 
   context 'when usd expenses' do
@@ -511,7 +478,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when sold dollars to grivnas for taxes', freezed_time: '2023-01-22T07:10:00+00:00' do
+    context 'when sold dollars to grivnas for taxes', freezed_time: '2023-03-15T14:49:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
