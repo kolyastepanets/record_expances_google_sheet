@@ -159,7 +159,8 @@ module DetectCategoryAndSubcategoryFromLine
         bar_cashew? || chic_choc? || bar_bar? || m_and_m? || bruxel_chocolate? ||
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
-        cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix?
+        cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
+        junglegold_coconut?
     end
 
     def magnum_icecream?
@@ -271,7 +272,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ice_cream?
-      @line.include?('walls') && @line.include?('crnt')
+      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw'))
     end
 
     def truffle_coconut?
@@ -326,10 +327,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('twix') && @line.include?('crml')
     end
 
+    def junglegold_coconut?
+      @line.any? { |word| word.include?('junglegold') } && @line.include?('coconut')
+    end
+
     ####
 
     def tea_or_coffee?
-      nescafe? || chococino? || day?
+      nescafe? || chococino? || day? || boncafe?
     end
 
     def nescafe?
@@ -342,6 +347,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def day?
       @line.include?('day') && (@line.include?('original') || @line.include?('moca'))
+    end
+
+    def boncafe?
+      @line.include?('boncafe') && @line.include?('coffe')
     end
 
     ####
