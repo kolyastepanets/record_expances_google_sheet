@@ -265,7 +265,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end
@@ -412,7 +412,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end
@@ -481,7 +481,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end
@@ -981,7 +981,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
 
     it 'does not call job PutExpencesUahBlackCardJob' do
       expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
-      expect(SendMessageToBotToAskToEnterExpencesJob).to receive(:perform_later).with(transaction_data)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
 
       subject
     end

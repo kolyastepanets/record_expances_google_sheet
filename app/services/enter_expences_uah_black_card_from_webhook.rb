@@ -19,7 +19,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
     return PutExpencesUahBlackCardJob.perform_later(@params) if @params[:category_name].present?
     return PutCashbackToIncomePageJob.perform_later(@params[:price_in_uah]) if @transaction_data[:description].include?("Виведення кешбеку")
 
-    SendMessageToBotToAskToEnterExpencesJob.perform_later({
+    SendMessageToBotToAskToEnterExpences.call({
       currency_rate: currency_rate,
       total_sum_of_money_before_save: @total_sum_of_money_before_save,
       can_show_final_sum: true,
