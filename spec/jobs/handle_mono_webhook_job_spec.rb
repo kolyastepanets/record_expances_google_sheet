@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe HandleMonoWebhook do
-  subject{ described_class.call(params) }
+RSpec.describe HandleMonoWebhookJob do
+  subject { described_class.perform_later(params) }
 
   context 'when fop dollar card' do
     let(:params) do
@@ -37,7 +37,7 @@ RSpec.describe HandleMonoWebhook do
     it 'calls EnterExpencesFopDollarCardFromWebhook' do
       expect(EnterExpencesFopDollarCardFromWebhook).to receive(:call).with(symbolized_statement_item)
 
-      subject
+      perform_enqueued_jobs { subject }
     end
   end
 
@@ -74,7 +74,7 @@ RSpec.describe HandleMonoWebhook do
     it 'calls EnterExpencesUahBlackCardFromWebhook' do
       expect(EnterExpencesUahBlackCardFromWebhook).to receive(:call).with(symbolized_statement_item)
 
-      subject
+      perform_enqueued_jobs { subject }
     end
   end
 end
