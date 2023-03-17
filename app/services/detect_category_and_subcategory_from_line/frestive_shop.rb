@@ -558,7 +558,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna? || shrimp? || barramundi? || fish_steak? || canned_fish?
+      tuna? || shrimp? || barramundi? || fish_steak? || canned_fish? || canned_fish_2?
     end
 
     def tuna?
@@ -579,6 +579,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def canned_fish?
       @line.include?('bestanaku') && @line.include?('oil')
+    end
+
+    def canned_fish_2?
+      @line.include?('sunview') && @line.include?('anchvy')
     end
 
     ####
