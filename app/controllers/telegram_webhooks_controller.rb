@@ -73,6 +73,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'previous_day'
       session[:requested_date_to_show_expenses] -= 1.day
       get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: session[:requested_date_to_show_expenses])
+    when 'komank_came_today'
+      Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: redis.get('message_id_ask_if_komank_came_today'))
+      komank_came_today
+    when 'komank_did_not_come_today'
+      Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: redis.get('message_id_ask_if_komank_came_today'))
+      respond_with(:message, text: "Komank did not come today", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
     when -> (input_category) { input_category.include?('category_for_statistic') }
       category_name = data.split(':')[0]
       session[:category_for_statistic] = category_name
@@ -266,7 +272,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
-        { text: 'Сегодня пришла Komank',  method_to_call: 'today_came_komank' },
+        { text: 'Сегодня пришла Komank',  method_to_call: 'komank_came_today' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
@@ -549,7 +555,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     DeleteAllTodaysMessages.call
   end
 
-  def today_came_komank
+  def komank_came_today
     updated_rows = RecordTodayVisitKomankToGoogleSheet.call
     if updated_rows == 1
       return respond_with(
