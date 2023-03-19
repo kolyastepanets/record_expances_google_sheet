@@ -23,7 +23,8 @@ class ReceiveWiseFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    @response = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, { value_render_option: @value_render_option })
+    options = { value_render_option: @value_render_option }
+    @response = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, **options)
   end
 
   def parse_response
