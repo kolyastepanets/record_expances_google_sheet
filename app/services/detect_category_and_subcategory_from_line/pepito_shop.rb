@@ -740,7 +740,8 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
-        mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham?
+        mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
+        nice_sausage?
     end
 
     def mamas_ham?
@@ -807,11 +808,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('danish') && @line.include?('ham')
     end
 
+    def nice_sausage?
+      @line.include?('nice') && @line.include?('sosis')
+    end
+
     ####
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren? || chitato?
+        lorenz? || loren? || chitato? || cashew?
     end
 
     def lays?
@@ -848,6 +853,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chitato?
       @line.include?('chitato') && @line.include?('beef')
+    end
+
+    def cashew?
+      @line.include?('yava') && @line.include?('sea') && @line.include?('salt')
     end
 
     ####
