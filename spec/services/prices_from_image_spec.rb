@@ -3322,6 +3322,43 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 38', freezed_time: '2023-03-24T13:25:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out63.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [
+          [
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>70500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>39500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>251750.0},
+            {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>5000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11165.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>84500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>49000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>78500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>66500.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>9180.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>132073.0},
+            {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>35768.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12060.0},
+            {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>59400.0},
+            {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>67000.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>55200.0},
+            {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15000.0}
+          ],
+          1089096.0,
+          nil
+        ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 

@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer? || wine? || champagne? || beer_2?
+      beer? || wine? || champagne? || beer_2? || wine_2?
     end
 
     def beer?
@@ -24,6 +24,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bali') && @line.include?('hai') && @line.any? { |word| word.include?('can') }
     end
 
+    def wine_2?
+      @line.any? { |word| word.include?('wine') }
+    end
+
     ####
 
     def eggs?
@@ -34,7 +38,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
-        aqua_water? || cheers_water? || mango_juice?
+        aqua_water? || cheers_water? || mango_juice? || peach_juice?
     end
 
     def coca_cola?
@@ -71,6 +75,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mango_juice?
       @line.include?('sunfrsh') && @line.any? { |word| word.include?('mango') }
+    end
+
+    def peach_juice?
+      @line.include?('compal') && @line.include?('peach')
     end
 
     ####
@@ -284,7 +292,8 @@ module DetectCategoryAndSubcategoryFromLine
       potato? || pepper? || zucchini? || tomato? || parsley? || carrot? || sault_cucumbers? ||
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
-        red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2?
+        red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2? || corn_3? ||
+        parsley_2?
     end
 
     def potato?
@@ -388,17 +397,25 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('leaf') && @line.any? { |word| word.include?('oill') }
     end
 
+    def corn_3?
+      @line.include?('corn') && @line.include?('sweet')
+    end
+
+    def parsley_2?
+      @line.include?('puri') && @line.include?('cheery')
+    end
+
     ####
 
     def dairy?
       cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
-        plain_yogurt? || sour_cream_3? || butter_2?
+        plain_yogurt? || sour_cream_3? || butter_2? || biokul_yogurt?
     end
 
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
         bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri? ||
-        laughing_cow_cheese?
+        laughing_cow_cheese? || cottage_cheese?
     end
 
     def ricotta?
@@ -414,7 +431,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def yummy_chese?
-      @line.include?('yummy') && @line.include?('chese')
+      @line.include?('yummy') && @line.any? { |word| word.include?('chese') }
     end
 
     def block?
@@ -453,6 +470,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('laughng') && @line.any? { |word| word.include?('cw') }
     end
 
+    def cottage_cheese?
+      @line.include?('cottage') && @line.include?('cheese')
+    end
+
     def butter?
       @line.include?('anchor')
     end
@@ -483,6 +504,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def butter_2?
       @line.include?('metzgr') && @line.include?('cafe')
+    end
+
+    def biokul_yogurt?
+      @line.include?('biokul') && @line.include?('yghrt')
     end
 
     ####
@@ -701,7 +726,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def food_bag_or_delivery?
+      bag? || bag_2?
+    end
+
+    def bag?
       @line.include?('linds') && @line.include?('tas') && @line.include?('kain')
+    end
+
+    def bag_2?
+      @line.include?('shopping') && @line.include?('frestive')
     end
 
     ####
