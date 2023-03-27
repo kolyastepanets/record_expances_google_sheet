@@ -267,7 +267,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def watermelon?
-      @line.include?('watermelon')
+      @line.include?('watermelon') || @line.include?('waterme_on')
     end
 
     def mango?
