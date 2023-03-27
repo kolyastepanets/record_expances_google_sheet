@@ -644,7 +644,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
-        batard? || just_bread?
+        batard? || just_bread? || sourdough? || flour_2? || bun?
     end
 
     def donut?
@@ -681,6 +681,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def just_bread?
       @line.include?('bread')
+    end
+
+    def sourdough?
+      @line.include?('sour') && @line.include?('dough')
+    end
+
+    def flour_2?
+      @line.include?('cakra') && @line.include?('terigu')
+    end
+
+    def bun?
+      @line.include?('roti') && @line.include?('sobek')
     end
 
     ####
