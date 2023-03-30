@@ -95,7 +95,7 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
-        sunflower_oil_2?
+        sunflower_oil_2? || garlic_powder?
     end
 
     def kikko_soy_souce?
@@ -148,6 +148,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sunflower_oil_2?
       @line.include?('mazola') && @line.include?('sunflwr') && @line.include?('oil')
+    end
+
+    def garlic_powder?
+      @line.include?('garlic') && @line.include?('powder')
     end
 
     ####
@@ -334,7 +338,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def tea_or_coffee?
-      nescafe? || chococino? || day? || boncafe?
+      nescafe? || chococino? || day? || boncafe? || for_coffee_machine?
     end
 
     def nescafe?
@@ -351,6 +355,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def boncafe?
       @line.include?('boncafe') && @line.include?('coffe')
+    end
+
+    def for_coffee_machine?
+      @line.include?('indonesso') && @line.include?('bali')
     end
 
     ####
@@ -765,7 +773,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sausages?
-      @line.include?('kanzler') && @line.include?('original')
+      @line.include?('kanzler') && (@line.include?('original') || @line.include?('singles'))
     end
 
     def cooked_ham?
