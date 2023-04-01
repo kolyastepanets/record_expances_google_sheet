@@ -408,7 +408,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
     end
 
     # VPN is needed to make request to NBU
-    context 'when swift salary', freezed_time: '2023-02-26T12:56:00+00:00' do
+    context 'when swift salary', freezed_time: '2023-04-01T08:40:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {

@@ -33,11 +33,7 @@ class PutSalaryToIncomePage
     when AllConstants::SALARY_ON_WISE
       salary_in_usd
     when AllConstants::SALARY_ON_USD_FOP
-      esv_taxes = 0
-
-      if Date.today.day.between?(10, 20)
-        esv_taxes = "#{ESV_IN_UAH_PER_MONTH} / #{NbuUsdRate.call.to_s.gsub(".", ",")}"
-      end
+      esv_taxes = "#{ESV_IN_UAH_PER_MONTH} / #{NbuUsdRate.call.to_s.gsub(".", ",")}"
 
       "= #{salary_in_usd} - (#{salary_in_usd} * #{SINGLE_TAX}) - (#{esv_taxes})"
     end
