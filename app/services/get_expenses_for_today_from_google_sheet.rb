@@ -9,6 +9,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
     @day_number = requested_date_to_show_expenses.day.to_s
     @month = requested_date_to_show_expenses.month.to_s
     @year = requested_date_to_show_expenses.year.to_s
+    @current_date = Date.parse("#{@day_number}.#{@month}.#{@year}")
     @redis = Redis.new
   end
 
@@ -38,7 +39,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   def parse_response
     data_for_markdown_as_table = []
     data_for_markdown_as_table << "|#{@dashes}|#{@dashes}|"
-    day_to_show = "#{@day_number} #{Date::MONTHNAMES[@month.to_i]} #{@year}"
+    day_to_show = "#{@day_number} #{Date::MONTHNAMES[@month.to_i]} #{@year}, #{Date::DAYNAMES[@current_date.wday]}"
     wrapped_word_day_to_show = GenerateStringMaxLengthWithSpaces.call(day_to_show, 29)
     data_for_markdown_as_table << "|#{wrapped_word_day_to_show}|"
 
