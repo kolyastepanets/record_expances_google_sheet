@@ -61,6 +61,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
+      result = CalculateForeignCurrencyCashExpenses.call
+      session[:foreigh_spent_cash_amount] = result[:spent_foreign_money]
+      session[:total_withraw_foreign_money] = result[:total_withraw_foreign_money]
+      respond_with(:message, text: "Предыдущая оставшаяся сумма: #{result[:now_foreign_money]}")
       ask_to_enter_left_foreign_cash
     when 'dollar_card'
       ask_to_enter_dollar_foreign_currency_exchange_rate
@@ -225,9 +229,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def save_left_foreign_cash!(foreigh_cash_amount, *args)
     session[:foreigh_cash_amount] = SumEnteredAmount.call(foreigh_cash_amount)
-    result = CalculateForeignCurrencyCashExpenses.call
-    session[:foreigh_spent_cash_amount] = result[:spent_foreign_money]
-    session[:total_withraw_foreign_money] = result[:total_withraw_foreign_money]
     money_left_to_enter = session[:total_withraw_foreign_money] - session[:foreigh_cash_amount] - session[:foreigh_spent_cash_amount]
     respond_with(:message, text: "Внесенная сумма налички: #{session[:foreigh_cash_amount]}")
     respond_with(:message, text: "Осталось внести: #{money_left_to_enter}")
