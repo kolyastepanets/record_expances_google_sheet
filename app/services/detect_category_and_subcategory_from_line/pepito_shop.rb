@@ -427,7 +427,7 @@ module DetectCategoryAndSubcategoryFromLine
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
-        mushroom? || chinese_cabbage?
+        mushroom? || chinese_cabbage? || baby_cucumber?
     end
 
     def cucumber?
@@ -536,6 +536,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chinese_cabbage?
       @line.include?('sawi') && @line.include?('putih')
+    end
+
+    def baby_cucumber?
+      @line.include?('baby') && @line.include?('gherkin')
     end
 
     ####
