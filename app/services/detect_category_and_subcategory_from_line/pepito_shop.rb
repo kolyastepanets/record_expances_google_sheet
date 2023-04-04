@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer? || wine?
+      beer? || wine? || wine_2?
     end
 
     def beer?
@@ -22,6 +22,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wine?
       @line.include?('hatten') || @line.include?('plaga')
+    end
+
+    def wine_2?
+      @line.include?('isola') || @line.include?('bianco')
     end
 
     ####
@@ -95,7 +99,7 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
-        sunflower_oil_2? || garlic_powder?
+        sunflower_oil_2? || garlic_powder? || yellow_mustard?
     end
 
     def kikko_soy_souce?
@@ -123,7 +127,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def oil?
-      @line.include?('ext') && @line.include?('virgin')
+      @line.any? { |word| word.include?('ext') } && @line.include?('virgin')
     end
 
     def sugar_2?
@@ -152,6 +156,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def garlic_powder?
       @line.include?('garlic') && @line.include?('powder')
+    end
+
+    def yellow_mustard?
+      @line.include?('yellow') && @line.include?('mustard')
     end
 
     ####
@@ -427,7 +435,7 @@ module DetectCategoryAndSubcategoryFromLine
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
-        mushroom? || chinese_cabbage? || baby_cucumber?
+        mushroom? || chinese_cabbage? || baby_cucumber? || cabbage_2?
     end
 
     def cucumber?
@@ -542,6 +550,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('baby') && @line.include?('gherkin')
     end
 
+    def cabbage_2?
+      @line.include?('romana') && @line.include?('lettuce')
+    end
+
     ####
 
     def dairy?
@@ -549,7 +561,7 @@ module DetectCategoryAndSubcategoryFromLine
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
-        greenfields_milk_2? || bega_cheese? || butter_cheese?
+        greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta?
     end
 
     def milk?
@@ -652,11 +664,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('butter') && @line.include?('cheese')
     end
 
+    def greek_fetta?
+      @line.include?('greek') && @line.include?('fetta')
+    end
+
     ####
 
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
-        batard? || just_bread? || sourdough? || flour_2? || bun?
+        batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate?
     end
 
     def donut?
@@ -705,6 +721,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bun?
       @line.include?('roti') && @line.include?('sobek')
+    end
+
+    def donut_chocolate?
+      @line.include?('donut') && @line.include?('chocolate')
     end
 
     ####
