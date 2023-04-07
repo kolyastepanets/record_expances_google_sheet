@@ -1,5 +1,5 @@
 class GetGroupedExpensesFromGoogleSheet < GetOrSetDataInGoogleSheetBase
-  START_COLUMN_FROM_1_ST_SEPTEMBER_2022 = 'A5163' # start writing expenses in usd
+  START_COLUMN = 'A2'
   CATEGORY_INDEX = 0
   SUB_CATEGORY_INDEX = 1
   PRICE_INDEX = 2
@@ -8,23 +8,36 @@ class GetGroupedExpensesFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   YEAR_INDEX = 5
   MAX_CHARACTERS_FOR_CATEGORY = 13
   MAX_CHARACTERS_FOR_PRICE = 8
+  EXPIRE_TIME = 30.minutes
 
   def initialize(category, months, year)
     @category = category
     @months = months
     @year = year
+    @redis = Redis.new
   end
 
   private
 
   def prepare_request_data
-    @range = "'Повседневные'!#{START_COLUMN_FROM_1_ST_SEPTEMBER_2022}:F"
+    @range = "'Повседневные'!#{START_COLUMN}:F"
+  end
+
+  def make_request
+    all_expenses = @redis.get('all_expenses')
+    if all_expenses.present?
+      @response_values = JSON.parse(all_expenses)
+      return @response_values
+    end
+
+    @response_values = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range).values
+    @redis.set('all_expenses', @response_values.to_json, ex: EXPIRE_TIME)
   end
 
   def parse_response
     new_result = []
 
-    @response.values.each do |array_of_data|
+    @response_values.each do |array_of_data|
       new_result << array_of_data if array_of_data[CATEGORY_INDEX] == @category && @months.include?(array_of_data[MONTH_INDEX]) && array_of_data[YEAR_INDEX] == @year
     end
 
