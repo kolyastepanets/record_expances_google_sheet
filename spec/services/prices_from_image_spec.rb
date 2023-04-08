@@ -445,11 +445,11 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>28500.0},
             {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>24000.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>42000.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>42400.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>42400.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>12500.0},
             {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>28000.0},
             {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>78210.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>6800.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>6800.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>18500.0},
             {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>71800.0},
             {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>79500.0}
@@ -675,7 +675,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>47000.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>25830.0},
             {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>50300.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>40500.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>40500.0},
             {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>62600.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>330000.0},
             {:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>112500.0}
@@ -930,7 +930,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>69700.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>69700.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>48100.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>48100.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>24000.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>99400.0},
             {:category_name=>"Марк", :sub_category_name=>"Игрушки", :price=>34900.0},
@@ -939,7 +939,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>9900.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>4102.0},
             {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>47200.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>16200.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>16200.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>16434.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12420.0},
             {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>44005.0},
@@ -1046,7 +1046,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>9835.0},
             {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>15819.0},
             {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>15900.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>24500.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>24500.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>25000.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>25000.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>138000.0},
@@ -1081,7 +1081,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>50000.0},
             {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>23000.0},
             {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>4900.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>4900.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>4900.0},
             {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>53900.0},
             {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>33500.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>52900.0},
@@ -1234,7 +1234,7 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
             {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>43500.0},
             {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>43500.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>24500.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>24500.0},
           ],
           463180.0,
           nil
@@ -1651,7 +1651,7 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(result).to eq(
         [
           [
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>84500.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>84500.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11730.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>35500.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>41500.0},
@@ -1771,11 +1771,11 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>121500.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56000.0},
             {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>10044.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>18100.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>18100.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>254000.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>38919.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>39292.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>60000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>60000.0},
             {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>179500.0}
           ],
           777355.0,
@@ -1821,7 +1821,7 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(result).to eq(
         [
           [
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>17500.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>17500.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>36300.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>7000.0}
           ],
@@ -1969,8 +1969,8 @@ RSpec.describe PricesFromImage, vcr: true do
             {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>53700.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>49500.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>45000.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>31000.0},
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>46000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>31000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>46000.0},
             {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>55300.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>45235.0},
             {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>33480.0},
@@ -2036,7 +2036,7 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(result).to eq(
         [
           [
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>31000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>31000.0},
             {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
             {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>45800.0},
             {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>20000.0},
@@ -2867,7 +2867,7 @@ RSpec.describe PricesFromImage, vcr: true do
       expect(result).to eq(
         [
           [
-            {:category_name=>"Для дома", :sub_category_name=>"Инвентарь", :price=>48000.0},
+            {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>48000.0},
             {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>263900.0},
             {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>66500.0},
             {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>16000.0},
