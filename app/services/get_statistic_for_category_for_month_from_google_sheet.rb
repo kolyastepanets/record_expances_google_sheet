@@ -1,4 +1,4 @@
-class GetGroupedExpensesFromGoogleSheet < GetOrSetDataInGoogleSheetBase
+class GetStatisticForCategoryForMonthFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   START_COLUMN = 'A2'
   CATEGORY_INDEX = 0
   SUB_CATEGORY_INDEX = 1

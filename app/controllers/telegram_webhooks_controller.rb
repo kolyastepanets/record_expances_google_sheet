@@ -14,6 +14,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
     ['Получить статистику по категории за месяц'],
+    ['Получить среднее значение трат по категории за период'],
     ['Info current month'],
   ].freeze
 
@@ -94,6 +95,24 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_to_choose_month_for_statistic(payload["message"]["message_id"])
     when -> (input_category) { input_category.include?('m_and_y_for_statistic') }
       show_statistic(data, payload["message"]["message_id"])
+    when -> (input_category) { input_category.include?('av_exp_for_category') }
+      category_name = data.split(':')[0]
+      session[:category_for_statistic] = category_name
+      ask_to_choose_start_year_for_statistic(payload["message"]["message_id"])
+    when -> (input_year) { input_year.include?('start_year_for_av_statistic') }
+      year_for_statistic = data.split(':')[0]
+      session[:start_year_for_average_statistic] = year_for_statistic
+      ask_to_choose_start_month_for_statistic(payload["message"]["message_id"])
+    when -> (input_year) { input_year.include?('start_m_and_y_for_av_statistic') }
+      month, year = data.split(':')[0].split
+      session[:start_month_for_average_statistic] = month
+      ask_to_choose_end_year_for_statistic(payload["message"]["message_id"])
+    when -> (input_year) { input_year.include?('end_year_for_average_statistic') }
+      year_for_statistic = data.split(':')[0]
+      session[:end_year_for_average_statistic] = year_for_statistic
+      ask_to_choose_end_month_for_statistic(payload["message"]["message_id"])
+    when -> (input_year) { input_year.include?('end_m_and_y_for_av_statistic') }
+      show_average_statistic(data, payload["message"]["message_id"])
     when -> (input_string) { input_string.include?('sub_category') && !input_string.include?('<<:') }
       category_name = data.split(':')[0]
       save_category_to_session!(category_name)
@@ -284,6 +303,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
+        { text: 'Получить среднее значение трат по категории за период', method_to_call: 'get_statistic_average_expenses_by_category_for_period' },
         { text: 'Info current month',  method_to_call: 'info_current_month' }
       ]
       found_mapping = mapping.detect { |current_mapping| current_mapping[:text] == message_text }
@@ -533,6 +553,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:total_sum_of_money_before_save] = 0
     session[:category_for_statistic] = nil
     session[:year_for_statistic] = nil
+    session[:start_year_for_average_statistic] = nil
+    session[:start_month_for_average_statistic] = nil
+    session[:end_year_for_average_statistic] = nil
     session[:requested_date_to_show_expenses] = nil
   end
 
@@ -667,7 +690,94 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
     respond_with(
       :message,
-      text: "```#{GetGroupedExpensesFromGoogleSheet.call(session[:category_for_statistic], months, year)}```",
+      text: "```#{GetStatisticForCategoryForMonthFromGoogleSheet.call(session[:category_for_statistic], months, year)}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
+    )
+
+    set_default_values_in_session!
+  end
+
+  def get_statistic_average_expenses_by_category_for_period
+    prepare_categories = categories.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
+      categories_array.map do |category|
+        { text: category, callback_data: "#{category}: av_exp_for_category" }
+      end
+    end
+
+    respond_with(:message, text: 'Выбери категорию для статистики:', reply_markup: { inline_keyboard: prepare_categories })
+  end
+
+  def ask_to_choose_start_year_for_statistic(message_id)
+    start_year = 2020
+    year_now = Date.today.year
+    array_of_years = (start_year..year_now).to_a
+    years_to_choose = array_of_years.map do |year|
+      { text: year, callback_data: "#{year}: start_year_for_av_statistic" }
+    end
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(:message, text: 'Выбери год начала для статистики:', reply_markup: { inline_keyboard: [years_to_choose] })
+  end
+
+  def ask_to_choose_start_month_for_statistic(message_id)
+    start_year = "01.01.#{session[:start_year_for_average_statistic]}"
+    start_year = "01.10.#{session[:start_year_for_average_statistic]}" if session[:start_year_for_average_statistic] == "2020"
+    end_year   = "31.12.#{session[:start_year_for_average_statistic]}"
+    end_year   = Date.today.end_of_month.strftime("%d.%m.%Y") if session[:start_year_for_average_statistic] == Date.today.year.to_s
+    dates = (Date.parse(start_year)..Date.parse(end_year)).to_a.select { |current_date| current_date.day == 1 }.map { |current_date| "#{Date::ABBR_MONTHNAMES[current_date.month]} #{current_date.year}" }
+
+    prepare_dates = dates.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |dates_array|
+      dates_array.map do |month_and_year|
+        { text: month_and_year, callback_data: "#{month_and_year}: start_m_and_y_for_av_statistic" }
+      end
+    end
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(:message, text: 'Выбери месяц начала для статистики:', reply_markup: { inline_keyboard: prepare_dates })
+  end
+
+  def ask_to_choose_end_year_for_statistic(message_id)
+    start_year = session[:start_year_for_average_statistic].to_i
+    year_now = Date.today.year
+    array_of_years = (start_year..year_now).to_a
+    years_to_choose = array_of_years.map do |year|
+      { text: year, callback_data: "#{year}: end_year_for_average_statistic" }
+    end
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(:message, text: 'Выбери конечный год для статистики:', reply_markup: { inline_keyboard: [years_to_choose] })
+  end
+
+  def ask_to_choose_end_month_for_statistic(message_id)
+    month_start_from = "01"
+    if session[:start_year_for_average_statistic] == session[:end_year_for_average_statistic]
+      month_start_from = Date::ABBR_MONTHNAMES.index(session[:start_month_for_average_statistic]) + 1
+    end
+    start_year = "01.#{month_start_from}.#{session[:end_year_for_average_statistic]}"
+    end_year   = "31.12.#{session[:end_year_for_average_statistic]}"
+    end_year   = Date.today.end_of_month.strftime("%d.%m.%Y") if session[:end_year_for_average_statistic] == Date.today.year.to_s
+    dates = (Date.parse(start_year)..Date.parse(end_year)).to_a.select { |current_date| current_date.day == 1 }.map { |current_date| "#{Date::ABBR_MONTHNAMES[current_date.month]} #{current_date.year}" }
+
+    prepare_dates = dates.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |dates_array|
+      dates_array.map do |month_and_year|
+        { text: month_and_year, callback_data: "#{month_and_year}: end_m_and_y_for_av_statistic" }
+      end
+    end
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(:message, text: 'Выбери конечный месяц для статистики:', reply_markup: { inline_keyboard: prepare_dates })
+  end
+
+  def show_average_statistic(date_for_statistic, message_id)
+    start_month = session[:start_month_for_average_statistic]
+    start_year = session[:start_year_for_average_statistic]
+    end_month, end_year = date_for_statistic.split(':')[0].split
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(
+      :message,
+      text: "```#{GetAverageStatisticForCategoryForPeriodFromGoogleSheet.call(session[:category_for_statistic], start_month, start_year, end_month, end_year)}```",
       parse_mode: :MarkdownV2,
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )
