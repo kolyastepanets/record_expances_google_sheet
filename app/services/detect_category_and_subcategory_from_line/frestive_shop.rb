@@ -138,7 +138,7 @@ module DetectCategoryAndSubcategoryFromLine
       honey? || oreo? || monggo_chocolate? || icecream? || kinder_joy? || kinder_bueno? ||
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
-        dark_chocolate? || haribo? || icecream_2? || excellence_chocolate?
+        dark_chocolate? || haribo? || icecream_2? || excellence_chocolate? || bon_bon?
     end
 
     def honey?
@@ -231,6 +231,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def excellence_chocolate?
       @line.include?('excellence') && @line.include?('ex')
+    end
+
+    def bon_bon?
+      @line.include?('bonbon')
     end
 
     ####
@@ -409,7 +413,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
-        plain_yogurt? || sour_cream_3? || butter_2? || biokul_yogurt?
+        plain_yogurt? || sour_cream_3? || butter_2? || biokul_yogurt? || yummy_yogurt?
     end
 
     def cheese?
@@ -508,6 +512,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def biokul_yogurt?
       @line.include?('biokul') && @line.include?('yghrt')
+    end
+
+    def yummy_yogurt?
+      @line.include?('yummy') && @line.include?('yog')
     end
 
     ####
