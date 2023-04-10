@@ -561,7 +561,7 @@ module DetectCategoryAndSubcategoryFromLine
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
-        greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta?
+        greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese?
     end
 
     def milk?
@@ -666,6 +666,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def greek_fetta?
       @line.include?('greek') && @line.include?('fetta')
+    end
+
+    def cream_cheese?
+      @line.include?('cream') && @line.include?('cheese')
     end
 
     ####
@@ -785,7 +789,7 @@ module DetectCategoryAndSubcategoryFromLine
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
         mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
-        nice_sausage?
+        nice_sausage? || aroma_pork?
     end
 
     def mamas_ham?
@@ -854,6 +858,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def nice_sausage?
       @line.include?('nice') && @line.include?('sosis')
+    end
+
+    def aroma_pork?
+      @line.include?('aroma') && @line.include?('pork')
     end
 
     ####
@@ -1076,7 +1084,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray? || wet_wipes? || raincoat? || glue? || humidity_gatering?
+        some_spray? || wet_wipes? || raincoat? || glue? || humidity_gathering?
     end
 
     def bataries?
@@ -1115,8 +1123,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('castol') && @line.include?('besar')
     end
 
-    def humidity_gatering?
-      @line.include?('bagus') && @line.include?('serap') && @line.include?('air')
+    def humidity_gathering?
+      @line.include?('bagus') && ((@line.include?('serap') && @line.include?('air')) || @line.include?('reffil'))
     end
 
     ####
@@ -1156,11 +1164,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def liliia_bath_stuff?
-      carefree_fresh?
+      carefree_fresh? || laurier?
     end
 
     def carefree_fresh?
       @line.include?('carefree') && @line.include?('fresh')
+    end
+
+    def laurier?
+      @line.include?('laurier')
     end
 
     ####
