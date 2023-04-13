@@ -366,7 +366,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def for_coffee_machine?
-      @line.include?('indonesso') && @line.include?('bali')
+      @line.include?('indonesso')
     end
 
     ####
@@ -676,7 +676,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
-        batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate?
+        batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate? ||
+        croissant?
     end
 
     def donut?
@@ -729,6 +730,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def donut_chocolate?
       @line.include?('donut') && @line.include?('chocolate')
+    end
+
+    def croissant?
+      @line.include?('croissant')
     end
 
     ####
@@ -916,7 +921,7 @@ module DetectCategoryAndSubcategoryFromLine
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
         rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle? ||
-        granola?
+        granola? || cous_cous?
     end
 
     def rice?
@@ -965,6 +970,11 @@ module DetectCategoryAndSubcategoryFromLine
 
     def granola?
       @line.include?('yava') && @line.include?('granola')
+    end
+
+    def cous_cous?
+      grouped_words_by_count = @line.tally
+      grouped_words_by_count['cous'] == 2
     end
 
     ####
@@ -1025,7 +1035,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
         kids_toothpaste? || floss? || local_vanish_2? || luquid_soap_2? || tooth_brush? ||
-        shampoo? || shampoo_2?
+        shampoo? || shampoo_2? || to_clean_smth?
     end
 
     def clear_gel?
@@ -1078,6 +1088,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def shampoo_2?
       @line.include?('tea') && @line.include?('tree') && @line.include?('oil')
+    end
+
+    def to_clean_smth?
+      @line.include?('bayclin') && @line.include?('regular')
     end
 
     ####
