@@ -36,6 +36,7 @@ class PricesFromImage
         category_name: category_name,
         sub_category_name: sub_category_name,
         price: matched_price,
+        full_parsed_line: line.join(", "),
       }
     end
   end
