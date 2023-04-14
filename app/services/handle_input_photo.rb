@@ -70,7 +70,7 @@ class HandleInputPhoto
             { text: category, callback_data: "#{category}:f_id:#{@file_id}:#{price_with_category[:price]}" }
           end
         end
-        response = send_message_with_categories(price_with_category[:price], categories_to_show)
+        response = send_message_with_categories(price_with_category, categories_to_show)
         @params << {
           price: price_with_category[:price],
           currency_to_usd: @currency_to_usd,
@@ -145,10 +145,10 @@ class HandleInputPhoto
     )
   end
 
-  def send_message_with_categories(price, categories_to_show)
+  def send_message_with_categories(price_with_category, categories_to_show)
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "Выбери категорию чтобы сохранить для #{price}:",
+      text: "Вся строка: #{price_with_category[:full_parsed_line]}\nВыбери категорию чтобы сохранить для #{price_with_category[:price]}:",
       reply_markup: { inline_keyboard:  categories_to_show },
     )
   end
