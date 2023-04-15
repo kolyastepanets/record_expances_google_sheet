@@ -9,7 +9,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Последние 10 транзакций в моно'],
     ['Удалить все текущие сообщения'],
     ['Сегодня пришла Komank'],
+    ['Получить статистику по Komank за 2 мес'],
     ['Сегодня пришел pool man'],
+    ['Получить статистику по pool man за 2 мес'],
     ['Вернуть часть денег после снятия кэша'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
@@ -298,7 +300,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
         { text: 'Сегодня пришла Komank',  method_to_call: 'komank_came_today' },
+        { text: 'Получить статистику по Komank за 2 мес', method_to_call: 'get_statistic_by_komank_for_2_months' },
         { text: 'Сегодня пришел pool man', method_to_call: 'pool_man_came_today' },
+        { text: 'Получить статистику по pool man за 2 мес', method_to_call: 'get_statistic_by_poolman_for_2_months' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
@@ -602,6 +606,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     )
   end
 
+  def get_statistic_by_komank_for_2_months
+    respond_with(
+      :message,
+      text: "```#{GetStatisticByKomankForTwoMonthsFromGoogleSheet.call}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
+    )
+  end
+
   def pool_man_came_today
     updated_rows = RecordTodayVisitPoolManToGoogleSheet.call
     if updated_rows == 1
@@ -616,6 +629,16 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: "Что то случилось, дата визита НЕ сохранена",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
+  end
+
+  def get_statistic_by_poolman_for_2_months
+    respond_with(
+      :message,
+      text: "```#{GetStatisticByPoolmanForTwoMonthsFromGoogleSheet.call}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
+    )
+
   end
 
   def round_in_google_sheet_like_in_monobank
