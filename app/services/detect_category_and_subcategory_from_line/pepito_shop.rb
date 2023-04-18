@@ -99,7 +99,7 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
-        sunflower_oil_2? || garlic_powder? || yellow_mustard?
+        sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3?
     end
 
     def kikko_soy_souce?
@@ -152,6 +152,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sunflower_oil_2?
       @line.include?('mazola') && @line.include?('sunflwr') && @line.include?('oil')
+    end
+
+    def sunflower_oil_3?
+      @line.include?('sunflow') && @line.include?('gold')
     end
 
     def garlic_powder?
@@ -681,7 +685,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def donut?
-      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple'))
+      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple') || @line.include?('icing'))
     end
 
     def bread_sticks?
@@ -1035,7 +1039,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
         kids_toothpaste? || floss? || local_vanish_2? || luquid_soap_2? || tooth_brush? ||
-        shampoo? || shampoo_2? || to_clean_smth?
+        shampoo? || shampoo_2? || to_clean_smth? || sensodyne? || vitamin_for_hair?
     end
 
     def clear_gel?
@@ -1092,6 +1096,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def to_clean_smth?
       @line.include?('bayclin') && @line.include?('regular')
+    end
+
+    def sensodyne?
+      @line.include?('sensodyne')
+    end
+
+    def vitamin_for_hair?
+      @line.include?('ellips') && @line.include?('nutri') && @line.include?('blister')
     end
 
     ####
