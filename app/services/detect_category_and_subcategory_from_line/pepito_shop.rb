@@ -763,7 +763,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def cinamon?
-      @line.include?('cinamon') && @line.include?('roll')
+      @line.any? { |word| word.include?('cinamon') } && @line.include?('roll')
     end
 
     ####
