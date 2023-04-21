@@ -4407,6 +4407,105 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 58', freezed_time: '2023-04-21T02:22:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out80.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>38500.0,
+          :full_parsed_line=>
+           "PEPITO, MARKET, SEMER, Banjar, Semer, ,, Kerobokan, -, Badung, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000032375, Counter, :, C2, 21, -, Apr, -, 2023, 08:53:09, LUH, TUTIK, ASRI, 101014009878, [, GOLDEN, FARM, GREEN, PEAS, 500G, R, ], 38,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>38993.0,
+          :full_parsed_line=>"P, 101016010898, [, CHICKEN, BROILER, KG, ], 43.326 - 4,333"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>41969.0,
+          :full_parsed_line=>"P, 101016010898, [, CHICKEN, BROILER, KG, ], 46,632 - 4,663"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Рыба",
+          :price=>295901.0,
+          :full_parsed_line=>"P, 101022011336, [, SALMON, FILLET, KG, ], 328,779 - 32,878"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>76248.0,
+          :full_parsed_line=>"P, 101024011742, [, GRAPE, GREEN, SEEDLES, ], 84.720 - 8,472"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Ванные принадлежности",
+          :price=>54900.0,
+          :full_parsed_line=>"1010340177821J, &, J, B.WASH, TIT, 500ML, ], 54,900"},
+         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>8000.0, :full_parsed_line=>"101066012157, [, DONUT, TRIPPLE, ], 8.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>24500.0,
+          :full_parsed_line=>"101003044811, [, COVITA, HEALTHY, BAR, PNT, BTR, 40GR, ], 24,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>66000.0, :full_parsed_line=>"101002005779, (, LINDT, MILK, HZNUT100, ], 66,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>42867.0, :full_parsed_line=>"P, 101023034624, [, BABY, KYURI, KG, ], 47,630 - 4,763"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>44000.0, :full_parsed_line=>"101002054506, [, MILKA, CONFETTI, 100GR, ), 44,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>45800.0,
+          :full_parsed_line=>"P, 101010000914, [, GREENFIELD, UHT, FULLCREAM, 1L, 50,000 - 4,200"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>52900.0,
+          :full_parsed_line=>"P, 101012009491, [, LAUGHING, COW, CHEEZ, DIPPERS, 140GR, ], 59,900 - 7,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>68000.0, :full_parsed_line=>"101002000021ILINDT, MRAISIN, NUT1001, 68.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>115551.0,
+          :full_parsed_line=>"P, 101024040681, [, PLUM, RED, AUST, KG, ], 128.390 - 12,839"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Колбаса, сосиски",
+          :price=>18000.0,
+          :full_parsed_line=>"101013046422, (, KANZLER, SINGLES, MINI, 65GR, ), 18.000"},
+         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>72000.0, :full_parsed_line=>"101003035550, (, THINS, CHICKEN, 175GR, ], 72.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>48000.0,
+          :full_parsed_line=>"101012009296, (, ANCHOR, WHIPPING, CREAM, 250ML, 48,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>144000.0, :full_parsed_line=>"101012009325, TELUR, OMEGA, 3, 10S1, 144.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Колбаса, сосиски",
+          :price=>71800.0,
+          :full_parsed_line=>"101013041053, TRIPLE, THREE, STREAKY, BACON, 100GR, ], 71.800"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Колбаса, сосиски",
+          :price=>86240.0,
+          :full_parsed_line=>"101021011263, (, SMOKED, TURKEY, BREAST, KG, ], 86.240"},
+         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>36261.0, :full_parsed_line=>"P, 101016010903, [, CHICKEN, WING, KG, ], 40.290 - 4.029"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>16650.0,
+          :full_parsed_line=>"P, 101023011375, (, MUSHROOM, CHAMPIGNON, 18.500, !, 18,500 - 1.850"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11952.0, :full_parsed_line=>"P, 1010230116221PAPRIKA, HIJAU, ], 13.280 - 1.328"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>24775.0,
+          :full_parsed_line=>"P, 101023011586, (, ASPARAGUS, LOKAL, SPRI, 27.528 - 2.753"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>41051.0,
+          :full_parsed_line=>"P, 101023011627, (, BEEF, TOMATO, PED, KG, ], 45.612 - 4.561"},
+         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>24000.0, :full_parsed_line=>"101066049563, (, CINAMON, ROLL, ., DANISH, ], 24,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>9191.0,
+          :full_parsed_line=>"P, 101024011676, (, PEPAYA, CALINA, KG, ], 10,212 - 1,021"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>8070.0, :full_parsed_line=>"101023011351, [, KAILAN, ], 8.967 - 897"}],
+        1626119.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 

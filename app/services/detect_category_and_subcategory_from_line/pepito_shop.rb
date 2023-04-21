@@ -176,7 +176,7 @@ module DetectCategoryAndSubcategoryFromLine
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
-        junglegold_coconut?
+        junglegold_coconut? || healthy_bar?
     end
 
     def magnum_icecream?
@@ -347,6 +347,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.any? { |word| word.include?('junglegold') } && @line.include?('coconut')
     end
 
+    def healthy_bar?
+      @line.include?('healthy') && @line.include?('bar')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -377,7 +381,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
-        corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries?
+        corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
+        green_peas? || pepaya?
     end
 
     def pineapple?
@@ -432,6 +437,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('blueberries')
     end
 
+    def green_peas?
+      @line.include?('green') && @line.include?('peas') && !@line.include?('canned')
+    end
+
+    def pepaya?
+      @line.include?('pepaya') && @line.include?('calina')
+    end
+
     ####
 
     def vegetables?
@@ -439,7 +452,8 @@ module DetectCategoryAndSubcategoryFromLine
         carrot? || kale? || onion? || herb? || tomat_cherry? || parsley? || daun_dill? ||
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
-        mushroom? || chinese_cabbage? || baby_cucumber? || cabbage_2?
+        mushroom? || chinese_cabbage? || baby_cucumber? || cabbage_2? || asparagus? ||
+        kailan?
     end
 
     def cucumber?
@@ -447,7 +461,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pepper?
-      @line.include?('paprika')
+      @line.any? { |word| word.include?('paprika') }
     end
 
     def tomato?
@@ -556,6 +570,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cabbage_2?
       @line.include?('romana') && @line.include?('lettuce')
+    end
+
+    def asparagus?
+      @line.include?('asparagus')
+    end
+
+    def kailan?
+      @line.include?('kailan')
     end
 
     ####
@@ -681,7 +703,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
         batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate? ||
-        croissant?
+        croissant? || cinamon?
     end
 
     def donut?
@@ -738,6 +760,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def croissant?
       @line.include?('croissant')
+    end
+
+    def cinamon?
+      @line.include?('cinamon') && @line.include?('roll')
     end
 
     ####
@@ -798,7 +824,7 @@ module DetectCategoryAndSubcategoryFromLine
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
         mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
-        nice_sausage? || aroma_pork?
+        nice_sausage? || aroma_pork? || turkey_sausages?
     end
 
     def mamas_ham?
@@ -871,6 +897,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def aroma_pork?
       @line.include?('aroma') && @line.include?('pork')
+    end
+
+    def turkey_sausages?
+      @line.include?('turkey') && @line.include?('smoked')
     end
 
     ####

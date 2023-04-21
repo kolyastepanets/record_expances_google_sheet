@@ -220,7 +220,7 @@ class PricesFromImage
       end
 
       if is_all_numbers?(array_of_text) && line_is_discount?(filtered_texts[index + 1], index)
-        discount_value = filtered_texts[index + 1][-2]
+        discount_value = (filtered_texts[index + 1] - ['P'])[-2]
         value_to_add = ["#{array_of_text[-1]} - #{discount_value}"]
         add_last_price_to_array_of_texts!(new_parsed_texts, value_to_add)
         add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index + 1)
