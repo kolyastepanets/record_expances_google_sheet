@@ -13,25 +13,25 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bintang_beer?
-      @line.any? { |word| word.include?('bintang') } && @line.include?('crystal')
+      @line.any? { |word| word.include?('bintang') } && @line.any? { |word| word.include?('crystal') }
     end
 
     def bali_hai_beer?
-      @line.include?('bali') && @line.include?('hai')
+      @line.any? { |word| word.include?('bali') } && @line.any? { |word| word.include?('hai') }
     end
 
     def wine?
-      @line.include?('hatten') || @line.include?('plaga')
+      @line.any? { |word| word.include?('hatten') } || @line.any? { |word| word.include?('plaga') }
     end
 
     def wine_2?
-      @line.include?('isola') || @line.include?('bianco')
+      @line.any? { |word| word.include?('isola') } || @line.any? { |word| word.include?('bianco') }
     end
 
     ####
 
     def eggs?
-      @line.include?('telur')
+      @line.any? { |word| word.include?('telur') }
     end
 
     ####
@@ -43,19 +43,19 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def green_tea?
-      @line.include?('green') && @line.include?('tea') && @line.include?('original')
+      @line.any? { |word| word.include?('green') } && @line.any? { |word| word.include?('tea') } && @line.any? { |word| word.include?('original') }
     end
 
     def cherry_juice?
-      @line.include?('clasic') && @line.include?('sour') && @line.include?('chery')
+      @line.any? { |word| word.include?('clasic') } && @line.any? { |word| word.include?('sour') } && @line.any? { |word| word.include?('chery') }
     end
 
     def cola?
-      @line.include?('coca') && @line.include?('cola')
+      @line.any? { |word| word.include?('coca') } && @line.any? { |word| word.include?('cola') }
     end
 
     def fruit_juice?
-      @line.include?('fruit') && @line.include?('juice')
+      @line.any? { |word| word.include?('fruit') } && @line.any? { |word| word.include?('juice') }
     end
 
     def andros_juice?
@@ -63,35 +63,35 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def happy_day_juice?
-      @line.include?('happy') && @line.include?('day')
+      @line.any? { |word| word.include?('happy') } && @line.any? { |word| word.include?('day') }
     end
 
     def berri_juice?
-      @line.include?('berri') && @line.include?('juice')
+      @line.any? { |word| word.include?('berri') } && @line.any? { |word| word.include?('juice') }
     end
 
     def bottle_of_water?
-      (@line.include?('aqua') && @line.include?('btl')) || (@line.include?('crystalline') && @line.include?('pet'))
+      (@line.any? { |word| word.include?('aqua') } && @line.any? { |word| word.include?('btl') }) || (@line.any? { |word| word.include?('crystalline') } && @line.any? { |word| word.include?('pet') })
     end
 
     def mineral_water?
-      @line.include?('mineral') && @line.include?('water')
+      @line.any? { |word| word.include?('mineral') } && @line.any? { |word| word.include?('water') }
     end
 
     def aqua_click?
-      @line.include?('aqua') && @line.include?('click')
+      @line.any? { |word| word.include?('aqua') } && @line.any? { |word| word.include?('click') }
     end
 
     def coconut_drink?
-      @line.include?('bianka') && @line.include?('coconut')
+      @line.any? { |word| word.include?('bianka') } && @line.any? { |word| word.include?('coconut') }
     end
 
     def mango_juice?
-      @line.include?('mango') && @line.any? { |word| word.include?('jungle') }
+      @line.any? { |word| word.include?('mango') } && @line.any? { |word| word.include?('jungle') }
     end
 
     def snake_fruit?
-      @line.any? { |word| word.include?('salak') } && @line.include?('bali')
+      @line.any? { |word| word.include?('salak') } && @line.any? { |word| word.include?('bali') }
     end
 
     ####
@@ -103,7 +103,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kikko_soy_souce?
-      @line.include?('kikko') && @line.include?('asin')
+      @line.any? { |word| word.include?('kikko') } && @line.any? { |word| word.include?('asin') }
     end
 
     def mayonaise?
@@ -111,59 +111,59 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def soy_souce?
-      @line.include?('soy') && (@line.include?('sauce') || @line.include?('premium'))
+      @line.any? { |word| word.include?('soy') } && (@line.any? { |word| word.include?('sauce') } || @line.any? { |word| word.include?('premium') })
     end
 
     def french_mustard?
-      @line.include?('french') && @line.include?('mustard')
+      @line.any? { |word| word.include?('french') } && @line.any? { |word| word.include?('mustard') }
     end
 
     def vinegar?
-      @line.include?('heinz') && @line.include?('white')
+      @line.any? { |word| word.include?('heinz') } && @line.any? { |word| word.include?('white') }
     end
 
     def sugar?
-      @line.include?('gula') && @line.include?('putih')
+      @line.any? { |word| word.include?('gula') } && @line.any? { |word| word.include?('putih') }
     end
 
     def oil?
-      @line.any? { |word| word.include?('ext') } && @line.include?('virgin')
+      @line.any? { |word| word.include?('ext') } && @line.any? { |word| word.include?('virgin') }
     end
 
     def sugar_2?
-      @line.include?('segitiga') && @line.include?('biru')
+      @line.any? { |word| word.include?('segitiga') } && @line.any? { |word| word.include?('biru') }
     end
 
     def tomat_for_borsch?
-      @line.include?('cirio') && @line.include?('tomat')
+      @line.any? { |word| word.include?('cirio') } && @line.any? { |word| word.include?('tomat') }
     end
 
     def soda?
-      @line.include?('soda')
+      @line.any? { |word| word.include?('soda') }
     end
 
     def rosemary?
-      @line.include?('nat') && @line.include?('rosemry')
+      @line.any? { |word| word.include?('nat') } && @line.any? { |word| word.include?('rosemry') }
     end
 
     def sunflower_oil?
-      @line.include?('sunflower') && @line.any? { |word| word.include?('borges') }
+      @line.any? { |word| word.include?('sunflower') } && @line.any? { |word| word.include?('borges') }
     end
 
     def sunflower_oil_2?
-      @line.include?('mazola') && @line.include?('sunflwr') && @line.include?('oil')
+      @line.any? { |word| word.include?('mazola') } && @line.any? { |word| word.include?('sunflwr') } && @line.any? { |word| word.include?('oil') }
     end
 
     def sunflower_oil_3?
-      @line.include?('sunflow') && @line.include?('gold')
+      @line.any? { |word| word.include?('sunflow') } && @line.any? { |word| word.include?('gold') }
     end
 
     def garlic_powder?
-      @line.include?('garlic') && @line.include?('powder')
+      @line.any? { |word| word.include?('garlic') } && @line.any? { |word| word.include?('powder') }
     end
 
     def yellow_mustard?
-      @line.include?('yellow') && @line.include?('mustard')
+      @line.any? { |word| word.include?('yellow') } && @line.any? { |word| word.include?('mustard') }
     end
 
     ####
@@ -180,11 +180,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def magnum_icecream?
-      @line.include?('magnum')
+      @line.any? { |word| word.include?('magnum') }
     end
 
     def oreo_cake?
-      @line.include?('oreo') && @line.include?('cakes')
+      @line.any? { |word| word.include?('oreo') } && @line.any? { |word| word.include?('cakes') }
     end
 
     def lindt?
@@ -192,35 +192,35 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kit_kat?
-      (@line.any? { |word| word.include?('kit') } && @line.include?('kat')) || @line.any? { |word| word.include?('kitkat') }
+      (@line.any? { |word| word.include?('kit') } && @line.any? { |word| word.include?('kat') }) || @line.any? { |word| word.include?('kitkat') }
     end
 
     def oreo_biscuit?
-      @line.include?('oreo')
+      @line.any? { |word| word.include?('oreo') }
     end
 
     def milk_chocolate?
-      @line.include?('milk') && @line.include?('chocolate')
+      @line.any? { |word| word.include?('milk') } && @line.any? { |word| word.include?('chocolate') }
     end
 
     def like_m_and_ms?
-      @line.include?('chacha')
+      @line.any? { |word| word.include?('chacha') }
     end
 
     def kinder?
-      @line.include?('kinder') || @line.any? { |word| word.include?('kinder') }
+      @line.any? { |word| word.include?('kinder') }
     end
 
     def schogetten?
-      @line.include?('schogetten')
+      @line.any? { |word| word.include?('schogetten') }
     end
 
     def nutella?
-      @line.include?('nutella')
+      @line.any? { |word| word.include?('nutella') }
     end
 
     def halls?
-      @line.include?('halls')
+      @line.any? { |word| word.include?('halls') }
     end
 
     def zaini?
@@ -228,83 +228,83 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def peachy?
-      @line.include?('peachy')
+      @line.any? { |word| word.include?('peachy') }
     end
 
     def super_shrooms?
-      @line.include?('supershrooms')
+      @line.any? { |word| word.include?('supershrooms') }
     end
 
     def hello_kitty?
-      @line.include?('hello') && @line.include?('kitty')
+      @line.any? { |word| word.include?('hello') } && @line.any? { |word| word.include?('kitty') }
     end
 
     def jelly?
-      @line.include?('jelly') && @line.include?('berries')
+      @line.any? { |word| word.include?('jelly') } && @line.any? { |word| word.include?('berries') }
     end
 
     def honey?
-      @line.include?('honey')
+      @line.any? { |word| word.include?('honey') }
     end
 
     def cake?
-      @line.include?('cake')
+      @line.any? { |word| word.include?('cake') }
     end
 
     def bar_almond?
-      @line.include?('bar') && @line.include?('almond')
+      @line.any? { |word| word.include?('bar') } && @line.any? { |word| word.include?('almond') }
     end
 
     def bar_cashew?
-      @line.include?('bar') && @line.include?('cashew')
+      @line.any? { |word| word.include?('bar') } && @line.any? { |word| word.include?('cashew') }
     end
 
     def chic_choc?
-      @line.include?('chic') && @line.include?('choc')
+      @line.any? { |word| word.include?('chic') } && @line.any? { |word| word.include?('choc') }
     end
 
     def bar_bar?
-      @line.include?('delfi')
+      @line.any? { |word| word.include?('delfi') }
     end
 
     def m_and_m?
-      @line.include?('m') && @line.include?('&') && @line.include?('peanut')
+      @line.any? { |word| word.include?('m') } && @line.any? { |word| word.include?('&') } && @line.any? { |word| word.include?('peanut') }
     end
 
     def bruxel_chocolate?
-      @line.include?('bruxel') && @line.include?('chocolate')
+      @line.any? { |word| word.include?('bruxel') } && @line.any? { |word| word.include?('chocolate') }
     end
 
     def cadbury_lickabler?
-      @line.include?('cadbury') && @line.include?('lickabler')
+      @line.any? { |word| word.include?('cadbury') } && @line.any? { |word| word.include?('lickabler') }
     end
 
     def marshmallow?
-      @line.include?('chomp') && @line.include?('mrsmlw')
+      @line.any? { |word| word.include?('chomp') } && @line.any? { |word| word.include?('mrsmlw') }
     end
 
     def dilan?
-      @line.include?('dilan') && @line.include?('crnchy')
+      @line.any? { |word| word.include?('dilan') } && @line.any? { |word| word.include?('crnchy') }
     end
 
     def ice_cream?
-      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw'))
+      @line.any? { |word| word.include?('walls') } && (@line.any? { |word| word.include?('crnt') } || @line.any? { |word| word.include?('strw') })
     end
 
     def truffle_coconut?
-      @line.include?('truffle') && @line.include?('coconut')
+      @line.any? { |word| word.include?('truffle') } && @line.any? { |word| word.include?('coconut') }
     end
 
     def vanila?
-      @line.include?('gelato') && @line.include?('vanilla')
+      @line.any? { |word| word.include?('gelato') } && @line.any? { |word| word.include?('vanilla') }
     end
 
     def bar_bar_2?
-      @line.include?('bar') && @line.include?('share') && @line.include?('pack')
+      @line.any? { |word| word.include?('bar') } && @line.any? { |word| word.include?('share') } && @line.any? { |word| word.include?('pack') }
     end
 
     def berry_bliss?
-      @line.include?('berry') && @line.include?('bliss')
+      @line.any? { |word| word.include?('berry') } && @line.any? { |word| word.include?('bliss') }
     end
 
     def milka?
@@ -312,7 +312,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def haribo?
-      @line.include?('haribo')
+      @line.any? { |word| word.include?('haribo') }
     end
 
     def lindt_2?
@@ -320,35 +320,35 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bears?
-      @line.include?('bears')
+      @line.any? { |word| word.include?('bears') }
     end
 
     def cake_2?
-      @line.include?('mini') && @line.include?('red') && @line.include?('velvet')
+      @line.any? { |word| word.include?('mini') } && @line.any? { |word| word.include?('red') } && @line.any? { |word| word.include?('velvet') }
     end
 
     def belgian_chocolate?
-      @line.include?('belgian') && @line.include?('milk') && @line.include?('hazel')
+      @line.any? { |word| word.include?('belgian') } && @line.any? { |word| word.include?('milk') } && @line.any? { |word| word.include?('hazel') }
     end
 
     def ice_cream_paletas?
-      @line.include?('paletas') && @line.include?('strawberry')
+      @line.any? { |word| word.include?('paletas') } && @line.any? { |word| word.include?('strawberry') }
     end
 
     def snickers?
-      @line.include?('snickers')
+      @line.any? { |word| word.include?('snickers') }
     end
 
     def twix?
-      @line.include?('twix') && @line.include?('crml')
+      @line.any? { |word| word.include?('twix') } && @line.any? { |word| word.include?('crml') }
     end
 
     def junglegold_coconut?
-      @line.any? { |word| word.include?('junglegold') } && @line.include?('coconut')
+      @line.any? { |word| word.include?('junglegold') } && @line.any? { |word| word.include?('coconut') }
     end
 
     def healthy_bar?
-      @line.include?('healthy') && @line.include?('bar')
+      @line.any? { |word| word.include?('healthy') } && @line.any? { |word| word.include?('bar') }
     end
 
     ####
@@ -358,23 +358,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def nescafe?
-      @line.include?('nescafe')
+      @line.any? { |word| word.include?('nescafe') }
     end
 
     def chococino?
-      @line.include?('chococino')
+      @line.any? { |word| word.include?('chococino') }
     end
 
     def day?
-      @line.include?('day') && (@line.include?('original') || @line.include?('moca'))
+      @line.any? { |word| word.include?('day') } && (@line.any? { |word| word.include?('original') } || @line.any? { |word| word.include?('moca') })
     end
 
     def boncafe?
-      @line.include?('boncafe') && @line.include?('coffe')
+      @line.any? { |word| word.include?('boncafe') } && @line.any? { |word| word.include?('coffe') }
     end
 
     def for_coffee_machine?
-      @line.include?('indonesso')
+      @line.any? { |word| word.include?('indonesso') }
     end
 
     ####
@@ -386,63 +386,63 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pineapple?
-      @line.any? { |word| word.include?('nanas') } && @line.include?('honi')
+      @line.any? { |word| word.include?('nanas') } && @line.any? { |word| word.include?('honi') }
     end
 
     def mango?
-      @line.include?('mangga')
+      @line.any? { |word| word.include?('mangga') }
     end
 
     def dragon_fruit?
-      @line.include?('dragon') && @line.include?('fruit')
+      @line.any? { |word| word.include?('dragon') } && @line.any? { |word| word.include?('fruit') }
     end
 
     def watermelon?
-      @line.any? { |word| word.include?('semangka') } && @line.include?('merah')
+      @line.any? { |word| word.include?('semangka') } && @line.any? { |word| word.include?('merah') }
     end
 
     def banana?
-      @line.any? { |word| word.include?('unpride') } && @line.include?('pisang')
+      @line.any? { |word| word.include?('unpride') } && @line.any? { |word| word.include?('pisang') }
     end
 
     def grape?
-      @line.include?('green') && @line.include?('grape')
+      @line.any? { |word| word.include?('green') } && @line.any? { |word| word.include?('grape') }
     end
 
     def corn?
-      @line.include?('jagung') && @line.include?('manis')
+      @line.any? { |word| word.include?('jagung') } && @line.any? { |word| word.include?('manis') }
     end
 
     def red_apple?
-      @line.include?('red') && @line.include?('apel')
+      @line.any? { |word| word.include?('red') } && @line.any? { |word| word.include?('apel') }
     end
 
     def pear?
-      @line.include?('pear')
+      @line.any? { |word| word.include?('pear') }
     end
 
     def plum?
-      @line.include?('red') && @line.include?('plum')
+      @line.any? { |word| word.include?('red') } && @line.any? { |word| word.include?('plum') }
     end
 
     def orange?
-      @line.include?('jeruk') && @line.include?('murcot')
+      @line.any? { |word| word.include?('jeruk') } && @line.any? { |word| word.include?('murcot') }
     end
 
     def lemon?
-      @line.include?('lemon')
+      @line.any? { |word| word.include?('lemon') } && !@line.any? { |word| word.include?('soap') }
     end
 
     def blueberries?
-      @line.include?('blueberries')
+      @line.any? { |word| word.include?('blueberries') }
     end
 
     def green_peas?
-      @line.include?('green') && @line.include?('peas') && !@line.include?('canned')
+      @line.any? { |word| word.include?('green') } && @line.any? { |word| word.include?('peas') } && !@line.any? { |word| word.include?('canned') }
     end
 
     def pepaya?
-      @line.include?('pepaya') && @line.include?('calina')
+      @line.any? { |word| word.include?('pepaya') } && @line.any? { |word| word.include?('calina') }
     end
 
     ####
@@ -465,7 +465,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tomato?
-      @line.include?('beef') && @line.include?('tomato')
+      @line.any? { |word| word.include?('beef') } && @line.any? { |word| word.include?('tomato') }
     end
 
     def avocado?
@@ -473,15 +473,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def brokoli?
-      @line.include?('brokoli')
+      @line.any? { |word| word.include?('brokoli') }
     end
 
     def potato?
-      @line.include?('kentang') && @line.include?('besar')
+      @line.any? { |word| word.include?('kentang') } && @line.any? { |word| word.include?('besar') }
     end
 
     def canned_pepper?
-      @line.include?('mamas') && @line.include?('pepper') && @line.include?('roast')
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('pepper') } && @line.any? { |word| word.include?('roast') }
     end
 
     def carrot?
@@ -489,15 +489,15 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kale?
-      @line.include?('kale')
+      @line.any? { |word| word.include?('kale') }
     end
 
     def onion?
-      @line.include?('bawang')
+      @line.any? { |word| word.include?('bawang') }
     end
 
     def red_onion?
-      @line.include?('onion') && @line.include?('red')
+      @line.any? { |word| word.include?('onion') } && @line.any? { |word| word.include?('red') }
     end
 
     def herb?
@@ -505,79 +505,79 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tomat_cherry?
-      @line.include?('tomat') && @line.any? { |word| word.include?('cher') }
+      @line.any? { |word| word.include?('tomat') } && @line.any? { |word| word.include?('cher') }
     end
 
     def parsley?
-      @line.include?('parsley')
+      @line.any? { |word| word.include?('parsley') }
     end
 
     def daun_dill?
-      @line.include?('daun') && @line.any? { |word| word.include?('diil') }
+      @line.any? { |word| word.include?('daun') } && @line.any? { |word| word.include?('diil') }
     end
 
     def tomat_gondol?
-      @line.include?('tomat') && @line.include?('gondol')
+      @line.any? { |word| word.include?('tomat') } && @line.any? { |word| word.include?('gondol') }
     end
 
     def zuchini?
-      @line.include?('zuchini')
+      @line.any? { |word| word.include?('zuchini') }
     end
 
     def beans?
-      @line.include?('buncis')
+      @line.any? { |word| word.include?('buncis') }
     end
 
     def radish?
-      @line.include?('red') && @line.any? { |word| word.include?('radish') }
+      @line.any? { |word| word.include?('red') } && @line.any? { |word| word.include?('radish') }
     end
 
     def rucola?
-      @line.include?('rucola') || @line.include?('rucolla') || @line.include?('rocola')
+      @line.any? { |word| word.include?('rucola') } || @line.any? { |word| word.include?('rucolla') } || @line.any? { |word| word.include?('rocola') }
     end
 
     def beetroot?
-      @line.include?('beetroot')
+      @line.any? { |word| word.include?('beetroot') }
     end
 
     def cabbage?
-      @line.include?('putih') && @line.include?('bulat')
+      @line.any? { |word| word.include?('putih') } && @line.any? { |word| word.include?('bulat') }
     end
 
     def solt_cucumber?
-      @line.include?('baby') && @line.any? { |word| word.include?('dill') }
+      @line.any? { |word| word.include?('baby') } && @line.any? { |word| word.include?('dill') }
     end
 
     def canned_peas?
-      @line.include?('canned') && @line.include?('peas')
+      @line.any? { |word| word.include?('canned') } && @line.any? { |word| word.include?('peas') }
     end
 
     def bond_peas?
-      @line.include?('bond') && @line.include?('peas')
+      @line.any? { |word| word.include?('bond') } && @line.any? { |word| word.include?('peas') }
     end
 
     def mushroom?
-      @line.include?('mushroom')
+      @line.any? { |word| word.include?('mushroom') }
     end
 
     def chinese_cabbage?
-      @line.include?('sawi') && @line.include?('putih')
+      @line.any? { |word| word.include?('sawi') } && @line.any? { |word| word.include?('putih') }
     end
 
     def baby_cucumber?
-      @line.include?('baby') && @line.include?('gherkin')
+      @line.any? { |word| word.include?('baby') } && @line.any? { |word| word.include?('gherkin') }
     end
 
     def cabbage_2?
-      @line.include?('romana') && @line.include?('lettuce')
+      @line.any? { |word| word.include?('romana') } && @line.any? { |word| word.include?('lettuce') }
     end
 
     def asparagus?
-      @line.include?('asparagus')
+      @line.any? { |word| word.include?('asparagus') }
     end
 
     def kailan?
-      @line.include?('kailan')
+      @line.any? { |word| word.include?('kailan') }
     end
 
     ####
@@ -591,39 +591,39 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def milk?
-      @line.include?('milk') && @line.include?('life')
+      @line.any? { |word| word.include?('milk') } && @line.any? { |word| word.include?('life') }
     end
 
     def greenfields_milk?
-      @line.any? { |word| word.include?('greenfield') } && @line.include?('milk')
+      @line.any? { |word| word.include?('greenfield') } && @line.any? { |word| word.include?('milk') }
     end
 
     def kin_milk?
-      @line.include?('kin') && @line.include?('freshmilk')
+      @line.any? { |word| word.include?('kin') } && @line.any? { |word| word.include?('freshmilk') }
     end
 
     def greenfields_yog?
-      @line.include?('greenfields') && @line.include?('yog')
+      @line.any? { |word| word.include?('greenfields') } && @line.any? { |word| word.include?('yog') }
     end
 
     def biokul_yog?
-      @line.any? { |word| word.include?('iokul') } && @line.include?('yog')
+      @line.any? { |word| word.include?('iokul') } && @line.any? { |word| word.include?('yog') }
     end
 
     def kin_yog?
-      @line.include?('kin') && @line.include?('yog')
+      @line.any? { |word| word.include?('kin') } && @line.any? { |word| word.include?('yog') }
     end
 
     def delicyo_yog?
-      @line.any? { |word| word.include?('del') } && @line.any? { |word| word.include?('icyo') } && @line.include?('yog')
+      @line.any? { |word| word.include?('del') } && @line.any? { |word| word.include?('icyo') } && @line.any? { |word| word.include?('yog') }
     end
 
     def cimory_yog?
-      @line.include?('cimory') && @line.include?('squeeze')
+      @line.any? { |word| word.include?('cimory') } && @line.any? { |word| word.include?('squeeze') }
     end
 
     def j_j_cheese?
-      @line.include?('j') && @line.include?('&') && @line.include?('cott')
+      @line.any? { |word| word.include?('j') } && @line.any? { |word| word.include?('&') } && @line.any? { |word| word.include?('cott') }
     end
 
     def laughing_cow_cheese?
@@ -631,19 +631,19 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ricotta_cheese?
-      @line.include?('ricotta')
+      @line.any? { |word| word.include?('ricotta') }
     end
 
     def cheddar?
-      @line.include?('cheddar')
+      @line.any? { |word| word.include?('cheddar') }
     end
 
     def sour_cream?
-      @line.any? { |word| word.include?('yummy') } && @line.include?('cream')
+      @line.any? { |word| word.include?('yummy') } && @line.any? { |word| word.include?('cream') }
     end
 
     def mini_cheese?
-      @line.include?('mini') && @line.include?('cheese')
+      @line.any? { |word| word.include?('mini') } && @line.any? { |word| word.include?('cheese') }
     end
 
     def anchor_dairy?
@@ -651,51 +651,51 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bocconcini?
-      @line.include?('bocconcini') && @line.include?('fresh')
+      @line.any? { |word| word.include?('bocconcini') } && @line.any? { |word| word.include?('fresh') }
     end
 
     def mozzarela?
-      @line.include?('mozzarella')
+      @line.any? { |word| word.include?('mozzarella') }
     end
 
     def yogurt?
-      @line.include?('plain') && (@line.include?('yogurt') || @line.include?('yog'))
+      @line.any? { |word| word.include?('plain') } && (@line.any? { |word| word.include?('yogurt') } || @line.any? { |word| word.include?('yog') })
     end
 
     def sour_cream_2?
-      @line.include?('milk') && @line.include?('sour') && @line.include?('cream')
+      @line.any? { |word| word.include?('milk') } && @line.any? { |word| word.include?('sour') } && @line.any? { |word| word.include?('cream') }
     end
 
     def greenfields_cheese?
-      @line.include?('greenfields') && @line.include?('bocconcini')
+      @line.any? { |word| word.include?('greenfields') } && @line.any? { |word| word.include?('bocconcini') }
     end
 
     def president_cheese?
-      @line.include?('president') && @line.include?('gouda') && @line.include?('tasty')
+      @line.any? { |word| word.include?('president') } && @line.any? { |word| word.include?('gouda') } && @line.any? { |word| word.include?('tasty') }
     end
 
     def cheese_2?
-      @line.include?('rossa') && @line.include?('renkol')
+      @line.any? { |word| word.include?('rossa') } && @line.any? { |word| word.include?('renkol') }
     end
 
     def greenfields_milk_2?
-      @line.include?('greenfield') && @line.include?('fullcream')
+      @line.any? { |word| word.include?('greenfield') } && @line.any? { |word| word.include?('fullcream') }
     end
 
     def bega_cheese?
-      @line.include?('bega') && @line.include?('super') && @line.include?('slice')
+      @line.any? { |word| word.include?('bega') } && @line.any? { |word| word.include?('super') } && @line.any? { |word| word.include?('slice') }
     end
 
     def butter_cheese?
-      @line.include?('butter') && @line.include?('cheese')
+      @line.any? { |word| word.include?('butter') } && @line.any? { |word| word.include?('cheese') }
     end
 
     def greek_fetta?
-      @line.include?('greek') && @line.include?('fetta')
+      @line.any? { |word| word.include?('greek') } && @line.any? { |word| word.include?('fetta') }
     end
 
     def cream_cheese?
-      @line.include?('cream') && @line.include?('cheese')
+      @line.any? { |word| word.include?('cream') } && @line.any? { |word| word.include?('cheese') }
     end
 
     ####
@@ -707,11 +707,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def donut?
-      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple') || @line.include?('icing'))
+      @line.any? { |word| word.include?('onut') } && (@line.any? { |word| word.include?('sprinkle') } || @line.any? { |word| word.include?('tripple') } || @line.any? { |word| word.include?('icing') })
     end
 
     def bread_sticks?
-      @line.include?('grissini') && @line.include?('gluten')
+      @line.any? { |word| word.include?('grissini') } && @line.any? { |word| word.include?('gluten') }
     end
 
     def toast?
@@ -719,51 +719,51 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def wrap?
-      @line.include?('rositas') && @line.include?('borrito')
+      @line.any? { |word| word.include?('rositas') } && @line.any? { |word| word.include?('borrito') }
     end
 
     def yeast?
-      @line.include?('fermipan')
+      @line.any? { |word| word.include?('fermipan') }
     end
 
     def waffels?
-      @line.include?('bruxel') && @line.include?('original')
+      @line.any? { |word| word.include?('bruxel') } && @line.any? { |word| word.include?('original') }
     end
 
     def flour?
-      @line.include?('kunci') && @line.include?('br')
+      @line.any? { |word| word.include?('kunci') } && @line.any? { |word| word.include?('br') }
     end
 
     def batard?
-      @line.include?('batard') && @line.include?('bread')
+      @line.any? { |word| word.include?('batard') } && @line.any? { |word| word.include?('bread') }
     end
 
     def just_bread?
-      @line.include?('bread')
+      @line.any? { |word| word.include?('bread') }
     end
 
     def sourdough?
-      @line.include?('sour') && @line.include?('dough')
+      @line.any? { |word| word.include?('sour') } && @line.any? { |word| word.include?('dough') }
     end
 
     def flour_2?
-      @line.include?('cakra') && @line.include?('terigu')
+      @line.any? { |word| word.include?('cakra') } && @line.any? { |word| word.include?('terigu') }
     end
 
     def bun?
-      @line.include?('roti') && @line.include?('sobek')
+      @line.any? { |word| word.include?('roti') } && @line.any? { |word| word.include?('sobek') }
     end
 
     def donut_chocolate?
-      @line.include?('donut') && @line.include?('chocolate')
+      @line.any? { |word| word.include?('donut') } && @line.any? { |word| word.include?('chocolate') }
     end
 
     def croissant?
-      @line.include?('croissant')
+      @line.any? { |word| word.include?('croissant') }
     end
 
     def cinamon?
-      @line.any? { |word| word.include?('cinamon') } && @line.include?('roll')
+      @line.any? { |word| word.include?('cinamon') } && @line.any? { |word| word.include?('roll') }
     end
 
     ####
@@ -773,23 +773,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def chicken_breast?
-      @line.include?('chic') && @line.include?('breast')
+      @line.any? { |word| word.include?('chic') } && @line.any? { |word| word.include?('breast') }
     end
 
     def chicken?
-      @line.include?('chicken')
+      @line.any? { |word| word.include?('chicken') }
     end
 
     def pork?
-      @line.include?('pork') && @line.include?('fillet')
+      @line.any? { |word| word.include?('pork') } && @line.any? { |word| word.include?('fillet') }
     end
 
     def beef?
-      @line.include?('prime') && @line.include?('beef')
+      @line.any? { |word| word.include?('prime') } && @line.any? { |word| word.include?('beef') }
     end
 
     def pork_2?
-      @line.include?('pork') && @line.include?('roast')
+      @line.any? { |word| word.include?('pork') } && @line.any? { |word| word.include?('roast') }
     end
 
     ####
@@ -799,23 +799,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def marlin?
-      @line.include?('marlin') && @line.include?('steak')
+      @line.any? { |word| word.include?('marlin') } && @line.any? { |word| word.include?('steak') }
     end
 
     def gravad?
-      @line.include?('gravad') && @line.include?('lax')
+      @line.any? { |word| word.include?('gravad') } && @line.any? { |word| word.include?('lax') }
     end
 
     def mahi?
-      @line.include?('mahi') && @line.include?('fillet')
+      @line.any? { |word| word.include?('mahi') } && @line.any? { |word| word.include?('fillet') }
     end
 
     def tuna?
-      @line.include?('tuna')
+      @line.any? { |word| word.include?('tuna') }
     end
 
     def salmon?
-      @line.include?('salmon')
+      @line.any? { |word| word.include?('salmon') }
     end
 
     ####
@@ -828,47 +828,47 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mamas_ham?
-      @line.include?('mamas') && @line.include?('ham')
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('ham') }
     end
 
     def mamas_pork?
-      @line.include?('mamas') && @line.include?('pork')
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('pork') }
     end
 
     def sausages?
-      @line.include?('kanzler') && (@line.include?('original') || @line.include?('singles'))
+      @line.any? { |word| word.include?('kanzler') } && (@line.any? { |word| word.include?('original') } || @line.any? { |word| word.include?('singles') })
     end
 
     def cooked_ham?
-      @line.any? { |word| word.include?('ooked') } && @line.include?('ham')
+      @line.any? { |word| word.include?('ooked') } && @line.any? { |word| word.include?('ham') }
     end
 
     def bacon?
-      @line.include?('bacon')
+      @line.any? { |word| word.include?('bacon') }
     end
 
     def smith_field_ham?
-      @line.any? { |word| word.include?('smithfield') } && @line.include?('ham')
+      @line.any? { |word| word.include?('smithfield') } && @line.any? { |word| word.include?('ham') }
     end
 
     def mamas_salami?
-      @line.any? { |word| word.include?('mamas') } && @line.include?('salami')
+      @line.any? { |word| word.include?('mamas') } && @line.any? { |word| word.include?('salami') }
     end
 
     def triple_ham?
-      @line.include?('fores') && @line.include?('triple') && @line.include?('black')
+      @line.any? { |word| word.include?('fores') } && @line.any? { |word| word.include?('triple') } && @line.any? { |word| word.include?('black') }
     end
 
     def bernardi_beef?
-      @line.include?('bernardi') && @line.include?('beef')
+      @line.any? { |word| word.include?('bernardi') } && @line.any? { |word| word.include?('beef') }
     end
 
     def nurnberg?
-      @line.include?('nuernbrgr')
+      @line.any? { |word| word.include?('nuernbrgr') }
     end
 
     def smoke_ham?
-      @line.include?('smoke') && @line.include?('ham')
+      @line.any? { |word| word.include?('smoke') } && @line.any? { |word| word.include?('ham') }
     end
 
     def mamas_sausage?
@@ -876,31 +876,31 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sausage?
-      @line.include?('sausage')
+      @line.any? { |word| word.include?('sausage') }
     end
 
     def bratwurst?
-      @line.include?('garlic') && @line.include?('bratwurs')
+      @line.any? { |word| word.include?('garlic') } && @line.any? { |word| word.include?('bratwurs') }
     end
 
     def breakfast_ham?
-      @line.include?('breakfast') && @line.include?('ham')
+      @line.any? { |word| word.include?('breakfast') } && @line.any? { |word| word.include?('ham') }
     end
 
     def danish_ham?
-      @line.include?('danish') && @line.include?('ham')
+      @line.any? { |word| word.include?('danish') } && @line.any? { |word| word.include?('ham') }
     end
 
     def nice_sausage?
-      @line.include?('nice') && @line.include?('sosis')
+      @line.any? { |word| word.include?('nice') } && @line.any? { |word| word.include?('sosis') }
     end
 
     def aroma_pork?
-      @line.include?('aroma') && @line.include?('pork')
+      @line.any? { |word| word.include?('aroma') } && @line.any? { |word| word.include?('pork') }
     end
 
     def turkey_sausages?
-      @line.include?('turkey') && @line.include?('smoked')
+      @line.any? { |word| word.include?('turkey') } && @line.any? { |word| word.include?('smoked') }
     end
 
     ####
@@ -911,43 +911,43 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def lays?
-      @line.include?('lays') || (@line.include?('lay') && @line.include?('chips'))
+      @line.any? { |word| word.include?('lays') } || (@line.any? { |word| word.include?('lay') } && @line.any? { |word| word.include?('chips') })
     end
 
     def pistachios?
-      @line.include?('pistachios') || @line.include?('pischio') || @line.include?('pistacio')
+      @line.any? { |word| word.include?('pistachios') } || @line.any? { |word| word.include?('pischio') } || @line.any? { |word| word.include?('pistacio') }
     end
 
     def pringles?
-      @line.include?('pringles')
+      @line.any? { |word| word.include?('pringles') }
     end
 
     def thins_chips?
-      @line.include?('thins')
+      @line.any? { |word| word.include?('thins') }
     end
 
     def corn_sticks?
-      @line.include?('cheeto') && @line.any? { |word| word.include?('puffs') }
+      @line.any? { |word| word.include?('cheeto') } && @line.any? { |word| word.include?('puffs') }
     end
 
     def crisps?
-      @line.include?('lrz') && @line.include?('nat') && @line.include?('classic')
+      @line.any? { |word| word.include?('lrz') } && @line.any? { |word| word.include?('nat') } && @line.any? { |word| word.include?('classic') }
     end
 
     def lorenz?
-      @line.include?('lorenz') && @line.include?('parmesan')
+      @line.any? { |word| word.include?('lorenz') } && @line.any? { |word| word.include?('parmesan') }
     end
 
     def loren?
-      @line.include?('loren') && @line.include?('brez')
+      @line.any? { |word| word.include?('loren') } && @line.any? { |word| word.include?('brez') }
     end
 
     def chitato?
-      @line.include?('chitato') && @line.include?('beef')
+      @line.any? { |word| word.include?('chitato') } && @line.any? { |word| word.include?('beef') }
     end
 
     def cashew?
-      @line.include?('yava') && @line.include?('sea') && @line.include?('salt')
+      @line.any? { |word| word.include?('yava') } && @line.any? { |word| word.include?('sea') } && @line.any? { |word| word.include?('salt') }
     end
 
     ####
@@ -959,51 +959,51 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def rice?
-      @line.include?('basmati') && @line.include?('rice')
+      @line.any? { |word| word.include?('basmati') } && @line.any? { |word| word.include?('rice') }
     end
 
     def barilla?
-      @line.include?('barilla')
+      @line.any? { |word| word.include?('barilla') }
     end
 
     def oats?
-      @line.include?('australia') && @line.include?('harvest')
+      @line.any? { |word| word.include?('australia') } && @line.any? { |word| word.include?('harvest') }
     end
 
     def peas?
-      @line.include?('mckenzies') && @line.include?('yellow')
+      @line.any? { |word| word.include?('mckenzies') } && @line.any? { |word| word.include?('yellow') }
     end
 
     def vermicelli?
-      @line.include?('rice') && @line.include?('vermicelli')
+      @line.any? { |word| word.include?('rice') } && @line.any? { |word| word.include?('vermicelli') }
     end
 
     def some_porridge?
-      @line.include?('organico') && @line.include?('quinoa')
+      @line.any? { |word| word.include?('organico') } && @line.any? { |word| word.include?('quinoa') }
     end
 
     def rice_noodle?
-      @line.include?('rice') && @line.include?('noodle')
+      @line.any? { |word| word.include?('rice') } && @line.any? { |word| word.include?('noodle') }
     end
 
     def oats_2?
-      @line.include?('oats') && @line.include?('quick') && @line.include?('cooking')
+      @line.any? { |word| word.include?('oats') } && @line.any? { |word| word.include?('quick') } && @line.any? { |word| word.include?('cooking') }
     end
 
     def red_lentils?
-      @line.include?('red') && @line.include?('lentils')
+      @line.any? { |word| word.include?('red') } && @line.any? { |word| word.include?('lentils') }
     end
 
     def conhiglie?
-      @line.include?('conhiglie') && @line.include?('rigate')
+      @line.any? { |word| word.include?('conhiglie') } && @line.any? { |word| word.include?('rigate') }
     end
 
     def farfalle?
-      @line.include?('farfalle')
+      @line.any? { |word| word.include?('farfalle') }
     end
 
     def granola?
-      @line.include?('yava') && @line.include?('granola')
+      @line.any? { |word| word.include?('yava') } && @line.any? { |word| word.include?('granola') }
     end
 
     def cous_cous?
@@ -1019,39 +1019,39 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def paseo?
-      @line.include?('paseo')
+      @line.any? { |word| word.include?('paseo') }
     end
 
     def some_stuff?
-      @line.any? { |word| word.include?('youth') } && @line.include?('kitchen')
+      @line.any? { |word| word.include?('youth') } && @line.any? { |word| word.include?('kitchen') }
     end
 
     def sponge?
-      @line.include?('polytex') && @line.any? { |word| word.include?('spo') }
+      @line.any? { |word| word.include?('polytex') } && @line.any? { |word| word.include?('spo') }
     end
 
     def montis?
-      @line.include?('montiss') && @line.include?('tissu')
+      @line.any? { |word| word.include?('montiss') } && @line.any? { |word| word.include?('tissu') }
     end
 
     def soap?
-      @line.include?('sunlight') && @line.include?('korean')
+      @line.any? { |word| word.include?('sunlight') } && @line.any? { |word| word.include?('korean') }
     end
 
     def handsoap?
-      @line.include?('dettol')
+      @line.any? { |word| word.include?('dettol') }
     end
 
     def another_soap?
-      @line.include?('lifebuoy') && @line.include?('soap')
+      @line.any? { |word| word.include?('lifebuoy') } && @line.any? { |word| word.include?('soap') }
     end
 
     def dove?
-      @line.include?('dove')
+      @line.any? { |word| word.include?('dove') }
     end
 
     def to_wash_plates?
-      @line.include?('sunlight') && @line.include?('mint')
+      @line.any? { |word| word.include?('sunlight') } && @line.any? { |word| word.include?('mint') }
     end
 
     ####
@@ -1061,7 +1061,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bag?
-      @line.include?('pepito') && @line.include?('bag')
+      @line.any? { |word| word.include?('pepito') } && @line.any? { |word| word.include?('bag') } && !@line.any? { |word| word.include?('bagus') }
     end
 
     ####
@@ -1073,23 +1073,23 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def clear_gel?
-      @line.include?('clear') && @line.include?('active')
+      @line.any? { |word| word.include?('clear') } && @line.any? { |word| word.include?('active') }
     end
 
     def colgate?
-      @line.include?('colgate')
+      @line.any? { |word| word.include?('colgate') }
     end
 
     def local_vanish?
-      @line.include?('proclin')
+      @line.any? { |word| word.include?('proclin') }
     end
 
     def vanish?
-      @line.include?('vanish')
+      @line.any? { |word| word.include?('vanish') }
     end
 
     def luquid_soap?
-      @line.include?('j') && @line.include?('&') && @line.include?('bath')
+      @line.any? { |word| word.include?('j') } && @line.any? { |word| word.include?('&') } && @line.any? { |word| word.include?('bath') }
     end
 
     def colgate_2?
@@ -1097,43 +1097,43 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kids_toothpaste?
-      @line.include?('kids') && @line.include?('toothpaste')
+      @line.any? { |word| word.include?('kids') } && @line.any? { |word| word.include?('toothpaste') }
     end
 
     def floss?
-      @line.include?('dental') && @line.any? { |word| word.include?('floss') }
+      @line.any? { |word| word.include?('dental') } && @line.any? { |word| word.include?('floss') }
     end
 
     def local_vanish_2?
-      @line.include?('proc') && @line.include?('wht') && @line.include?('crti')
+      @line.any? { |word| word.include?('proc') } && @line.any? { |word| word.include?('wht') } && @line.any? { |word| word.include?('crti') }
     end
 
     def luquid_soap_2?
-      @line.include?('j') && @line.include?('&') && @line.any? { |word| word.include?('wash') }
+      @line.any? { |word| word.include?('j') } && @line.any? { |word| word.include?('&') } && @line.any? { |word| word.include?('wash') }
     end
 
     def tooth_brush?
-      @line.include?('tbrush') && @line.include?('sanrio')
+      @line.any? { |word| word.include?('tbrush') } && @line.any? { |word| word.include?('sanrio') }
     end
 
     def shampoo?
-      @line.include?('shampoo') && @line.include?('ginseng')
+      @line.any? { |word| word.include?('shampoo') } && @line.any? { |word| word.include?('ginseng') }
     end
 
     def shampoo_2?
-      @line.include?('tea') && @line.include?('tree') && @line.include?('oil')
+      @line.any? { |word| word.include?('tea') } && @line.any? { |word| word.include?('tree') } && @line.any? { |word| word.include?('oil') }
     end
 
     def to_clean_smth?
-      @line.include?('bayclin') && @line.include?('regular')
+      @line.any? { |word| word.include?('bayclin') } && @line.any? { |word| word.include?('regular') }
     end
 
     def sensodyne?
-      @line.include?('sensodyne')
+      @line.any? { |word| word.include?('sensodyne') }
     end
 
     def vitamin_for_hair?
-      @line.include?('ellips') && @line.include?('nutri') && @line.include?('blister')
+      @line.any? { |word| word.include?('ellips') } && @line.any? { |word| word.include?('nutri') } && @line.any? { |word| word.include?('blister') }
     end
 
     ####
@@ -1144,43 +1144,43 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bataries?
-      @line.include?('panasonic') && @line.include?('alk')
+      @line.any? { |word| word.include?('panasonic') } && @line.any? { |word| word.include?('alk') }
     end
 
     def baby_wipes?
-      @line.include?('baby') && @line.include?('wipes')
+      @line.any? { |word| word.include?('baby') } && @line.any? { |word| word.include?('wipes') }
     end
 
     def another_baby_wipes?
-      @line.any? { |word| word.include?('etkins') } && @line.include?('clean')
+      @line.any? { |word| word.include?('etkins') } && @line.any? { |word| word.include?('clean') }
     end
 
     def energizer?
-      @line.include?('energizer')
+      @line.any? { |word| word.include?('energizer') }
     end
 
     def baterai?
-      @line.include?('baterai') && @line.include?('biru')
+      @line.any? { |word| word.include?('baterai') } && @line.any? { |word| word.include?('biru') }
     end
 
     def some_spray?
-      @line.include?('phrn') && @line.include?('merah')
+      @line.any? { |word| word.include?('phrn') } && @line.any? { |word| word.include?('merah') }
     end
 
     def wet_wipes?
-      @line.include?('neppi') && @line.include?('baby') && !@line.include?('diaper')
+      @line.any? { |word| word.include?('neppi') } && @line.any? { |word| word.include?('baby') } && !@line.any? { |word| word.include?('diaper') }
     end
 
     def raincoat?
-      @line.include?('hujan') && @line.include?('ponco')
+      @line.any? { |word| word.include?('hujan') } && @line.any? { |word| word.include?('ponco') }
     end
 
     def glue?
-      @line.include?('castol') && @line.include?('besar')
+      @line.any? { |word| word.include?('castol') } && @line.any? { |word| word.include?('besar') }
     end
 
     def humidity_gathering?
-      @line.include?('bagus') && ((@line.include?('serap') && @line.include?('air')) || @line.include?('reffil'))
+      @line.any? { |word| word.include?('bagus') } && ((@line.any? { |word| word.include?('serap') } && @line.any? { |word| word.include?('air') }) || @line.any? { |word| word.include?('reffil') })
     end
 
     ####
@@ -1190,21 +1190,21 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweety?
-      @line.include?('sweety') && @line.include?('pant')
+      @line.any? { |word| word.include?('sweety') } && @line.any? { |word| word.include?('pant') }
     end
 
     def merries?
-      @line.include?('merries') && @line.any? { |word| word.include?('good') }
+      @line.any? { |word| word.include?('merries') } && @line.any? { |word| word.include?('good') }
     end
 
     def diaper_baby?
-      @line.include?('diaper') && @line.include?('baby')
+      @line.any? { |word| word.include?('diaper') } && @line.any? { |word| word.include?('baby') }
     end
 
     ####
 
     def ready_to_cook?
-      @line.include?('sora') && @line.include?('mozzarela')
+      @line.any? { |word| word.include?('sora') } && @line.any? { |word| word.include?('mozzarela') }
     end
 
     ####
@@ -1214,7 +1214,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bubbles?
-      @line.include?('yasuka')
+      @line.any? { |word| word.include?('yasuka') }
     end
 
     ####
@@ -1224,11 +1224,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def carefree_fresh?
-      @line.include?('carefree') && @line.include?('fresh')
+      @line.any? { |word| word.include?('carefree') } && @line.any? { |word| word.include?('fresh') }
     end
 
     def laurier?
-      @line.include?('laurier')
+      @line.any? { |word| word.include?('laurier') }
     end
 
     ####
@@ -1238,7 +1238,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def for_hair?
-      @line.include?('jepit') && @line.include?('rambut')
+      @line.any? { |word| word.include?('jepit') } && @line.any? { |word| word.include?('rambut') }
     end
 
     ####
@@ -1248,7 +1248,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def foam?
-      @line.include?('gillete')
+      @line.any? { |word| word.include?('gillete') }
     end
   end
 end

@@ -3090,8 +3090,8 @@ RSpec.describe PricesFromImage, vcr: true do
 
       sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
       expect(result).to eq(
-        [[{:category_name=>"Для дома",
-          :sub_category_name=>"инвентарь",
+        [[{:category_name=>"Марк",
+          :sub_category_name=>"Памперсы",
           :price=>84500.0,
           :full_parsed_line=>
            "PEPITO, MARKET, ECHO, BEACH, Jl, ., Pantai, Batu, Bolong, -, Canggu, PT, Sentral, Retailindo, Dewata, VOUCHER, RAMA, HOLIDAY, Item, Sales, Bill, No, :, 5C10000010215, Counter, :, C1, 16, -, Feb, -, 2023, 09:05:13, DIMAS, KSR, 101034043604, [, NEPPI, DIAPERS, BABY, XL, 22, S, ], 84,500"},
