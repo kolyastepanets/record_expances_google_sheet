@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def alcohol?
-      beer? || wine? || champagne? || beer_2? || wine_2?
+      beer? || wine? || champagne? || beer_2? || wine_2? || wine_3?
     end
 
     def beer?
@@ -26,6 +26,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wine_2?
       @line.any? { |word| word.include?('wine') }
+    end
+
+    def wine_3?
+      @line.include?('sababay') && @line.include?('pink')
     end
 
     ####
@@ -251,7 +255,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
-        strawberry? || blueberry?
+        strawberry? || blueberry? || pear?
     end
 
     def banana?
@@ -288,6 +292,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def blueberry?
       @line.include?('blueberry')
+    end
+
+    def pear?
+      @line.include?('pear') && @line.include?('honey')
     end
 
     ####
@@ -419,7 +427,7 @@ module DetectCategoryAndSubcategoryFromLine
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
         bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri? ||
-        laughing_cow_cheese? || cottage_cheese?
+        laughing_cow_cheese? || cottage_cheese? || sweet_cheese?
     end
 
     def ricotta?
@@ -476,6 +484,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cottage_cheese?
       @line.include?('cottage') && @line.include?('cheese')
+    end
+
+    def sweet_cheese?
+      @line.include?('mascarpn') && @line.any? { |word| word.include?('chsvan') }
     end
 
     def butter?
@@ -764,7 +776,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def oralb?
-      @line.include?('oralb') && @line.include?('winnie')
+      @line.include?('oralb')
     end
 
     ####
