@@ -79,7 +79,7 @@ class CommonExpensesFromWebhook
   end
 
   def ready_food
-    ["WASABI, SUSHI & BENTO", "mcdonald"]
+    ["WASABI, SUSHI & BENTO", "mcdonald", "KIOSK MCD"]
   end
 
   def uk_train
