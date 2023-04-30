@@ -1,7 +1,7 @@
 class SendMessageToBotToAskToEnterExpences
   include CallableService
 
-  EXPENSES_TO_SKIP = ["На награду в моно", "З гривневого рахунка ФОП"].freeze
+  EXPENSES_TO_SKIP = ["На награду в моно", "З гривневого рахунку ФОП"].freeze
 
   def initialize(transaction_data)
     @id = transaction_data[:id]

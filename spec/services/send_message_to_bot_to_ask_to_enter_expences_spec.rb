@@ -125,7 +125,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
            cashbackAmount: 0,
            commissionRate: 0,
            currencyCode: 826,
-           description: "З гривневого рахунка ФОП",
+           description: "З гривневого рахунку ФОП",
            hold: true,
            id: id,
            mcc: 5969,
