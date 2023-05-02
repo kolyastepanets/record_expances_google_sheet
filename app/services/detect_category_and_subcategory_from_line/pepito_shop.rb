@@ -39,7 +39,7 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
-        mango_juice? || snake_fruit?
+        mango_juice? || snake_fruit? || apple_juice?
     end
 
     def green_tea?
@@ -92,6 +92,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def snake_fruit?
       @line.any? { |word| word.include?('salak') } && @line.include?('bali')
+    end
+
+    def apple_juice?
+      @line.include?('juice') && @line.include?('apl')
     end
 
     ####
@@ -382,7 +386,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
-        green_peas? || pepaya?
+        green_peas? || pepaya? || strawberry?
     end
 
     def pineapple?
@@ -443,6 +447,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pepaya?
       @line.include?('pepaya') && @line.include?('calina')
+    end
+
+    def strawberry?
+      @line.include?('strawberry') && @line.any? { |word| word.include?('gr') }
     end
 
     ####

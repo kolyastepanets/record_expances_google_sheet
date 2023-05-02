@@ -4506,6 +4506,35 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 59', freezed_time: '2023-05-02T03:17:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out81.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Марк",
+          :sub_category_name=>"Памперсы",
+          :price=>122000.0,
+          :full_parsed_line=>
+           "PEPITO, EXPRESS, UMALAS, Jl, ., Dukuh, Indah, 56, Umalas, NPWP, :, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000030907, Counter, :, C2, 02, -, May, -, 2023, 07:29:52, YENI, ASTARI, 101034017883, [, SWEETY, PANT, R.GL, LI, 122.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>65843.0,
+          :full_parsed_line=>"P, 101024011692, [, SEMANGKA, MERAH, NB, KG, ], 73,159 - 7,316"},
+         {:category_name=>nil, :sub_category_name=>nil, :price=>67500.0, :full_parsed_line=>"-, 101012009535, [, JUNGLE, JC, APL, 2000ML, ], 67,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>28350.0,
+          :full_parsed_line=>"P, 101024011715, [, STRAWBERRY, 250GR, ], 31,500 - 3,150"}],
+        283693.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
