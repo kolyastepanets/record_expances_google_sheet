@@ -4535,6 +4535,29 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 60', freezed_time: '2023-05-05T08:20:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out82.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>60500.0,
+          :full_parsed_line=>
+           "PEPITO, MARKET, CANGGU, Jl, ., Raya, Canggu, NPWP, :, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C30000027641, Counter, :, C3, 03, -, May, -, 2023, 15:41:56, FITRI, INDAH, SAR, 101002005406, [, LINDT, WHITE, CHOC100, ], 60,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>15500.0, :full_parsed_line=>"101002005436, [, DF, CASHEW, 50GR, ], 15,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>136000.0, :full_parsed_line=>"101002000021, [, LINDT, MRAISIN, NUT100, ], 136,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60000.0, :full_parsed_line=>"101066051212, [, BAME, TARO, CAKE, ], 60,000"}],
+        272000.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 

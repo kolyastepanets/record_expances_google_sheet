@@ -180,7 +180,7 @@ module DetectCategoryAndSubcategoryFromLine
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
-        junglegold_coconut? || healthy_bar?
+        junglegold_coconut? || healthy_bar? || bar_cashew_2?
     end
 
     def magnum_icecream?
@@ -353,6 +353,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def healthy_bar?
       @line.include?('healthy') && @line.include?('bar')
+    end
+
+    def bar_cashew_2?
+      @line.include?('cashew') && @line.include?('50gr')
     end
 
     ####
