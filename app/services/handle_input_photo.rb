@@ -148,7 +148,8 @@ class HandleInputPhoto
   def send_message_with_categories(price_with_category, categories_to_show)
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "Вся строка: #{price_with_category[:full_parsed_line]}\nВыбери категорию чтобы сохранить для #{price_with_category[:price]}:",
+      text: "Вся строка: #{price_with_category[:full_parsed_line]}\nПоиск в гугле: <a href=\"https://www.google.com/search?q=#{without_first_and_last(price_with_category[:full_parsed_line])}\">ссылка</a>\nВыбери категорию чтобы сохранить для #{price_with_category[:price]}:",
+      parse_mode: :HTML,
       reply_markup: { inline_keyboard:  categories_to_show },
     )
   end
@@ -220,5 +221,9 @@ class HandleInputPhoto
   def collected_prices_sum_in_uad_or_in_uah
     return "$#{(collected_prices_sum / @currency_to_usd).round(2)}" if @currency_to_usd
     return "#{(collected_prices_sum * @currency_to_uah).round(2)} грн" if @currency_to_uah
+  end
+
+  def without_first_and_last(current_string)
+    current_string.split(", ")[1..-2].join(" ")
   end
 end
