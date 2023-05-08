@@ -103,7 +103,7 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
-        sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3?
+        sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt?
     end
 
     def kikko_soy_souce?
@@ -168,6 +168,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def yellow_mustard?
       @line.include?('yellow') && @line.include?('mustard')
+    end
+
+    def salt?
+      @line.include?('garam')
     end
 
     ####
@@ -390,7 +394,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
-        green_peas? || pepaya? || strawberry?
+        green_peas? || pepaya? || strawberry? || yellow_watermelon?
     end
 
     def pineapple?
@@ -455,6 +459,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def strawberry?
       @line.include?('strawberry') && @line.any? { |word| word.include?('gr') }
+    end
+
+    def yellow_watermelon?
+      @line.include?('semangka') && @line.include?('kuning')
     end
 
     ####
