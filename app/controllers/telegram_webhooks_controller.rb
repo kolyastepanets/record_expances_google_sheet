@@ -665,22 +665,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def round_in_google_sheet_like_in_monobank
-    usd_fop_monobank = ReceiveUsdFopFromMonobank.call
-    uah_fop_monobank = ReceiveCurrentBalanceInMonobankFromMono.call
-
     respond_with(
       :message,
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{usd_fop_monobank}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}",
+      text: "Start perform in 70 seconds",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
 
-    RoundInGoogleSheetLikeInMonobank.call(usd_fop_monobank, uah_fop_monobank)
-
-    respond_with(
-      :message,
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{usd_fop_monobank}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}",
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
-    )
+    RoundInGoogleSheetLikeInMonobankJob.set(wait: 70.seconds).perform_later
   end
 
   def info_current_month
