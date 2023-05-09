@@ -13,7 +13,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bintang_beer?
-      @line.any? { |word| word.include?('bintang') } && @line.include?('crystal')
+      @line.any? { |word| word.include?('bintang') }
     end
 
     def bali_hai_beer?

@@ -4616,6 +4616,33 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 62', freezed_time: '2023-05-09T12:45:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out84.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Алкоголь",
+          :price=>25500.0,
+          :full_parsed_line=>
+           "PEPITO, EXPRESS, UMALAS, Jl, ., Dukuh, Indah, 56, Umalas, NPWP, :, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000032873, Counter, :, C2, 09, -, May, -, 2023, 14:50:21, YENI, ASTARI, 101011040546, [, BINTANG, CRYSTAL, PINT, 330ML, ), 25,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>47000.0, :full_parsed_line=>"101011000333, [, BINTANG, BTL, PINT, 330ML, ], 47,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>15500.0, :full_parsed_line=>"101012009125, (, GREENFIELDS, YOG, STRAW, 125GR, 15,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>15500.0, :full_parsed_line=>"101012009126, [, GREENFIELDS, YOG, MANGO, 125GR, 15,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>15500.0,
+          :full_parsed_line=>"101012009124, [, GREENFIELDS, YOG, BLUEBERRY, 1, 25GR, ], 15,500"}],
+        119000.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
