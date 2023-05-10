@@ -1,6 +1,5 @@
 class ReceiveCurrentMonthTaxesToPay < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_TAXES_IN_UAH = "Налоги в грн".freeze
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   private
 
@@ -31,7 +30,7 @@ class ReceiveCurrentMonthTaxesToPay < GetOrSetDataInGoogleSheetBase
         break if taxes_amount.is_a?(String) && taxes_amount.present?
       end
     end
-    taxes_amount_coordinates = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    taxes_amount_coordinates = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     {
       taxes_amount: taxes_amount,

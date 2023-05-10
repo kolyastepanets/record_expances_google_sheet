@@ -5,7 +5,6 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_SPENT_MONEY = "Потрачено денег:".freeze
   KEY_FIND_CELL_NOW_MONEY = "Сейчас денег:".freeze
   MONTH_POINT_ONE = ".1".freeze
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize
     @current_month = Date.today.month
@@ -47,7 +46,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         break if withdraw_foreign_money.is_a?(String) && withdraw_foreign_money.present?
       end
     end
-    coordinates_of_value_to_change_withdraw_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_withdraw_foreign_money = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -58,7 +57,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         break if currency_rate_uah_to_foreigh_currency.is_a?(String) && currency_rate_uah_to_foreigh_currency.present?
       end
     end
-    coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_currency_rate_uah_to_foreigh_currency = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -68,7 +67,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    coordinates_of_total_withraw_foreign_money_formula = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_total_withraw_foreign_money_formula = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -78,7 +77,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    coordinates_of_value_to_change_spent_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_spent_foreign_money = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -88,7 +87,7 @@ class CalculateForeignCurrencyCashExpenses < GetOrSetDataInGoogleSheetBase
         end
       end
     end
-    coordinates_of_value_to_change_now_foreign_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_value_to_change_now_foreign_money = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @value_render_option = 'UNFORMATTED_VALUE'
     make_request

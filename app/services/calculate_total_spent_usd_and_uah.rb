@@ -1,7 +1,6 @@
 class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
   KEY_FIND_CELL_SPENT_UAH_MONEY = "Осталось черная моно грн".freeze
   KEY_FIND_CELL_LEFT_USD_MONEY = "Осталось ФОП моно $".freeze
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 
   def initialize(month: Date.today.month, year: Date.today.year)
     @current_month = month
@@ -44,7 +43,7 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
     total_left_uah_money = total_left_uah_money.gsub(/[[:space:]]+/, "")
     total_left_uah_money = total_left_uah_money.remove("грн") if total_left_uah_money.include?("грн")
     total_left_uah_money = total_left_uah_money.gsub(",", ".")
-    coordinates_of_total_left_uah_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_total_left_uah_money = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     @response.values.each_with_index do |value_array, value_array_index|
       value_array.each do |value|
@@ -58,7 +57,7 @@ class CalculateTotalSpentUsdAndUah < GetOrSetDataInGoogleSheetBase
     total_left_usd_money = total_left_usd_money.gsub(/[[:space:]]+/, "")
     total_left_usd_money = total_left_usd_money.remove("$") if total_left_usd_money.include?("$")
     total_left_usd_money = total_left_usd_money.gsub(",", ".")
-    coordinates_of_total_left_usd_money = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_total_left_usd_money = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
 
     {
       total_left_uah_money: total_left_uah_money.to_f,

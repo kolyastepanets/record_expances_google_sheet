@@ -1,5 +1,4 @@
 class FindCellsCurrentMonth < GetOrSetDataInGoogleSheetBase
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
   HOW_MANY_COLUMNS_TAKE = 3
   MAX_CHARACTERS_IN_STRING_COLUMN = 7
 

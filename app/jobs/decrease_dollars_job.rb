@@ -19,7 +19,11 @@ class DecreaseDollarsJob < ApplicationJob
     sheet_id = current_sheets_info.detect { |sheet| sheet[:title] == Date.today.year.to_s }[:sheet_id]
     row_index = taxes_info[:taxes_amount_coordinates].delete('^0-9').to_i - 1
     letter = taxes_info[:taxes_amount_coordinates].delete('^A-Z')
-    column_index = letter.ord - 'A'.ord
+    letters_to_hash = {}
+    AllConstants::ALL_COLUMN_LETTERS.each_with_index do |letter, index|
+      letters_to_hash[letter] = index
+    end
+    column_index = letters_to_hash[letter]
     UpdateCellBackgroundColorRequest.call(sheet_id, row_index, column_index, 'green')
     SendNotificationMessageToBot.call("tax column marked as green")
 

@@ -16,4 +16,5 @@ module AllConstants
   SALARY_ON_UAH_BLACK_MONO = 'uah black mono'.freeze
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1
+  ALL_COLUMN_LETTERS = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
 end

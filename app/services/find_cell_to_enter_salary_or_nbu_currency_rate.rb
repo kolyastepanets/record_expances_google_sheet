@@ -1,6 +1,4 @@
 class FindCellToEnterSalaryOrNbuCurrencyRate < GetOrSetDataInGoogleSheetBase
-  COLUMN_LETTER = ('A'..'Z').to_a.concat(('AA'..'CJ').to_a)
-
   def initialize(month, year_sheet, cell_with_text_to_find_next_cell)
     @month = month
     @year_sheet = year_sheet
@@ -38,7 +36,7 @@ class FindCellToEnterSalaryOrNbuCurrencyRate < GetOrSetDataInGoogleSheetBase
       end
     end
 
-    coordinates_of_cell_to_enter_salary = "#{COLUMN_LETTER[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
+    coordinates_of_cell_to_enter_salary = "#{AllConstants::ALL_COLUMN_LETTERS[index_value_to_update]}#{start_line_to_search + index_line_to_remember}"
     coordinates_of_cell_to_enter_salary
   end
 end
