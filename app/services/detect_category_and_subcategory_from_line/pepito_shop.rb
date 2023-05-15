@@ -473,7 +473,7 @@ module DetectCategoryAndSubcategoryFromLine
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
         mushroom? || chinese_cabbage? || baby_cucumber? || cabbage_2? || asparagus? ||
-        kailan?
+        kailan? || canned_cucumber?
     end
 
     def cucumber?
@@ -598,6 +598,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kailan?
       @line.include?('kailan')
+    end
+
+    def canned_cucumber?
+      @line.include?('timun') && @line.include?('acar')
     end
 
     ####
