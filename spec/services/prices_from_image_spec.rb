@@ -4688,6 +4688,76 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 64', freezed_time: '2023-05-15T14:28:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out86.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Хлеб и др",
+          :price=>22000.0,
+          :full_parsed_line=>
+           "PEPITO, MARKET, SEMER, Banjar, Semer, ,, Kerobokan, -, Badung, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5010000022185, Counter, :, C1, 15, -, May, -, 2023, 14:16:44, NI, MADE, SARI, AS, 101066012226, (, BATARD, BREAD, 300GR, ], 22,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>74347.0, :full_parsed_line=>"P, 101023011536, (, RED, RADISH, ], 78,260 - 3.913"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>27398.0, :full_parsed_line=>"P, 101023011534, [, KENTANG, BESAR, ], 28.840 - 1.442"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>48000.0, :full_parsed_line=>"101002005401, [, TOBL, CHO, MILK, 100GR, ), 48.000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60500.0, :full_parsed_line=>"101002005406, (, LINDT, WHITE, CHOC100, ], 60,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Бакалея",
+          :price=>44700.0,
+          :full_parsed_line=>"101006006370, [, BARILLA, SPAGHETTI, N05, 500, G, R, ], 44.700"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>10000.0, :full_parsed_line=>"101002039798, (, DELFI, BAR, BAR, 18GR, ], 10.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>40000.0,
+          :full_parsed_line=>"101006001871, [, MS, MAYONAISE, 300GR, ], 40,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>27500.0, :full_parsed_line=>"101002008182, [, LINDT, EXC, DRK, 35GR, ], 27,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>28508.0, :full_parsed_line=>"P, 101023011586LASPARAGUS, LOKAL, SPR, ], 30.008 - 1,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>25875.0, :full_parsed_line=>"101016010910, (, CHICKEN, BOTTOM, LEGI, 25,875"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>69616.0,
+          :full_parsed_line=>"P, 101024011742, [, GRAPE, GREEN, SEEDLES, ], 73.280 - 3.664"},
+         {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>86040.0, :full_parsed_line=>"1010220112700TUNA, STEAK, FRESH, !, 86,040"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>35000.0,
+          :full_parsed_line=>"101012008979, (, GREENFIELDS, FRESH, MILK, FULL, CREAM, 1LT, ], 35,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>9000.0,
+          :full_parsed_line=>"101002008134, [, DELFI, CHACHA, CHOCO, MILK, 40G, R, ], 9.000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>9000.0, :full_parsed_line=>"101002008133, [, DELFI, CHACHA, PEANUT, 40GR, ], 9,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>49700.0, :full_parsed_line=>"101012009283, [, YUMMY, RICOTTA, 250GR, ], 49.700"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Колбаса, сосиски",
+          :price=>33488.0,
+          :full_parsed_line=>"101021011202, (, AR, SMK, COOKED, HAM, KG, ], 33,488"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>25600.0, :full_parsed_line=>"101002005481, (, DELFI, ZAP, CHOC, 421, 25.600"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>25000.0,
+          :full_parsed_line=>"101012009166, (, HEAVENLY, BLUSH, YOG, PEACH, 10, OGR, ], 25.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>25000.0,
+          :full_parsed_line=>"101012009165, (, HEAVENLY, BLUSH, YOG, STRAWBE, 100GR, ], 25.000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>52900.0,
+          :full_parsed_line=>"101012009443, (, BABYBEL, MINI, CHEESE, CHEDDAR, 5, $, 1, 52.900"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>39300.0, :full_parsed_line=>"101012009282, [, YUMMY, SOUR, CREAM, 200GR1, 39,300"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>46816.0, :full_parsed_line=>"P, 101023034624, [, BABY, KYURI, KG, ], 49,280 - 2,464"}],
+        915288.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 

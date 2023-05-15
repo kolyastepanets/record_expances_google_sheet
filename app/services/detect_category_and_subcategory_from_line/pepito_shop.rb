@@ -184,7 +184,7 @@ module DetectCategoryAndSubcategoryFromLine
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
-        junglegold_coconut? || healthy_bar? || bar_cashew_2?
+        junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron?
     end
 
     def magnum_icecream?
@@ -361,6 +361,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bar_cashew_2?
       @line.include?('cashew') && @line.include?('50gr')
+    end
+
+    def tobleron?
+      @line.include?('tobl') && @line.include?('cho')
     end
 
     ####
@@ -593,7 +597,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def asparagus?
-      @line.include?('asparagus')
+      @line.any? { |word| word.include?('asparagus') }
     end
 
     def kailan?
@@ -611,7 +615,8 @@ module DetectCategoryAndSubcategoryFromLine
         delicyo_yog? || cimory_yog? || j_j_cheese? || laughing_cow_cheese? || ricotta_cheese? ||
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
-        greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese?
+        greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
+        heavenly_yog?
     end
 
     def milk?
@@ -720,6 +725,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cream_cheese?
       @line.include?('cream') && @line.include?('cheese')
+    end
+
+    def heavenly_yog?
+      @line.include?('heavenly') && @line.include?('yog')
     end
 
     ####
@@ -835,7 +844,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tuna?
-      @line.include?('tuna')
+      @line.any? { |word| word.include?('tuna') }
     end
 
     def salmon?
