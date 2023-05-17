@@ -103,7 +103,8 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
-        sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt?
+        sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt? ||
+        baking_powder?
     end
 
     def kikko_soy_souce?
@@ -172,6 +173,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def salt?
       @line.include?('garam')
+    end
+
+    def baking_powder?
+      @line.include?('bkng') && @line.include?('pwd')
     end
 
     ####

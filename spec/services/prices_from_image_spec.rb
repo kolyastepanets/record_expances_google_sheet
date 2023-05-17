@@ -4758,6 +4758,38 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 65', freezed_time: '2023-05-17T06:00:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out87.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>26000.0,
+          :full_parsed_line=>
+           "PEPITO, EXPRESS, UMALAS, Jl, ., Dukuh, Indah, 56, Umalas, NPWP, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000034572, Counter, :, C2, 16, -, May, -, 2023, 16:07:35, ROSDIANTI, OKTAV, 101006006060, [, NOX, BKNG, PWD, 175G, ], 26,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>72500.0,
+          :full_parsed_line=>"101003035550, [, THINS, CHICKEN, 175GR, ], 72,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>4900.0,
+          :full_parsed_line=>"101006006032, [, KP2U, SODA, KUE, 81GR, ], 4,900"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>7700.0,
+          :full_parsed_line=>"101002000018, [, DF, CHACHA, MINIS, HATS, 30GR, ], 7,700"}],
+        111100.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
