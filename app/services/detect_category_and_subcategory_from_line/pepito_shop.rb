@@ -1107,7 +1107,8 @@ module DetectCategoryAndSubcategoryFromLine
     def bath_stuff?
       clear_gel? || colgate? || local_vanish? || vanish? || luquid_soap? || colgate_2? ||
         kids_toothpaste? || floss? || local_vanish_2? || luquid_soap_2? || tooth_brush? ||
-        shampoo? || shampoo_2? || to_clean_smth? || sensodyne? || vitamin_for_hair?
+        shampoo? || shampoo_2? || to_clean_smth? || sensodyne? || vitamin_for_hair? ||
+        toothpaste?
     end
 
     def clear_gel?
@@ -1174,6 +1175,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ellips') && @line.include?('nutri') && @line.include?('blister')
     end
 
+    def toothpaste?
+      @line.include?('darlie') && @line.any? { |word| word.include?('mint') }
+    end
+
     ####
 
     def home_stuff?
@@ -1228,7 +1233,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweety?
-      @line.include?('sweety') && @line.include?('pant')
+      @line.any? { |word| word.include?('sweety') }&& @line.include?('pant')
     end
 
     def merries?
