@@ -201,7 +201,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def lindt?
-      @line.any? { |word| word.include?('lindt') }
+      @line.any? { |word| word.include?('lindt') } || (@line.include?('indt') && @line.any? { |word| word.include?('wholealmon') })
     end
 
     def kit_kat?
@@ -403,7 +403,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
-        green_peas? || pepaya? || strawberry? || yellow_watermelon?
+        green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries?
     end
 
     def pineapple?
@@ -474,6 +474,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('semangka') && @line.include?('kuning')
     end
 
+    def cherries?
+      @line.include?('cherries') && @line.include?('kg')
+    end
+
     ####
 
     def vegetables?
@@ -506,7 +510,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def potato?
-      @line.include?('kentang') && @line.include?('besar')
+      @line.include?('kentang')
     end
 
     def canned_pepper?
@@ -621,7 +625,7 @@ module DetectCategoryAndSubcategoryFromLine
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
-        heavenly_yog?
+        heavenly_yog? || butter? || cottage_cheese?
     end
 
     def milk?
@@ -734,6 +738,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def heavenly_yog?
       @line.include?('heavenly') && @line.include?('yog')
+    end
+
+    def butter?
+      @line.include?('salt') && @line.include?('butter')
+    end
+
+    def cottage_cheese?
+      @line.include?('cottage') && @line.include?('cheese')
     end
 
     ####
