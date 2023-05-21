@@ -34,6 +34,6 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
     currency_rate = price_in_uah / operation_amount
     currency_rate = currency_rate.to_s
     currency_rate = currency_rate.split('.')
-    "#{currency_rate[0]}.#{currency_rate[1].first(4)}".to_f
+    "#{currency_rate[0]}.#{currency_rate[1].first(6)}".to_f
   end
 end

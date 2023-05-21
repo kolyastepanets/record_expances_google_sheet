@@ -229,7 +229,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 2.99,
         current_month: 8,
         mono_description: "Apple",
-        currency_rate: 15.0501,
+        currency_rate: 15.050167,
         total_sum_of_money_before_save: 12345,
       }
     end
@@ -337,7 +337,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 1.99,
         current_month: 8,
         mono_description: "Apple",
-        currency_rate: 22.613,
+        currency_rate: 22.613065,
         total_sum_of_money_before_save: 12345,
       }
     end
@@ -1053,7 +1053,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 7.99,
         current_month: Date.today.month,
         mono_description: "DigitalOcean",
-        currency_rate: 43.9299,
+        currency_rate: 43.929912,
         total_sum_of_money_before_save: 12345,
       }
     end
@@ -1090,7 +1090,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 1000000.0,
         current_month: Date.today.month,
         mono_description: "Банкомат BANK NEGARA IND",
-        currency_rate: 0.0024,
+        currency_rate: 0.002457,
         total_sum_of_money_before_save: 12345,
       }
     end

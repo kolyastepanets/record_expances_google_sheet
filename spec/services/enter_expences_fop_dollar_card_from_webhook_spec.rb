@@ -874,7 +874,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         operation_amount: 1.2,
         current_month: Date.today.month,
         mono_description: "Wizz Air",
-        currency_rate: 0.8695,
+        currency_rate: 0.869565,
         total_sum_of_money_before_save: 12345,
       }
     end
