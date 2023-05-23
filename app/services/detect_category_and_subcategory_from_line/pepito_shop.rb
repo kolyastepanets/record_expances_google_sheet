@@ -104,7 +104,7 @@ module DetectCategoryAndSubcategoryFromLine
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
         sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt? ||
-        baking_powder?
+        baking_powder? || black_pepper?
     end
 
     def kikko_soy_souce?
@@ -177,6 +177,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def baking_powder?
       @line.include?('bkng') && @line.include?('pwd')
+    end
+
+    def black_pepper?
+      @line.include?('black') && @line.include?('papper')
     end
 
     ####
@@ -403,7 +407,8 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
-        green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries?
+        green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
+        mixed_berries?
     end
 
     def pineapple?
@@ -476,6 +481,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cherries?
       @line.include?('cherries') && @line.include?('kg')
+    end
+
+    def mixed_berries?
+      @line.include?('mixed') && @line.include?('berries')
     end
 
     ####
@@ -625,7 +634,7 @@ module DetectCategoryAndSubcategoryFromLine
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
-        heavenly_yog? || butter? || cottage_cheese?
+        heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog?
     end
 
     def milk?
@@ -748,12 +757,20 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('cottage') && @line.include?('cheese')
     end
 
+    def cheese_3?
+      @line.include?('emmental') && @line.include?('breton')
+    end
+
+    def kid_yog?
+      @line.include?('greenfields') && @line.include?('kds')
+    end
+
     ####
 
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
         batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate? ||
-        croissant? || cinamon?
+        croissant? || cinamon? || wrap_2?
     end
 
     def donut?
@@ -814,6 +831,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cinamon?
       @line.any? { |word| word.include?('cinamon') } && @line.include?('roll')
+    end
+
+    def wrap_2?
+      @line.include?('mission') && @line.include?('tortilla')
     end
 
     ####
@@ -1065,7 +1086,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
-        dove? || to_wash_plates?
+        dove? || to_wash_plates? || plastic_bag?
     end
 
     def paseo?
@@ -1102,6 +1123,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def to_wash_plates?
       @line.include?('sunlight') && @line.include?('mint')
+    end
+
+    def plastic_bag?
+      @line.include?('klinpak') && @line.include?('sampah')
     end
 
     ####
@@ -1156,7 +1181,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def local_vanish_2?
-      @line.include?('proc') && @line.include?('wht') && @line.include?('crti')
+      @line.include?('proc') && @line.include?('wht')
     end
 
     def luquid_soap_2?
@@ -1195,7 +1220,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
-        some_spray? || wet_wipes? || raincoat? || glue? || humidity_gathering?
+        some_spray? || wet_wipes? || raincoat? || glue? || humidity_gathering? ||
+        for_furniture?
     end
 
     def bataries?
@@ -1236,6 +1262,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def humidity_gathering?
       @line.include?('bagus') && ((@line.include?('serap') && @line.include?('air')) || @line.include?('reffil'))
+    end
+
+    def for_furniture?
+      @line.any? { |word| word.include?('lmnpladge') } && @line.any? { |word| word.include?('liq') }
     end
 
     ####
