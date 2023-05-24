@@ -918,6 +918,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when cafe indonesia' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "THE LEAVES CAFE EATERY",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Еда',
+        sub_category_name: 'Готовая',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "THE LEAVES CAFE EATERY",
+        currency_rate: 0.4,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when Wizz Air' do
     let(:transaction_data) do
       {
