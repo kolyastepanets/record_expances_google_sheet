@@ -193,7 +193,8 @@ module DetectCategoryAndSubcategoryFromLine
         cadbury_lickabler? || marshmallow? || dilan? || ice_cream? || truffle_coconut? ||
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
-        junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron?
+        junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
+        condensed_milk?
     end
 
     def magnum_icecream?
@@ -376,6 +377,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('tobl') && @line.include?('cho')
     end
 
+    def condensed_milk?
+      @line.include?('indomilk') && @line.include?('plain')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -547,7 +552,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tomat_cherry?
-      @line.include?('tomat') && @line.any? { |word| word.include?('cher') }
+      @line.any? { |word| word.include?('tomat') }&& @line.any? { |word| word.include?('cher') }
     end
 
     def parsley?
@@ -634,7 +639,7 @@ module DetectCategoryAndSubcategoryFromLine
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
-        heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog?
+        heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog?
     end
 
     def milk?
@@ -763,6 +768,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kid_yog?
       @line.include?('greenfields') && @line.include?('kds')
+    end
+
+    def yummy_yog?
+      @line.include?('yummy') && @line.include?('yog')
     end
 
     ####
@@ -978,7 +987,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren? || chitato? || cashew?
+        lorenz? || loren? || chitato? || cashew? || cashew_2?
     end
 
     def lays?
@@ -1021,12 +1030,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('yava') && @line.include?('sea') && @line.include?('salt')
     end
 
+    def cashew_2?
+      @line.include?('yava') && @line.include?('cashew') && @line.include?('roasted')
+    end
+
     ####
 
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
         rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle? ||
-        granola? || cous_cous?
+        granola? || cous_cous? || oats_3?
     end
 
     def rice?
@@ -1080,6 +1093,10 @@ module DetectCategoryAndSubcategoryFromLine
     def cous_cous?
       grouped_words_by_count = @line.tally
       grouped_words_by_count['cous'] == 2
+    end
+
+    def oats_3?
+      @line.include?('oat') && @line.include?('quaker')
     end
 
     ####
