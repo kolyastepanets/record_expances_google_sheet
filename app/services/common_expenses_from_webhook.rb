@@ -71,6 +71,12 @@ class CommonExpensesFromWebhook
     when -> (description) { description.downcase.include?('банкомат') }
       @params[:category_name] = 'Кэш'
       @params[:sub_category_name] = nil
+    when -> (description) { description.downcase.include?(ENV['MYKOLA_PHONE_NUMBER']) }
+      @params[:category_name] = 'Коля'
+      @params[:sub_category_name] = 'Мобильный'
+    when -> (description) { description.downcase.include?(ENV['LILIIA_PHONE_NUMBER']) }
+      @params[:category_name] = 'Лиля'
+      @params[:sub_category_name] = 'Мобильный'
     end
   end
 
