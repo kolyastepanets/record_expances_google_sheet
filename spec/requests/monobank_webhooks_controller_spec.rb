@@ -295,6 +295,40 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
+    context 'when category cash withdraw usd', freezed_time: '2023-06-01T03:10:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Банкомат BANK NEGARA IND",
+                "mcc" => 6011,
+                "originalMcc" => 6011,
+                "amount" => -263545,
+                "operationAmount" => -6901,
+                "currencyCode" => 840,
+                "commissionRate" => 5168,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'does not save to google sheet, only send message to bot' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
     context 'when category blank' do
       let(:monobank_webhook_params) do
         {
