@@ -93,7 +93,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil? || sunflower_oil_2? || sugar? || salt? || leaves?
+        oil? || sunflower_oil_2? || sugar? || salt? || leaves? || vinegar?
     end
 
     def cook_cream?
@@ -138,6 +138,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def leaves?
       @line.include?('jays') && @line.include?('bay') && @line.include?('leaves')
+    end
+
+    def vinegar?
+      @line.include?('wht') && @line.any? { |word| word.include?('vngr') }
     end
 
     ####
@@ -801,7 +805,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      toilet_paper? || crystal? || oralb?
+      toilet_paper? || crystal? || oralb? || for_clothes?
     end
 
     def toilet_paper?
@@ -816,6 +820,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('oralb')
     end
 
+    def for_clothes?
+      @line.include?('kispray') && @line.include?('gold')
+    end
+
     ####
 
     def pampers?
@@ -825,11 +833,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      coal?
+      coal? || antiseptic?
     end
 
     def coal?
       @line.include?('wood') && @line.include?('charcoal')
+    end
+
+    def antiseptic?
+      @line.include?('antis') && @line.include?('hs') && @line.include?('jrk')
     end
 
     ####

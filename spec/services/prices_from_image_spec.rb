@@ -6835,6 +6835,36 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 44', freezed_time: '2023-06-01T01:20:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out69.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Для дома",
+          :sub_category_name=>"инвентарь",
+          :price=>43500.0,
+          :full_parsed_line=>"22104050, ANTIS, HS, JRK, NP, 200B, 43,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>24610.0, :full_parsed_line=>"10362003, KYURI, BABY, 24,610"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>36000.0, :full_parsed_line=>"24020141, MILK, UP, KEFIR, 350, ML, 36,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>44500.0,
+          :full_parsed_line=>"23618002, SW, DSTLD, WHT, VNGR16, 44,500"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Ванные принадлежности",
+          :price=>7000.0,
+          :full_parsed_line=>"21114012, KISPRAY, GOLD, 300, ML, 7,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>25500.0, :full_parsed_line=>"24010011, GREENFIELDS, F.C, 1L, 25,500"}],
+        181110.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
