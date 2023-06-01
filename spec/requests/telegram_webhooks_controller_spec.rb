@@ -1870,6 +1870,80 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
+  context 'when enter cash', freezed_time: '2023-06-01T03:48:00+00:00', perform_enqueued: true do
+    let(:telegram_bot_params_main_menu) do
+      {
+          "callback_query" => {
+              "chat_instance" => ENV['CHAT_INSTANCE'],
+              "data" => "start_again",
+              **message_from,
+              "id" => "1651136317895074902",
+              "message" => {
+                  **chat,
+                  "date" => 1670051818,
+                  "from" => {
+                      "first_name" => ENV['BOT_NAME'],
+                      "id" => ENV['BOT_ID'],
+                      "is_bot" => true,
+                      "username" => ENV['BOT_USER_NAME']
+                  },
+                  "message_id" => 35159,
+                  **reply_markup_all_info,
+                  "text" => "Выбери действие:"
+              }
+          },
+          "update_id" => 20479563
+      }
+    end
+    let(:telegram_bot_params_choose_to_enter_cash) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670051828,
+              **message_from,
+              "message_id" => 35160,
+              "text" => "Enter cash"
+          },
+          "update_id" => 20479564
+      }
+    end
+    let(:telegram_bot_params_enter_uah_and_cash) do
+      {
+          "message" => {
+              "chat" => {
+                  "first_name" => "Nikolay",
+                  "id" => ENV['MY_TELEGRAM_ID'],
+                  "last_name" => "Stepanets",
+                  "type" => "private",
+                  "username" => ENV['MY_USER_NAME']
+              },
+              "date" => 1670052690,
+              **message_from,
+              "message_id" => 35169,
+              "text" => "2635.45 1000000"
+          },
+          "update_id" => 20479570
+      }
+    end
+
+    it 'saves cash, decrease uah' do
+      # main menu
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_main_menu
+      # choose wise salary
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_to_enter_cash
+      # enter salary
+      post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_uah_and_cash
+
+      expect(response.status).to eq(200)
+    end
+  end
+
   context 'when wise lend money', freezed_time: '2023-01-28T08:40:00+00:00', perform_enqueued: true do
     let(:telegram_bot_params_main_menu) do
       {

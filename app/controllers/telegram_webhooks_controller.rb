@@ -17,6 +17,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Вернуть часть денег после снятия кэша'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
+    ['Enter cash'],
     ['Получить статистику по категории за месяц'],
     ['Получить среднее значение трат по категории за период'],
     ['Info current month'],
@@ -310,6 +311,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
+        { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
         { text: 'Получить среднее значение трат по категории за период', method_to_call: 'get_statistic_average_expenses_by_category_for_period' },
         { text: 'Info current month',  method_to_call: 'info_current_month' }
@@ -337,6 +339,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Wise salary has been saved', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
+  def ask_to_enter_cash
+    save_context(:ask_grivnas_and_foreign_money!)
+    respond_with(:message, text: 'Enter how much grivnas and foreign cash, "2635.45 1000000" :')
+  end
+
   def ask_to_enter_wise_amount_to_lend_money
     save_context(:save_wise_lend_money!)
     respond_with(:message, text: 'Enter how much to lend:')
@@ -352,6 +359,33 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     foreign_cash = args.first
     HandleMoneyReturnedCashAndGrivnas.call(grivnas.to_f, foreign_cash.to_f)
     respond_with(:message, text: 'money has been handled!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def ask_grivnas_and_foreign_money!(grivnas_returned, *args)
+    price_in_usd_to_put_in_google_sheets = "=#{grivnas_returned.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
+    foreign_cash = args.first
+
+    PutExpensesToGoogleSheet.call(
+      'Кэш',
+      nil,
+      price_in_usd_to_put_in_google_sheets,
+    )
+
+    params = {
+      category_name: 'Кэш',
+      operation_amount: foreign_cash.to_f,
+      currency_rate: (grivnas_returned.to_f / foreign_cash.to_f).round(6).to_s.gsub(".", ","),
+    }
+    IncreaseCashAmount.call(params)
+
+    # decrease uah spent amount
+    result = CalculateTotalSpentUsdAndUah.call
+    UpdateCellInGoogleSheet.call(
+      result[:total_left_uah_money] - grivnas_returned.to_f,
+      result[:coordinates_of_total_left_uah_money],
+    )
+
+    respond_with(:message, text: 'Cash has been entered!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   private
