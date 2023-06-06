@@ -329,6 +329,108 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
+    context 'when category cash withdraw with commission 1', freezed_time: '2023-06-06T03:00:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Банкомат BANK NEGARA IND",
+                "mcc" => 6011,
+                "originalMcc" => 6011,
+                "amount" => -519184,
+                "operationAmount" => -200000100,
+                "currencyCode" => 840,
+                "commissionRate" => 10180,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves to google sheet without commission' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when category cash withdraw with commission 40000', freezed_time: '2023-06-06T03:03:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Банкомат BANK NEGARA IND",
+                "mcc" => 6011,
+                "originalMcc" => 6011,
+                "amount" => -519184,
+                "operationAmount" => -204000000,
+                "currencyCode" => 840,
+                "commissionRate" => 10180,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves to google sheet without commission' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when category cash withdraw with commission 40001', freezed_time: '2023-06-06T03:05:00+00:00' do
+      let(:monobank_webhook_params) do
+        {
+          "monobank_webhook" => {
+            "type" => "StatementItem",
+            "data" => {
+              "account" => "C0Hfjf2vrc00CZ_1ZCjSLg",
+              "statementItem" => {
+                "id" => "tk6Ulh_sMFs9e_Zt",
+                "time" => 1661599923,
+                "description" => "Банкомат BANK NEGARA IND",
+                "mcc" => 6011,
+                "originalMcc" => 6011,
+                "amount" => -519184,
+                "operationAmount" => -204000100,
+                "currencyCode" => 840,
+                "commissionRate" => 10180,
+                "cashbackAmount" => 0,
+                "balance" => 10000,
+                "hold" => true,
+                "receiptId" => "123-123-123-123"
+              }
+            }
+          }
+        }
+      end
+
+      it 'saves to google sheet with commission' do
+        # monobank webhook
+        post '/monobank_webhooks', params: monobank_webhook_params
+        expect(response.status).to eq(200)
+      end
+    end
+
     context 'when category blank' do
       let(:monobank_webhook_params) do
         {
