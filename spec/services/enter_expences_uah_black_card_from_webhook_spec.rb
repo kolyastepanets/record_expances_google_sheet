@@ -352,7 +352,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when kolya mama 1st date of month', freezed_time: '2022-08-01' do
     let(:transaction_data) do
       {
-        amount: -300000,
+        amount: -500000,
         balance: 2876000,
         cashbackAmount: 0,
         commissionRate: 0,
@@ -361,7 +361,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         hold: true,
         id: "JEMXm-kC9iSZNfGJ",
         mcc: 4829,
-        operationAmount: -300000,
+        operationAmount: -500000,
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
@@ -372,8 +372,8 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         can_show_final_sum: true,
         category_name: 'Подарки',
         sub_category_name: 'мама Коли',
-        price_in_uah: 3000.0,
-        operation_amount: 3000.0,
+        price_in_uah: 5000.0,
+        operation_amount: 5000.0,
         current_month: Date.today.month,
         mono_description: "516875******6402",
         currency_rate: 1.0,
@@ -421,7 +421,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when liliia papa 1st date of month', freezed_time: '2023-01-01' do
     let(:transaction_data) do
       {
-        amount: -300000,
+        amount: -500000,
         balance: 2876000,
         cashbackAmount: 0,
         commissionRate: 0,
@@ -430,7 +430,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         hold: true,
         id: "JEMXm-kC9iSZNfGJ",
         mcc: 4829,
-        operationAmount: -300000,
+        operationAmount: -500000,
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
@@ -441,8 +441,8 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         can_show_final_sum: true,
         category_name: 'Подарки',
         sub_category_name: 'Папа Лили',
-        price_in_uah: 3000.0,
-        operation_amount: 3000.0,
+        price_in_uah: 5000.0,
+        operation_amount: 5000.0,
         current_month: Date.today.month,
         mono_description: "414949******0254",
         currency_rate: 1.0,

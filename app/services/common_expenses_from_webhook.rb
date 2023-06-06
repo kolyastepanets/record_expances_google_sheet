@@ -38,10 +38,10 @@ class CommonExpensesFromWebhook
     when -> (description) { (description == google_disk) || (Date.today.day == 3 && description == 'Apple' && @params[:operation_amount] == 1.99) }
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'google'
-    when -> (description) { description == kolya_mama && Date.today.day == 1 }
+    when -> (description) { description == kolya_mama && Date.today.day == 1 && @params[:price_in_uah] == 5000 }
       @params[:category_name] = 'Подарки'
       @params[:sub_category_name] = 'мама Коли'
-    when -> (description) { description == liliia_papa && Date.today.day == 1 }
+    when -> (description) { description == liliia_papa && Date.today.day == 1 && @params[:price_in_uah] == 5000 }
       @params[:category_name] = 'Подарки'
       @params[:sub_category_name] = 'Папа Лили'
     when kladovka_1
