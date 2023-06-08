@@ -39,7 +39,7 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
-        mango_juice? || snake_fruit? || apple_juice?
+        mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2?
     end
 
     def green_tea?
@@ -96,6 +96,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def apple_juice?
       @line.include?('juice') && @line.include?('apl')
+    end
+
+    def coconut_drink_2?
+      @line.include?('hydro') && @line.include?('coco')
     end
 
     ####
@@ -612,7 +616,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def baby_cucumber?
-      @line.include?('baby') && @line.include?('gherkin')
+      @line.any? { |word| word.include?('baby') } && @line.include?('gherkin')
     end
 
     def cabbage_2?
@@ -639,7 +643,8 @@ module DetectCategoryAndSubcategoryFromLine
         cheddar? || sour_cream? || mini_cheese? || anchor_dairy? || bocconcini? || mozzarela? ||
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
-        heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog?
+        heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog? ||
+        kefir? || arla_cheese?
     end
 
     def milk?
@@ -772,6 +777,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def yummy_yog?
       @line.include?('yummy') && @line.include?('yog')
+    end
+
+    def kefir?
+      @line.include?('kefir') && @line.include?('milk')
+    end
+
+    def arla_cheese?
+      @line.include?('arla') && (@line.include?('cheese') || @line.include?('sticks'))
     end
 
     ####
