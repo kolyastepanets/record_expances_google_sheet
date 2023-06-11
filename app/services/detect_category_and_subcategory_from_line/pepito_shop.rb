@@ -198,7 +198,7 @@ module DetectCategoryAndSubcategoryFromLine
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
-        condensed_milk?
+        condensed_milk? || belgian_chocolate_2?
     end
 
     def magnum_icecream?
@@ -385,6 +385,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('indomilk') && @line.include?('plain')
     end
 
+    def belgian_chocolate_2?
+      @line.include?('belgian') && @line.include?('white')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -417,7 +421,7 @@ module DetectCategoryAndSubcategoryFromLine
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
-        mixed_berries?
+        mixed_berries? || apple?
     end
 
     def pineapple?
@@ -494,6 +498,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mixed_berries?
       @line.include?('mixed') && @line.include?('berries')
+    end
+
+    def apple?
+      @line.include?('apel') && @line.include?('grany')
     end
 
     ####
@@ -888,7 +896,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      marlin? || gravad? || mahi? || tuna? || salmon?
+      marlin? || gravad? || mahi? || tuna? || salmon? || canned_fish?
     end
 
     def marlin?
@@ -909,6 +917,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def salmon?
       @line.include?('salmon')
+    end
+
+    def canned_fish?
+      @line.include?('sunbell') && @line.include?('chunks')
     end
 
     ####
@@ -1008,7 +1020,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pistachios?
-      @line.include?('pistachios') || @line.include?('pischio') || @line.include?('pistacio')
+      @line.include?('pistachios') || @line.include?('pischio') || @line.include?('pistacio') || @line.include?('pistac')
     end
 
     def pringles?
@@ -1100,7 +1112,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def granola?
-      @line.include?('yava') && @line.include?('granola')
+      @line.include?('yava') && @line.any? { |word| word.include?('granol') }
     end
 
     def cous_cous?
