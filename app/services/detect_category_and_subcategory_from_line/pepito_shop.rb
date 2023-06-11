@@ -652,7 +652,7 @@ module DetectCategoryAndSubcategoryFromLine
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
         heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog? ||
-        kefir? || arla_cheese?
+        kefir? || arla_cheese? || milk_up?
     end
 
     def milk?
@@ -793,6 +793,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def arla_cheese?
       @line.include?('arla') && (@line.include?('cheese') || @line.include?('sticks'))
+    end
+
+    def milk_up?
+      @line.include?('milk') && @line.include?('up') && @line.include?('yogurt')
     end
 
     ####
@@ -1012,7 +1016,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren? || chitato? || cashew? || cashew_2?
+        lorenz? || loren? || chitato? || cashew? || cashew_2? || nori?
     end
 
     def lays?
@@ -1057,6 +1061,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cashew_2?
       @line.include?('yava') && @line.include?('cashew') && @line.include?('roasted')
+    end
+
+    def nori?
+      @line.include?('nori') && @line.include?('crispy')
     end
 
     ####
