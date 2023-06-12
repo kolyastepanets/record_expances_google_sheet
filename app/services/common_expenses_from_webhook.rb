@@ -77,6 +77,9 @@ class CommonExpensesFromWebhook
     when -> (description) { description.downcase.include?(ENV['LILIIA_PHONE_NUMBER']) }
       @params[:category_name] = 'Лиля'
       @params[:sub_category_name] = 'Мобильный'
+    when bali_visa
+      @params[:category_name] = 'Путешествия'
+      @params[:sub_category_name] = 'Виза'
     end
   end
 
@@ -126,5 +129,9 @@ class CommonExpensesFromWebhook
 
   def digital_ocean
     "DigitalOcean"
+  end
+
+  def bali_visa
+    "BAYU SANTERO 1 MBL"
   end
 end

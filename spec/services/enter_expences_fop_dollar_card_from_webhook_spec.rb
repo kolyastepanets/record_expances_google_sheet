@@ -654,4 +654,43 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       subject
     end
   end
+
+  context 'when AIRBNB' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "BAYU SANTERO 1 MBL",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "123-123-123-123",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Путешествия',
+        sub_category_name: 'Виза',
+        price_in_usd: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "BAYU SANTERO 1 MBL",
+        currency_rate: 2.5,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesFopDollarCardJob' do
+      expect(PutExpencesFopDollarCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
 end
