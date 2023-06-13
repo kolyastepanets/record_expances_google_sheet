@@ -1257,4 +1257,82 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
       subject
     end
   end
+
+  context 'when bali coffee 1' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "BBS - NESPRESSO BEACHW",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "123-123-123-123",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Еда',
+        sub_category_name: 'Кофе, Чай',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "BBS - NESPRESSO BEACHW",
+        currency_rate: 0.4,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when bali coffee 2' do
+    let(:transaction_data) do
+      {
+        amount: -400,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "BBS - NESPRESSO BEACHWALK",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -1000,
+        originalMcc: 4829,
+        receiptId: "123-123-123-123",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Еда',
+        sub_category_name: 'Кофе, Чай',
+        price_in_uah: 4.0,
+        operation_amount: 10.0,
+        current_month: Date.today.month,
+        mono_description: "BBS - NESPRESSO BEACHWALK",
+        currency_rate: 0.4,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
 end

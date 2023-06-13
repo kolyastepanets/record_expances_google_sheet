@@ -80,6 +80,9 @@ class CommonExpensesFromWebhook
     when bali_visa
       @params[:category_name] = 'Путешествия'
       @params[:sub_category_name] = 'Виза'
+    when -> (description) { description.downcase.include?(bali_coffee) }
+      @params[:category_name] = 'Еда'
+      @params[:sub_category_name] = 'Кофе, Чай'
     end
   end
 
@@ -133,5 +136,9 @@ class CommonExpensesFromWebhook
 
   def bali_visa
     "BAYU SANTERO 1 MBL"
+  end
+
+  def bali_coffee
+    "bbs - nespresso"
   end
 end
