@@ -5441,6 +5441,86 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 73', freezed_time: '2023-06-15T11:56:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out95.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>32900.0,
+          :full_parsed_line=>
+           "PEPITO, EXPRESS, UMALAS, Jl, ., Dukuh, Indah, 56, Umalas, NPWP, :, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C10000012352, Counter, :, C1, 15, -, Jun, -, 2023, 15:55:55, NI, KADEK, DEVI, PITRIYA, P, 101012008979, [, GREENFIELDS, FRESH, MILK, FULL, CREAM, 1LT, ], 35,000 - 2,100"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Алкоголь",
+          :price=>319000.0,
+          :full_parsed_line=>"101011008649, [, HW, HATTEN, AGA, WHITE, 2LT, ], 319,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Вода",
+          :price=>56500.0,
+          :full_parsed_line=>"101010000608, [, HAPPY, DAY, STRAWBERRY, 1L, ], 56,500"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Кухонные принадлежности",
+          :price=>30100.0,
+          :full_parsed_line=>"101040019172, [, TUSUK, GIGI, NAOMI, ], 30,100"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>72500.0,
+          :full_parsed_line=>"101003035550, [, THINS, CHICKEN, 175GR, ], 72,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>20000.0,
+          :full_parsed_line=>"101023011646, [, F, TOMAT, CHERY, RED, PC, ], 20,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>27800.0,
+          :full_parsed_line=>"P, 101012009125, [, GREENFIELDS, YOG, STRAW, 125GR, ], 31,000 - 3,200"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>27800.0,
+          :full_parsed_line=>"P, 101012009126, [, GREENFIELDS, YOG, MANGO, 125GR, ], 31,000 - 3,200"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>13900.0,
+          :full_parsed_line=>"P, 101012009124, [, GREENFIELDS, YOG, BLUEBERRY, 125GR, ], 15,500 - 1,600"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>61000.0,
+          :full_parsed_line=>"101002005406, [, LINDT, WHITE, CHOC100, ], 61,000"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Кухонные принадлежности",
+          :price=>12000.0,
+          :full_parsed_line=>"101044056626, [, SON, LIN, ANGKA, EMAS, 3, ], 12,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>7700.0,
+          :full_parsed_line=>"101002005702, [, DF, CHACHA, MINIS, TUBE, 30GR, ], 7,700"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>2500.0,
+          :full_parsed_line=>"101002039798, [, DELFI, BAR, BAR, 18GR, ], 2,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>31500.0,
+          :full_parsed_line=>"101002007975, [, KIT, KAT, C2F, /, 102, ], 31,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>2500.0,
+          :full_parsed_line=>"101003033325, [, DILAN, CRUNCH, CHOC, CRAL, 24GR, ], 2,500"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"инвентарь",
+          :price=>33000.0,
+          :full_parsed_line=>"101043020770, [, BAGUS, SA, REFFIL, 450, ], 33,000"}],
+        750700.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 

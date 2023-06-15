@@ -233,6 +233,12 @@ class PricesFromImage
         next
       end
 
+      if is_all_numbers?(array_of_text - [".", ","])
+        add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text.last(3).join])
+        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
+        next
+      end
+
       next if already_added?(array_of_text, new_parsed_texts)
       next new_parsed_texts << array_of_text if new_parsed_texts.empty?
 

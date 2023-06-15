@@ -88,6 +88,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif mykola_bath_stuff?
         category_name = 'Коля'
         sub_category_name = 'Ванные принадлежности'
+      elsif party_in_restraunt_or_birthday?
+        category_name = 'Развлечения'
+        sub_category_name = 'Ресторан'
       end
 
       [category_name, sub_category_name]
@@ -171,6 +174,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mykola_bath_stuff?
+    end
+
+    def party_in_restraunt_or_birthday?
     end
   end
 end

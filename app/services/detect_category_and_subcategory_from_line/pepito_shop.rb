@@ -306,7 +306,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def dilan?
-      @line.include?('dilan') && @line.include?('crnchy')
+      @line.include?('dilan') && (@line.include?('crnchy') || @line.include?('crunch'))
     end
 
     def ice_cream?
@@ -1136,7 +1136,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
-        dove? || to_wash_plates? || plastic_bag?
+        dove? || to_wash_plates? || plastic_bag? || candles_for_cake? || sticks_for_food?
     end
 
     def paseo?
@@ -1177,6 +1177,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def plastic_bag?
       @line.include?('klinpak') && @line.include?('sampah')
+    end
+
+    def candles_for_cake?
+      @line.include?('son') && @line.include?('lin') && @line.include?('angka') && @line.include?('emas')
+    end
+
+    def sticks_for_food?
+      @line.include?('tusuk') && @line.include?('gigi') && @line.include?('naomi')
     end
 
     ####
@@ -1384,6 +1392,11 @@ module DetectCategoryAndSubcategoryFromLine
 
     def foam?
       @line.include?('gillete')
+    end
+
+    ####
+
+    def party_in_restraunt_or_birthday?
     end
   end
 end
