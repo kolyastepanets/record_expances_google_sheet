@@ -728,7 +728,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sour_cream_2?
-      @line.include?('milk') && @line.include?('sour') && @line.include?('cream')
+      @line.any? { |word| word.include?('milk') } && @line.include?('sour') && @line.include?('cream')
     end
 
     def greenfields_cheese?
