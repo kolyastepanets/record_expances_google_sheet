@@ -93,7 +93,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
-        oil? || sunflower_oil_2? || sugar? || salt? || leaves? || vinegar?
+        oil? || sunflower_oil_2? || sugar? || salt? || leaves? || vinegar? || sunflower_oil_3? ||
+        mustard_2?
     end
 
     def cook_cream?
@@ -142,6 +143,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def vinegar?
       @line.include?('wht') && @line.any? { |word| word.include?('vngr') }
+    end
+
+    def sunflower_oil_3?
+      @line.include?('snflwr') && @line.any? { |word| word.include?('oil') }
+    end
+
+    def mustard_2?
+      @line.include?('heinz') && @line.include?('mustrd')
     end
 
     ####
@@ -263,7 +272,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
-        strawberry? || blueberry? || pear? || papaya? || raspberry? || grape?
+        strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape?
     end
 
     def banana?
@@ -316,6 +325,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def grape?
       @line.include?('anggur') && @line.include?('bali')
+    end
+
+    def green_grape?
+      @line.include?('grape') && @line.include?('green')
     end
 
     ####
@@ -448,7 +461,8 @@ module DetectCategoryAndSubcategoryFromLine
     def cheese?
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
         bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri? ||
-        laughing_cow_cheese? || cottage_cheese? || sweet_cheese? || paysan? || mini_cheese?
+        laughing_cow_cheese? || cottage_cheese? || sweet_cheese? || paysan? || mini_cheese? ||
+        cottage_cheese_2?
     end
 
     def ricotta?
@@ -561,6 +575,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def greenfield_yogurt?
       @line.include?('greenfield') && @line.include?('yg')
+    end
+
+    def cottage_cheese_2?
+      @line.include?('milkup') && @line.any? { |word| word.include?('cttgch') }
     end
 
     ####

@@ -7299,6 +7299,49 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 45', freezed_time: '2023-06-22T05:21:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out70.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>115500.0,
+          :full_parsed_line=>"23615002, MAZÜLA, SNFLWR, OIL900, 115,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>64000.0,
+          :full_parsed_line=>"23640014, MAMASUKA, MAYO, 480, GR, 64,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>34000.0, :full_parsed_line=>"24051028, SUNNY, CHOICE, EGG, 10S, 34,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>54500.0,
+          :full_parsed_line=>"23638117, HEINZ, YEL, MUSTRD, 140, 54,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>31000.0, :full_parsed_line=>"24000005, GREENFIELDS, FULLCRM1, 31,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>64500.0,
+          :full_parsed_line=>"24021156, MILKUP, CTTGCHS9, %, 250G, 64,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>66500.0, :full_parsed_line=>"24021158, MILKUPSOURCRM25, %, 330M, 66,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>19951.0, :full_parsed_line=>"10021002, ANGGUR, BALI, 19,951"},
+         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>44880.0, :full_parsed_line=>"10020801, GRAPE, GREEN, SEEDLES, 44,880"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>24288.0, :full_parsed_line=>"10362003, KYURI, BABY, 24,288"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>56000.0,
+          :full_parsed_line=>"24214008, WALLS, MGNUM, M., A6X45M, 56,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>38000.0, :full_parsed_line=>"24203003, WALLS, NPLTNA, 700ML, 38,000"},
+         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>25392.0, :full_parsed_line=>"10082157, AVOCADO, MENTEGA, 25,392"}],
+        638511.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
