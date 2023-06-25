@@ -272,7 +272,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
-        strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape?
+        strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape? ||
+        grape_2?
     end
 
     def banana?
@@ -329,6 +330,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def green_grape?
       @line.include?('grape') && @line.include?('green')
+    end
+
+    def grape_2?
+      @line.include?('grape') && @line.include?('calmeria')
     end
 
     ####
@@ -727,7 +732,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       pistachios? || thins? || sunflower_seeds? || pringles? || cashewnuts? || some_seeds? ||
-        crisps?
+        crisps? || like_crisps?
     end
 
     def pistachios?
@@ -756,6 +761,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def crisps?
       @line.include?('lorenz') && @line.include?('barbecue')
+    end
+
+    def like_crisps?
+      @line.include?('finna') && @line.include?('pars') && @line.any? { |word| word.include?('barbeq') }
     end
 
     ####
