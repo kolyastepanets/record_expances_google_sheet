@@ -273,7 +273,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
         strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape? ||
-        grape_2?
+        grape_2? || mangosteen?
     end
 
     def banana?
@@ -336,6 +336,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('grape') && @line.include?('calmeria')
     end
 
+    def mangosteen?
+      @line.include?('mangosteen')
+    end
+
     ####
 
     def vegetables?
@@ -343,7 +347,7 @@ module DetectCategoryAndSubcategoryFromLine
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
         red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2? || corn_3? ||
-        parsley_2?
+        parsley_2? || pumpkin?
     end
 
     def potato?
@@ -455,12 +459,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('puri') && @line.include?('cheery')
     end
 
+    def pumpkin?
+      @line.include?('kabocha') && @line.include?('red')
+    end
+
     ####
 
     def dairy?
       cheese? || butter? || milk? || sour_cream? || kefir? || sour_cream_2? ||
         plain_yogurt? || sour_cream_3? || butter_2? || biokul_yogurt? || yummy_yogurt? ||
-        greenfield_yogurt?
+        greenfield_yogurt? || butter_3?
     end
 
     def cheese?
@@ -586,11 +594,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('milkup') && @line.any? { |word| word.include?('cttgch') }
     end
 
+    def butter_3?
+      @line.include?('lurpak') && @line.include?('butter')
+    end
+
     ####
 
     def bread?
       just_bread? || bread_for_hot_dog? || for_wrap? || flour? || some_bread? || flour_2? ||
-        bread_2? || bread_3?
+        bread_2? || bread_3? || bread_4? || waffles?
     end
 
     def just_bread?
@@ -623,6 +635,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread_3?
       @line.include?('bakker') && @line.include?('rosemary')
+    end
+
+    def bread_4?
+      @line.include?('bakker') && @line.include?('brea')
+    end
+
+    def waffles?
+      @line.include?('waffles')
     end
 
     ####
@@ -770,7 +790,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      barilla? || rice? || spaghetti? || oat?
+      barilla? || rice? || spaghetti? || oat? || cous_cous?
     end
 
     def barilla?
@@ -787,6 +807,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def oat?
       @line.include?('oat')
+    end
+
+    def cous_cous?
+      @line.any? { |word| word.include?('couscous') }
     end
 
     ####
@@ -879,6 +903,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def laurier?
       @line.include?('laurier')
+    end
+
+    ###
+
+    def ready_to_cook?
+      french_fries?
+    end
+
+    def french_fries?
+      @line.include?('golden') && @line.include?('fram')
     end
   end
 end
