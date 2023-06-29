@@ -5629,6 +5629,34 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 75', freezed_time: '2023-06-29T05:38:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out97.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Марк",
+          :sub_category_name=>"Памперсы",
+          :price=>122000.0,
+          :full_parsed_line=>
+           "PEPITO, EXPRESS, UMALAS, Jl, ., Dukuh, Indah, 56, Umalas, NPWP, :, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000044361, Counter, :, C2, 28, -, Jun, -, 2023, 08:30:11, NI, KADEK, DEVI, P, 101034017883, [, SWEETY, PANT, R.GL, L, ], 122,000"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Кухонные принадлежности",
+          :price=>16400.0,
+          :full_parsed_line=>"101043053325, [, SUNLIGHT, LIME, ECT, POUCH, 650, ML, ], 16,400"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>3500.0,
+          :full_parsed_line=>"101002008424, [, BIG, BABOL, STK, STRAWB, ], 3,500"}],
+        141900.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 

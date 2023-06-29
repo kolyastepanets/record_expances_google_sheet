@@ -198,7 +198,7 @@ module DetectCategoryAndSubcategoryFromLine
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
-        condensed_milk? || belgian_chocolate_2?
+        condensed_milk? || belgian_chocolate_2? || big_babol?
     end
 
     def magnum_icecream?
@@ -387,6 +387,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def belgian_chocolate_2?
       @line.include?('belgian') && @line.include?('white')
+    end
+
+    def big_babol?
+      @line.include?('big') && @line.include?('babol')
     end
 
     ####
@@ -1156,7 +1160,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def soap?
-      @line.include?('sunlight') && @line.include?('korean')
+      @line.include?('sunlight')
     end
 
     def handsoap?
