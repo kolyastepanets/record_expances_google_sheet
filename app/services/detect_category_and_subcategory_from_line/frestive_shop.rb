@@ -347,7 +347,7 @@ module DetectCategoryAndSubcategoryFromLine
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
         red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2? || corn_3? ||
-        parsley_2? || pumpkin?
+        parsley_2? || pumpkin? || onion?
     end
 
     def potato?
@@ -461,6 +461,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pumpkin?
       @line.include?('kabocha') && @line.include?('red')
+    end
+
+    def onion?
+      @line.include?('oni') && @line.include?('bom') && @line.include?('sunrise')
     end
 
     ####
@@ -653,7 +657,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def chicken?
-      @line.include?('chicken')
+      @line.include?('chicken') && !@line.include?('thins')
     end
 
     def chicken_leg?
@@ -691,7 +695,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tuna?
-      @line.include?('tuna') && @line.include?('steak')
+      @line.include?('tuna')
     end
 
     def shrimp?

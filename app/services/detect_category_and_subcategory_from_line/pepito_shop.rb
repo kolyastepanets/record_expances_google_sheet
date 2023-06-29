@@ -886,7 +886,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def chicken?
-      @line.include?('chicken')
+      @line.include?('chicken') && !@line.include?('thins')
     end
 
     def pork?
