@@ -108,7 +108,7 @@ module DetectCategoryAndSubcategoryFromLine
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
         sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt? ||
-        baking_powder? || black_pepper?
+        baking_powder? || black_pepper? || jay_leaves?
     end
 
     def kikko_soy_souce?
@@ -187,6 +187,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('black') && @line.include?('papper')
     end
 
+    def jay_leaves?
+      @line.include?('jays') && @line.include?('leaves')
+    end
+
     ####
 
     def sweets?
@@ -198,7 +202,7 @@ module DetectCategoryAndSubcategoryFromLine
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
-        condensed_milk? || belgian_chocolate_2? || big_babol?
+        condensed_milk? || belgian_chocolate_2? || big_babol? || tougri?
     end
 
     def magnum_icecream?
@@ -391,6 +395,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def big_babol?
       @line.include?('big') && @line.include?('babol')
+    end
+
+    def tougri?
+      @line.include?('cho') && @line.include?('milk') && @line.include?('tougri')
     end
 
     ####
@@ -676,7 +684,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def biokul_yog?
-      @line.any? { |word| word.include?('iokul') } && @line.include?('yog')
+      @line.any? { |word| word.include?('iokul') } && (@line.include?('yog') || @line.include?('greek'))
     end
 
     def kin_yog?
