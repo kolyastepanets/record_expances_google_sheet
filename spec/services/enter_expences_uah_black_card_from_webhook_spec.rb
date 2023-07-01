@@ -166,7 +166,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
   context 'when Mark salary 3', freezed_time: '2022-08-01' do
     let(:transaction_data) do
       {
-        amount: -250000,
+        amount: -150000,
         balance: 2876000,
         cashbackAmount: 0,
         commissionRate: 0,
@@ -175,7 +175,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         hold: true,
         id: "JEMXm-kC9iSZNfGJ",
         mcc: 4829,
-        operationAmount: -250000,
+        operationAmount: -150000,
         originalMcc: 4829,
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
@@ -186,8 +186,107 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         can_show_final_sum: true,
         category_name: 'Марк',
         sub_category_name: nil,
-        price_in_uah: 2500.0,
-        operation_amount: 2500.0,
+        price_in_uah: 1500.0,
+        operation_amount: 1500.0,
+        current_month: Date.today.month,
+        mono_description: "Лілія С",
+        currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when Mark salary 4', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -149900,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лілія С",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -149900,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        currency_rate: 1,
+        total_sum_of_money_before_save: 12345,
+        can_show_final_sum: true,
+      }
+    end
+
+    it 'does not call job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
+  context 'when Mark salary 5', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -400100,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лілія С",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -400100,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        currency_rate: 1,
+        total_sum_of_money_before_save: 12345,
+        can_show_final_sum: true,
+      }
+    end
+
+    it 'does not call job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
+  context 'when Mark salary 6', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -400000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Лілія С",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -400000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Марк',
+        sub_category_name: nil,
+        price_in_uah: 4000.0,
+        operation_amount: 4000.0,
         current_month: Date.today.month,
         mono_description: "Лілія С",
         currency_rate: 1.0,
