@@ -35,7 +35,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def eggs?
-      @line.include?('egg')
+      @line.include?('egg') || (@line.any? { |word| word.include?('egg') } && @line.include?('rossa'))
     end
 
     ####
