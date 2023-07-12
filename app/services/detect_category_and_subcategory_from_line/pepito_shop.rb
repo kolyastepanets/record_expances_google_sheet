@@ -780,7 +780,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def butter?
-      @line.include?('salt') && @line.include?('butter')
+      (@line.include?('salt') && @line.include?('butter')) || (@line.include?('btr') && @line.include?('unlstd'))
     end
 
     def cottage_cheese?
