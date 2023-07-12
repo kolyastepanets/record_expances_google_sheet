@@ -39,7 +39,7 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
-        mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2?
+        mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2? || ice?
     end
 
     def green_tea?
@@ -100,6 +100,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def coconut_drink_2?
       @line.include?('hydro') && @line.include?('coco')
+    end
+
+    def ice?
+      @line.include?('ice') && @line.include?('cube')
     end
 
     ####
@@ -202,7 +206,7 @@ module DetectCategoryAndSubcategoryFromLine
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
-        condensed_milk? || belgian_chocolate_2? || big_babol? || tougri?
+        condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter?
     end
 
     def magnum_icecream?
@@ -399,6 +403,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tougri?
       @line.include?('cho') && @line.include?('milk') && @line.include?('tougri')
+    end
+
+    def ritter?
+      @line.include?('ritter') && @line.any? { |word| word.include?('gr') }
     end
 
     ####
@@ -664,7 +672,7 @@ module DetectCategoryAndSubcategoryFromLine
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
         heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog? ||
-        kefir? || arla_cheese? || milk_up?
+        kefir? || arla_cheese? || milk_up? || parmesan?
     end
 
     def milk?
@@ -809,6 +817,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def milk_up?
       @line.include?('milk') && @line.include?('up') && @line.include?('yogurt')
+    end
+
+    def parmesan?
+      @line.include?('alba') && @line.include?('parmesan')
     end
 
     ####

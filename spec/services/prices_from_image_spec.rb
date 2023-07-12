@@ -5831,6 +5831,91 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 78', freezed_time: '2023-07-12T14:04:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out100.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Вода",
+          :price=>8000.0,
+          :full_parsed_line=>
+           "PEPITO, MARKET, SEMER, Banjar, Semer, ,, Kerobokan, Badung, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C20000052255, Counter, :, C2, 11, -, Jul, -, 2023, 07:36:10, NENGAH, MURTINI, 101015010072, ICE, CUBE, 5KG, ], 8,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>12978.0,
+          :full_parsed_line=>"P, 101023011534, [, KENTANG, BESAR, ], 14,420 - 1,442"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Алкоголь",
+          :price=>15624.0,
+          :full_parsed_line=>"P, 101023054421, [, PLAGA, FARM, LETTUCE, HEAD, KG, ], 17,360 - 1,736"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>39300.0,
+          :full_parsed_line=>"101012009282, [, YUMMY, SOUR, CREAM, 200GR, ], 39,300"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>13900.0,
+          :full_parsed_line=>"P, 101012009125, [, GREENFIELDS, YOG, STRAW, 125GR, 15,500 - 1,600"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>72000.0,
+          :full_parsed_line=>"101012054382, [, MILK, UP, COTTAGE, CHEESE, 250G, R, ], 72,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>77500.0,
+          :full_parsed_line=>"101012009421, [, LURPAK, SALT, BUTTER, 82, %, 200G, R, ], 77,500"},
+         {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>14700.0, :full_parsed_line=>"101012009320, [, TELUR, PUYUH, 20S1, 14,700"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>32000.0,
+          :full_parsed_line=>"101002005378, [, KINDER, BUENO, CHOCO, T, -, 21, 32,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>52000.0,
+          :full_parsed_line=>"101002008167, [, RITTER, CFLKS100GR, ], 52,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Фрукты",
+          :price=>8383.0,
+          :full_parsed_line=>"P, 101024011676, [, PEPAYA, CALINA, KG, ], 9,315 - 932"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Колбаса, сосиски",
+          :price=>30015.0,
+          :full_parsed_line=>"101021011225, [, AROMA, STREAKY, BACON, KG, ], 30,015"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>32683.0,
+          :full_parsed_line=>"P, 101016010904, [, CHICKEN, BREAST, KG, ], 36,315 - 3,632"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Рыба",
+          :price=>26500.0,
+          :full_parsed_line=>"101006003395, [, SUNBELL, CHUNKS, OIL, 1, ], 26.500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>13900.0,
+          :full_parsed_line=>"P, 101012009126, [, GREENFIELDS, YOG, MANGO, 125GR, 15,500 - 1,600"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>79100.0,
+          :full_parsed_line=>"101012031654, [, ALBA, GRATED, PARMESAN, 100GR, ], 79,100"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>68000.0,
+          :full_parsed_line=>"101002000021, [, LINDT, MRAISIN, NUT100, ], 68,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Овощи",
+          :price=>18000.0,
+          :full_parsed_line=>"P, 101023011646, [, F, TOMAT, CHERY, RED, PC, ], 20,000 - 2,000"}],
+        614585.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1] - 2)
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
