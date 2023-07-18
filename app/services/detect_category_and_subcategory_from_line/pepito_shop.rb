@@ -441,7 +441,7 @@ module DetectCategoryAndSubcategoryFromLine
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
-        mixed_berries? || apple?
+        mixed_berries? || apple? || kiwi?
     end
 
     def pineapple?
@@ -522,6 +522,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def apple?
       @line.include?('apel') && @line.include?('grany')
+    end
+
+    def kiwi?
+      @line.include?('kiwi') && @line.include?('green')
     end
 
     ####
@@ -832,7 +836,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def donut?
-      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple') || @line.include?('icing'))
+      @line.any? { |word| word.include?('onut') } && (@line.include?('sprinkle') || @line.include?('tripple') || @line.include?('icing') || @line.include?('blueberry'))
     end
 
     def bread_sticks?
