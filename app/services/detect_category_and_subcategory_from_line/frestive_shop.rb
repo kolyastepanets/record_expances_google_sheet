@@ -42,7 +42,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
-        aqua_water? || cheers_water? || mango_juice? || peach_juice? || pear_juice?
+        aqua_water? || cheers_water? || mango_juice? || peach_juice? || pear_juice? || bottle_of_water?
     end
 
     def coca_cola?
@@ -87,6 +87,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pear_juice?
       @line.include?('pear') && @line.include?('1l')
+    end
+
+    def bottle_of_water?
+      @line.include?('wtr') && @line.include?('btl')
     end
 
     ####

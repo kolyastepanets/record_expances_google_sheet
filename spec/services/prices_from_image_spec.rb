@@ -7772,6 +7772,24 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 50', freezed_time: '2023-07-18T01:38:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out75.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>28500.0, :full_parsed_line=>"23503025, ROYAL, JASMN, RICE, 1KG, 28,500"},
+          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>236726.0, :full_parsed_line=>"12201009, PORK, BABY, BACK, RIB, 236,726"},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>10500.0, :full_parsed_line=>"20081023, BALIAN, WTR, BTL, 500ML, 10,500"}],
+         275726.0,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
