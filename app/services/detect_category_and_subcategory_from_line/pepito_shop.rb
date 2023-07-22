@@ -318,7 +318,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ice_cream?
-      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw'))
+      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw') || @line.include?('creamy'))
     end
 
     def truffle_coconut?
@@ -441,7 +441,7 @@ module DetectCategoryAndSubcategoryFromLine
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
-        mixed_berries? || apple? || kiwi?
+        mixed_berries? || apple? || kiwi? || raspberry? || melon?
     end
 
     def pineapple?
@@ -526,6 +526,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kiwi?
       @line.include?('kiwi') && @line.include?('green')
+    end
+
+    def raspberry?
+      @line.include?('raspberry') && @line.include?('local')
+    end
+
+    def melon?
+      @line.include?('melon') && @line.include?('golden')
     end
 
     ####
