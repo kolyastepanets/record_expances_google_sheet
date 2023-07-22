@@ -1173,7 +1173,7 @@ module DetectCategoryAndSubcategoryFromLine
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
         dove? || to_wash_plates? || plastic_bag? || candles_for_cake? || sticks_for_food? ||
-        to_wash_plates_2?
+        to_wash_plates_2? || sponge_2?
     end
 
     def paseo?
@@ -1226,6 +1226,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def to_wash_plates_2?
       @line.include?('phg') && @line.include?('pch800ml')
+    end
+
+    def sponge_2?
+      @line.include?('polytx') && @line.include?('serap')
     end
 
     ####
