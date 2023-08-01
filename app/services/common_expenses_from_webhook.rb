@@ -38,10 +38,10 @@ class CommonExpensesFromWebhook
     when -> (description) { (description == google_disk) || (Date.today.day == 3 && description == 'Apple' && @params[:operation_amount] == 1.99) }
       @params[:category_name] = 'Для дома'
       @params[:sub_category_name] = 'google'
-    when -> (description) { description == kolya_mama && Date.today.day == 1 && @params[:price_in_uah] == 5000 }
+    when -> (description) { description.include?(kolya_mama_start_card) && description.include?(kolya_mama_end_card) && Date.today.day == 1 && @params[:price_in_uah].between?(4900, 5100) }
       @params[:category_name] = 'Подарки'
       @params[:sub_category_name] = 'мама Коли'
-    when -> (description) { description == liliia_papa && Date.today.day == 1 && @params[:price_in_uah] == 5000 }
+    when -> (description) { description.include?(liliia_papa_start_card) && description.include?(liliia_papa_end_card) && Date.today.day == 1 && @params[:price_in_uah].between?(4900, 5100) }
       @params[:category_name] = 'Подарки'
       @params[:sub_category_name] = 'Папа Лили'
     when kladovka_1
@@ -122,12 +122,20 @@ class CommonExpensesFromWebhook
     "431414******3237"
   end
 
-  def kolya_mama
-    "516875******6402"
+  def kolya_mama_start_card
+    "516875"
   end
 
-  def liliia_papa
-    "414949******0254"
+  def kolya_mama_end_card
+    "6402"
+  end
+
+  def liliia_papa_start_card
+    "414949"
+  end
+
+  def liliia_papa_end_card
+    "0254"
   end
 
   def digital_ocean

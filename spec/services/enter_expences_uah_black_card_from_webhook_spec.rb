@@ -487,6 +487,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when kolya mama 1st date of month, ver 2', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: -502513,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "516875****6402",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -502513,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Подарки',
+        sub_category_name: 'мама Коли',
+        price_in_uah: 5025.13,
+        operation_amount: 5025.13,
+        current_month: Date.today.month,
+        mono_description: "516875****6402",
+        currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
   context 'when kolya mama other day', freezed_time: '2022-08-02' do
     let(:transaction_data) do
       {
@@ -544,6 +583,45 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         operation_amount: 5000.0,
         current_month: Date.today.month,
         mono_description: "414949******0254",
+        currency_rate: 1.0,
+        total_sum_of_money_before_save: 12345,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to receive(:perform_later).with(params)
+
+      subject
+    end
+  end
+
+  context 'when liliia papa 1st date of month, 2', freezed_time: '2023-01-01' do
+    let(:transaction_data) do
+      {
+        amount: -502513,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "414949****0254",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: -502513,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+      }
+    end
+    let(:params) do
+      {
+        can_show_final_sum: true,
+        category_name: 'Подарки',
+        sub_category_name: 'Папа Лили',
+        price_in_uah: 5025.13,
+        operation_amount: 5025.13,
+        current_month: Date.today.month,
+        mono_description: "414949****0254",
         currency_rate: 1.0,
         total_sum_of_money_before_save: 12345,
       }
