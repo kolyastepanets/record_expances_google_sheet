@@ -206,7 +206,8 @@ module DetectCategoryAndSubcategoryFromLine
         vanila? || bar_bar_2? || berry_bliss? || milka? || haribo? || lindt_2? || bears? ||
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
-        condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter?
+        condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
+        chocolate_stick_biscuite?
     end
 
     def magnum_icecream?
@@ -409,6 +410,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ritter') && @line.any? { |word| word.include?('gr') }
     end
 
+    def chocolate_stick_biscuite?
+      @line.include?('pocky') && @line.include?('choc')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -441,7 +446,7 @@ module DetectCategoryAndSubcategoryFromLine
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
-        mixed_berries? || apple? || kiwi? || raspberry? || melon?
+        mixed_berries? || apple? || kiwi? || raspberry? || melon? || pamelo?
     end
 
     def pineapple?
@@ -534,6 +539,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def melon?
       @line.include?('melon') && @line.include?('golden')
+    end
+
+    def pamelo?
+      @line.include?('pamelo')
     end
 
     ####
@@ -704,7 +713,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def biokul_yog?
-      @line.any? { |word| word.include?('iokul') } && (@line.include?('yog') || @line.include?('greek'))
+      @line.any? { |word| word.include?('iokul') } && (@line.include?('yog') || @line.include?('greek') || @line.any? { |word| word.include?('ml') })
     end
 
     def kin_yog?
@@ -1108,7 +1117,7 @@ module DetectCategoryAndSubcategoryFromLine
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
         rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle? ||
-        granola? || cous_cous? || oats_3?
+        granola? || cous_cous? || oats_3? || rice_2?
     end
 
     def rice?
@@ -1166,6 +1175,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def oats_3?
       @line.include?('oat') && @line.include?('quaker')
+    end
+
+    def rice_2?
+      @line.include?('riso') && @line.any? { |word| word.include?('gr') }
     end
 
     ####
