@@ -21,6 +21,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Получить статистику по категории за месяц'],
     ['Получить среднее значение трат по категории за период'],
     ['Info current month'],
+    ['Info about month'],
   ].freeze
 
   def start!(*)
@@ -94,10 +95,16 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       category_name = data.split(':')[0]
       session[:category_for_statistic] = category_name
       ask_to_choose_year_for_statistic(payload["message"]["message_id"])
+    when -> (input_year) { input_year.include?('info_about_month_choose_year') }
+      year_for_statistic = data.split(':')[0]
+      session[:year_for_statistic] = year_for_statistic
+      ask_to_choose_month_info_about_month(payload["message"]["message_id"])
     when -> (input_year) { input_year.include?('year_for_statistic') }
       year_for_statistic = data.split(':')[0]
       session[:year_for_statistic] = year_for_statistic
       ask_to_choose_month_for_statistic(payload["message"]["message_id"])
+    when -> (input_category) { input_category.include?('info_about_month_m_and_y_for_statistic') }
+      show_general_statistic_about_month(data, payload["message"]["message_id"])
     when -> (input_category) { input_category.include?('m_and_y_for_statistic') }
       show_statistic(data, payload["message"]["message_id"])
     when -> (input_category) { input_category.include?('av_exp_for_category') }
@@ -314,7 +321,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
         { text: 'Получить среднее значение трат по категории за период', method_to_call: 'get_statistic_average_expenses_by_category_for_period' },
-        { text: 'Info current month',  method_to_call: 'info_current_month' }
+        { text: 'Info current month',  method_to_call: 'info_current_month' },
+        { text: 'Info about month',  method_to_call: 'info_about_month' }
       ]
       found_mapping = mapping.detect { |current_mapping| current_mapping[:text] == message_text }
 
@@ -711,10 +719,21 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def info_current_month
     respond_with(
       :message,
-      text: "```#{FindCellsCurrentMonth.call}```",
+      text: "```#{FindCellsCurrentMonth.call(Date.today.month.to_s, Date.today.year.to_s)}```",
       parse_mode: :MarkdownV2,
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )
+  end
+
+  def info_about_month
+    start_year = 2022
+    year_now = Date.today.year
+    array_of_years = (start_year..year_now).to_a
+    years_to_choose = array_of_years.map do |year|
+      { text: year, callback_data: "#{year}: info_about_month_choose_year" }
+    end
+
+    respond_with(:message, text: 'Выбери год для статистики:', reply_markup: { inline_keyboard: [years_to_choose] })
   end
 
   def get_statistic_by_category_for_month
@@ -754,6 +773,22 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: prepare_dates })
   end
 
+  def ask_to_choose_month_info_about_month(message_id)
+    start_year = "01.01.#{session[:year_for_statistic]}"
+    start_year = "01.09.#{session[:year_for_statistic]}" if session[:year_for_statistic] == "2022"
+    end_year   = "31.12.#{session[:year_for_statistic]}"
+    end_year   = Date.today.end_of_month.strftime("%d.%m.%Y") if session[:year_for_statistic] == Date.today.year.to_s
+    dates = (Date.parse(start_year)..Date.parse(end_year)).to_a.select { |current_date| current_date.day == 1 }.map { |current_date| "#{Date::ABBR_MONTHNAMES[current_date.month]} #{current_date.year}" }
+
+    prepare_dates = dates.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |dates_array|
+      dates_array.map do |category|
+        { text: category, callback_data: "#{category}: info_about_month_m_and_y_for_statistic" }
+      end
+    end
+
+    Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: prepare_dates })
+  end
+
   def show_statistic(date_for_statistic, message_id)
     month, year = date_for_statistic.split(':')[0].split
     months = [Date::ABBR_MONTHNAMES.index(month).to_s, "#{Date::ABBR_MONTHNAMES.index(month).to_s},1"]
@@ -762,6 +797,22 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(
       :message,
       text: "```#{GetStatisticForCategoryForMonthFromGoogleSheet.call(session[:category_for_statistic], months, year)}```",
+      parse_mode: :MarkdownV2,
+      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
+    )
+
+    set_default_values_in_session!
+  end
+
+  def show_general_statistic_about_month(date_for_statistic, message_id)
+    month_abbr_name, year = date_for_statistic.split(':')[0].split
+    month = (Date::ABBR_MONTHNAMES.compact.find_index(month_abbr_name) + 1).to_s
+
+    Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id)
+    respond_with(:message, text: "Info about: #{month_abbr_name} #{year}")
+    respond_with(
+      :message,
+      text: "```#{FindCellsCurrentMonth.call(month, year)}```",
       parse_mode: :MarkdownV2,
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
     )

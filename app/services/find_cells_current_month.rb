@@ -2,11 +2,16 @@ class FindCellsCurrentMonth < GetOrSetDataInGoogleSheetBase
   HOW_MANY_COLUMNS_TAKE = 3
   MAX_CHARACTERS_IN_STRING_COLUMN = 7
 
-  def initialize
-    @month = Date.today.month.to_s
+  def initialize(month, year)
+    @month = month
+    @year = year
   end
 
   private
+
+  def prepare_request_data
+    @range = "#{@year}!A#{start_line_to_search}:CJ#{end_line_to_search}"
+  end
 
   def start_line_to_search
     60
