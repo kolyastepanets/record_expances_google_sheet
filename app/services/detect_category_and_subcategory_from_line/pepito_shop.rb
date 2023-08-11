@@ -207,7 +207,7 @@ module DetectCategoryAndSubcategoryFromLine
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
-        chocolate_stick_biscuite?
+        chocolate_stick_biscuite? || monggo? || some_chocolate?
     end
 
     def magnum_icecream?
@@ -311,7 +311,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def marshmallow?
-      @line.include?('chomp') && @line.include?('mrsmlw')
+      @line.include?('chomp') && (@line.include?('mrsmlw') || @line.include?('mllw'))
     end
 
     def dilan?
@@ -414,6 +414,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('pocky') && @line.include?('choc')
     end
 
+    def monggo?
+      @line.include?('monggo')
+    end
+
+    def some_chocolate?
+      @line.include?('cho') && @line.include?('milk')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -490,7 +498,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def orange?
-      @line.include?('jeruk') && @line.include?('murcot')
+      @line.include?('jeruk') && (@line.include?('murcot') || @line.include?('shantang'))
     end
 
     def lemon?
@@ -849,7 +857,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       donut? || bread_sticks? || toast? || wrap? || yeast? || waffels? || flour? ||
         batard? || just_bread? || sourdough? || flour_2? || bun? || donut_chocolate? ||
-        croissant? || cinamon? || wrap_2?
+        croissant? || cinamon? || wrap_2? || hamburger_bun?
     end
 
     def donut?
@@ -914,6 +922,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wrap_2?
       @line.include?('mission') && @line.include?('tortilla')
+    end
+
+    def hamburger_bun?
+      @line.include?('hamburger') && @line.include?('bun')
     end
 
     ####
@@ -1061,7 +1073,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren? || chitato? || cashew? || cashew_2? || nori?
+        lorenz? || loren? || chitato? || cashew? || cashew_2? || nori? || cashew_3?
     end
 
     def lays?
@@ -1110,6 +1122,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def nori?
       @line.include?('nori') && @line.include?('crispy')
+    end
+
+    def cashew_3?
+      @line.include?('meman') && @line.include?('kacang')
     end
 
     ####
