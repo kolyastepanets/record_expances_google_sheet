@@ -207,7 +207,7 @@ module DetectCategoryAndSubcategoryFromLine
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
-        chocolate_stick_biscuite? || monggo? || some_chocolate?
+        chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika?
     end
 
     def magnum_icecream?
@@ -448,6 +448,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('indonesso')
     end
 
+    def popcorn?
+      @line.include?('sugarays') && @line.include?('nuttela') && @line.include?('butter')
+    end
+
+    def jika?
+      @line.include?('jika') && @line.include?('chocolat')
+    end
+
     ####
 
     def fruits?
@@ -538,11 +546,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def kiwi?
-      @line.include?('kiwi') && @line.include?('green')
+      @line.include?('kiwi') && (@line.include?('green') || @line.include?('golden'))
     end
 
     def raspberry?
-      @line.include?('raspberry') && @line.include?('local')
+      (@line.include?('raspberry') && @line.include?('local')) || (@line.include?('freshtable') && @line.include?('raspberries'))
     end
 
     def melon?
@@ -561,7 +569,7 @@ module DetectCategoryAndSubcategoryFromLine
         tomat_gondol? || zuchini? || red_onion? || beans? || radish? || rucola? ||
         beetroot? || cabbage? || solt_cucumber? || canned_peas? || bond_peas? ||
         mushroom? || chinese_cabbage? || baby_cucumber? || cabbage_2? || asparagus? ||
-        kailan? || canned_cucumber?
+        kailan? || canned_cucumber? || pumpkin?
     end
 
     def cucumber?
@@ -692,6 +700,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('timun') && @line.include?('acar')
     end
 
+    def pumpkin?
+      @line.include?('kabocha') && @line.include?('yellow')
+    end
+
     ####
 
     def dairy?
@@ -705,7 +717,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def milk?
-      @line.include?('milk') && @line.include?('life')
+      @line.include?('milk') && (@line.include?('life') || @line.any? { |word| word.include?('ltr') })
     end
 
     def greenfields_milk?
