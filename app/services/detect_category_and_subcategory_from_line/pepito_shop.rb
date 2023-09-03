@@ -31,7 +31,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def eggs?
+      eggs_1? || eggs_2?
+    end
+
+    def eggs_1?
       @line.include?('telur')
+    end
+
+    def eggs_2?
+      @line.include?('ayam') && @line.include?('negeri') && @line.include?('orange')
     end
 
     ####
@@ -207,7 +215,8 @@ module DetectCategoryAndSubcategoryFromLine
         cake_2? || belgian_chocolate? || ice_cream_paletas? || snickers? || twix? ||
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
-        chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika?
+        chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika? ||
+        reeses_nut_bar?
     end
 
     def magnum_icecream?
@@ -422,6 +431,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('cho') && @line.include?('milk')
     end
 
+    def reeses_nut_bar?
+      @line.include?('reeses') && @line.include?('nut') && @line.include?('bar')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -462,7 +475,8 @@ module DetectCategoryAndSubcategoryFromLine
       pineapple? || mango? || dragon_fruit? || watermelon? || banana? || grape? ||
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
-        mixed_berries? || apple? || kiwi? || raspberry? || melon? || pamelo?
+        mixed_berries? || apple? || kiwi? || raspberry? || melon? || pamelo? ||
+        lime?
     end
 
     def pineapple?
@@ -498,7 +512,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pear?
-      @line.include?('pear')
+      @line.any? { |word| word.include?('pear') }
     end
 
     def plum?
@@ -559,6 +573,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pamelo?
       @line.include?('pamelo')
+    end
+
+    def lime?
+      @line.include?('jeruk') && @line.include?('nipis')
     end
 
     ####
@@ -943,7 +961,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken? || pork? || beef? || pork_2?
+      chicken_breast? || chicken? || pork? || beef? || pork_2? || chicken_broiler?
     end
 
     def chicken_breast?
@@ -951,7 +969,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def chicken?
-      @line.include?('chicken') && !@line.include?('thins')
+      @line.include?('chicken') && !(@line.include?('thins') || @line.include?('halal'))
     end
 
     def pork?
@@ -964,6 +982,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pork_2?
       @line.include?('pork') && @line.include?('roast')
+    end
+
+    def chicken_broiler?
+      @line.any? { |word| word.include?('chicken') } && @line.include?('broiler')
     end
 
     ####
@@ -1002,7 +1024,7 @@ module DetectCategoryAndSubcategoryFromLine
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
         mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
-        nice_sausage? || aroma_pork? || turkey_sausages?
+        nice_sausage? || aroma_pork? || turkey_sausages? || chicken_sausage?
     end
 
     def mamas_ham?
@@ -1079,6 +1101,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def turkey_sausages?
       @line.include?('turkey') && @line.include?('smoked')
+    end
+
+    def chicken_sausage?
+      @line.include?('chicken') && @line.include?('halal')
     end
 
     ####
