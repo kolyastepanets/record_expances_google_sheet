@@ -164,7 +164,7 @@ module DetectCategoryAndSubcategoryFromLine
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
         dark_chocolate? || haribo? || icecream_2? || excellence_chocolate? || bon_bon? ||
-        kinder_schokobon? || deka? || ritter? || toblerone?
+        kinder_schokobon? || deka? || ritter? || toblerone? || silver_queen?
     end
 
     def honey?
@@ -279,6 +279,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('toblerone')
     end
 
+    def silver_queen?
+      @line.include?('silver') && @line.include?('queen')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -294,7 +298,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
         strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape? ||
-        grape_2? || mangosteen?
+        grape_2? || mangosteen? || strawberry_2?
     end
 
     def banana?
@@ -359,6 +363,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mangosteen?
       @line.include?('mangosteen')
+    end
+
+    def strawberry_2?
+      @line.include?('straw') && @line.include?('fresa')
     end
 
     ####
@@ -663,7 +671,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def bread_4?
-      @line.include?('bakker') && (@line.include?('brea') || @line.include?('br'))
+      @line.include?('bakker') && (@line.include?('brea') || @line.include?('br') || @line.include?('champagne'))
     end
 
     def waffles?
@@ -712,7 +720,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      tuna? || shrimp? || barramundi? || fish_steak? || canned_fish? || canned_fish_2?
+      tuna? || shrimp? || barramundi? || fish_steak? || canned_fish? || canned_fish_2? ||
+        salmon?
     end
 
     def tuna?
@@ -737,6 +746,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def canned_fish_2?
       @line.include?('sunview') && @line.include?('anchvy')
+    end
+
+    def salmon?
+      @line.include?('salmon')
     end
 
     ####
