@@ -6,6 +6,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
 
   def initialize(requested_date_to_show_expenses)
     @dashes = "-"*MAX_CHARACTERS_IN_STRING_COLUMN
+    @spaces = " "*MAX_CHARACTERS_IN_STRING_COLUMN
     @day_number = requested_date_to_show_expenses.day.to_s
     @month = requested_date_to_show_expenses.month.to_s
     @year = requested_date_to_show_expenses.year.to_s
@@ -42,6 +43,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
     day_to_show = "#{@day_number} #{Date::MONTHNAMES[@month.to_i]} #{@year}, #{Date::DAYNAMES[@current_date.wday]}"
     wrapped_word_day_to_show = GenerateStringMaxLengthWithSpaces.call(day_to_show, 29)
     data_for_markdown_as_table << "|#{wrapped_word_day_to_show}|"
+    total_sum = 0
 
     @response_values.each do |array_of_text|
       next if !match_day?(array_of_text)
@@ -87,6 +89,8 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
         if index == 1
           max_characters = 7
           word = " #{word}"
+          price = word.delete("$").gsub(",", ".").to_f
+          total_sum += price
         end
         wrapped_word = GenerateStringMaxLengthWithSpaces.call(word, max_characters)
         wrapped_word.prepend("|") if index != (second_part_array_of_text.size - 1)
@@ -98,7 +102,13 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
     end
 
     data_for_markdown_as_table << "|#{@dashes}|#{@dashes}|"
+    data_for_markdown_as_table << "|#{@spaces}|#{GenerateStringMaxLengthWithSpaces.call(prepare_total_sum(total_sum), MAX_CHARACTERS_IN_STRING_COLUMN)}|"
+    data_for_markdown_as_table << "|#{@dashes}|#{@dashes}|"
     data_for_markdown_as_table.each_slice(MAX_ARRAY_SIZE_TO_FIT_TELEGRAM_MESSAGE_SIZE).to_a
+  end
+
+  def prepare_total_sum(total_sum)
+    total_sum_to_show = "$#{total_sum.round(2)}"
   end
 
   def save_to_redis!(values)
