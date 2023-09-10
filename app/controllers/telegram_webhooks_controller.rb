@@ -18,6 +18,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
     ['Enter cash'],
+    ['Получить статистику трат по дням'],
     ['Получить статистику по категории за месяц'],
     ['Получить среднее значение трат по категории за период'],
     ['Info current month'],
@@ -319,6 +320,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
+        { text: 'Получить статистику трат по дням', method_to_call: 'get_statistic_by_days' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
         { text: 'Получить среднее значение трат по категории за период', method_to_call: 'get_statistic_average_expenses_by_category_for_period' },
         { text: 'Info current month',  method_to_call: 'info_current_month' },
@@ -367,6 +369,23 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     foreign_cash = args.first
     HandleMoneyReturnedCashAndGrivnas.call(grivnas.to_f, foreign_cash.to_f)
     respond_with(:message, text: 'money has been handled!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def ask_start_date_and_end_date!(start_date, *args)
+    end_date = args.first
+
+    arrays_of_data = GetStatisticForDaysFromGoogleSheet.call(start_date, end_date)
+    arrays_of_data.each_with_index do |array_of_data, index|
+      reply_markup = {}
+      reply_markup = { reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS } if index == (arrays_of_data.size - 1)
+
+      respond_with(
+        :message,
+        text: "```#{array_of_data.join("\n")}```",
+        parse_mode: :MarkdownV2,
+        **reply_markup,
+      )
+    end
   end
 
   def ask_grivnas_and_foreign_money!(grivnas_returned, *args)
@@ -734,6 +753,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
 
     respond_with(:message, text: 'Выбери год для статистики:', reply_markup: { inline_keyboard: [years_to_choose] })
+  end
+
+  def get_statistic_by_days
+    save_context(:ask_start_date_and_end_date!)
+    respond_with(:message, text: 'Enter dates, "20.08.2023 21.08.2023" :')
   end
 
   def get_statistic_by_category_for_month
