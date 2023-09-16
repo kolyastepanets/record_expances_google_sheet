@@ -98,7 +98,7 @@ module DetectCategoryAndSubcategoryFromLine
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
         oil? || sunflower_oil_2? || sugar? || salt? || leaves? || vinegar? || sunflower_oil_3? ||
-        mustard_2?
+        mustard_2? || cream_for_cake? || jelly_for_cake?
     end
 
     def cook_cream?
@@ -157,6 +157,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('heinz') && @line.include?('mustrd')
     end
 
+    def cream_for_cake?
+      @line.include?('hulala') && @line.include?('whip')
+    end
+
+    def jelly_for_cake?
+      @line.include?('tarami') && @line.include?('jly') && @line.include?('mngo')
+    end
+
     ####
 
     def sweets?
@@ -164,7 +172,8 @@ module DetectCategoryAndSubcategoryFromLine
         like_m_and_ms? || lindt? || chacha? || poule_de_luxe? || hello_panda? || honey_2? ||
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
         dark_chocolate? || haribo? || icecream_2? || excellence_chocolate? || bon_bon? ||
-        kinder_schokobon? || deka? || ritter? || toblerone? || silver_queen?
+        kinder_schokobon? || deka? || ritter? || toblerone? || silver_queen? || jam? ||
+        jelly?
     end
 
     def honey?
@@ -283,6 +292,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('silver') && @line.include?('queen')
     end
 
+    def jam?
+      @line.include?('bonne') && @line.include?('blckbry')
+    end
+
+    def jelly?
+      @line.include?('nutrijell') && @line.include?('delima15gr')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -358,7 +375,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def grape_2?
-      @line.include?('grape') && @line.include?('calmeria')
+      @line.include?('grape') && (@line.include?('calmeria') || @line.include?('mus'))
     end
 
     def mangosteen?
@@ -686,7 +703,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def meat?
       chicken? || chicken_leg? || chicken_2? || pork? || bacon? || beef? ||
-        pork_slices? || mamas_bacon?
+        pork_slices? || mamas_bacon? || duck?
     end
 
     def chicken?
@@ -719,6 +736,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mamas_bacon?
       @line.include?('mamas') && @line.include?('bcn')
+    end
+
+    def duck?
+      @line.include?('fume') && @line.include?('duck') && @line.include?('legconfit')
     end
 
     ####
@@ -832,7 +853,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      barilla? || rice? || spaghetti? || oat? || cous_cous?
+      barilla? || rice? || spaghetti? || oat? || cous_cous? || cereals?
     end
 
     def barilla?
@@ -853,6 +874,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cous_cous?
       @line.any? { |word| word.include?('couscous') }
+    end
+
+    def cereals?
+      @line.include?('kelloggs') && @line.include?('frt')
     end
 
     ####
@@ -955,6 +980,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def french_fries?
       @line.include?('golden') && @line.include?('fram')
+    end
+
+    ###
+
+    def pharmacy?
+      strepsils?
+    end
+
+    def strepsils?
+      @line.include?('strepsil')
     end
   end
 end
