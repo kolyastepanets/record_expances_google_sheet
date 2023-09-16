@@ -106,7 +106,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sunflower_oil?
-      @line.include?('mazola') && @line.include?('snflwr')
+      @line.include?('mazola') && (@line.include?('snflwr') || @line.include?('sunflower'))
     end
 
     def mayonaise?
@@ -376,7 +376,7 @@ module DetectCategoryAndSubcategoryFromLine
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
         red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2? || corn_3? ||
-        parsley_2? || pumpkin? || onion?
+        parsley_2? || pumpkin? || onion? || tomato_2?
     end
 
     def potato?
@@ -494,6 +494,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def onion?
       @line.include?('oni') && @line.include?('bom') && @line.include?('sunrise')
+    end
+
+    def tomato_2?
+      @line.include?('tom') && @line.include?('chr')
     end
 
     ####

@@ -8567,6 +8567,31 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt frestive 53', freezed_time: '2023-09-16T09:22:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/frestive/out78.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>66000.0, :full_parsed_line=>"20026038, RAUCH, HD, STRAWBRY, 1L, 66,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>130000.0, :full_parsed_line=>"23615801, MAZOLA, SUNFLOWER, 450, 130,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>41000.0, :full_parsed_line=>"24042041, YUMMY, SOUR, CREAM200G, 41,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14157.0, :full_parsed_line=>"10316002, PEELED, GARLIC, 14,157"},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>38000.0, :full_parsed_line=>"24201006, WALLS, VANILLA, 700ML, 38,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>78500.0, :full_parsed_line=>"24044079, COTTAGE, CHEESE, 350G, 78,500"},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>19000.0, :full_parsed_line=>"10360002, TOM, CHR, RD, HIDROP250, 19,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>41000.0, :full_parsed_line=>"24042041, YUMMY, SOUR, CREAM200G, 41,000"},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14364.0, :full_parsed_line=>"10360017, BEEF, TOMATO, HYDPONIC, 14,364"},
+          {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>37500.0, :full_parsed_line=>"24051004, BIOLAND, ORG, EGG, 10'S, 37,500"}],
+         479521.0,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out14.png") }
 
