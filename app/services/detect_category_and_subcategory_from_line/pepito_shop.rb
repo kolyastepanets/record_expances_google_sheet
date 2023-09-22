@@ -120,7 +120,7 @@ module DetectCategoryAndSubcategoryFromLine
       kikko_soy_souce? || mayonaise? || soy_souce? || french_mustard? || vinegar? || sugar? ||
         oil? || sugar_2? || tomat_for_borsch? || soda? || rosemary? || sunflower_oil? ||
         sunflower_oil_2? || garlic_powder? || yellow_mustard? || sunflower_oil_3? || salt? ||
-        baking_powder? || black_pepper? || jay_leaves?
+        baking_powder? || black_pepper? || jay_leaves? || sugar_3? || cocoa? || sugar_powder?
     end
 
     def kikko_soy_souce?
@@ -201,6 +201,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jay_leaves?
       @line.include?('jays') && @line.include?('leaves')
+    end
+
+    def sugar_3?
+      @line.include?('gulaku') && @line.any? { |word| word.include?('kg') }
+    end
+
+    def cocoa?
+      @line.include?('houten') && @line.include?('powder')
+    end
+
+    def sugar_powder?
+      @line.include?('rose') && @line.include?('brand') && @line.include?('gula') && @line.include?('halus')
     end
 
     ####
@@ -435,6 +447,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('reeses') && @line.include?('nut') && @line.include?('bar')
     end
 
+    def popcorn?
+      @line.include?('sugarays') && @line.include?('nuttela') && @line.include?('butter')
+    end
+
+    def jika?
+      @line.include?('jika') && @line.include?('chocolat')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -459,14 +479,6 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_coffee_machine?
       @line.include?('indonesso')
-    end
-
-    def popcorn?
-      @line.include?('sugarays') && @line.include?('nuttela') && @line.include?('butter')
-    end
-
-    def jika?
-      @line.include?('jika') && @line.include?('chocolat')
     end
 
     ####
@@ -699,7 +711,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def baby_cucumber?
-      @line.any? { |word| word.include?('baby') } && @line.include?('gherkin')
+      (@line.any? { |word| word.include?('baby') } || @line.include?('big')) && @line.include?('gherkin')
     end
 
     def cabbage_2?
@@ -731,7 +743,7 @@ module DetectCategoryAndSubcategoryFromLine
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
         heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog? ||
-        kefir? || arla_cheese? || milk_up? || parmesan?
+        kefir? || arla_cheese? || milk_up? || parmesan? || mascarpone?
     end
 
     def milk?
@@ -882,6 +894,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('alba') && @line.include?('parmesan')
     end
 
+    def mascarpone?
+      @line.include?('yummy') && @line.include?('mascarpone')
+    end
+
     ####
 
     def bread?
@@ -1024,7 +1040,7 @@ module DetectCategoryAndSubcategoryFromLine
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
         mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
-        nice_sausage? || aroma_pork? || turkey_sausages? || chicken_sausage?
+        nice_sausage? || aroma_pork? || turkey_sausages? || chicken_sausage? || bernardi?
     end
 
     def mamas_ham?
@@ -1105,6 +1121,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_sausage?
       @line.include?('chicken') && @line.include?('halal')
+    end
+
+    def bernardi?
+      @line.include?('bernardi') && @line.include?('chick')
     end
 
     ####
