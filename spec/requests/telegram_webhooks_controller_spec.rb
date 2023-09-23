@@ -2901,7 +2901,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when uah expenses' do
-      context 'when all our expenses', freezed_time: '2023-02-12T04:30:00+00:00' do
+      context 'when all our expenses', freezed_time: '2023-09-23T08:14:00+00:00' do
         context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
@@ -2915,7 +2915,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           end
         end
 
-        context 'when 2 products were not parsed', freezed_time: '2023-03-07T09:51:00+00:00' do
+        context 'when 2 products were not parsed', freezed_time: '2023-09-23T08:13:00+00:00' do
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
 
           it 'saves price from not parsed category' do
@@ -2933,7 +2933,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when usd expenses' do
-      context 'when all our expenses', freezed_time: '2023-02-12T04:41:00+00:00' do
+      context 'when all our expenses', freezed_time: '2023-09-23T08:08:00+00:00' do
         let(:caption) { "usd 15593.0528" }
 
         context 'when 1 category was not parsed' do
@@ -2949,7 +2949,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           end
         end
 
-        context 'when 2 products were not parsed', freezed_time: '2023-03-07T09:51:00+00:00' do
+        context 'when 2 products were not parsed', freezed_time: '2023-09-23T08:10:00+00:00' do
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
 
           it 'saves price from not parsed category' do

@@ -25,6 +25,7 @@ class PutExpencesFopDollarCardJob < ApplicationJob
       is_usd = true
       is_uah = false
       SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, params[:total_sum_of_money_before_save])
+      SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later([params[:category_name]])
     end
   rescue StandardError => e
     if Rails.env.production?

@@ -227,7 +227,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when uah expenses' do
-    context 'when category present', freezed_time: '2023-01-22T06:03:00+00:00' do
+    context 'when category present', freezed_time: '2023-09-23T08:03:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -510,7 +510,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when usd expenses' do
-    context 'when category present', freezed_time: '2023-03-07T01:04:00+00:00' do
+    context 'when category present', freezed_time: '2023-09-23T08:05:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {

@@ -239,6 +239,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     save_category_to_session!(nil)
     save_sub_category_to_session!(nil)
+    add_category_to_list_in_session!(category_name)
     respond_with(:message, text: 'Данные внесены')
     show_categories_to_choose
 
@@ -504,6 +505,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_uah = session[:is_grivnas] || session[:is_metro]
       SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, session[:total_sum_of_money_before_save])
+      SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(session[:categories_names])
     end
 
     set_default_values_in_session!
@@ -589,6 +591,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:last_chosen_sub_category] = sub_category_name
   end
 
+  def add_category_to_list_in_session!(category_name)
+    session[:categories_names] << category_name
+  end
+
   def detect_month
     if session[:foreigh_cash_amount] && !session[:foreigh_cash_amount].zero?
       "#{Date.today.month},1"
@@ -626,6 +632,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:start_month_for_average_statistic] = nil
     session[:end_year_for_average_statistic] = nil
     session[:requested_date_to_show_expenses] = nil
+    session[:categories_names] = []
   end
 
   def redis
