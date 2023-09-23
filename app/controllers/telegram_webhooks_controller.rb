@@ -15,6 +15,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Получить статистику по pool man за 2 мес'],
     ['Заплатил за мес poolman'],
     ['Вернуть часть денег после снятия кэша'],
+    ['how much and when can start spending for food'],
+    ['how much and when can start spending for home'],
+    ['how much and when can start spending for travelling'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
     ['Enter cash'],
@@ -318,6 +321,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Получить статистику по pool man за 2 мес', method_to_call: 'get_statistic_by_poolman_for_2_months' },
         { text: 'Заплатил за мес poolman', method_to_call: 'paid_for_month_poolman' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
+        { text: 'how much and when can start spending for food', method_to_call: 'how_much_and_when_can_start_spending_for_food'},
+        { text: 'how much and when can start spending for home', method_to_call: 'how_much_and_when_can_start_spending_for_home'},
+        { text: 'how much and when can start spending for travelling', method_to_call: 'how_much_and_when_can_start_spending_for_travelling'},
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
@@ -941,5 +947,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def return_part_money_after_withdraw_cash
     save_context(:ask_grivnas_and_foreign_money_returned!)
     respond_with(:message, text: 'Enter how much grivnas and foreign cash were returned, "1468 600000" :')
+  end
+
+  def how_much_and_when_can_start_spending_for_travelling
+    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: TextHowMuchMoneyCanSpendThisWeek::ForTravelling.call, parse_mode: :HTML, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def how_much_and_when_can_start_spending_for_food
+    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: TextHowMuchMoneyCanSpendThisWeek::ForFood.call, parse_mode: :HTML, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def how_much_and_when_can_start_spending_for_home
+    Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: TextHowMuchMoneyCanSpendThisWeek::ForHome.call, parse_mode: :HTML, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 end
