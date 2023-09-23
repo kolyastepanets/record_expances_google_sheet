@@ -10,9 +10,13 @@ module TextHowMuchMoneyCanSpendThisWeek
 
     def initialize
       @redis = Redis.new
+      previous_week = (Date.today.at_beginning_of_week - 1.week)..(Date.today.at_end_of_week - 1.week)
       current_week = Date.today.at_beginning_of_week..Date.today.at_end_of_week
       @display_current_week = "#{current_week.first.strftime("%d %b %Y")} - #{current_week.last.strftime("%d %b %Y")}"
-      @dates = (current_week)
+      @dates_previous_week = previous_week
+        .to_a
+        .map { |current_date| { day: current_date.day.to_s, months: [current_date.month.to_s, "#{current_date.month},1"], year: current_date.year.to_s } }
+      @dates = current_week
         .to_a
         .map { |current_date| { day: current_date.day.to_s, months: [current_date.month.to_s, "#{current_date.month},1"], year: current_date.year.to_s } }
     end
@@ -35,7 +39,7 @@ module TextHowMuchMoneyCanSpendThisWeek
     end
 
     def parse_response
-      total_sum = calculate_total_sum
+      total_sum = total_sum_for_current_week
 
       left_to_spend = (week_limit_spend - total_sum).round(2)
 
@@ -52,12 +56,14 @@ module TextHowMuchMoneyCanSpendThisWeek
       "Spent on #{category_name} #{@display_current_week} in current week: $#{total_sum}\nWeek limit: $#{week_limit_spend}\n#{text_left_to_spend}\n#{next_time_can_start_spending}"
     end
 
-    def calculate_total_sum
+    def total_sum_for_current_week
+      return @total_sum_for_current_week if defined? @total_sum_for_current_week
+
       new_result = []
       total_sum = 0
 
       @response_values.each do |array_of_data|
-        new_result << array_of_data if array_of_data[CATEGORY_INDEX] == category_name && fit_date?(array_of_data[DAY_INDEX], array_of_data[MONTH_INDEX], array_of_data[YEAR_INDEX])
+        new_result << array_of_data if array_of_data[CATEGORY_INDEX] == category_name && fit_date?(@dates, array_of_data[DAY_INDEX], array_of_data[MONTH_INDEX], array_of_data[YEAR_INDEX])
       end
 
       new_result.each do |array_of_data|
@@ -65,11 +71,29 @@ module TextHowMuchMoneyCanSpendThisWeek
         total_sum += price
       end
 
-      total_sum.round(2)
+      @total_sum_for_current_week = total_sum.round(2)
     end
 
-    def fit_date?(day, month, year)
-      @dates.any? do |date|
+    def total_sum_for_previous_week
+      return @total_sum_for_previous_week if defined? @total_sum_for_previous_week
+
+      new_result = []
+      total_sum = 0
+
+      @response_values.each do |array_of_data|
+        new_result << array_of_data if array_of_data[CATEGORY_INDEX] == category_name && fit_date?(@dates_previous_week, array_of_data[DAY_INDEX], array_of_data[MONTH_INDEX], array_of_data[YEAR_INDEX])
+      end
+
+      new_result.each do |array_of_data|
+        price = array_of_data[PRICE_INDEX].gsub(/[[:space:]]+/, "").delete("$").gsub(",",".").to_f
+        total_sum += price
+      end
+
+      @total_sum_for_previous_week = total_sum.round(2)
+    end
+
+    def fit_date?(dates, day, month, year)
+      dates.any? do |date|
         date[:day] == day && date[:months].include?(month) && date[:year] == year
       end
     end
