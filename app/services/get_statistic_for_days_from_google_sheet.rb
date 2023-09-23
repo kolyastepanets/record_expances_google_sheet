@@ -58,7 +58,7 @@ class GetStatisticForDaysFromGoogleSheet < GetOrSetDataInGoogleSheetBase
       current_string = ""
       array_of_text.each_with_index do |word, index|
         if word.include?("$")
-          price = word.delete("$").gsub(",", ".").to_f
+          price = word.gsub(/[[:space:]]+/, "").delete("$").gsub(",", ".").to_f
           total_sum += price
         end
 

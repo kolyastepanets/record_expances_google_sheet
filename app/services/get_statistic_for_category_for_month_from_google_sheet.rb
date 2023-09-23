@@ -45,9 +45,9 @@ class GetStatisticForCategoryForMonthFromGoogleSheet < GetOrSetDataInGoogleSheet
 
     new_result.each do |array_of_data|
       if grouped_data[array_of_data[SUB_CATEGORY_INDEX]]
-        grouped_data[array_of_data[SUB_CATEGORY_INDEX]] = (grouped_data[array_of_data[SUB_CATEGORY_INDEX]] + array_of_data[PRICE_INDEX].delete("$").gsub(",",".").to_f).round(2)
+        grouped_data[array_of_data[SUB_CATEGORY_INDEX]] = (grouped_data[array_of_data[SUB_CATEGORY_INDEX]] + array_of_data[PRICE_INDEX].gsub(/[[:space:]]+/, "").delete("$").gsub(",",".").to_f).round(2)
       else
-        grouped_data[array_of_data[SUB_CATEGORY_INDEX]] = array_of_data[PRICE_INDEX].delete("$").gsub(",",".").to_f
+        grouped_data[array_of_data[SUB_CATEGORY_INDEX]] = array_of_data[PRICE_INDEX].gsub(/[[:space:]]+/, "").delete("$").gsub(",",".").to_f
       end
     end
 
