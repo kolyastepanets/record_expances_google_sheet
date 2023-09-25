@@ -16,7 +16,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForFood do
     end
 
     it 'returns money to spend as usual' do
-      expect(subject).to eq("Spent on Еда 18 Sep 2023 - 24 Sep 2023 in current week: $69.0\nWeek limit: $170\nLeft to spend: $101.0\n")
+      expect(subject).to eq("Spent on <b>Еда</b> 18 Sep 2023 - 24 Sep 2023 in current week: $69.0\nWeek limit: $170\nLeft to spend: $101.0\n")
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForFood do
     end
 
     it 'returns less money to spend in current week' do
-      expect(subject).to eq("Spent on Еда 18 Sep 2023 - 24 Sep 2023 in current week: $69.0\nWeek limit: $169.0\nLeft to spend: $100.0\n")
+      expect(subject).to eq("Spent on <b>Еда</b> 18 Sep 2023 - 24 Sep 2023 in current week: $69.0\nWeek limit: $169.0\nLeft to spend: $100.0\n")
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForFood do
     end
 
     it 'returns warning' do
-      expect(subject).to eq("Spent on Еда 18 Sep 2023 - 24 Sep 2023 in current week: $171.0\nWeek limit: $170\n<b>WARNING! STOP spending! Overspending: $1.0</b>\n<b>Next time can start spending: 25 Sep 2023 - 01 Oct 2023</b>")
+      expect(subject).to eq("Spent on <b>Еда</b> 18 Sep 2023 - 24 Sep 2023 in current week: $171.0\nWeek limit: $170\n<b>WARNING! STOP spending! Overspending: $1.0</b>\n<b>Next time can start spending: 25 Sep 2023 - 01 Oct 2023</b>")
     end
   end
 end

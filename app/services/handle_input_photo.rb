@@ -31,11 +31,14 @@ class HandleInputPhoto
     total_sum_categories = @prices_with_categories.size
     total_sum_auto_entered_categories = 0
     total_sum_manually_entered_categories = 0
+    categories_names = []
 
     @prices_with_categories.each.with_index(1) do |price_with_category, index|
       params_to_save_to_google_sheet = build_params_to_save_to_google_sheet(price_with_category)
 
       if price_with_category[:category_name].present?
+        categories_names << price_with_category[:category_name]
+
         sleep(1) # prevent google api sheet limit
         if @currency_to_usd.present?
           price_to_put_in_sheets = params_to_save_to_google_sheet[:price_in_usd_to_save_in_google_sheet]
@@ -104,6 +107,7 @@ class HandleInputPhoto
 
     if total_sum_categories == total_sum_auto_entered_categories
       send_messages_after_enter_prices
+      send_messages_how_much_can_spend(categories_names)
     else
       @params << {
         total_sum_categories: total_sum_categories,
@@ -216,6 +220,10 @@ class HandleInputPhoto
     data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, @total_sum_of_money_before_save)
     send_message(data_text[:total_sum_after_money_was_saved])
     send_message(data_text[:difference_of_saved_money], show_reply_markup_main_buttons: true)
+  end
+
+  def send_messages_how_much_can_spend(categories_names)
+    SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(categories_names)
   end
 
   def collected_prices_sum_in_uad_or_in_uah
