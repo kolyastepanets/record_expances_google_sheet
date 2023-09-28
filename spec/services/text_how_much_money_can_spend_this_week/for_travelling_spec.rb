@@ -15,7 +15,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForTravelling do
     end
 
     it 'returns money to spend as usual' do
-      expect(subject).to eq("Spent on Путешествия: $400.0\nMonth limit: $500\nNow can spend: $600.0\n")
+      expect(subject).to eq("Spent on <b>Путешествия</b>: $400.0\nMonth limit: $500\nNow can spend: $600.0\n")
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForTravelling do
     end
 
     it 'returns money to spend as usual' do
-      expect(subject).to eq("Spent on Путешествия: $600.0\nMonth limit: $500\nNow can spend: $400.0\n")
+      expect(subject).to eq("Spent on <b>Путешествия</b>: $600.0\nMonth limit: $500\nNow can spend: $400.0\n")
     end
   end
 
@@ -41,7 +41,7 @@ RSpec.describe TextHowMuchMoneyCanSpendThisWeek::ForTravelling do
     end
 
     it 'returns warning' do
-      expect(subject).to eq("Spent on Путешествия: $1600.0\nMonth limit: $500\nNext time can spend: $400.0\n<b>Next time can start spending: 01 Jan 2024 - 07 Jan 2024</b>")
+      expect(subject).to eq("Spent on <b>Путешествия</b>: $1600.0\nMonth limit: $500\nNext time can spend: $400.0\n<b>Next time can start spending: 01 Jan 2024 - 07 Jan 2024</b>")
     end
   end
 end

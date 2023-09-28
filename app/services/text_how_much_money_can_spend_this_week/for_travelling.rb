@@ -40,7 +40,7 @@ module TextHowMuchMoneyCanSpendThisWeek
         next_time_can_start_spending = "<b>Next time can start spending: #{week_can_start_spend.first.strftime("%d %b %Y")} \- #{week_can_start_spend.last.strftime("%d %b %Y")}</b>"
       end
 
-      "Spent on #{category_name}: $#{total_spend_already}\nMonth limit: $#{month_limit_spend}\n#{text_how_much_can_spend}\n#{next_time_can_start_spending}"
+      "Spent on <b>#{category_name}</b>: $#{total_spend_already}\nMonth limit: $#{month_limit_spend}\n#{text_how_much_can_spend}\n#{next_time_can_start_spending}"
     end
 
     def total_sum_for_period
