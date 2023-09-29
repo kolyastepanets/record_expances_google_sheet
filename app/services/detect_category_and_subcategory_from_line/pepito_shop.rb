@@ -228,7 +228,7 @@ module DetectCategoryAndSubcategoryFromLine
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
         chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika? ||
-        reeses_nut_bar? || fullo?
+        reeses_nut_bar? || fullo? || milk_stick?
     end
 
     def magnum_icecream?
@@ -459,10 +459,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('fullo') && @line.include?('bitz') && @line.include?('vanilla')
     end
 
+    def milk_stick?
+      @line.include?('milk') && @line.include?('stick')
+    end
+
     ####
 
     def tea_or_coffee?
-      nescafe? || chococino? || day? || boncafe? || for_coffee_machine?
+      nescafe? || chococino? || day? || boncafe? || for_coffee_machine? || some_tea?
     end
 
     def nescafe?
@@ -483,6 +487,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_coffee_machine?
       @line.include?('indonesso')
+    end
+
+    def some_tea?
+      @line.include?('chrysanthemum') && @line.include?('cryst')
     end
 
     ####
@@ -981,7 +989,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken? || pork? || beef? || pork_2? || chicken_broiler?
+      chicken_breast? || chicken? || pork? || beef? || pork_2? || chicken_broiler? || duck?
     end
 
     def chicken_breast?
@@ -1006,6 +1014,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_broiler?
       @line.any? { |word| word.include?('chicken') } && @line.include?('broiler')
+    end
+
+    def duck?
+      @line.include?('duck') && @line.include?('leg')
     end
 
     ####
@@ -1269,7 +1281,7 @@ module DetectCategoryAndSubcategoryFromLine
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
         dove? || to_wash_plates? || plastic_bag? || candles_for_cake? || sticks_for_food? ||
-        to_wash_plates_2? || sponge_2?
+        to_wash_plates_2? || sponge_2? || trash_bag?
     end
 
     def paseo?
@@ -1326,6 +1338,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sponge_2?
       @line.include?('polytx') && @line.include?('serap')
+    end
+
+    def trash_bag?
+      @line.include?('trash') && @line.include?('bag')
     end
 
     ####
@@ -1420,7 +1436,7 @@ module DetectCategoryAndSubcategoryFromLine
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
         some_spray? || wet_wipes? || raincoat? || glue? || humidity_gathering? ||
-        for_furniture?
+        for_furniture? || antis?
     end
 
     def bataries?
@@ -1465,6 +1481,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_furniture?
       @line.any? { |word| word.include?('lmnpladge') } && @line.any? { |word| word.include?('liq') }
+    end
+
+    def antis?
+      @line.include?('antis') && @line.include?('spray')
     end
 
     ####

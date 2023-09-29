@@ -6745,6 +6745,90 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt pepito 89', freezed_time: '2023-09-29T12:30:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out111.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+      expect(result).to eq(
+        [[{:category_name=>"Еда",
+          :sub_category_name=>"Вода",
+          :price=>66000.0,
+          :full_parsed_line=>
+           "PEPITO, MARKET, SEMER, Banjar, Semer, ,, Kerobokan, Badung, NPWP, 02.046.836.9-904.000, PT, Sentral, Retailindo, Dewata, Item, Sales, Bill, No, :, 5C10000047724, Counter, :, C1, 26, -, Sep, -, 2023, 14:54:24, KSR, PUTRI, AISAH, 101010000608, [, HAPPY, DAY, STRAWBERRY, 1L, ], 66,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Кофе, Чай",
+          :price=>32000.0,
+          :full_parsed_line=>"101005007529, [, CHRYSANTHEMUM, CRYST, ], 32,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Хлеб и др",
+          :price=>23000.0,
+          :full_parsed_line=>"101066012228, [, BROWN, BREAD, 300, GR, ], 23,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Яйца",
+          :price=>26000.0,
+          :full_parsed_line=>"101012009324, [, TELUR, AYAM, NGRI, 10S, ], 26,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>13241.0,
+          :full_parsed_line=>"P, 101016010915, [, CHICKEN, GIZZARD, KG, ], 13,938 - 697"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Мясо",
+          :price=>100834.0,
+          :full_parsed_line=>"P, 101016053544, (, DUCK, LEG, KG, ], 106,141 - 5,307"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>35000.0,
+          :full_parsed_line=>"101012008979, [, GREENFIELDS, FRESH, MILK, FULL, CREAM, 1LT, ], 35.000"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"Кухонные принадлежности",
+          :price=>26400.0,
+          :full_parsed_line=>"101044038238, [, BAGUS, TRASH, BAG, ROLL, 60X80C, 26,400"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>63000.0,
+          :full_parsed_line=>"101012009454, [, YUMMY, CREAM, CHEESE, 250GR, ], 63,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>43000.0,
+          :full_parsed_line=>"101012009282, [, YUMMY, SOUR, CREAM, 200GR, ], 43,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>34000.0,
+          :full_parsed_line=>"101003034554, [, H, &, H, MILK, WAFER, STICK, 90GR, ], 34,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Молочка",
+          :price=>92500.0,
+          :full_parsed_line=>"101012033668, [, ARLA, HAVARTI, CHEESE, 150GR, ], 92,500"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Специи, приправы",
+          :price=>9500.0,
+          :full_parsed_line=>"101007001434, [, DOLPHIN, GARAM, 200GR, ], 9,500"},
+         {:category_name=>"Для дома",
+          :sub_category_name=>"инвентарь",
+          :price=>15000.0,
+          :full_parsed_line=>"101033016494, [, ANTIS, HS, MENTIMUN, SPRAY, 55M, L, ], 15,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>46000.0,
+          :full_parsed_line=>"101002054510, [, MILKA, OREO, WHITE, 100GR, ], 46,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>46000.0,
+          :full_parsed_line=>"101002054506, [, MILKA, CONFETTI, 100GR, ], 46,000"},
+         {:category_name=>"Еда",
+          :sub_category_name=>"Сладости",
+          :price=>67000.0,
+          :full_parsed_line=>"101002005406, [, LINDT, WHITE, CHOC100, ], 67,000"}],
+        738475.0,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt frestive 1', freezed_time: '2022-11-12T09:20:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/frestive/out11.jpeg") }
 
