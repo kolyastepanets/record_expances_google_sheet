@@ -228,7 +228,7 @@ module DetectCategoryAndSubcategoryFromLine
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
         chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika? ||
-        reeses_nut_bar?
+        reeses_nut_bar? || fullo?
     end
 
     def magnum_icecream?
@@ -455,6 +455,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('jika') && @line.include?('chocolat')
     end
 
+    def fullo?
+      @line.include?('fullo') && @line.include?('bitz') && @line.include?('vanilla')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -492,7 +496,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pineapple?
-      @line.any? { |word| word.include?('nanas') } && @line.include?('honi')
+      @line.any? { |word| word.include?('nanas') } && (@line.include?('honi') || @line.include?('slice'))
     end
 
     def mango?
@@ -1131,7 +1135,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_beer?
       lays? || pistachios? || pringles? || thins_chips? || corn_sticks? || crisps? ||
-        lorenz? || loren? || chitato? || cashew? || cashew_2? || nori? || cashew_3?
+        lorenz? || loren? || chitato? || cashew? || cashew_2? || nori? || cashew_3? ||
+        cashew_4?
     end
 
     def lays?
@@ -1184,6 +1189,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cashew_3?
       @line.include?('meman') && @line.include?('kacang')
+    end
+
+    def cashew_4?
+      @line.include?('matahari')
     end
 
     ####
