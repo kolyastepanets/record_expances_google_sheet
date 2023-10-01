@@ -115,7 +115,7 @@ class CommonExpensesFromWebhook
   end
 
   def kladovka_1
-    "536354******0388"
+    "536354******4425"
   end
 
   def kladovka_2
