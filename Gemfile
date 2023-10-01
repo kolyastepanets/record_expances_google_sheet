@@ -36,8 +36,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'vcr', '2.9.3', require: false
-  gem 'webmock', '3.13.0', require: false
+  gem 'vcr', '6.2.0', require: false
+  gem 'webmock', '3.19.1', require: false
   gem 'timecop', '0.9.4', require: false
   gem "fakeredis", require: "fakeredis/rspec"
   gem 'simplecov', require: false
