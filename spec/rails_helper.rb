@@ -73,4 +73,8 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter.perform_enqueued_jobs = @old_perform_enqueued_jobs
     ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = @old_perform_enqueued_at_jobs
   end
+
+  config.before(:each) do
+    ActiveJob::Base.queue_adapter = :inline
+  end
 end

@@ -132,6 +132,8 @@ RSpec.describe HandleInputPhoto do
             }
           )
 
+          expect(SendInfoHowMuchMoneyCanSpendThisWeekJob).to receive(:perform_later).with(["Для дома", "Еда", "Еда", "Для дома", "Еда"])
+
           subject
         end
       end
