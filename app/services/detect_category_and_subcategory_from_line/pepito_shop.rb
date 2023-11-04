@@ -524,7 +524,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def grape?
-      @line.include?('green') && @line.include?('grape')
+      @line.include?('grape') && (@line.include?('green') || @line.include?('red'))
     end
 
     def corn?
@@ -580,7 +580,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apple?
-      @line.include?('apel') && @line.include?('grany')
+      @line.include?('apel') && (@line.include?('grany') || @line.include?('royal'))
     end
 
     def kiwi?
