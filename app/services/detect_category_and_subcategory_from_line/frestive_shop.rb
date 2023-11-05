@@ -315,7 +315,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       banana? || apple? || melon? || pineapple? || watermelon? || mango? || cherry? ||
         strawberry? || blueberry? || pear? || papaya? || raspberry? || grape? || green_grape? ||
-        grape_2? || mangosteen? || strawberry_2?
+        grape_2? || mangosteen? || strawberry_2? || peas?
     end
 
     def banana?
@@ -386,6 +386,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('straw') && @line.include?('fresa')
     end
 
+    def peas?
+      @line.include?('kapri')
+    end
+
     ####
 
     def vegetables?
@@ -393,7 +397,7 @@ module DetectCategoryAndSubcategoryFromLine
         bonduel_peas? || avocado? || garlic? || rucola? || cabbage_chinese? || herb? ||
         eggplant_purple? || cucumber? || asparagus? || green_onion? || zucchini_2? || radish? ||
         red_onion? || corn? || broccoli? || corn_2? || champignon? || herb_2? || corn_3? ||
-        parsley_2? || pumpkin? || onion? || tomato_2?
+        parsley_2? || pumpkin? || onion? || tomato_2? || beetroot? || cabbage_white?
     end
 
     def potato?
@@ -515,6 +519,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tomato_2?
       @line.include?('tom') && @line.include?('chr')
+    end
+
+    def beetroot?
+      @line.include?('beetroot')
+    end
+
+    def cabbage_white?
+      @line.include?('cabbage') && @line.include?('white')
     end
 
     ####
