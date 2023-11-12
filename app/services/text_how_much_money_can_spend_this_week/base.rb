@@ -6,7 +6,7 @@ module TextHowMuchMoneyCanSpendThisWeek
     DAY_INDEX = 3
     MONTH_INDEX = 4
     YEAR_INDEX = 5
-    EXPIRE_TIME = 30.minutes
+    EXPIRE_TIME = 30.seconds
 
     def initialize
       @redis = Redis.new
