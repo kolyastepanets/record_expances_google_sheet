@@ -507,6 +507,85 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         expect(response.status).to eq(200)
       end
     end
+
+    context 'when white card' do
+      context 'when category present', freezed_time: '2023-11-12T03:12:00+00:00' do
+        let(:monobank_webhook_params) do
+          {
+            "monobank_webhook" => {
+              "type" => "StatementItem",
+              "data" => {
+                "account" => ENV['WHITE_UAH_CARD'],
+                "statementItem" => {
+                  "id" => "tk6Ulh_sMFs9e_Zt",
+                  "time" => 1661599923,
+                  "description" => "DigitalOcean",
+                  "mcc" => 4829,
+                  "originalMcc" => 4829,
+                  "amount" => 1000000,
+                  "operationAmount" => 1000000,
+                  "currencyCode" => 980,
+                  "commissionRate" => 0,
+                  "cashbackAmount" => 0,
+                  "balance" => 10000,
+                  "hold" => true,
+                  "receiptId" => "123-123-123-123"
+                }
+              }
+            }
+          }
+        end
+
+        it 'saves to google sheet' do
+          # monobank webhook
+          post '/monobank_webhooks', params: monobank_webhook_params
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context 'when category blank', freezed_time: '2023-11-12T03:22:00+00:00' do
+        let(:monobank_webhook_params) do
+          {
+            "monobank_webhook" => {
+              "type" => "StatementItem",
+              "data" => {
+                "account" => ENV['WHITE_UAH_CARD'],
+                "statementItem" => {
+                  "id" => "tk6Ulh_sMFs9e_Zt",
+                  "time" => 1661599923,
+                  "description" => "some unknown category",
+                  "mcc" => 4829,
+                  "originalMcc" => 4829,
+                  "amount" => 1000000,
+                  "operationAmount" => 1000000,
+                  "currencyCode" => 980,
+                  "commissionRate" => 0,
+                  "cashbackAmount" => 0,
+                  "balance" => 10000,
+                  "hold" => true,
+                  "receiptId" => "123-123-123-123"
+                }
+              }
+            }
+          }
+        end
+
+        before do
+          allow(DeleteMessagesJob).to receive(:perform_later)
+        end
+
+        it 'asks bot and saves to google sheet' do
+          # monobank webhook
+          post '/monobank_webhooks', params: monobank_webhook_params
+          # choose category
+          post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
+          # choose sub category
+          post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
+
+          expect(response.status).to eq(200)
+        end
+      end
+    end
   end
 
   context 'when usd expenses' do

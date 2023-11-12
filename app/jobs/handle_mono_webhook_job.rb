@@ -1,17 +1,16 @@
 class HandleMonoWebhookJob < ApplicationJob
   queue_as :default
 
-  FOP_DOLLAR_CARD = "IJ8Y_c1UAwxRHa4vAlTivQ".freeze
-  BLACK_UAH_CARD = "C0Hfjf2vrc00CZ_1ZCjSLg".freeze
-
   def perform(webhook_params)
     params = webhook_params.deep_symbolize_keys
 
     case params[:data][:account]
-    when FOP_DOLLAR_CARD
+    when ENV['FOP_DOLLAR_CARD']
       EnterExpencesFopDollarCardFromWebhook.call(params[:data][:statementItem])
-    when BLACK_UAH_CARD
+    when ENV['BLACK_UAH_CARD']
       EnterExpencesUahBlackCardFromWebhook.call(params[:data][:statementItem])
+    when ENV['WHITE_UAH_CARD']
+      EnterExpencesUahWhiteCardFromWebhook.call(params[:data][:statementItem])
     end
   rescue StandardError => e
     if Rails.env.production?

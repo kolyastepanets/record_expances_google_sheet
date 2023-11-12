@@ -156,7 +156,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:message_ids] << payload["message"]["message_id"]
       params[:sub_category_name] = sub_category_name
 
-      PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah]
+      PutExpencesUahWhiteCardJob.perform_later(params) if params[:price_in_uah_white_card]
+      PutExpencesUahBlackCardJob.perform_later(params) if params[:price_in_uah] && !params[:price_in_uah_white_card]
       PutExpencesFopDollarCardJob.perform_later(params) if params[:price_in_usd]
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_sub_category) { input_sub_category.include?('w1_id') }

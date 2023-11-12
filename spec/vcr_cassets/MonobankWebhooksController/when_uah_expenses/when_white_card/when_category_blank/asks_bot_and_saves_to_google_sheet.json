@@ -1,0 +1,825 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE5qazVOelU1TXpnd0xDSnBZWFFpT2pF\nMk9UazNOVGt5TmpBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLlhR\nVVVRZTJKa2tfZGxXMVlvY3Fld3NyNXRQMFN3NnJtdlI3c25ISmZIa0Q1cVFN\nWHU3SWVrOExyVnk0RXVjTFptbEpTYXNQZk9IeU9iLXVGUWE4UHhFdXQ4SFlp\na2p0R2FuUVhxSXZVeURQQmpJWFUwdlEtN05sX25XZ09oZklSMjRubE1qNjhM\nWmJCcXlTWXZXak9JMDA3UHlJeTlLdGM1TWdsZ2RHVUVBTFl2SVQtZE9SZTda\nVDNtaVdpS0wtc0VYOXVTRXhkMzd3V1hSREt2S2ZhcmpoSUxPejlpRnhpVVc3\nY2w0SjZlekRkQ2tKSFIyWFNWXzBEWi1LanR2NldSeUNlcFc5bFJTSEFlSERJ\nVTFFdjY4SC1tZmNyeThFcGJXejR5V1VxZVVaZ1RxdEhTSWtzSl9Cb0dBaXBB\nQUdfNERtbUxidjVlVHJ1ZGNPMFd5Z1ZpQQ==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:11 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpnQWFkMzhOMjhxZnBJ\nWGxxWE5UOHgyYUJvWVBhb05BN3g3b0ZRNTNNc0Vnb0pTbmF3RnNoaDVZc1VX\ndlhjMXRBSGJRWVhQak5qZklOVDNETTR1SGNmdTVkSjlwMDFHYUlQZ1U1bGEy\nY3Jwa1J0NTdkYW5pQ2wzM2lWdzJPeTZIcl84QlRKNmluVHAxNkVtVFlNVGJC\nUHF0dUNvNnhXR0FHQi1uakVrelhQNi15S0xHeG9ORFZGMTNjSXE2NVNFeDVi\nSGdiajk1RHlianFxVUFqeUl1UnVDS3BsWEhTVllQeUVhbHFIeUxnOUFReEg1\nSjdPWkQxNnotWXQ0U2l4N1BjNEVudTk5dWxYMjlXSXVab3RtV1ZHYWtaaTlV\nRmtVR185Mk1tMjlSYkFGMHZpblYzc01OR2dkZEhLa2tTTHlKQW1YQ2RINXFl\nRHdOTXJ2ajRWWnVoVGRVWTFwSmNVeDQ2YjRwcTBDVFU1TlQ4NUVwZEdHSDM4\nNUF4MzFGdWRCNU1wcFZqeDZzeG1aaE05dWg0dzJ1U1hwSjdzWDVxMlFVWldq\nWTd3UXVVMjctc25sU1l2eVUzNWNVXzNZZGo2ZDlCeV9zSVVyc2J5czQzOHg3\ndG1XVlJkdWxSNjZNNDZvQnBveTBkd2VmV2dnbllRY3gwVmYyMm5ZY1JjaldX\nZ01Gamo2MTdkelVnM3dmbXQ1amd2TW1XZWxnbGtsQjZKY3dSNjJwN3JWb1JW\ndWhpdllWNVZsWFU1SWF0d3pidjE4b2ZSMWFxdm44T2ZTbUplaXRuMnhCaUJS\ndDlheW9mdUpvWTJjdnZpemZTa1had2NzWk1yaTFheEZWczcybHR1MGVNZk9R\ndWJWb1VNdTdRZm9uc01rcDJnMXFvdkYydGdZNXB0WW02YWRnaTc0YWJ5Smla\nbDRzMm9aVjVlbVI5MkZWSVdCZlVTX2NWZmxqOVVyMDdkUUJ2OHJiWmFkMk9W\nVWszOEpkZDVVMWJzZDRJX1dKNE9jVl9telNCNmd3UXloWl8ydXdmMlhrWXJl\nQlFhSVdmWHIwRjdrYmUtc2VadVU2bEozaldXM3cwOWt6QjRheWphY3Nnend2\nUTc3eEpYMDhxdW9hVTU0dnNSclo5SkJ0LXo0NjFjcGZwOEl5c3VNbnJ2c0Zl\nNWFxM0J5d2tRZWQzdWVhZnhRZE9tZlhVN29lRl92V2ZWbWtpaTlGMFNvZWZX\nZnRiZldkU1FkRlJ1cHFkbGFzMEI4WklZY2ZNa3UwWFZtM2poVU9iOTctdzJ4\nMXJYeGRqY091dDJnWTV0VkZ1bmpxWmgtOGIwVzZ4VjJhNnZkblN2Y3RVMlp6\nM1ZpT2V1IiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/2023!A60:CJ85",
+        "body": {
+          "encoding": "UTF-8",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/12.6.4 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:22:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/2.7.0 gdcl/1.10.0"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZgAad38N28qfpIXlqXNT8x2aBoYPaoNA7x7oFQ53MsEgoJSnawFshh5YsUWvXc1tAHbQYXPjNjfINT3DM4uHcfu5dJ9p01GaIPgU5la2crpkRt57daniCl33iVw2Oy6Hr_8BTJ6inTp16EmTYMTbBPqtuCo6xWGAGB-njEkzXP6-yKLGxoNDVF13cIq65SEx5bHgbj95DybjqqUAjyIuRuCKplXHSVYPyEalqHyLg9AQxH5J7OZD16z-Yt4Six7Pc4Enu99ulX29WIuZotmWVGakZi9UFkUG_92Mm29RbAF0vinV3sMNGgddHKkkSLyJAmXCdH5qeDwNMrvj4VZuhTdUY1pJcUx46b4pq0CTU5NT85EpdGGH385Ax31FudB5MppVjx6sxmZhM9uh4w2uSXpJ7sX5q2QUZWjY7wQuU27-snlSYvyU35cU_3Ydj6d9By_sIUrsbys438x7tmWVRdulR66M46oBpoy0dwefWggnYQcx0Vf22nYcRcjWWgMFjj617dzUg3wfmt5jgvMmWelglklB6JcwR62p7rVoRVuhivYV5VlXU5Iatwzbv18ofR1aqvn8OfSmJeitn2xBiBRt9ayofuJoY2cvvizfSkXZwcsZMri1axFVs72ltu0eMfOQubVoUMu7QfonsMkp2g1qovF2tgY5ptYm6adgi74abyJiZl4s2oZV5emR92FVIWBfUS_cVflj9Ur07dQBv8rbZad2OVUk38Jdd5U1bsd4I_WJ4OcV_mzSB6gwQyhZ_2uwf2XkYreBQaIWfXr0F7kbe-seZuU6lJ3jWW3w09kzB4ayjacsgzwvQ77xJX08quoaU54vsRrZ9JBt-z461cpfp8IysuMnrvsFe5aq3BywkQed3ueafxQdOmfXU7oeF_vWfVmkii9F0SoefWftbfWdSQdFRupqdlas0B8ZIYcfMku0XVm3jhUOb97-w2x1rXxdjcOut2gY5tVFunjqZh-8b0W6xV2a6vdnSvctU2Zz3ViOeu"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:11 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"range\": \"'2023'!A60:CJ85\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [],\n    [],\n    [],\n    [\n      \"1\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"1,1\",\n      \"2023\",\n      \"\",\n      \"2\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"2,1\",\n      \"2023\",\n      \"\",\n      \"3\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"3,1\",\n      \"2023\",\n      \"\",\n      \"4\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"4,1\",\n      \"2023\",\n      \"\",\n      \"5\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"5,1\",\n      \"2023\",\n      \"\",\n      \"6\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"6,1\",\n      \"2023\",\n      \"\",\n      \"7\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"7,1\",\n      \"2023\",\n      \"\",\n      \"8\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"8,1\",\n      \"2023\",\n      \"\",\n      \"9\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"9,1\",\n      \"2023\",\n      \"\",\n      \"10\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"10,1\",\n      \"2023\",\n      \"\",\n      \"11\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"11,1\",\n      \"2023\",\n      \"\",\n      \"12\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"12,1\",\n      \"2023\"\n    ],\n    [\n      \"Заплата 1ая половина\",\n      \"113363\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  8 300 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"113363\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 100 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 468 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"121298\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  11 010 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  14 370 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 805 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 764 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 154 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  11 049 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  9 665 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 000 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  -   \"\n    ],\n    [\n      \"Заплата 1ая половина чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002457\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002497\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002487\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"113759\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002546\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002586\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002587\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002660\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002518\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002510\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002467\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002440\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002440\"\n    ],\n    [\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\"\n    ],\n    [\n      \"Заплата 2ая половина\",\n      \"117020\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"124955\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"248520\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"251482\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"255395\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"245615\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\"\n    ],\n    [\n      \"Заплата 2ая половина чистыми\",\n      \"111169\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"118707\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"236094\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"238908\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"242625\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"233335\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\"\n    ],\n    [\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,3659\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\"\n    ],\n    [\n      \"Заплата 1ая половина $\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"3317\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\"\n    ],\n    [\n      \"Заплата 2ая половина $\",\n      \"3200\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"3417\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6796\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6877\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\"\n    ],\n    [],\n    [\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\"\n    ],\n    [\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9404000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"12095000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9605000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"11243000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"14564000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"13075000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9316000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"13152000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9894000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"10080000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"2576000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"0\"\n    ],\n    [\n      \"Зарплата чистыми\",\n      \"217389\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"100000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"105000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1037000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"232466\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"804000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"234620\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"610000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"340000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1788000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"237434\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"790000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1945000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"241151\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1530000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"231861\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"8954000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"8954000\"\n    ],\n    [\n      \"Зарплата в дол\",\n      \"6300\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"9504000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"12200000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"10642000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6734\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"12047000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6796\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"15174000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"13415000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11104000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6877\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"13942000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11839000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6984\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11610000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11530000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"8954000\"\n    ],\n    [\n      \"Зарплата в дол чистыми\",\n      \"5945\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"2905\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6357\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6416\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6493\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6594\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\"\n    ],\n    [\n      \"Налоги\",\n      \"355\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"195\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"377\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"380\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"384\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"390\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"0\"\n    ],\n    [\n      \"Налоги в грн\",\n      \"12993\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"7142\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13787\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13900\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"14048\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"14244\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13755\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"1474\"\n    ],\n    [],\n    [\n      \"Осталось ФОП моно $\",\n      \"$1 737,75\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$895,00\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$4 323,24\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$339,46\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$1 657,14\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$0,10\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$2 999,84\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$123,40\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$153,71\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$3 031,81\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$2 754,78\",\n      \"$2 754,78\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$0,00\"\n    ],\n    [\n      \"Осталось черная моно грн\",\n      \"34 473,26 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"27 908,95 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"36 417,75 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"41 848,64 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"61 245,27 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"34 957,62 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-56 626,77 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-25 923,49 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-61 185,60 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"28 257,50 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-31 334,15 грн\",\n      \"-31 334,15 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-31 334,15 грн\"\n    ],\n    [\n      \"Январь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Февраль\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Март\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Апрель\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Май\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Июнь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Июль\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Август\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Сентябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Октябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Ноябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Декабрь\"\n    ]\n  ]\n}\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE5qazVOelU1TXpnd0xDSnBZWFFpT2pF\nMk9UazNOVGt5TmpBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLlhR\nVVVRZTJKa2tfZGxXMVlvY3Fld3NyNXRQMFN3NnJtdlI3c25ISmZIa0Q1cVFN\nWHU3SWVrOExyVnk0RXVjTFptbEpTYXNQZk9IeU9iLXVGUWE4UHhFdXQ4SFlp\na2p0R2FuUVhxSXZVeURQQmpJWFUwdlEtN05sX25XZ09oZklSMjRubE1qNjhM\nWmJCcXlTWXZXak9JMDA3UHlJeTlLdGM1TWdsZ2RHVUVBTFl2SVQtZE9SZTda\nVDNtaVdpS0wtc0VYOXVTRXhkMzd3V1hSREt2S2ZhcmpoSUxPejlpRnhpVVc3\nY2w0SjZlekRkQ2tKSFIyWFNWXzBEWi1LanR2NldSeUNlcFc5bFJTSEFlSERJ\nVTFFdjY4SC1tZmNyeThFcGJXejR5V1VxZVVaZ1RxdEhTSWtzSl9Cb0dBaXBB\nQUdfNERtbUxidjVlVHJ1ZGNPMFd5Z1ZpQQ==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:12 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpnSTR4cFItWXMtaEc2\nNEd0MEZ4SUdlY1lsbWFBS3FQUXJNcWJ0eV9tR0p6d0xXd2ZXVmx1NjU4Um13\nY2JSSTJycVduN0pnLVNiOXkyVmxpOGVrTTB3ZjR3eWhQclRyX2oyWGUtRThW\nU0g2bDdiOVJPNVIxNlVKZ0E3eGN1RXJnRE9XcHZXUXJVdHhPWm1yeFpGTm9n\nVUYtYWhxbW1iS1JDNEtCNUdfWFZBWkh4b0RidUp3cmFjSURpcGZaOVgxdmRI\nNmR3aEh0SEJuRG1VSEJtUm95aDItZWFaUFV2UTRWMjU5YzBiNmdRaGtMWVZ4\na2sxQlVwLWU1bk54WE5LTVpFcGJ4bHY4WDVnS3hLeVNNMUt0dWwwQ0lUUVNt\nbUNXVlZuQ3dWT2tHYk9uMWpncVlIeXBkczNCWnhTcElLemxtZ2pUTUN4aW1n\nM3poNDlvWTJNeU0tTTMyQW9BVm1kSlZ0TWNqYWFhZGhkNHMyNDUwdEU0bEFU\nMzg3Sy1WSko5b09NbC1RNWY0Rkk4dVZTN3l6dHBVOWt0LXlkZjNpbXlvUzM4\nWWx0c1g2cjdvcFdtc1JaMElsZV9oeUJCNUZfY09zUmlzNzZYdVpRYWZyYXpy\ndnRWNVYyZllmWGZYcmEtSVp6azJ6U3dXSXU4OXlYeUZreVlWQlpzTWI5aVVj\nbnNzRmU3cFo3c01PaDQ4bjFYd3FqdGM1cWh1eTlsVWVrOVN6Wi1nOXNwSW9y\nVmlYYTdmWTgzWk01NmhGN2lfYTdzVzlpdTEwYVJ2N1ZwZ2RVcndxcGwwLV9W\nY3h3X2FubWR3b3JJelVrdm12NS1Cem04c29zZ2xJaWp6MjNJYnJ5WjVtX3B1\ncTRROFVSOWNPYkk3akI3ODRmV1pwdXVkOW9xcjg3bS16NzFyY2N1bkoxZDJq\nQjVNWEYyX2hCZEpobWdGaGR6ZjQ2cGRZTU9nTVJmLXJRbDNTY0lJWTRTSnVY\nZnc1a3BhaW9naS16OS1aYThNaG9wbDIweWg3bV9CcWI1Z3J0bTlxZWFVcnpo\nX29qa19kOEpScWRJcWdYZzdtbnVYdl9jNnBydGY0clFCWTFyUV9aUzk2c2Zx\nWmMxLVUzVk0xanlrWDVCZWVyN19fdzQ5RmYydmYyalJCczdoLTgzeGt1cEZK\nWGtaOVc5U2piMDdtRnBfVXQzcWZlbWxJSjVPQnd2U3IycXpNb0lkOC1qNWtu\nNFVVNC10NndodjQ2aTk4alYyc3NwNm5xRk9ZY3o0U1ZfQmRNWV9fcVN2LVdj\neTBoajI1bVk0eXM3Mk11WGtnWUY3eDV1aTVtb3ZrWnlhZjAwTzhuN3NsMWJG\nNkZyNGhPIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B8'!A2:B1000",
+        "body": {
+          "encoding": "UTF-8",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/12.6.4 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:22:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/2.7.0 gdcl/1.10.0"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZgI4xpR-Ys-hG64Gt0FxIGecYlmaAKqPQrMqbty_mGJzwLWwfWVlu658RmwcbRI2rqWn7Jg-Sb9y2Vli8ekM0wf4wyhPrTr_j2Xe-E8VSH6l7b9RO5R16UJgA7xcuErgDOWpvWQrUtxOZmrxZFNogUF-ahqmmbKRC4KB5G_XVAZHxoDbuJwracIDipfZ9X1vdH6dwhHtHBnDmUHBmRoyh2-eaZPUvQ4V259c0b6gQhkLYVxkk1BUp-e5nNxXNKMZEpbxlv8X5gKxKySM1Ktul0CITQSmmCWVVnCwVOkGbOn1jgqYHypds3BZxSpIKzlmgjTMCximg3zh49oY2MyM-M32AoAVmdJVtMcjaaadhd4s2450tE4lAT387K-VJJ9oOMl-Q5f4FI8uVS7yztpU9kt-ydf3imyoS38YltsX6r7opWmsRZ0Ile_hyBB5F_cOsRis76XuZQafrazrvtV5V2fYfXfXra-IZzk2zSwWIu89yXyFkyYVBZsMb9iUcnssFe7pZ7sMOh48n1Xwqjtc5qhuy9lUek9SzZ-g9spIorViXa7fY83ZM56hF7i_a7sW9iu10aRv7VpgdUrwqpl0-_Vcxw_anmdworIzUkvmv5-Bzm8sosglIijz23IbryZ5m_puq4Q8UR9cObI7jB784fWZpuud9oqr87m-z71rccunJ1d2jB5MXF2_hBdJhmgFhdzf46pdYMOgMRf-rQl3ScIIY4SJuXfw5kpaiogi-z9-Za8Mhopl20yh7m_Bqb5grtm9qeaUrzh_ojk_d8JRqdIqgXg7mnuXv_c6prtf4rQBY1rQ_ZS96sfqZc1-U3VM1jykX5Beer7__w49Ff2vf2jRBs7h-83xkupFJXkZ9W9Sjb07mFp_Ut3qfemlIJ5OBwvSr2qzMoId8-j5kn4UU4-t6whv46i98jV2ssp6nqFOYcz4SV_BdMY__qSv-Wcy0hj25mY4ys72MuXkgYF7x5ui5movkZyaf00O8n7sl1bF6Fr4hO"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:13 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"range\": \"'Категории'!A2:B1000\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\n      \"Транспорт\",\n      \"Такси\"\n    ],\n    [\n      \"Транспорт\",\n      \"Автобус\"\n    ],\n    [\n      \"Транспорт\",\n      \"Метро\"\n    ],\n    [\n      \"Транспорт\",\n      \"Другой\"\n    ],\n    [\n      \"Транспорт\",\n      \"Поезд\"\n    ],\n    [\n      \"Транспорт\",\n      \"Бензин\"\n    ],\n    [\n      \"Транспорт\",\n      \"Проездной\"\n    ],\n    [\n      \"Еда\",\n      \"Молочка\"\n    ],\n    [\n      \"Еда\",\n      \"Готовая\"\n    ],\n    [\n      \"Еда\",\n      \"Полуфабрикаты/морозилка\"\n    ],\n    [\n      \"Еда\",\n      \"Фрукты\"\n    ],\n    [\n      \"Еда\",\n      \"Овощи\"\n    ],\n    [\n      \"Еда\",\n      \"Сладости\"\n    ],\n    [\n      \"Еда\",\n      \"Бакалея\"\n    ],\n    [\n      \"Еда\",\n      \"Специи, приправы\"\n    ],\n    [\n      \"Еда\",\n      \"Колбаса, сосиски\"\n    ],\n    [\n      \"Еда\",\n      \"Кофе, Чай\"\n    ],\n    [\n      \"Еда\",\n      \"Новопочта\"\n    ],\n    [\n      \"Еда\",\n      \"Рыба\"\n    ],\n    [\n      \"Еда\",\n      \"Яйца\"\n    ],\n    [\n      \"Еда\",\n      \"Вода\"\n    ],\n    [\n      \"Еда\",\n      \"Хлеб и др\"\n    ],\n    [\n      \"Еда\",\n      \"Алкоголь\"\n    ],\n    [\n      \"Еда\",\n      \"К пиву\"\n    ],\n    [\n      \"Еда\",\n      \"Мясо\"\n    ],\n    [\n      \"Еда\",\n      \"Детское питание\"\n    ],\n    [\n      \"Развлечения\",\n      \"Ресторан\"\n    ],\n    [\n      \"Развлечения\",\n      \"Кино\"\n    ],\n    [\n      \"Развлечения\",\n      \"Другое\"\n    ],\n    [\n      \"Развлечения\",\n      \"Прогулка на катере\"\n    ],\n    [\n      \"Развлечения\",\n      \"Квадроциклы \"\n    ],\n    [\n      \"Развлечения\",\n      \"Зоопарк\"\n    ],\n    [\n      \"Развлечения\",\n      \"Парк развлечений\"\n    ],\n    [\n      \"Развлечения\",\n      \"Аквапарк\"\n    ],\n    [\n      \"Подарки\",\n      \"мама Лили\"\n    ],\n    [\n      \"Подарки\",\n      \"мама Коли\"\n    ],\n    [\n      \"Подарки\",\n      \"Аня Кошовенко\"\n    ],\n    [\n      \"Подарки\",\n      \"Папа Лили\"\n    ],\n    [\n      \"Подарки\",\n      \"Валера\"\n    ],\n    [\n      \"Подарки\",\n      \"Лиля\"\n    ],\n    [\n      \"Подарки\",\n      \"Илья крестник\"\n    ],\n    [\n      \"Подарки\",\n      \"Маша Степанец\"\n    ],\n    [\n      \"Подарки\",\n      \"Лена Ляшко \"\n    ],\n    [\n      \"Подарки\",\n      \"Глеб Сахно\"\n    ],\n    [\n      \"Подарки\",\n      \"папа Коли\"\n    ],\n    [\n      \"Подарки\",\n      \"Оля Ковалевская дети\"\n    ],\n    [\n      \"Подарки\",\n      \"Марина Петренко дети\"\n    ],\n    [\n      \"Подарки\",\n      \"Аня Роменская\"\n    ],\n    [\n      \"Подарки\",\n      \"Вероника (Дима Вика)\"\n    ],\n    [\n      \"Подарки\",\n      \"Артем Косенко\"\n    ],\n    [\n      \"Подарки\",\n      \"Николь\"\n    ],\n    [\n      \"Подарки\",\n      \"Стефания\"\n    ],\n    [\n      \"Подарки\",\n      \"Мила\"\n    ],\n    [\n      \"Подарки\",\n      \"Дима Васин\"\n    ],\n    [\n      \"Подарки\",\n      \"Победа\"\n    ],\n    [\n      \"Подарки\",\n      \"Викуся\"\n    ],\n    [\n      \"Подарки\",\n      \"Даша днепр\"\n    ],\n    [\n      \"Подарки\",\n      \"Катя Кошовенко\"\n    ],\n    [\n      \"Подарки\",\n      \"John Howland Jackson\"\n    ],\n    [\n      \"Подарки\",\n      \"Джеки (филип, англ)\"\n    ],\n    [\n      \"Подарки\",\n      \"Rachel Howland Jackson\"\n    ],\n    [\n      \"Подарки\",\n      \"Rody Howland Jackson\"\n    ],\n    [\n      \"Подарки\",\n      \"Женя Куть\"\n    ],\n    [\n      \"Для дома\",\n      \"youtube\"\n    ],\n    [\n      \"Для дома\",\n      \"google\"\n    ],\n    [\n      \"Для дома\",\n      \"инет\"\n    ],\n    [\n      \"Для дома\",\n      \"инвентарь\"\n    ],\n    [\n      \"Для дома\",\n      \"аренда кв\"\n    ],\n    [\n      \"Для дома\",\n      \"комуналка\"\n    ],\n    [\n      \"Для дома\",\n      \"кладовка\"\n    ],\n    [\n      \"Для дома\",\n      \"Ванные принадлежности\"\n    ],\n    [\n      \"Для дома\",\n      \"Кухонные принадлежности\"\n    ],\n    [\n      \"Для дома\",\n      \"Ремонт\"\n    ],\n    [\n      \"Для дома\",\n      \"УБС\"\n    ],\n    [\n      \"Для дома\",\n      \"Аптека\"\n    ],\n    [\n      \"Для дома\",\n      \"Уборка\"\n    ],\n    [\n      \"Для дома\",\n      \"Сервак, впн\"\n    ],\n    [\n      \"Для дома\",\n      \"Аудиокниги\"\n    ],\n    [\n      \"Для дома\",\n      \"Документы\"\n    ],\n    [\n      \"Коля\",\n      \"Подарки\"\n    ],\n    [\n      \"Коля\",\n      \"Цветы\"\n    ],\n    [\n      \"Коля\",\n      \"Здоровье\"\n    ],\n    [\n      \"Коля\",\n      \"Одежда\"\n    ],\n    [\n      \"Коля\",\n      \"Обучение\"\n    ],\n    [\n      \"Коля\",\n      \"Мобильный\"\n    ],\n    [\n      \"Коля\",\n      \"Спорт\"\n    ],\n    [\n      \"Коля\",\n      \"Виктория\"\n    ],\n    [\n      \"Коля\",\n      \"Парикмахерская \"\n    ],\n    [\n      \"Коля\",\n      \"Книги\"\n    ],\n    [\n      \"Коля\",\n      \"Хобби\"\n    ],\n    [\n      \"Коля\",\n      \"Игры \"\n    ],\n    [\n      \"Коля\",\n      \"Банка\"\n    ],\n    [\n      \"Коля\",\n      \"Ванные принадлежности\"\n    ],\n    [\n      \"Валди\",\n      \"Корм\"\n    ],\n    [\n      \"Валди\",\n      \"Вкусняшки\"\n    ],\n    [\n      \"Валди\",\n      \"Игрушки\"\n    ],\n    [\n      \"Валди\",\n      \"Больница\"\n    ],\n    [\n      \"Валди\",\n      \"Прививки\"\n    ],\n    [\n      \"Валди\",\n      \"Витамины\"\n    ],\n    [\n      \"Валди\",\n      \"Пакеты\"\n    ],\n    [\n      \"Валди\",\n      \"инвентарь\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"ж/д билеты\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"% за кр лимит\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"% за наличку\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Одежда\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Аптека\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Виктория папа \"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Виктория мама\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Новая почта\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Не знаю\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Фотосессия\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Недостача \"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Дорога родителям\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Кошачий корм\"\n    ],\n    [\n      \"Непредвиденное\",\n      \"Благотворительность\"\n    ],\n    [\n      \"Марк\",\n      \"Одежда\"\n    ],\n    [\n      \"Марк\",\n      \"Памперсы\"\n    ],\n    [\n      \"Марк\",\n      \"Больница\"\n    ],\n    [\n      \"Марк\",\n      \"Посуда\"\n    ],\n    [\n      \"Марк\",\n      \"Книги\"\n    ],\n    [\n      \"Марк\",\n      \"Игрушки\"\n    ],\n    [\n      \"Марк\",\n      \"Обучение\"\n    ],\n    [\n      \"Марк\",\n      \"Парикмахерская \"\n    ],\n    [\n      \"Марк\",\n      \"Дет сад\"\n    ],\n    [\n      \"Лиля\",\n      \"Одежда\"\n    ],\n    [\n      \"Лиля\",\n      \"Красота\"\n    ],\n    [\n      \"Лиля\",\n      \"Медицина\"\n    ],\n    [\n      \"Лиля\",\n      \"Образование\"\n    ],\n    [\n      \"Лиля\",\n      \"Мобильный\"\n    ],\n    [\n      \"Лиля\",\n      \"Украшения\"\n    ],\n    [\n      \"Лиля\",\n      \"Ванные принадлежности\"\n    ],\n    [\n      \"Лиля\",\n      \"Книги\"\n    ],\n    [\n      \"Лиля\",\n      \"Спорт\"\n    ],\n    [\n      \"Путешествия\",\n      \"Виза\"\n    ],\n    [\n      \"Путешествия\",\n      \"Валди отель\"\n    ],\n    [\n      \"Путешествия\",\n      \"Тест на корону\"\n    ],\n    [\n      \"Путешествия\",\n      \"Страховка\"\n    ],\n    [\n      \"Путешествия\",\n      \"Доверенность\"\n    ],\n    [\n      \"Путешествия\",\n      \"Авиа билеты\"\n    ],\n    [\n      \"Путешествия\",\n      \"Корабль билеты\"\n    ],\n    [\n      \"Путешествия\",\n      \"аренда кв\"\n    ],\n    [\n      \"Путешествия\",\n      \"чаевые\"\n    ],\n    [\n      \"Путешествия\",\n      \"экскурсия\"\n    ],\n    [\n      \"Путешествия\",\n      \"сувениры\"\n    ],\n    [\n      \"Путешествия\",\n      \"Аренда авто/байка\"\n    ],\n    [\n      \"Путешествия\",\n      \"тур путевка\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"бензин\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"сто\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"Акссесуары\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"Мойка\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"Страховка\"\n    ],\n    [\n      \"Авто бмоно\",\n      \"Парковка\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Кофемашина\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Airpods pro 2\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Посудомоечная машина\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Чемодан\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Фен\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"iPhone\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"Телек\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"laptop\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"для кухни\"\n    ],\n    [\n      \"Крупные покупки\",\n      \"bike\"\n    ],\n    [\n      \"Капитал\",\n      \"консультация\"\n    ],\n    [\n      \"Капитал\",\n      \"годовой взнос клуб ч.и.\"\n    ],\n    [\n      \"Кэш\"\n    ]\n  ]\n}\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE5qazVOelU1TXpnd0xDSnBZWFFpT2pF\nMk9UazNOVGt5TmpBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLlhR\nVVVRZTJKa2tfZGxXMVlvY3Fld3NyNXRQMFN3NnJtdlI3c25ISmZIa0Q1cVFN\nWHU3SWVrOExyVnk0RXVjTFptbEpTYXNQZk9IeU9iLXVGUWE4UHhFdXQ4SFlp\na2p0R2FuUVhxSXZVeURQQmpJWFUwdlEtN05sX25XZ09oZklSMjRubE1qNjhM\nWmJCcXlTWXZXak9JMDA3UHlJeTlLdGM1TWdsZ2RHVUVBTFl2SVQtZE9SZTda\nVDNtaVdpS0wtc0VYOXVTRXhkMzd3V1hSREt2S2ZhcmpoSUxPejlpRnhpVVc3\nY2w0SjZlekRkQ2tKSFIyWFNWXzBEWi1LanR2NldSeUNlcFc5bFJTSEFlSERJ\nVTFFdjY4SC1tZmNyeThFcGJXejR5V1VxZVVaZ1RxdEhTSWtzSl9Cb0dBaXBB\nQUdfNERtbUxidjVlVHJ1ZGNPMFd5Z1ZpQQ==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:14 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpoa3FLTVZMa29Vakxs\nbmwzcHVVSURPNmlpeTdqU0VCel83WjBvY1d2bFIxQjlLS0xGc0FUb3ZsNGRO\nMTJ2TndjUkQ4QVRfWEVlc2xUSTloOGR3Z2hMUnRRZEpEamtON2JSalJYTjJR\nVHpsQWNQTVRieEhhd2NMSnhpdzdlSmd1OGZQVXBpRjJCNzIyUkZ6MnFaMTVR\nNEtmRE8tblVOdWdjWV84ZDRNQnh1REk1QlBBV19VbnRWT3VZY29FVVg5S2hB\nOXBKTzdOZ1pfY2szaFpLTE9lQWZxTDhOdFRDYjBnUVdLTEZxaDl2T3ZrRDFU\nbmV2d2FZeG92cjBPaDBTTlFEWDdBbUpMbUJaR1h4T0g0WXVtbG9JRGZmZ0g2\nZDA2bUtRb0xJVVNiTTBTbkJlZGRoSms5SUVFdlpERkstWkJjaEQ2eWNLZGdt\nTFQ5WDdGeWFDQlVZRUhJNUEwZ1J3N0hmdklDemV1UXRPOEREQjA0WkVMMzg0\nQ2VhazA5a2NrT2p6SnhsZnItc3VobEZjTVZleWU5emhYZDh3ZWpZa1g1d1ly\naW1nVnRwcFVZbmxaZlFxamotOFVaWVJCajlYcno2eUp1c09TU21wZjNlZlFk\ndFNxT3l5SVUzU2lmSVktMmV2U21veVVwcmZkODBncnJzOVlJMWMyejVpbGRy\nemc3NHpRX01tWmxmSjFrWG9ZOTVPcmNtLW4tT2J0OFlVeVFhUUZoeFV5b29r\ncUlhc1ZsZ2M4a3BnWHZ4MVJsaFloMjkwWWJVWE1acmVGckY3Wi1NYXE3VmQz\nYTJJWng0blV1MXJ6WWVwdXlsaU9SNzh5b2ZjNnlZYWR5MXV0ZUYwM1N6ZjJG\nSXU3a3JoOF85VW82VXQtU01ybWNrX1pxMHd6c3hVLVF4NEJiOVI1ZDB3WDVN\ndl8yLVh2V1lKMldtc3dsTXJhNG1XOGRzcFg3T0pXZ2lfdHFYMFUzOTZicTlK\naVVXam9hVVlKOFdwWWtib1dycnJzYTJzV29YSk9Wak12MTVNV1J5Z0ZKeUJ1\neDZiNzRKU2hRcVUzRnF5Z3dCX2JabDBfZEp3d1h3dVExWGpKNDc0a1lsX1ps\nejNRNVIxSUkxSS1YdHFkYWRkaFEzZzJ4d1lYWHZTWlFYZEJXVWY1Ml9uLW1S\nZ3N3dTlrbXBGaTQtamVqVnBTdFJrYWtyNmRoai0xcF9RLUZ1ZFIwbDBwU09j\nd2pGYm1ZSTdqeGt1Zmp3WnFPbUp2b0l0WHZ0bl9tc3VsZTVzclhKUzBudXNv\nck91djZ3aEo5MVJ1ejA4SXlWZjBTNlVrU21oMlF1azNwWTBnZHMybzktSTVm\nM1NTVVpjIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'monowebhook'!A:A:append?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"{:type=\\u003e\\\"StatementItem\\\", :data=\\u003e{:account=\\u003e\\\"OyG5DlaZkYSwF4jj-NhRsg\\\", :statementItem=\\u003e{:id=\\u003e\\\"tk6Ulh_sMFs9e_Zt\\\", :time=\\u003e\\\"1661599923\\\", :description=\\u003e\\\"some unknown category\\\", :mcc=\\u003e\\\"4829\\\", :originalMcc=\\u003e\\\"4829\\\", :amount=\\u003e\\\"1000000\\\", :operationAmount=\\u003e\\\"1000000\\\", :currencyCode=\\u003e\\\"980\\\", :commissionRate=\\u003e\\\"0\\\", :cashbackAmount=\\u003e\\\"0\\\", :balance=\\u003e\\\"10000\\\", :hold=\\u003e\\\"true\\\", :receiptId=\\u003e\\\"123-123-123-123\\\"}}}\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/12.6.4 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:22:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/2.7.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZhkqKMVLkoUjLlnl3puUIDO6iiy7jSEBz_7Z0ocWvlR1B9KKLFsATovl4dN12vNwcRD8AT_XEeslTI9h8dwghLRtQdJDjkN7bRjRXN2QTzlAcPMTbxHawcLJxiw7eJgu8fPUpiF2B722RFz2qZ15Q4KfDO-nUNugcY_8d4MBxuDI5BPAW_UntVOuYcoEUX9KhA9pJO7NgZ_ck3hZKLOeAfqL8NtTCb0gQWKLFqh9vOvkD1TnevwaYxovr0Oh0SNQDX7AmJLmBZGXxOH4YumloIDffgH6d06mKQoLIUSbM0SnBeddhJk9IEEvZDFK-ZBchD6ycKdgmLT9X7FyaCBUYEHI5A0gRw7HfvICzeuQtO8DDB04ZEL384Ceak09kckOjzJxlfr-suhlFcMVeye9zhXd8wejYkX5wYrimgVtppUYnlZfQqjj-8UZYRBj9Xrz6yJusOSSmpf3efQdtSqOyyIU3SifIY-2evSmoyUprfd80grrs9YI1c2z5ildrzg74zQ_MmZlfJ1kXoY95Orcm-n-Obt8YUyQaQFhxUyookqIasVlgc8kpgXvx1RlhYh290YbUXMZreFrF7Z-Maq7Vd3a2IZx4nUu1rzYepuyliOR78yofc6yYady1uteF03Szf2FIu7krh8_9Uo6Ut-SMrmck_Zq0wzsxU-Qx4Bb9R5d0wX5Mv_2-XvWYJ2WmswlMra4mW8dspX7OJWgi_tqX0U396bq9JiUWjoaUYJ8WpYkboWrrrsa2sWoXJOVjMv15MWRygFJyBux6b74JShQqU3FqygwB_bZl0_dJwwXwuQ1XjJ474kYl_Zlz3Q5R1II1I-XtqdaddhQ3g2xwYXXvSZQXdBWUf52_n-mRgswu9kmpFi4-jejVpStRkakr6dhj-1p_Q-FudR0l0pSOcwjFbmYI7jxkufjwZqOmJvoItXvtn_msule5srXJS0nusorOuv6whJ91Ruz08IyVf0S6UkSmh2Quk3pY0gds2o9-I5f3SSUZc"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:14 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"tableRange\": \"monowebhook!A1:A236\",\n  \"updates\": {\n    \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n    \"updatedRange\": \"monowebhook!A237\",\n    \"updatedRows\": 1,\n    \"updatedColumns\": 1,\n    \"updatedCells\": 1\n  }\n}\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.monobank.ua/bank/currency",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:27 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "11141"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Trace-Id": [
+            "029e8bd65a15460f75ab196138b4f443"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=15724800; includeSubDomains; preload"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "[{\"currencyCodeA\":840,\"currencyCodeB\":980,\"date\":1699740073,\"rateBuy\":36.08,\"rateCross\":0,\"rateSell\":37.2995},{\"currencyCodeA\":978,\"currencyCodeB\":980,\"date\":1699740073,\"rateBuy\":38.55,\"rateCross\":0,\"rateSell\":39.8995},{\"currencyCodeA\":978,\"currencyCodeB\":840,\"date\":1699740073,\"rateBuy\":1.063,\"rateCross\":0,\"rateSell\":1.074},{\"currencyCodeA\":826,\"currencyCodeB\":980,\"date\":1699759228,\"rateBuy\":0,\"rateCross\":45.6548,\"rateSell\":0},{\"currencyCodeA\":392,\"currencyCodeB\":980,\"date\":1699759217,\"rateBuy\":0,\"rateCross\":0.2466,\"rateSell\":0},{\"currencyCodeA\":756,\"currencyCodeB\":980,\"date\":1699759224,\"rateBuy\":0,\"rateCross\":41.4826,\"rateSell\":0},{\"currencyCodeA\":156,\"currencyCodeB\":980,\"date\":1699758760,\"rateBuy\":0,\"rateCross\":5.1164,\"rateSell\":0},{\"currencyCodeA\":784,\"currencyCodeB\":980,\"date\":1699759155,\"rateBuy\":0,\"rateCross\":10.1576,\"rateSell\":0},{\"currencyCodeA\":971,\"currencyCodeB\":980,\"date\":1663425223,\"rateBuy\":0,\"rateCross\":0.4252,\"rateSell\":0},{\"currencyCodeA\":8,\"currencyCodeB\":980,\"date\":1699747128,\"rateBuy\":0,\"rateCross\":0.3823,\"rateSell\":0},{\"currencyCodeA\":51,\"currencyCodeB\":980,\"date\":1699752415,\"rateBuy\":0,\"rateCross\":0.093,\"rateSell\":0},{\"currencyCodeA\":973,\"currencyCodeB\":980,\"date\":1699461719,\"rateBuy\":0,\"rateCross\":0.0451,\"rateSell\":0},{\"currencyCodeA\":32,\"currencyCodeB\":980,\"date\":1699758589,\"rateBuy\":0,\"rateCross\":0.1065,\"rateSell\":0},{\"currencyCodeA\":36,\"currencyCodeB\":980,\"date\":1699759160,\"rateBuy\":0,\"rateCross\":23.7586,\"rateSell\":0},{\"currencyCodeA\":944,\"currencyCodeB\":980,\"date\":1699756793,\"rateBuy\":0,\"rateCross\":21.9205,\"rateSell\":0},{\"currencyCodeA\":50,\"currencyCodeB\":980,\"date\":1699738966,\"rateBuy\":0,\"rateCross\":0.3383,\"rateSell\":0},{\"currencyCodeA\":975,\"currencyCodeB\":980,\"date\":1699758421,\"rateBuy\":0,\"rateCross\":20.3972,\"rateSell\":0},{\"currencyCodeA\":48,\"currencyCodeB\":980,\"date\":1699743724,\"rateBuy\":0,\"rateCross\":98.9375,\"rateSell\":0},{\"currencyCodeA\":108,\"currencyCodeB\":980,\"date\":1538606522,\"rateBuy\":0,\"rateCross\":0.0158,\"rateSell\":0},{\"currencyCodeA\":96,\"currencyCodeB\":980,\"date\":1699099931,\"rateBuy\":0,\"rateCross\":27.5553,\"rateSell\":0},{\"currencyCodeA\":68,\"currencyCodeB\":980,\"date\":1699724332,\"rateBuy\":0,\"rateCross\":5.4422,\"rateSell\":0},{\"currencyCodeA\":986,\"currencyCodeB\":980,\"date\":1699754217,\"rateBuy\":0,\"rateCross\":7.6089,\"rateSell\":0},{\"currencyCodeA\":72,\"currencyCodeB\":980,\"date\":1699734588,\"rateBuy\":0,\"rateCross\":2.7384,\"rateSell\":0},{\"currencyCodeA\":933,\"currencyCodeB\":980,\"date\":1699725656,\"rateBuy\":0,\"rateCross\":11.744,\"rateSell\":0},{\"currencyCodeA\":124,\"currencyCodeB\":980,\"date\":1699759227,\"rateBuy\":0,\"rateCross\":27.0992,\"rateSell\":0},{\"currencyCodeA\":976,\"currencyCodeB\":980,\"date\":1692273994,\"rateBuy\":0,\"rateCross\":0.0154,\"rateSell\":0},{\"currencyCodeA\":152,\"currencyCodeB\":980,\"date\":1699757069,\"rateBuy\":0,\"rateCross\":0.0408,\"rateSell\":0},{\"currencyCodeA\":170,\"currencyCodeB\":980,\"date\":1699758436,\"rateBuy\":0,\"rateCross\":0.0092,\"rateSell\":0},{\"currencyCodeA\":188,\"currencyCodeB\":980,\"date\":1699752031,\"rateBuy\":0,\"rateCross\":0.0677,\"rateSell\":0},{\"currencyCodeA\":192,\"currencyCodeB\":980,\"date\":1687102850,\"rateBuy\":0,\"rateCross\":1.5599,\"rateSell\":0},{\"currencyCodeA\":203,\"currencyCodeB\":980,\"date\":1699759223,\"rateBuy\":0,\"rateCross\":1.6305,\"rateSell\":0},{\"currencyCodeA\":262,\"currencyCodeB\":980,\"date\":1678810696,\"rateBuy\":0,\"rateCross\":0.2108,\"rateSell\":0},{\"currencyCodeA\":208,\"currencyCodeB\":980,\"date\":1699759058,\"rateBuy\":0,\"rateCross\":5.3488,\"rateSell\":0},{\"currencyCodeA\":12,\"currencyCodeB\":980,\"date\":1699754773,\"rateBuy\":0,\"rateCross\":0.2775,\"rateSell\":0},{\"currencyCodeA\":818,\"currencyCodeB\":980,\"date\":1699758947,\"rateBuy\":0,\"rateCross\":1.2098,\"rateSell\":0},{\"currencyCodeA\":230,\"currencyCodeB\":980,\"date\":1699355932,\"rateBuy\":0,\"rateCross\":0.6712,\"rateSell\":0},{\"currencyCodeA\":981,\"currencyCodeB\":980,\"date\":1699759209,\"rateBuy\":0,\"rateCross\":14.0381,\"rateSell\":0},{\"currencyCodeA\":936,\"currencyCodeB\":980,\"date\":1699740744,\"rateBuy\":0,\"rateCross\":3.1398,\"rateSell\":0},{\"currencyCodeA\":270,\"currencyCodeB\":980,\"date\":1699567118,\"rateBuy\":0,\"rateCross\":0.6103,\"rateSell\":0},{\"currencyCodeA\":324,\"currencyCodeB\":980,\"date\":1698000894,\"rateBuy\":0,\"rateCross\":0.0044,\"rateSell\":0},{\"currencyCodeA\":344,\"currencyCodeB\":980,\"date\":1699758169,\"rateBuy\":0,\"rateCross\":4.7787,\"rateSell\":0},{\"currencyCodeA\":191,\"currencyCodeB\":980,\"date\":1680625280,\"rateBuy\":0,\"rateCross\":5.4258,\"rateSell\":0},{\"currencyCodeA\":348,\"currencyCodeB\":980,\"date\":1699759177,\"rateBuy\":0,\"rateCross\":0.1059,\"rateSell\":0},{\"currencyCodeA\":360,\"currencyCodeB\":980,\"date\":1699759226,\"rateBuy\":0,\"rateCross\":0.0023,\"rateSell\":0},{\"currencyCodeA\":376,\"currencyCodeB\":980,\"date\":1699759202,\"rateBuy\":0,\"rateCross\":9.7415,\"rateSell\":0},{\"currencyCodeA\":356,\"currencyCodeB\":980,\"date\":1699755339,\"rateBuy\":0,\"rateCross\":0.4485,\"rateSell\":0},{\"currencyCodeA\":368,\"currencyCodeB\":980,\"date\":1699743004,\"rateBuy\":0,\"rateCross\":0.0284,\"rateSell\":0},{\"currencyCodeA\":352,\"currencyCodeB\":980,\"date\":1699756811,\"rateBuy\":0,\"rateCross\":0.2622,\"rateSell\":0},{\"currencyCodeA\":400,\"currencyCodeB\":980,\"date\":1699727197,\"rateBuy\":0,\"rateCross\":52.6885,\"rateSell\":0},{\"currencyCodeA\":404,\"currencyCodeB\":980,\"date\":1699745259,\"rateBuy\":0,\"rateCross\":0.2461,\"rateSell\":0},{\"currencyCodeA\":417,\"currencyCodeB\":980,\"date\":1699757727,\"rateBuy\":0,\"rateCross\":0.4176,\"rateSell\":0},{\"currencyCodeA\":116,\"currencyCodeB\":980,\"date\":1699674304,\"rateBuy\":0,\"rateCross\":0.009,\"rateSell\":0},{\"currencyCodeA\":410,\"currencyCodeB\":980,\"date\":1699759066,\"rateBuy\":0,\"rateCross\":0.0284,\"rateSell\":0},{\"currencyCodeA\":414,\"currencyCodeB\":980,\"date\":1699694254,\"rateBuy\":0,\"rateCross\":120.8514,\"rateSell\":0},{\"currencyCodeA\":398,\"currencyCodeB\":980,\"date\":1699759023,\"rateBuy\":0,\"rateCross\":0.0798,\"rateSell\":0},{\"currencyCodeA\":418,\"currencyCodeB\":980,\"date\":1698938047,\"rateBuy\":0,\"rateCross\":0.0018,\"rateSell\":0},{\"currencyCodeA\":422,\"currencyCodeB\":980,\"date\":1699654176,\"rateBuy\":0,\"rateCross\":0.0004,\"rateSell\":0},{\"currencyCodeA\":144,\"currencyCodeB\":980,\"date\":1699758921,\"rateBuy\":0,\"rateCross\":0.1142,\"rateSell\":0},{\"currencyCodeA\":434,\"currencyCodeB\":980,\"date\":1674670757,\"rateBuy\":0,\"rateCross\":7.8783,\"rateSell\":0},{\"currencyCodeA\":504,\"currencyCodeB\":980,\"date\":1699754472,\"rateBuy\":0,\"rateCross\":3.644,\"rateSell\":0},{\"currencyCodeA\":498,\"currencyCodeB\":980,\"date\":1699758892,\"rateBuy\":0,\"rateCross\":2.0941,\"rateSell\":0},{\"currencyCodeA\":969,\"currencyCodeB\":980,\"date\":1699696811,\"rateBuy\":0,\"rateCross\":0.0083,\"rateSell\":0},{\"currencyCodeA\":807,\"currencyCodeB\":980,\"date\":1699744185,\"rateBuy\":0,\"rateCross\":0.6475,\"rateSell\":0},{\"currencyCodeA\":496,\"currencyCodeB\":980,\"date\":1699617420,\"rateBuy\":0,\"rateCross\":0.0108,\"rateSell\":0},{\"currencyCodeA\":480,\"currencyCodeB\":980,\"date\":1699720811,\"rateBuy\":0,\"rateCross\":0.8406,\"rateSell\":0},{\"currencyCodeA\":454,\"currencyCodeB\":980,\"date\":1678369785,\"rateBuy\":0,\"rateCross\":0.0368,\"rateSell\":0},{\"currencyCodeA\":484,\"currencyCodeB\":980,\"date\":1699758587,\"rateBuy\":0,\"rateCross\":2.1177,\"rateSell\":0},{\"currencyCodeA\":458,\"currencyCodeB\":980,\"date\":1699759082,\"rateBuy\":0,\"rateCross\":7.9392,\"rateSell\":0},{\"currencyCodeA\":943,\"currencyCodeB\":980,\"date\":1698658019,\"rateBuy\":0,\"rateCross\":0.5918,\"rateSell\":0},{\"currencyCodeA\":516,\"currencyCodeB\":980,\"date\":1699696199,\"rateBuy\":0,\"rateCross\":2.0048,\"rateSell\":0},{\"currencyCodeA\":566,\"currencyCodeB\":980,\"date\":1699746398,\"rateBuy\":0,\"rateCross\":0.0434,\"rateSell\":0},{\"currencyCodeA\":558,\"currencyCodeB\":980,\"date\":1699414249,\"rateBuy\":0,\"rateCross\":1.0206,\"rateSell\":0},{\"currencyCodeA\":578,\"currencyCodeB\":980,\"date\":1699757368,\"rateBuy\":0,\"rateCross\":3.362,\"rateSell\":0},{\"currencyCodeA\":524,\"currencyCodeB\":980,\"date\":1699755947,\"rateBuy\":0,\"rateCross\":0.2801,\"rateSell\":0},{\"currencyCodeA\":554,\"currencyCodeB\":980,\"date\":1699755754,\"rateBuy\":0,\"rateCross\":22.0353,\"rateSell\":0},{\"currencyCodeA\":512,\"currencyCodeB\":980,\"date\":1699731791,\"rateBuy\":0,\"rateCross\":96.9219,\"rateSell\":0},{\"currencyCodeA\":604,\"currencyCodeB\":980,\"date\":1699757403,\"rateBuy\":0,\"rateCross\":9.8727,\"rateSell\":0},{\"currencyCodeA\":608,\"currencyCodeB\":980,\"date\":1699751916,\"rateBuy\":0,\"rateCross\":0.6689,\"rateSell\":0},{\"currencyCodeA\":586,\"currencyCodeB\":980,\"date\":1699734689,\"rateBuy\":0,\"rateCross\":0.1301,\"rateSell\":0},{\"currencyCodeA\":985,\"currencyCodeB\":980,\"date\":1699759221,\"rateBuy\":0,\"rateCross\":9.0341,\"rateSell\":0},{\"currencyCodeA\":600,\"currencyCodeB\":980,\"date\":1699751523,\"rateBuy\":0,\"rateCross\":0.0048,\"rateSell\":0},{\"currencyCodeA\":634,\"currencyCodeB\":980,\"date\":1699744546,\"rateBuy\":0,\"rateCross\":10.2472,\"rateSell\":0},{\"currencyCodeA\":946,\"currencyCodeB\":980,\"date\":1699759152,\"rateBuy\":0,\"rateCross\":8.0531,\"rateSell\":0},{\"currencyCodeA\":941,\"currencyCodeB\":980,\"date\":1699757820,\"rateBuy\":0,\"rateCross\":0.3406,\"rateSell\":0},{\"currencyCodeA\":682,\"currencyCodeB\":980,\"date\":1699754468,\"rateBuy\":0,\"rateCross\":9.9478,\"rateSell\":0},{\"currencyCodeA\":690,\"currencyCodeB\":980,\"date\":1699697807,\"rateBuy\":0,\"rateCross\":2.6203,\"rateSell\":0},{\"currencyCodeA\":938,\"currencyCodeB\":980,\"date\":1680961561,\"rateBuy\":0,\"rateCross\":0.0627,\"rateSell\":0},{\"currencyCodeA\":752,\"currencyCodeB\":980,\"date\":1699758600,\"rateBuy\":0,\"rateCross\":3.4385,\"rateSell\":0},{\"currencyCodeA\":702,\"currencyCodeB\":980,\"date\":1699758855,\"rateBuy\":0,\"rateCross\":27.5081,\"rateSell\":0},{\"currencyCodeA\":694,\"currencyCodeB\":980,\"date\":1664217991,\"rateBuy\":0,\"rateCross\":0.0024,\"rateSell\":0},{\"currencyCodeA\":706,\"currencyCodeB\":980,\"date\":1683386099,\"rateBuy\":0,\"rateCross\":0.0659,\"rateSell\":0},{\"currencyCodeA\":968,\"currencyCodeB\":980,\"date\":1696117310,\"rateBuy\":0,\"rateCross\":0.9686,\"rateSell\":0},{\"currencyCodeA\":748,\"currencyCodeB\":980,\"date\":1668614714,\"rateBuy\":0,\"rateCross\":2.1898,\"rateSell\":0},{\"currencyCodeA\":764,\"currencyCodeB\":980,\"date\":1699759199,\"rateBuy\":0,\"rateCross\":1.0471,\"rateSell\":0},{\"currencyCodeA\":972,\"currencyCodeB\":980,\"date\":1699691852,\"rateBuy\":0,\"rateCross\":3.4056,\"rateSell\":0},{\"currencyCodeA\":788,\"currencyCodeB\":980,\"date\":1699726942,\"rateBuy\":0,\"rateCross\":11.834,\"rateSell\":0},{\"currencyCodeA\":949,\"currencyCodeB\":980,\"date\":1699759179,\"rateBuy\":0,\"rateCross\":1.3133,\"rateSell\":0},{\"currencyCodeA\":901,\"currencyCodeB\":980,\"date\":1699752213,\"rateBuy\":0,\"rateCross\":1.1559,\"rateSell\":0},{\"currencyCodeA\":834,\"currencyCodeB\":980,\"date\":1699714283,\"rateBuy\":0,\"rateCross\":0.015,\"rateSell\":0},{\"currencyCodeA\":800,\"currencyCodeB\":980,\"date\":1699729048,\"rateBuy\":0,\"rateCross\":0.0099,\"rateSell\":0},{\"currencyCodeA\":858,\"currencyCodeB\":980,\"date\":1699752121,\"rateBuy\":0,\"rateCross\":0.9443,\"rateSell\":0},{\"currencyCodeA\":860,\"currencyCodeB\":980,\"date\":1699757242,\"rateBuy\":0,\"rateCross\":0.003,\"rateSell\":0},{\"currencyCodeA\":704,\"currencyCodeB\":980,\"date\":1699757476,\"rateBuy\":0,\"rateCross\":0.0015,\"rateSell\":0},{\"currencyCodeA\":950,\"currencyCodeB\":980,\"date\":1699708358,\"rateBuy\":0,\"rateCross\":0.0606,\"rateSell\":0},{\"currencyCodeA\":952,\"currencyCodeB\":980,\"date\":1699718008,\"rateBuy\":0,\"rateCross\":0.0606,\"rateSell\":0},{\"currencyCodeA\":886,\"currencyCodeB\":980,\"date\":1543715495,\"rateBuy\":0,\"rateCross\":0.112,\"rateSell\":0},{\"currencyCodeA\":710,\"currencyCodeB\":980,\"date\":1699735589,\"rateBuy\":0,\"rateCross\":2.0056,\"rateSell\":0}]"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE5qazVOelU1TXpnd0xDSnBZWFFpT2pF\nMk9UazNOVGt5TmpBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLlhR\nVVVRZTJKa2tfZGxXMVlvY3Fld3NyNXRQMFN3NnJtdlI3c25ISmZIa0Q1cVFN\nWHU3SWVrOExyVnk0RXVjTFptbEpTYXNQZk9IeU9iLXVGUWE4UHhFdXQ4SFlp\na2p0R2FuUVhxSXZVeURQQmpJWFUwdlEtN05sX25XZ09oZklSMjRubE1qNjhM\nWmJCcXlTWXZXak9JMDA3UHlJeTlLdGM1TWdsZ2RHVUVBTFl2SVQtZE9SZTda\nVDNtaVdpS0wtc0VYOXVTRXhkMzd3V1hSREt2S2ZhcmpoSUxPejlpRnhpVVc3\nY2w0SjZlekRkQ2tKSFIyWFNWXzBEWi1LanR2NldSeUNlcFc5bFJTSEFlSERJ\nVTFFdjY4SC1tZmNyeThFcGJXejR5V1VxZVVaZ1RxdEhTSWtzSl9Cb0dBaXBB\nQUdfNERtbUxidjVlVHJ1ZGNPMFd5Z1ZpQQ==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:27 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFppYkZfRGE0amd2dVJF\nYWN2UTQ0M1d6S2M4THJSYTVaRXJ5ZlFDSFhKRzR3c1EySjhFaE5TcGhBcmdt\nWXYxNkg1bTVjTDRnaTJRdkdwakhrcVQxZDB0bE94OEtEellJeXRBd0hhWkpW\nbUVuNmpGeVZuVUFSUjRoSG1HM0E1U01JaGcxamVvbENiVTJPZ2lRcU1jam1w\nVTYwQUVwSTg0eVJFUjV5QWdKbmQ0eXFDcHNCT0xTWGhFZktqZy04RkFaYURz\nbkNSS3RtR2hSUXl2S0hCamdrclo4anR6bXZOS0plVmtEdzRJLVBVLWx5S0dD\nOGJJcVlmU0NQbjFRclBfWWtkUDVtQlZrLVRqTFVqd2ZJbTFaMGdVZWhBQnB0\nOWM3NF9lcUZ0aElmQWRqUG9LNkVGaFh6cnRLeTlCekxTMzdObjIzZC02V0Qx\nZ1daWWVPUnhQQUFFUzV0a2dpWndob1FrNGc1NW1HSDYtckoyNVdlVzRYSDM4\nNUMxd1dpZC0ta01jZU1NWXdhcW1SYk9jOWU1MHhrZWNKT1Z6Z1ozZG92dGRm\nSl84eFpVZll6NDdzZ0l5N1FJX1lZVy05b1pXWDBrWFo3UW56SnQyV0Z6UW5S\nNWZhSWQwcDR3OXoxMnA4ZGF4ay15dXdPbVdhM2dJVWFCNjByMlI5dWZ5YjFG\nODF1QlhTeHBNMmpjN3lmYWgzY2hmNFg0cF8xb0l4eUlZMmhSUmRKZFVKMVNV\nSVFtOFFPcjdidWpGM0Y5YThPV3pubi0xemFxNXYyaTVnUVlfNUZCbjZpdGU4\nNUk5dmRmMVVoV2J5T1IzdFZxNmtTWnoxdG8zejY5NWowdmtlSTN6aWJxODJo\nblFCdXFCOXY0VWl3M3Zzalp2MTJSbzJNdzZxY2hkNFhGVUlPbFhxbmg0dmRY\nMXVVN295MzJaV1pqdzdjbGhlb3pKeHlsdlZzcGZTMWprcmtnaEpYajhJNDQz\nOWc5MTI4anRtMWNWOHF4b3ZsdG5adU9iSmtrSVltNHhGM0ljSnpJamFvWDF6\ncGlYdTJVVWN0bWlvTWRrY1Vtd29WYnh1WU93b0JXalYzenhySXFoc1Jxblpv\ndkZwcGtVbjNocnNGajBjc3c0d3d5dVo5b2NlYWU2aE92amh5ZmUzYXFCMU9K\nLUplZG1sM3BaeWNpV1hGdDdiNlFlNEJJeFlZLWtncXBSVXE0M2QtZWkwQlhK\nQkZWLWJmTWFabEYtZ3poalJpYlhwdjRpcjQ5LTU5ZGZnVnh5bDF1aGI5TXV2\nVUl0bnEwNHhjeFViZmF2bnlNUXpvdVV0YVlZMmFYWnhZUndndWtNdThadnZN\nMzl6N0lkIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D1%8B%D0%B5'!A:J:append?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"Транспорт\",\"Такси\",\"=10000,0 / 37,2995\",12,11,2023,\"12.11.2023\",\"37,2995\",\"1,074\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/12.6.4 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:22:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/2.7.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZibF_Da4jgvuREacvQ443WzKc8LrRa5ZEryfQCHXJG4wsQ2J8EhNSphArgmYv16H5m5cL4gi2QvGpjHkqT1d0tlOx8KDzYIytAwHaZJVmEn6jFyVnUARR4hHmG3A5SMIhg1jeolCbU2OgiQqMcjmpU60AEpI84yRER5yAgJnd4yqCpsBOLSXhEfKjg-8FAZaDsnCRKtmGhRQyvKHBjgkrZ8jtzmvNKJeVkDw4I-PU-lyKGC8bIqYfSCPn1QrP_YkdP5mBVk-TjLUjwfIm1Z0gUehABpt9c74_eqFthIfAdjPoK6EFhXzrtKy9BzLS37Nn23d-6WD1gWZYeORxPAAES5tkgiZwhoQk4g55mGH6-rJ25WeW4XH385C1wWid--kMceMMYwaqmRbOc9e50xkecJOVzgZ3dovtdfJ_8xZUfYz47sgIy7QI_YYW-9oZWX0kXZ7QnzJt2WFzQnR5faId0p4w9z12p8daxk-yuwOmWa3gIUaB60r2R9ufyb1F81uBXSxpM2jc7yfah3chf4X4p_1oIxyIY2hRRdJdUJ1SUIQm8QOr7bujF3F9a8OWznn-1zaq5v2i5gQY_5FBn6ite85I9vdf1UhWbyOR3tVq6kSZz1to3z695j0vkeI3zibq82hnQBuqB9v4Uiw3vsjZv12Ro2Mw6qchd4XFUIOlXqnh4vdX1uU7oy32ZWZjw7clheozJxylvVspfS1jkrkghJXj8I4439g9128jtm1cV8qxovltnZuObJkkIYm4xF3IcJzIjaoX1zpiXu2UUctmioMdkcUmwoVbxuYOwoBWjV3zxrIqhsRqnZovFppkUn3hrsFj0csw4wwyuZ9oceae6hOvjhyfe3aqB1OJ-Jedml3pZyciWXFt7b6Qe4BIxYY-kgqpRUq43d-ei0BXJBFV-bfMaZlF-gzhjRibXpv4ir49-59dfgVxyl1uhb9MuvUItnq04xcxUbfavnyMQzouUtaYY2aXZxYRwgukMu8ZvvM39z7Id"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:27 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"tableRange\": \"'Повседневные'!A1:J11556\",\n  \"updates\": {\n    \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n    \"updatedRange\": \"'Повседневные'!A11557:I11557\",\n    \"updatedRows\": 1,\n    \"updatedColumns\": 9,\n    \"updatedCells\": 9\n  }\n}\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE5qazVOelU1TXpnd0xDSnBZWFFpT2pF\nMk9UazNOVGt5TmpBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLlhR\nVVVRZTJKa2tfZGxXMVlvY3Fld3NyNXRQMFN3NnJtdlI3c25ISmZIa0Q1cVFN\nWHU3SWVrOExyVnk0RXVjTFptbEpTYXNQZk9IeU9iLXVGUWE4UHhFdXQ4SFlp\na2p0R2FuUVhxSXZVeURQQmpJWFUwdlEtN05sX25XZ09oZklSMjRubE1qNjhM\nWmJCcXlTWXZXak9JMDA3UHlJeTlLdGM1TWdsZ2RHVUVBTFl2SVQtZE9SZTda\nVDNtaVdpS0wtc0VYOXVTRXhkMzd3V1hSREt2S2ZhcmpoSUxPejlpRnhpVVc3\nY2w0SjZlekRkQ2tKSFIyWFNWXzBEWi1LanR2NldSeUNlcFc5bFJTSEFlSERJ\nVTFFdjY4SC1tZmNyeThFcGJXejR5V1VxZVVaZ1RxdEhTSWtzSl9Cb0dBaXBB\nQUdfNERtbUxidjVlVHJ1ZGNPMFd5Z1ZpQQ==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.5.2"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:28 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpnX2dkcEptcWJvLU1l\naGgtZXN0T0d1NFdwNnh2T2V1MDgtX2w2cVBnRGx6bmxuR2tUZFl2dHNtSG0z\naU50eHBETzlJdEtaWmFNUm9IR1QwVlZ1ekRqTllvaUt1MHpOU1VrLWt2U0M3\ndmZuVDE0eFBQMkVzcFdqdlZ1MXhaUERwUnMzUnJ6OGZvZERlcWNDaEtCSG5Z\nUlA4VmxCMVdFVWlBV0FsYTFEZEowWC0yNDlBZnlyajhqd05BUEU5eTVOUWph\nbi1Sc0Z2WWE5MzNVaGtTVTF2WTE5aG4zc191amg3SnFNVG14cFdMN0NodThr\nWWlGOWZyMlJZRkg3MTJBUkJ0UDJpWjA4TUFZUDFjTnpNWDlKWFFvQ25GakRq\nU1dkeGtxWkZ4SHF1M3YyRUdvQjRaNVJ1cGUxRUt2T0MwNDVFaXZqY3Uxdlpx\nWHBORWk3M21YX2NiZ2pwdnFwRUxzcFl6MDRJczJPcmQwcUpIUjhQSlFoTDM4\nNUNPWW5PWUZJWWswZkoxWXUwdzB3bWl1XzBXMFlma3FzM09xc2dhZ2JhLXda\nM2JaUzZ4dkp0aFNtMmVzTUZqdzh3VXd3bWMxbEZidGxiODFaRmpSMnlWc1Fw\nMFlGdldndnVwRlNKRk9pVTl3WXZNWTk5VUZmX2xseHhRUWlJMlNsM3Q2bTRi\nNWota2ljNHZPLTRici1pTWJ4c3U3NWdWdVlJTy0teXIwMDg1b21NbFVCajZ0\nMGJaVzM5bXJjVmkwRnZtSVhuV1VhX3JWZm04N2ItWTZpaTRRWGxVdVlmMEJG\nUldrRlVkOFpJMTM4cnUyWXBGdTNRcUZjbDI5cFpyZVlVbF93ZWE0N3hsNGFJ\nY09xWG5xNXg5d3l1UkJja2ZqNXQyVWVZNGM2cW15aTRiV1I4cFVVZWx2aXRP\nQnZKUmVhdlZybGc1VUpqZG5xNDgzdGVpZW4zSnYwejM5YkJrNXNxZ1d3STYt\ndjJlX3o4T3hfOVdpUXhjOXlJNThJMmpjU2FZeFhJYWhrcl9zTWt1bmxKT1p3\nWnNfZjRrY0plT2g2dzRJUl9id1gwNUJ2c3prUnptdTR6QklmWHpxa09mWkI0\nNnNrd3NhbHJhT1N0blNiU3dxcFZNNGVmbi02ZVNtaGlaYmprMDJKOFNPWDdN\ndHJlM3Y5bjhqajlaZ3Z3czI2NWx4TzVtdTkxWnlxbHJuWm5RYVY5T3BjYUZR\nb0o2aC1aX2kxOVFXNFZVYVdaY2prc1Y4U1JnUTFRZ2VRajFzNGsyUmF4MlY5\nVjVrTWlVVl9nQlhzNDdnbzhmaHd6aFlWZ1Nxb1ZyWXBWNVdJU2VvVnZkSUoy\nbl81aGpaIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/2023!A60:CJ85",
+        "body": {
+          "encoding": "UTF-8",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/12.6.4 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:22:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/2.7.0 gdcl/1.10.0"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZg_gdpJmqbo-Mehh-estOGu4Wp6xvOeu08-_l6qPgDlznlnGkTdYvtsmHm3iNtxpDO9ItKZZaMRoHGT0VVuzDjNYoiKu0zNSUk-kvSC7vfnT14xPP2EspWjvVu1xZPDpRs3Rrz8fodDeqcChKBHnYRP8VlB1WEUiAWAla1DdJ0X-249Afyrj8jwNAPE9y5NQjan-RsFvYa933UhkSU1vY19hn3s_ujh7JqMTmxpWL7Chu8kYiF9fr2RYFH712ARBtP2iZ08MAYP1cNzMX9JXQoCnFjDjSWdxkqZFxHqu3v2EGoB4Z5Rupe1EKvOC045Eivjcu1vZqXpNEi73mX_cbgjpvqpELspYz04Is2Ord0qJHR8PJQhL385COYnOYFIYk0fJ1Yu0w0wmiu_0W0Yfkqs3Oqsgagba-wZ3bZS6xvJthSm2esMFjw8wUwwmc1lFbtlb81ZFjR2yVsQp0YFvWgvupFSJFOiU9wYvMY99UFf_llxxQQiI2Sl3t6m4b5j-kic4vO-4br-iMbxsu75gVuYIO--yr0085omMlUBj6t0bZW39mrcVi0FvmIXnWUa_rVfm87b-Y6ii4QXlUuYf0BFRWkFUd8ZI138ru2YpFu3QqFcl29pZreYUl_wea47xl4aIcOqXnq5x9wyuRBckfj5t2UeY4c6qmyi4bWR8pUUelvitOBvJReavVrlg5UJjdnq483teien3Jv0z39bBk5sqgWwI6-v2e_z8Ox_9WiQxc9yI58I2jcSaYxXIahkr_sMkunlJOZwZs_f4kcJeOh6w4IR_bwX05BvszkRzmu4zBIfXzqkOfZB46skwsalraOStnSbSwqpVM4efn-6eSmhiZbjk02J8SOX7Mtre3v9n8jj9Zgvws265lxO5mu91ZyqlrnZnQaV9OpcaFQoJ6h-Z_i19QW4VUaWZcjksV8SRgQ1QgeQj1s4k2Rax2V9V5kMiUV_gBXs47go8fhwzhYVgSqoVrYpV5WISeoVvdIJ2n_5hjZ"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sun, 12 Nov 2023 03:21:28 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"range\": \"'2023'!A60:CJ85\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [],\n    [],\n    [],\n    [\n      \"1\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"1,1\",\n      \"2023\",\n      \"\",\n      \"2\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"2,1\",\n      \"2023\",\n      \"\",\n      \"3\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"3,1\",\n      \"2023\",\n      \"\",\n      \"4\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"4,1\",\n      \"2023\",\n      \"\",\n      \"5\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"5,1\",\n      \"2023\",\n      \"\",\n      \"6\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"6,1\",\n      \"2023\",\n      \"\",\n      \"7\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"7,1\",\n      \"2023\",\n      \"\",\n      \"8\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"8,1\",\n      \"2023\",\n      \"\",\n      \"9\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"9,1\",\n      \"2023\",\n      \"\",\n      \"10\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"10,1\",\n      \"2023\",\n      \"\",\n      \"11\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"11,1\",\n      \"2023\",\n      \"\",\n      \"12\",\n      \"2023\",\n      \"\",\n      \"\",\n      \"12,1\",\n      \"2023\"\n    ],\n    [\n      \"Заплата 1ая половина\",\n      \"113363\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  8 300 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"113363\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 100 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 468 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"121298\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  11 010 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  14 370 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 805 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 764 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  12 154 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  11 049 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  9 665 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  10 000 000 \",\n      \"\",\n      \"Заплата 1ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"снял валюты\",\n      \"  -   \"\n    ],\n    [\n      \"Заплата 1ая половина чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002457\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002497\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002487\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"113759\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002546\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002586\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002587\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002660\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002518\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002510\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002467\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002440\",\n      \"\",\n      \"Заплата 1ая половина чистыми\",\n      \"-1474\",\n      \"\",\n      \"\",\n      \"курс гривна/валюта\",\n      \"0,002440\"\n    ],\n    [\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 1ая зп\",\n      \"1,0000\"\n    ],\n    [\n      \"Заплата 2ая половина\",\n      \"117020\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"124955\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"248520\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"251482\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"246984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"255395\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"245615\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина\",\n      \"0\"\n    ],\n    [\n      \"Заплата 2ая половина чистыми\",\n      \"111169\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"118707\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"236094\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"238908\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"234635\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"242625\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"233335\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина чистыми\",\n      \"0\"\n    ],\n    [\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,5686\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"36,3659\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"курс доллара 2ая зп\",\n      \"1,0000\"\n    ],\n    [\n      \"Заплата 1ая половина $\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"3317\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 1ая половина $\",\n      \"0\"\n    ],\n    [\n      \"Заплата 2ая половина $\",\n      \"3200\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"3417\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6796\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6877\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6984\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Заплата 2ая половина $\",\n      \"0\"\n    ],\n    [],\n    [\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налог %\",\n      \"0,05\"\n    ],\n    [\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9404000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"12095000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9605000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"11243000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"14564000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"13075000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9316000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"13152000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"9894000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"10080000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"2576000\",\n      \"\",\n      \"Налог\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"Потрачено денег:\",\n      \"0\"\n    ],\n    [\n      \"Зарплата чистыми\",\n      \"217389\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"100000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"106221\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"105000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1037000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"232466\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"804000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"234620\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"610000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"340000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1788000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"237434\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"790000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"233161\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1945000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"241151\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"1530000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"231861\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"8954000\",\n      \"\",\n      \"Зарплата чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Сейчас денег:\",\n      \"8954000\"\n    ],\n    [\n      \"Зарплата в дол\",\n      \"6300\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"9504000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"3100\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"12200000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"10642000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6734\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"12047000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6796\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"15174000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"13415000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11104000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6877\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"13942000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11839000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6984\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11610000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"6754\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"11530000\",\n      \"\",\n      \"Зарплата в дол\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Всего денег:\",\n      \"8954000\"\n    ],\n    [\n      \"Зарплата в дол чистыми\",\n      \"5945\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"2905\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6357\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6416\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6493\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6594\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"6376\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\",\n      \"\",\n      \"Зарплата в дол чистыми\",\n      \"0\",\n      \"\",\n      \"\",\n      \"Осталось внести:\",\n      \"0\"\n    ],\n    [\n      \"Налоги\",\n      \"355\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"195\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"0\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"377\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"380\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"384\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"390\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"378\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги\",\n      \"0\"\n    ],\n    [\n      \"Налоги в грн\",\n      \"12993\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"7142\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"1474\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13787\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13900\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"14048\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13823\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"14244\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"13755\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Налоги в грн\",\n      \"1474\"\n    ],\n    [],\n    [\n      \"Осталось ФОП моно $\",\n      \"$1 737,75\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$895,00\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$4 323,24\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$339,46\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$1 657,14\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$0,10\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$2 999,84\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$123,40\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$153,71\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"-$3 031,81\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$2 754,78\",\n      \"$2 754,78\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось ФОП моно $\",\n      \"$0,00\"\n    ],\n    [\n      \"Осталось черная моно грн\",\n      \"34 473,26 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"27 908,95 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"36 417,75 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"41 848,64 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"61 245,27 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"34 957,62 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-56 626,77 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-25 923,49 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-61 185,60 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"28 257,50 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-31 334,15 грн\",\n      \"-31 334,15 грн\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Осталось черная моно грн\",\n      \"-31 334,15 грн\"\n    ],\n    [\n      \"Январь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Февраль\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Март\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Апрель\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Май\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Июнь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Июль\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Август\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Сентябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Октябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Ноябрь\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"\",\n      \"Декабрь\"\n    ]\n  ]\n}\n"
+        }
+      },
+      "recorded_at": "Sun, 12 Nov 2023 03:22:00 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

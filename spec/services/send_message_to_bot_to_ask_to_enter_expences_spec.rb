@@ -81,6 +81,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         price_in_usd: nil,
         currency_rate: 0.8707,
         total_sum_of_money_before_save: nil,
+        price_in_uah_white_card: nil,
       })
     end
   end
@@ -247,6 +248,7 @@ RSpec.describe SendMessageToBotToAskToEnterExpences do
         price_in_usd: 533.62,
         currency_rate: 0.8707,
         total_sum_of_money_before_save: nil,
+        price_in_uah_white_card: nil,
       })
     end
   end
