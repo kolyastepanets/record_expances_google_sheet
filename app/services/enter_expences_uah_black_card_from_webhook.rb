@@ -4,7 +4,7 @@ class EnterExpencesUahBlackCardFromWebhook < CommonExpensesFromWebhook
   def build_params
     is_usd = false
     is_uah = true
-    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
+    @total_sum_of_money_before_save = 0
 
     @params = {
       price_in_uah: @transaction_data[:amount].to_i.abs / 100.0,
