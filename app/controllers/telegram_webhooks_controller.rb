@@ -20,6 +20,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Enter wise salary'],
     ['Enter cash'],
     ['Получить статистику трат по дням'],
+    ['Получить статистику трат по дням сгруппированную по категориям'],
     ['Получить статистику по категории за месяц'],
     ['Получить среднее значение трат по категории за период'],
     ['Info current month'],
@@ -325,6 +326,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику трат по дням', method_to_call: 'get_statistic_by_days' },
+        { text: 'Получить статистику трат по дням сгруппированную по категориям', method_to_call: 'get_statistic_by_days_grouped_by_categories' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
         { text: 'Получить среднее значение трат по категории за период', method_to_call: 'get_statistic_average_expenses_by_category_for_period' },
         { text: 'Info current month',  method_to_call: 'info_current_month' },
@@ -379,6 +381,23 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end_date = args.first
 
     arrays_of_data = GetStatisticForDaysFromGoogleSheet.call(start_date, end_date)
+    arrays_of_data.each_with_index do |array_of_data, index|
+      reply_markup = {}
+      reply_markup = { reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS } if index == (arrays_of_data.size - 1)
+
+      respond_with(
+        :message,
+        text: "```#{array_of_data.join("\n")}```",
+        parse_mode: :MarkdownV2,
+        **reply_markup,
+      )
+    end
+  end
+
+  def ask_start_date_and_end_date_grouped_by_category!(start_date, *args)
+    end_date = args.first
+
+    arrays_of_data = GetStatisticForDaysGroupedByCategoryFromGoogleSheet.call(start_date, end_date)
     arrays_of_data.each_with_index do |array_of_data, index|
       reply_markup = {}
       reply_markup = { reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS } if index == (arrays_of_data.size - 1)
@@ -767,6 +786,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def get_statistic_by_days
     save_context(:ask_start_date_and_end_date!)
+    respond_with(:message, text: 'Enter dates, "20.08.2023 21.08.2023" :')
+  end
+
+  def get_statistic_by_days_grouped_by_categories
+    save_context(:ask_start_date_and_end_date_grouped_by_category!)
     respond_with(:message, text: 'Enter dates, "20.08.2023 21.08.2023" :')
   end
 
