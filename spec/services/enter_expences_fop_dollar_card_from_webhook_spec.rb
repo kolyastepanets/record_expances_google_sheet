@@ -35,7 +35,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "YouTube",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -74,7 +74,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Google",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -114,7 +114,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "STGCOACH/CTYLINK",
           currency_rate: 2.5,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -153,7 +153,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "THE COACH YARD",
           currency_rate: 2.5,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -192,7 +192,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "WASABI, SUSHI & BENTO",
           currency_rate: 2.5,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -231,7 +231,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "thetrainline.com",
           currency_rate: 2.5,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -270,7 +270,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "trainline",
           currency_rate: 2.5,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -310,7 +310,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonald’s",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -349,7 +349,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonalds",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -388,7 +388,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "KIOSK MCD",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -427,7 +427,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "THE LEAVES CAFE EATERY",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -466,7 +466,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Wizz Air",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -505,7 +505,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "AIRBNB",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -579,7 +579,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Wizz Air",
         currency_rate: 0.869565,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -683,7 +683,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BAYU SANTERO 1 MBL",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -722,7 +722,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BBS - NESPRESSO BEACHW",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -761,7 +761,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BBS - NESPRESSO BEACHWALK",
         currency_rate: 2.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 

@@ -35,7 +35,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "YouTube",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -74,7 +74,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лиля ❤️",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -113,7 +113,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лиля ❤️",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -152,7 +152,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лілія С.",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -191,7 +191,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лілія С",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -219,7 +219,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 1,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
         can_show_final_sum: true,
       }
     end
@@ -249,7 +249,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 1,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
         can_show_final_sum: true,
       }
     end
@@ -290,7 +290,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Лілія С",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -329,7 +329,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: 8,
         mono_description: "Apple",
         currency_rate: 15.050167,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -358,7 +358,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 10.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -398,7 +398,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Google",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -437,7 +437,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: 8,
         mono_description: "Apple",
         currency_rate: 22.613065,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -476,7 +476,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "516875******6402",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -515,7 +515,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "516875****6402",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -544,7 +544,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 200.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -584,7 +584,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "414949******0254",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -623,7 +623,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "414949****0254",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -652,7 +652,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 200.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -692,7 +692,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "536354******4425",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -731,7 +731,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "431414******3237",
         currency_rate: 1.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -770,7 +770,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "DigitalOcean",
         currency_rate: 4.5,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -810,7 +810,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "STGCOACH/CTYLINK",
           currency_rate: 0.4,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -849,7 +849,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "THE COACH YARD",
           currency_rate: 0.4,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -888,7 +888,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "WASABI, SUSHI & BENTO",
           currency_rate: 0.4,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -927,7 +927,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "thetrainline.com",
           currency_rate: 0.4,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -966,7 +966,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
           current_month: Date.today.month,
           mono_description: "trainline",
           currency_rate: 0.4,
-          total_sum_of_money_before_save: 12345,
+          total_sum_of_money_before_save: 0,
         }
       end
 
@@ -1006,7 +1006,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonald’s",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1045,7 +1045,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "McDonalds",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1084,7 +1084,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "KIOSK MCD",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1123,7 +1123,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "THE LEAVES CAFE EATERY",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1162,7 +1162,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Vodafone\n#{ENV['MYKOLA_PHONE_NUMBER']}",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1201,7 +1201,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Vodafone\n#{ENV['LILIIA_PHONE_NUMBER']}",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1240,7 +1240,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Wizz Air",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1279,7 +1279,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "AIRBNB",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1308,7 +1308,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         receiptId: "E4HC-1552-737M-HAC7",
         time: 1661541332,
         currency_rate: 75.0,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1348,7 +1348,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "DigitalOcean",
         currency_rate: 43.929912,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1385,7 +1385,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "Банкомат BANK NEGARA IND",
         currency_rate: 0.002457,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1424,7 +1424,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BAYU SANTERO 1 MBL",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1463,7 +1463,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BBS - NESPRESSO BEACHW",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 
@@ -1502,7 +1502,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         current_month: Date.today.month,
         mono_description: "BBS - NESPRESSO BEACHWALK",
         currency_rate: 0.4,
-        total_sum_of_money_before_save: 12345,
+        total_sum_of_money_before_save: 0,
       }
     end
 

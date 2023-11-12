@@ -213,7 +213,7 @@ class HandleInputPhoto
   end
 
   def send_messages_before_enter_prices
-    @total_sum_of_money_before_save = 0
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah)
   end
 
   def send_messages_after_enter_prices
