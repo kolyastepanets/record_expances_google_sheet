@@ -17,4 +17,5 @@ Rails.application.routes.draw do
 
   resource :monobank_webhooks, only: [:show, :create]
   resource :wise_webhooks, only: [:create]
+  resource :health_checks, only: [:show]
 end
