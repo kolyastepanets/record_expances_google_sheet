@@ -301,6 +301,36 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
     end
   end
 
+  context 'when liliia send money', freezed_time: '2022-08-01' do
+    let(:transaction_data) do
+      {
+        amount: 400000,
+        balance: 2876000,
+        cashbackAmount: 0,
+        commissionRate: 0,
+        currencyCode: 980,
+        description: "Від: Лілія Степанець",
+        hold: true,
+        id: "JEMXm-kC9iSZNfGJ",
+        mcc: 4829,
+        operationAmount: 400000,
+        originalMcc: 4829,
+        receiptId: "E4HC-1552-737M-HAC7",
+        time: 1661541332,
+        can_show_final_sum: true,
+        total_sum_of_money_before_save: 0,
+        currency_rate: 1,
+      }
+    end
+
+    it 'calls job PutExpencesUahBlackCardJob' do
+      expect(PutExpencesUahBlackCardJob).to_not receive(:perform_later)
+      expect(SendMessageToBotToAskToEnterExpences).to receive(:call).with(transaction_data)
+
+      subject
+    end
+  end
+
   context 'when subscription to fairy tales', freezed_time: '2022-08-13' do
     let(:transaction_data) do
       {
