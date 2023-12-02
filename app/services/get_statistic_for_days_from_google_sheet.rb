@@ -3,14 +3,12 @@ class GetStatisticForDaysFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   DAY_INDEX = 3
   MONTH_INDEX = 4
   YEAR_INDEX = 5
-  EXPIRE_TIME = 30.minutes
   MAX_CHARACTERS_IN_STRING_COLUMN = 7
   MAX_ARRAY_SIZE_TO_FIT_TELEGRAM_MESSAGE_SIZE = 120
 
   def initialize(start_date, end_date)
     @start_date = start_date
     @end_date = end_date
-    @redis = Redis.new
     date_range = Date.parse(start_date)..Date.parse(end_date)
     @dates = (date_range).to_a
                          .map { |current_date| { day: current_date.day.to_s, months: [current_date.month.to_s, "#{current_date.month},1"], year: current_date.year.to_s } }
@@ -23,14 +21,7 @@ class GetStatisticForDaysFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def make_request
-    all_expenses = @redis.get('all_expenses')
-    if all_expenses.present?
-      @response_values = JSON.parse(all_expenses)
-      return @response_values
-    end
-
     @response_values = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range).values
-    @redis.set('all_expenses', @response_values.to_json, ex: EXPIRE_TIME)
   end
 
   def parse_response
