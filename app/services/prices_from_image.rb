@@ -22,21 +22,37 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
     array_of_texts = prepare_texts_for_bali_direct_store if is_bali_direct_store?
 
+    # binding.pry
+    # array_of_texts.each do |line|
+    #   if end_line_for_shop?(line) && match_total_price(line)
+    #     break @total_sum_in_receipt = match_total_price(line)
+    #   end
+
+    #   matched_price = match_common_price(line)
+    #   next if matched_price.nil?
+
+    #   category_name, sub_category_name = shop_parse_class.call(line)
+
+    #   @categories_with_prices << {
+    #     category_name: category_name,
+    #     sub_category_name: sub_category_name,
+    #     price: matched_price,
+    #     full_parsed_line: line.join(", "),
+    #   }
+    # end
+
     array_of_texts.each do |line|
-      if end_line_for_shop?(line) && match_total_price(line)
-        break @total_sum_in_receipt = match_total_price(line)
+      if end_line_for_shop?(line[:array_or_words])
+        break @total_sum_in_receipt = line[:price]
       end
 
-      matched_price = match_common_price(line)
-      next if matched_price.nil?
-
-      category_name, sub_category_name = shop_parse_class.call(line)
+      category_name, sub_category_name = shop_parse_class.call(line[:array_or_words])
 
       @categories_with_prices << {
         category_name: category_name,
         sub_category_name: sub_category_name,
-        price: matched_price,
-        full_parsed_line: line.join(", "),
+        price: line[:price],
+        full_parsed_line: line[:array_or_words],
       }
     end
   end
@@ -63,19 +79,26 @@ class PricesFromImage
   def end_line_for_shop?(array_of_words)
     return false if array_of_words.nil?
 
-    sainsbury_end?(array_of_words) || total_end?(array_of_words) || marks_and_spencer_end_or_comberton_shop?(array_of_words)
+    sainsbury_end?(array_of_words) ||
+      pepito_end?(array_of_words) ||
+      marks_and_spencer_end_or_comberton_shop?(array_of_words) ||
+      total_end?(array_of_words)
   end
 
   def sainsbury_end?(array_of_words)
     array_of_words.any? { |word| word.downcase == 'balance' }
   end
 
-  def total_end?(array_of_words)
-    array_of_words.any? { |word| word.downcase == 'total' }
+  def pepito_end?(array_of_words)
+    array_of_words.any? { |word| word.downcase == 'net' } && array_of_words.any? { |word| word.downcase == 'value' }
   end
 
   def marks_and_spencer_end_or_comberton_shop?(array_of_words)
     array_of_words.any? { |word| word.downcase == 'items' }
+  end
+
+  def total_end?(array_of_words)
+    array_of_words.any? { |word| word.downcase == 'total' }
   end
 
   def bali_direct_store_subtotal?(line)
@@ -206,54 +229,166 @@ class PricesFromImage
     matched_price <= 100
   end
 
+  # def prepare_texts_for_pepito
+  #   new_parsed_texts = []
+  #   filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
+
+  #   filtered_texts.each.with_index do |array_of_text, index|
+  #     if array_of_text.map(&:downcase).include?('discount')
+  #       next
+  #     end
+
+  #     if line_is_discount?(array_of_text, index)
+  #       next
+  #     end
+
+  #     if is_all_numbers?(array_of_text) && line_is_discount?(filtered_texts[index + 1], index)
+  #       discount_value = (filtered_texts[index + 1] - ['P'])[-2]
+  #       value_to_add = ["#{array_of_text[-1]} - #{discount_value}"]
+  #       add_last_price_to_array_of_texts!(new_parsed_texts, value_to_add)
+  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index + 1)
+  #       next
+  #     end
+
+  #     if is_all_numbers?(array_of_text)
+  #       add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text[-1]])
+  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
+  #       next
+  #     end
+
+  #     if is_all_numbers?(array_of_text - [".", ","])
+  #       add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text.last(3).join])
+  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
+  #       next
+  #     end
+
+  #     next if already_added?(array_of_text, new_parsed_texts)
+  #     next new_parsed_texts << array_of_text if new_parsed_texts.empty?
+
+  #     add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
+
+  #     if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
+  #       if !array_of_text.any? { |word| word.count("0-9") > 0 }
+  #         add_text_to_already_existing_array_of_text!(new_parsed_texts, filtered_texts[index + 1])
+  #       end
+
+  #       break
+  #     end
+  #   end
+
+  #   new_parsed_texts
+  # end
+
   def prepare_texts_for_pepito
-    new_parsed_texts = []
-    filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
+    grouped_texts = group_arrays_by_product_code
+    grouped_texts << total_price_array_of_text
+    build_array_of_texts_with_prices(grouped_texts)
+  end
 
-    filtered_texts.each.with_index do |array_of_text, index|
-      if array_of_text.map(&:downcase).include?('discount')
-        next
+  def group_arrays_by_product_code
+    grouped_texts = []
+
+    parsed_texts.deep_dup.each.with_index do |array_of_text, index|
+      next if array_of_text.any? { |str| str.include?('Items')} && !array_of_text.any? { |str| str.include?('Total')}
+      break if array_of_text.any? { |str| str.include?('total') || str.include?('Total') }
+
+      if array_of_text.any? { |str| str.length >= 10 && (str.start_with?('10') || str.start_with?('P10')) } # product code => means new line
+        grouped_texts << array_of_text
+      else
+        grouped_texts[-1]&.concat(array_of_text)
+      end
+    end
+
+    grouped_texts
+  end
+
+  def build_array_of_texts_with_prices(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each.with_index do |array_of_text, index|
+      price = buid_normal_price(array_of_text)
+      price = build_price_with_discount(array_of_text) if array_of_text.any? { |str| str.include?('Disc') }
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+
+      break if net_value?(array_of_text)
+    end
+
+    array_of_texts_with_prices
+  end
+
+  def build_price_with_discount(array_of_text)
+    discount = 0
+
+    array_of_text.reverse.each do |str|
+      discount = string_to_number(str)
+      next if discount.zero?
+
+      break discount
+    end
+
+    price = 0
+    array_of_text.take_while { |str| !str.include?('Disc') }.reverse.each do |str|
+      price = string_to_number(str)
+      next if price.zero?
+
+      break price
+    end
+
+    price - discount
+  end
+
+  def buid_normal_price(array_of_text)
+    price = 0
+
+    reversed_array_of_text = array_of_text.reverse
+    reversed_array_of_text.each do |str|
+      next if str.size == 4 # "1.00"
+
+      price = string_to_number(str)
+
+      next if price.zero?
+
+      if str.size == 3 # ["...", "...", "30", ",", "100"]
+        price = string_to_number(reversed_array_of_text[2] + reversed_array_of_text[1] + reversed_array_of_text[0])
       end
 
-      if line_is_discount?(array_of_text, index)
-        next
-      end
+      break price
+    end
 
-      if is_all_numbers?(array_of_text) && line_is_discount?(filtered_texts[index + 1], index)
-        discount_value = (filtered_texts[index + 1] - ['P'])[-2]
-        value_to_add = ["#{array_of_text[-1]} - #{discount_value}"]
-        add_last_price_to_array_of_texts!(new_parsed_texts, value_to_add)
-        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index + 1)
-        next
-      end
+    price
+  end
 
-      if is_all_numbers?(array_of_text)
-        add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text[-1]])
-        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
-        next
-      end
+  def net_value?(array_of_text)
+    array_of_text.join(', ').downcase.include?('net') && array_of_text.join(', ').downcase.include?('value')
+  end
 
-      if is_all_numbers?(array_of_text - [".", ","])
-        add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text.last(3).join])
-        add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
-        next
-      end
+  def string_to_number(str)
+    str.delete(",").delete(".").to_f
+  end
 
-      next if already_added?(array_of_text, new_parsed_texts)
-      next new_parsed_texts << array_of_text if new_parsed_texts.empty?
+  def total_price_array_of_text
+    array_of_text_total_price = nil
+    next_array = nil
 
-      add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
-
-      if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
-        if !array_of_text.any? { |word| word.count("0-9") > 0 }
-          add_text_to_already_existing_array_of_text!(new_parsed_texts, filtered_texts[index + 1])
-        end
-
+    parsed_texts.each_with_index do |array_of_text, index|
+      if net_value?(array_of_text)
+        array_of_text_total_price = array_of_text
+        next_array = parsed_texts[index + 1]
         break
       end
     end
 
-    new_parsed_texts
+    if string_to_number(array_of_text_total_price[-1]).zero?
+      array_of_text_total_price.concat(next_array)
+    end
+
+    array_of_text_total_price
   end
 
   def prepare_texts_for_frestive

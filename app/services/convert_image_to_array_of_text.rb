@@ -1,5 +1,5 @@
 class ConvertImageToArrayOfText < GoogleVisionBase
-  POSSIBLE_Y_POSITION = 10
+  POSSIBLE_Y_POSITION = 8
 
   def initialize(image)
     @image = image
@@ -21,7 +21,7 @@ class ConvertImageToArrayOfText < GoogleVisionBase
     end
     grouped_strings.delete_at(0)
 
-    grouped_strings = grouped_strings.sort_by{ |grouped_string| grouped_string[:key_y] }
+    grouped_strings = grouped_strings.sort_by { |grouped_string| grouped_string[:key_y] }
 
     memo = {}
 
@@ -43,11 +43,9 @@ class ConvertImageToArrayOfText < GoogleVisionBase
       memo[grouped_string[:key_y]] << grouped_string
     end
 
-    memo = memo.sort
-
     grouped_texts = []
 
-    memo.each do |key, values|
+    memo.sort.each do |key, values|
       grouped_texts << sort_words_from_left_to_right(values)
     end
 

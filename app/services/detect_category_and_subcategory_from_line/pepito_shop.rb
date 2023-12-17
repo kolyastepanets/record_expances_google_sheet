@@ -755,7 +755,7 @@ module DetectCategoryAndSubcategoryFromLine
         yogurt? || sour_cream_2? || greenfields_cheese? || president_cheese? || cheese_2? ||
         greenfields_milk_2? || bega_cheese? || butter_cheese? || greek_fetta? || cream_cheese? ||
         heavenly_yog? || butter? || cottage_cheese? || cheese_3? || kid_yog? || yummy_yog? ||
-        kefir? || arla_cheese? || milk_up? || parmesan? || mascarpone?
+        kefir? || arla_cheese? || milk_up? || parmesan? || mascarpone? || lactima?
     end
 
     def milk?
@@ -908,6 +908,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mascarpone?
       @line.include?('yummy') && @line.include?('mascarpone')
+    end
+
+    def lactima?
+      @line.include?('lactima') && @line.include?('chee')
     end
 
     ####
