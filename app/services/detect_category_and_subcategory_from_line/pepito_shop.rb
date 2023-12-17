@@ -47,7 +47,8 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
-        mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2? || ice?
+        mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2? || ice? ||
+        kombucha? || diamond_juice? || soda_water? || pepsi_cola?
     end
 
     def green_tea?
@@ -114,6 +115,22 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ice') && @line.include?('cube')
     end
 
+    def kombucha?
+      @line.include?('kombucha')
+    end
+
+    def diamond_juice?
+      @line.include?('diamond') && @line.include?('juice')
+    end
+
+    def soda_water?
+      @line.include?('soda') && @line.include?('water')
+    end
+
+    def pepsi_cola?
+      @line.include?('pepsi') && @line.include?('cola')
+    end
+
     ####
 
     def spices_and_seasonings?
@@ -160,7 +177,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def soda?
-      @line.include?('soda')
+      @line.include?('soda') && !@line.include?('water')
     end
 
     def rosemary?
@@ -228,7 +245,7 @@ module DetectCategoryAndSubcategoryFromLine
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
         chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika? ||
-        reeses_nut_bar? || fullo? || milk_stick?
+        reeses_nut_bar? || fullo? || milk_stick? || haribo_2? || sweet_seed? || local_sweet?
     end
 
     def magnum_icecream?
@@ -296,7 +313,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def honey?
-      @line.include?('honey')
+      @line.include?('honey') && !@line.include?('ha')
     end
 
     def cake?
@@ -463,6 +480,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('milk') && @line.include?('stick')
     end
 
+    def haribo_2?
+      @line.include?('hrb') && @line.include?('cmlw')
+    end
+
+    def sweet_seed?
+      @line.include?('kacang') && @line.include?('ting')
+    end
+
+    def local_sweet?
+      @line.include?('gepuk') && @line.include?('ting')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -500,11 +529,11 @@ module DetectCategoryAndSubcategoryFromLine
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
         mixed_berries? || apple? || kiwi? || raspberry? || melon? || pamelo? ||
-        lime?
+        lime? || pomegranate?
     end
 
     def pineapple?
-      @line.any? { |word| word.include?('nanas') } && (@line.include?('honi') || @line.include?('slice'))
+      @line.any? { |word| word.include?('nanas') } && (@line.include?('honi') || @line.include?('slice') || @line.include?('kupas'))
     end
 
     def mango?
@@ -544,7 +573,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def orange?
-      @line.include?('jeruk') && (@line.include?('murcot') || @line.include?('shantang'))
+      @line.include?('jeruk') && (@line.include?('murcot') || @line.include?('shantang') || @line.include?('clement'))
     end
 
     def lemon?
@@ -580,7 +609,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apple?
-      @line.include?('apel') && (@line.include?('grany') || @line.include?('royal'))
+      @line.include?('apel') && (@line.include?('grany') || @line.include?('royal') || @line.include?('futi'))
     end
 
     def kiwi?
@@ -601,6 +630,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def lime?
       @line.include?('jeruk') && @line.include?('nipis')
+    end
+
+    def pomegranate?
+      @line.include?('delima') && @line.include?('import')
     end
 
     ####
@@ -899,7 +932,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def milk_up?
-      @line.include?('milk') && @line.include?('up') && @line.include?('yogurt')
+      @line.include?('milk') && @line.include?('up') && (@line.include?('yogurt') || @line.include?('yoghurt'))
     end
 
     def parmesan?
@@ -993,7 +1026,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_breast? || chicken? || pork? || beef? || pork_2? || chicken_broiler? || duck?
+      chicken_breast? || chicken? || pork? || beef? || pork_2? || chicken_broiler? || duck? ||
+        smoked_duck?
     end
 
     def chicken_breast?
@@ -1022,6 +1056,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def duck?
       @line.include?('duck') && @line.include?('leg')
+    end
+
+    def smoked_duck?
+      @line.include?('duck') && @line.include?('smoked')
     end
 
     ####
@@ -1060,7 +1098,8 @@ module DetectCategoryAndSubcategoryFromLine
       mamas_ham? || mamas_pork? || sausages? || cooked_ham? || bacon? || smith_field_ham? ||
         mamas_salami? || triple_ham? || bernardi_beef? || nurnberg? || smoke_ham? ||
         mamas_sausage? || sausage? || bratwurst? || breakfast_ham? || danish_ham? ||
-        nice_sausage? || aroma_pork? || turkey_sausages? || chicken_sausage? || bernardi?
+        nice_sausage? || aroma_pork? || turkey_sausages? || chicken_sausage? || bernardi? ||
+        triple_ham_2?
     end
 
     def mamas_ham?
@@ -1145,6 +1184,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bernardi?
       @line.include?('bernardi') && @line.include?('chick')
+    end
+
+    def triple_ham_2?
+      @line.include?('triple') && @line.include?('three') && (@line.include?('ha') || @line.include?('ham'))
     end
 
     ####
@@ -1285,7 +1328,7 @@ module DetectCategoryAndSubcategoryFromLine
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
         dove? || to_wash_plates? || plastic_bag? || candles_for_cake? || sticks_for_food? ||
-        to_wash_plates_2? || sponge_2? || trash_bag?
+        to_wash_plates_2? || sponge_2? || trash_bag? || to_wash_plates_3?
     end
 
     def paseo?
@@ -1346,6 +1389,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def trash_bag?
       @line.include?('trash') && @line.include?('bag')
+    end
+
+    def to_wash_plates_3?
+      @line.include?('dishash') && @line.include?('jeruknipis') && @line.include?('bot')
     end
 
     ####
@@ -1498,7 +1545,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweety?
-      @line.any? { |word| word.include?('sweety') }&& @line.include?('pant')
+      @line.any? { |word| word.include?('sweety') } && @line.include?('pant')
     end
 
     def merries?
