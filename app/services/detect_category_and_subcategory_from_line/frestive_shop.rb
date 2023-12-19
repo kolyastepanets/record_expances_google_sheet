@@ -42,7 +42,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
-        aqua_water? || cheers_water? || mango_juice? || peach_juice? || pear_juice? || bottle_of_water?
+        aqua_water? || cheers_water? || mango_juice? || peach_juice? || pear_juice? || bottle_of_water? ||
+        water_soda? || diamond_juice?
     end
 
     def coca_cola?
@@ -93,12 +94,20 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('wtr') && @line.include?('btl')
     end
 
+    def water_soda?
+      @line.include?('polaris') && @line.include?('soda')
+    end
+
+    def diamond_juice?
+      @line.include?('diamnd') && @line.include?('jccrnbrry200m')
+    end
+
     ####
 
     def spices_and_seasonings?
       cook_cream? || sunflower_oil? || mayonaise? || mustard? || mayonaise_2? || soy_souce? ||
         oil? || sunflower_oil_2? || sugar? || salt? || leaves? || vinegar? || sunflower_oil_3? ||
-        mustard_2? || cream_for_cake? || jelly_for_cake?
+        mustard_2? || cream_for_cake? || jelly_for_cake? || salted_caramel?
     end
 
     def cook_cream?
@@ -165,6 +174,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('tarami') && @line.include?('jly') && @line.include?('mngo')
     end
 
+    def salted_caramel?
+      @line.include?('icelab') && @line.include?('slt')
+    end
+
     ####
 
     def sweets?
@@ -173,7 +186,7 @@ module DetectCategoryAndSubcategoryFromLine
         nutella? || schogetten? || cookies? || kit_kat? || kitkat? || hershey? || promo_pack? ||
         dark_chocolate? || haribo? || icecream_2? || excellence_chocolate? || bon_bon? ||
         kinder_schokobon? || deka? || ritter? || toblerone? || silver_queen? || jam? ||
-        jelly?
+        jelly? || kit_kat_2?
     end
 
     def honey?
@@ -298,6 +311,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jelly?
       @line.include?('nutrijell') && @line.include?('delima15gr')
+    end
+
+    def kit_kat_2?
+      @line.include?('nstl') && @line.include?('ktkt')
     end
 
     ####
@@ -865,7 +882,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      barilla? || rice? || spaghetti? || oat? || cous_cous? || cereals?
+      barilla? || rice? || spaghetti? || oat? || cous_cous? || cereals? || cereals_2?
     end
 
     def barilla?
@@ -890,6 +907,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cereals?
       @line.include?('kelloggs') && @line.include?('frt')
+    end
+
+    def cereals_2?
+      @line.include?('nstl') && @line.include?('hnystr')
     end
 
     ####
@@ -963,7 +984,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      coal? || antiseptic?
+      coal? || antiseptic? || for_ants? || humidity_gathering?
     end
 
     def coal?
@@ -972,6 +993,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def antiseptic?
       @line.include?('antis') && @line.include?('hs') && @line.include?('jrk')
+    end
+
+    def for_ants?
+      @line.include?('hit') && @line.include?('jpn') && @line.include?('sakura')
+    end
+
+    def humidity_gathering?
+      @line.include?('bagus') && ((@line.include?('serap') || @line.include?('air')) || @line.include?('reffil'))
     end
 
     ####

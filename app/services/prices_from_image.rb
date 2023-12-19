@@ -22,25 +22,6 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
     array_of_texts = prepare_texts_for_bali_direct_store if is_bali_direct_store?
 
-    # binding.pry
-    # array_of_texts.each do |line|
-    #   if end_line_for_shop?(line) && match_total_price(line)
-    #     break @total_sum_in_receipt = match_total_price(line)
-    #   end
-
-    #   matched_price = match_common_price(line)
-    #   next if matched_price.nil?
-
-    #   category_name, sub_category_name = shop_parse_class.call(line)
-
-    #   @categories_with_prices << {
-    #     category_name: category_name,
-    #     sub_category_name: sub_category_name,
-    #     price: matched_price,
-    #     full_parsed_line: line.join(", "),
-    #   }
-    # end
-
     array_of_texts.each do |line|
       if end_line_for_shop?(line[:array_or_words])
         break @total_sum_in_receipt = line[:price]
@@ -77,8 +58,6 @@ class PricesFromImage
   end
 
   def end_line_for_shop?(array_of_words)
-    return false if array_of_words.nil?
-
     sainsbury_end?(array_of_words) ||
       pepito_end?(array_of_words) ||
       marks_and_spencer_end_or_comberton_shop?(array_of_words) ||
@@ -103,11 +82,6 @@ class PricesFromImage
 
   def bali_direct_store_subtotal?(line)
     is_bali_direct_store? && line.any? { |word| word.downcase == 'subtotal' }
-  end
-
-  def negative_number?(line)
-    all_text.downcase.include?('waitrose') && line.match(/-\d*\.\d*$/) ||
-      is_frestive_supermarket? && line.match(/-\d*\,\d*$/)
   end
 
   def is_pepito_supermarket?
@@ -156,141 +130,19 @@ class PricesFromImage
     end
   end
 
-  def match_total_price(line)
-    string_price = line[-1]
-
-    if is_pepito_supermarket? || is_bali_direct_store?
-      matched_price = string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\.\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/)
-      matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
-      return matched_price
-    end
-
-    if is_frestive_supermarket?
-      index_of_total_word = line.map(&:downcase).find_index('total')
-      string_price = line.select.with_index { |word, index| index > index_of_total_word }.join
-
-      matched_price = (string_price.match(/\d*\,\d*\,\d*$/) || string_price.match(/\d*\,\d*$/) || string_price.match(/\d*.\d*\.\d*$/) || string_price.match(/\d*\.\d*$/)) || string_price.match(/\d*$/)
-      matched_price = matched_price[0].delete(",").delete(".").to_f if matched_price.present?
-      return matched_price
-    end
-
-    matched_price = string_price.match(/\d*\.\d*$/)
-    matched_price = matched_price[0].to_f if matched_price.present?
-    matched_price
-  end
-
-  def match_common_price(line)
-    if is_pepito_supermarket?
-      if line[-1].include?(' - ') # calculate discount
-        price, discount = line[-1].split(' - ')
-        matched_price = price.match(/\d*\,\d*$/) || price.match(/\d*\.\d*$/)
-        matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
-
-        matched_discount = discount.match(/\d*\,\d*$/) || discount.match(/\d*\.\d*$/) || discount.match(/\d*$/)
-        matched_discount = matched_discount[0].delete(",").delete(".").to_f if !matched_discount.nil?
-
-        return matched_price - matched_discount
-      end
-
-      matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
-      matched_price = nil if strange_punctuation_in_price?(line[-1])
-      matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
-      matched_price = nil if small_price_for_receipt?(matched_price)
-      return matched_price
-    end
-
-    if is_frestive_supermarket? || is_bali_direct_store?
-      matched_price = line[-1].match(/\d*\,\d*$/) || line[-1].match(/\d*\.\d*$/)
-      matched_price = nil if strange_punctuation_in_price?(line[-1])
-      matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
-      matched_price = nil if small_price_for_receipt?(matched_price)
-
-      if matched_price.nil?
-        matched_price = line.last(3).join
-        matched_price = matched_price.match(/\d*\,\d*$/) || matched_price.match(/\d*\.\d*$/)
-        matched_price = matched_price[0].delete(",").delete(".").to_f if !matched_price.nil?
-      end
-
-      return matched_price
-    end
-
-    matched_price = line[-1].match(/\d{1,2}\.\d{2}$/) || line[-1].match(/\d{1,2}\.\d{2}/) || line.join.match(/\d{1,2}\.\d{2}/)
-    matched_price = matched_price[0].to_f if !matched_price.nil?
-    matched_price
-  end
-
-  def strange_punctuation_in_price?(string_price)
-    string_price.count('.') > 1 || string_price.include?('-')
-  end
-
-  def small_price_for_receipt?(matched_price)
-    return false if matched_price.nil?
-
-    matched_price <= 100
-  end
-
-  # def prepare_texts_for_pepito
-  #   new_parsed_texts = []
-  #   filtered_texts = parsed_texts.deep_dup.reject { |array_of_text| array_of_text.size <= 1 }
-
-  #   filtered_texts.each.with_index do |array_of_text, index|
-  #     if array_of_text.map(&:downcase).include?('discount')
-  #       next
-  #     end
-
-  #     if line_is_discount?(array_of_text, index)
-  #       next
-  #     end
-
-  #     if is_all_numbers?(array_of_text) && line_is_discount?(filtered_texts[index + 1], index)
-  #       discount_value = (filtered_texts[index + 1] - ['P'])[-2]
-  #       value_to_add = ["#{array_of_text[-1]} - #{discount_value}"]
-  #       add_last_price_to_array_of_texts!(new_parsed_texts, value_to_add)
-  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index + 1)
-  #       next
-  #     end
-
-  #     if is_all_numbers?(array_of_text)
-  #       add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text[-1]])
-  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
-  #       next
-  #     end
-
-  #     if is_all_numbers?(array_of_text - [".", ","])
-  #       add_last_price_to_array_of_texts!(new_parsed_texts, [array_of_text.last(3).join])
-  #       add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
-  #       next
-  #     end
-
-  #     next if already_added?(array_of_text, new_parsed_texts)
-  #     next new_parsed_texts << array_of_text if new_parsed_texts.empty?
-
-  #     add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
-
-  #     if array_of_text.map(&:downcase).include?('net') && array_of_text.map(&:downcase).include?('value')
-  #       if !array_of_text.any? { |word| word.count("0-9") > 0 }
-  #         add_text_to_already_existing_array_of_text!(new_parsed_texts, filtered_texts[index + 1])
-  #       end
-
-  #       break
-  #     end
-  #   end
-
-  #   new_parsed_texts
-  # end
-
   def prepare_texts_for_pepito
-    grouped_texts = group_arrays_by_product_code
-    grouped_texts << total_price_array_of_text
-    build_array_of_texts_with_prices(grouped_texts)
+    grouped_texts = group_arrays_by_product_code_pepito
+    grouped_texts << total_price_array_of_text_pepito
+    build_array_of_texts_with_prices_pepito(grouped_texts)
   end
 
-  def group_arrays_by_product_code
+  def group_arrays_by_product_code_pepito
     grouped_texts = []
 
     parsed_texts.deep_dup.each.with_index do |array_of_text, index|
-      next if array_of_text.any? { |str| str.include?('Items')} && !array_of_text.any? { |str| str.include?('Total')}
       break if array_of_text.any? { |str| str.include?('total') || str.include?('Total') }
+
+      next if array_of_text.any? { |str| str.include?('Items')} && !array_of_text.any? { |str| str.include?('Total')}
 
       if array_of_text.any? { |str| str.length >= 10 && (str.start_with?('10') || str.start_with?('P10')) } # product code => means new line
         grouped_texts << array_of_text
@@ -302,12 +154,12 @@ class PricesFromImage
     grouped_texts
   end
 
-  def build_array_of_texts_with_prices(grouped_texts)
+  def build_array_of_texts_with_prices_pepito(grouped_texts)
     array_of_texts_with_prices = []
 
     grouped_texts.each.with_index do |array_of_text, index|
-      price = buid_normal_price(array_of_text)
-      price = build_price_with_discount(array_of_text) if array_of_text.any? { |str| str.include?('Disc') }
+      price = buid_indonesian_price(array_of_text)
+      price = build_indonesian_price_with_discount(array_of_text) if array_of_text.any? { |str| str.include?('Disc') }
 
       next if price.zero?
 
@@ -322,7 +174,7 @@ class PricesFromImage
     array_of_texts_with_prices
   end
 
-  def build_price_with_discount(array_of_text)
+  def build_indonesian_price_with_discount(array_of_text)
     discount = 0
 
     array_of_text.reverse.each do |str|
@@ -343,20 +195,23 @@ class PricesFromImage
     price - discount
   end
 
-  def buid_normal_price(array_of_text)
+  def buid_indonesian_price(array_of_text)
     price = 0
 
     reversed_array_of_text = array_of_text.reverse
     reversed_array_of_text.each do |str|
       next if str.size == 4 # "1.00"
 
+      # ["...", "...", "30", ",", "100"]
+      if str.size == 3
+        str = ''
+        str = reversed_array_of_text[4] + reversed_array_of_text[3] if reversed_array_of_text[3] == "," # ["TOTAL", "1", ",", "300", ",", "100"]
+        str += reversed_array_of_text[2] + reversed_array_of_text[1] + reversed_array_of_text[0]
+      end
+
       price = string_to_number(str)
 
-      next if price.zero?
-
-      if str.size == 3 # ["...", "...", "30", ",", "100"]
-        price = string_to_number(reversed_array_of_text[2] + reversed_array_of_text[1] + reversed_array_of_text[0])
-      end
+      next if price < 10
 
       break price
     end
@@ -372,7 +227,7 @@ class PricesFromImage
     str.delete(",").delete(".").to_f
   end
 
-  def total_price_array_of_text
+  def total_price_array_of_text_pepito
     array_of_text_total_price = nil
     next_array = nil
 
@@ -392,33 +247,70 @@ class PricesFromImage
   end
 
   def prepare_texts_for_frestive
-    new_parsed_texts = []
-
-    filtered_texts = parsed_texts
-      .reject { |array_of_text| array_of_text.size <= 3 && array_of_text.any? { |word| word.match(/[[:punct:]&&[^,]]/) } && array_of_text.size != 1 } # remove  ['1', '@', '115,000'] - it means quantity and full price
-      .reject { |array_of_text| (array_of_text.size == 5 || array_of_text.size == 6) && array_of_text.include?('@') } # remove  ["1.016", "@", "39", ",", "000"] - it means quantity and full price
-      .reject { |array_of_text| array_of_text.size == 2 } # remove  ['1', '115,000'] - it means quantity and full price
-      .reject { |array_of_text| array_of_text[-1].match(/-\d*\,\d*$/) } # negative number (discount)
-      .reject { |array_of_text| array_of_text.include?('disc') && array_of_text.include?('toko') }
-      .reject { |array_of_text| array_of_text.size == 4 && array_of_text[0].size != 8 && !array_of_text.map(&:downcase).include?('total') }
-
-    filtered_texts.each.with_index do |array_of_text, index|
-      if is_all_numbers?(array_of_text) && array_of_text.size == 1 && last_element_is_not_number?(new_parsed_texts)
-        add_last_price_to_array_of_texts!(new_parsed_texts, array_of_text)
-        next
-      end
-      if is_all_numbers?(array_of_text) && array_of_text.size == 1
-        next
-      end
-
-      new_parsed_texts << array_of_text
-    end
-
-    new_parsed_texts
+    grouped_texts = group_arrays_by_product_code_frestive
+    grouped_texts << total_price_array_of_text_frestive
+    build_array_of_texts_with_prices_frestive(grouped_texts)
   end
 
-  def last_element_is_not_number?(new_parsed_texts)
-    new_parsed_texts[-1][-1].to_f == 0.00
+  def group_arrays_by_product_code_frestive
+    grouped_texts = []
+
+    parsed_texts.deep_dup.each.with_index do |array_of_text, index|
+      break if array_of_text.any? { |str| str.downcase.include?('total') }
+
+      next if array_of_text.any? { |str| str.include?('@') || str.include?('€') } # skip ['1', '@', '115,000'] - it means quantity and full price
+      next if array_of_text.any? { |str| str.include?('disc') } # skip discount
+      next if array_of_text.size == 1 && !array_of_text.any? { |str| str.match(/[[:punct:]]/) } # skip ['randomtext']
+      next if array_of_text.size == 4 && string_to_number(array_of_text[0]).between?(1, 10) # ["0.9", "167", ",", "000"]
+      next if array_of_text.any? { |str| str.count('/') == 2 } # skip date
+      next if array_of_text.any? { |str| str.count(':') == 2 || str.count(':') == 1 } # skip time
+      next if array_of_text.size == 1 && parsed_texts[index + 1].any? { |str| str.include?('disc') } # special hack for 2 cases
+      next if array_of_text.size == 2 && parsed_texts[index + 1].any? { |str| frestive_product_start?(str.gsub(/\D/, '')) } # ["0.274", "33,000"]
+      next if array_of_text.any? { |str| str.downcase.include?('items') } && !array_of_text.any? { |str| str.downcase.include?('total') }
+
+      if array_of_text.any? { |str| frestive_product_start?(str.gsub(/\D/, '')) } || array_of_text.size >= 5
+        grouped_texts << array_of_text
+      else
+        grouped_texts[-1]&.concat(array_of_text)
+      end
+    end
+
+    grouped_texts
+  end
+
+  def frestive_product_start?(str)
+    str.length >= 8 && (str.start_with?('1') || str.start_with?('2') || str.start_with?('3'))
+  end
+
+  def total_price_array_of_text_frestive
+    total_price_array_of_text = parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str.downcase.include?('total') } }
+
+    if total_price_array_of_text[-1].downcase == "total"
+      parsed_texts.each_with_index do |array_of_text, index|
+        break total_price_array_of_text.concat(parsed_texts[index + 1]) if array_of_text == total_price_array_of_text
+      end
+    end
+
+    total_price_array_of_text
+  end
+
+  def build_array_of_texts_with_prices_frestive(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each.with_index do |array_of_text, index|
+      price = buid_indonesian_price(array_of_text)
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+
+      break if array_of_text.any? { |str| str.downcase.include?('total') }
+    end
+
+    array_of_texts_with_prices
   end
 
   def prepare_texts_for_bali_direct_store
@@ -429,29 +321,5 @@ class PricesFromImage
   # maybe can be automatted, it would be great!
   def prepare_texts_for_waitrose
     parsed_texts.reject { |array_of_text| array_of_text[-1].match(/-\d*\.\d*$/) } # negative number (discount)
-  end
-
-  def is_all_numbers?(array_of_text)
-    array_of_text.all? { |text| text.include?('.') || text.include?(',') } || array_of_text.all? { |text| text.to_f > 0 }
-  end
-
-  def line_is_discount?(current_array, index)
-    current_array.include?('Disc') && current_array.include?('.') && current_array.include?('(')
-  end
-
-  def add_last_price_to_array_of_texts!(new_parsed_texts, number)
-    new_parsed_texts[-1].concat(number)
-  end
-
-  def add_next_text_as_new_array!(new_parsed_texts, filtered_texts, index)
-    new_parsed_texts << filtered_texts[index + 1]
-  end
-
-  def add_text_to_already_existing_array_of_text!(new_parsed_texts, array_of_text)
-    new_parsed_texts[-1].concat(array_of_text)
-  end
-
-  def already_added?(array_of_text, new_parsed_texts)
-    (array_of_text - (new_parsed_texts[-1] || [])).blank?
   end
 end
