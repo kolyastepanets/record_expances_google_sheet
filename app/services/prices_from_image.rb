@@ -54,7 +54,7 @@ class PricesFromImage
   end
 
   def return_result
-    [@categories_with_prices.reject { |hsh| hsh[:price].zero? }, @total_sum_in_receipt.round(2), @unique_file_id]
+    [@categories_with_prices, @total_sum_in_receipt.round(2), @unique_file_id]
   end
 
   def end_line_for_shop?(array_of_words)
@@ -178,7 +178,7 @@ class PricesFromImage
     discount = 0
 
     array_of_text.reverse.each do |str|
-      discount = string_to_number(str)
+      discount = string_to_indonesian_price(str)
       next if discount.zero?
 
       break discount
@@ -186,7 +186,7 @@ class PricesFromImage
 
     price = 0
     array_of_text.take_while { |str| !str.include?('Disc') }.reverse.each do |str|
-      price = string_to_number(str)
+      price = string_to_indonesian_price(str)
       next if price.zero?
 
       break price
@@ -209,7 +209,7 @@ class PricesFromImage
         str += reversed_array_of_text[2] + reversed_array_of_text[1] + reversed_array_of_text[0]
       end
 
-      price = string_to_number(str)
+      price = string_to_indonesian_price(str)
 
       next if price < 10
 
@@ -223,7 +223,7 @@ class PricesFromImage
     array_of_text.join(', ').downcase.include?('net') && array_of_text.join(', ').downcase.include?('value')
   end
 
-  def string_to_number(str)
+  def string_to_indonesian_price(str)
     str.delete(",").delete(".").to_f
   end
 
@@ -239,7 +239,7 @@ class PricesFromImage
       end
     end
 
-    if string_to_number(array_of_text_total_price[-1]).zero?
+    if string_to_indonesian_price(array_of_text_total_price[-1]).zero?
       array_of_text_total_price.concat(next_array)
     end
 
@@ -261,7 +261,7 @@ class PricesFromImage
       next if array_of_text.any? { |str| str.include?('@') || str.include?('€') } # skip ['1', '@', '115,000'] - it means quantity and full price
       next if array_of_text.any? { |str| str.include?('disc') } # skip discount
       next if array_of_text.size == 1 && !array_of_text.any? { |str| str.match(/[[:punct:]]/) } # skip ['randomtext']
-      next if array_of_text.size == 4 && string_to_number(array_of_text[0]).between?(1, 10) # ["0.9", "167", ",", "000"]
+      next if array_of_text.size == 4 && string_to_indonesian_price(array_of_text[0]).between?(1, 10) # ["0.9", "167", ",", "000"]
       next if array_of_text.any? { |str| str.count('/') == 2 } # skip date
       next if array_of_text.any? { |str| str.count(':') == 2 || str.count(':') == 1 } # skip time
       next if array_of_text.size == 1 && parsed_texts[index + 1].any? { |str| str.include?('disc') } # special hack for 2 cases
@@ -317,9 +317,75 @@ class PricesFromImage
     parsed_texts.reject { |array_of_text| array_of_text.any? { |word| word.downcase == 'subtotal' } }
   end
 
-  # because I have to manually withdraw price from some product in receipt
-  # maybe can be automatted, it would be great!
   def prepare_texts_for_waitrose
-    parsed_texts.reject { |array_of_text| array_of_text[-1].match(/-\d*\.\d*$/) } # negative number (discount)
+    grouped_texts = group_textx_for_waitrose
+    grouped_texts << total_price_array_of_text_waitrose
+    build_array_of_texts_with_prices_waitrose(grouped_texts)
+  end
+
+  def group_textx_for_waitrose
+    grouped_texts = []
+
+    parsed_texts.deep_dup.each.with_index do |array_of_text, index|
+      break if waitrose_end?(array_of_text)
+
+      next if array_of_text.any? { |str| str.downcase.include?('items') }
+      next if array_of_text[-1].match(/-\d*\.\d*$/) # negative number (discount)
+
+      if array_of_text.size == 1
+        grouped_texts[-1]&.concat(array_of_text)
+      else
+        grouped_texts << array_of_text
+      end
+    end
+
+    grouped_texts
+  end
+
+  def total_price_array_of_text_waitrose
+    parsed_texts.detect { |array_of_text| waitrose_end?(array_of_text) }
+  end
+
+  def build_array_of_texts_with_prices_waitrose(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each do |array_of_text|
+      price = buid_uk_price(array_of_text)
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+
+      break if waitrose_end?(array_of_text)
+    end
+
+    array_of_texts_with_prices
+  end
+
+  def buid_uk_price(array_of_text)
+    price = 0
+
+    reversed_array_of_text = array_of_text.reverse
+    reversed_array_of_text.each do |str|
+      price = string_to_uk_price(str)
+
+      next if price.zero?
+      next if price > 300 # unreal price
+
+      break price
+    end
+
+    price
+  end
+
+  def waitrose_end?(array_of_text)
+    array_of_text.any? { |str| str.downcase.include?('balance') }
+  end
+
+  def string_to_uk_price(str)
+    str.gsub(",", ".").to_f
   end
 end

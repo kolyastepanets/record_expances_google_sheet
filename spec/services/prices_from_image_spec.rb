@@ -148,137 +148,137 @@ RSpec.describe PricesFromImage, vcr: true do
   #   end
   # end
 
-  # context 'when receipt waitrose modified receipt', freezed_time: '2022-09-22T13:44:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out08.jpeg") }
+  context 'when receipt waitrose modified receipt', freezed_time: '2022-09-22T13:44:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out08.jpeg") }
 
-  #   it 'return 3 values' do
-  #     result = subject
+    it 'return 3 values' do
+      result = subject
 
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>19.99, :full_parsed_line=>"V, BEEFSTEAK, CLUB, MALBE, 19.99"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.1, :full_parsed_line=>"C, &, M, MINI, PIADINA, 1.10"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>2.0, :full_parsed_line=>"V, FRUIT, SHOOT, BLKCRRNT, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>2.0, :full_parsed_line=>"V, FRT, SHTS, LS, S, /, FRTS, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5, :full_parsed_line=>"V, LIPTON, ICE, TEA, LEMON, 1.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5, :full_parsed_line=>"V, LIPTON, ICE, TEA, PEACH, 1.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.5, :full_parsed_line=>"WR, ESS, WHOLE, MILK, 1.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.9, :full_parsed_line=>"WR, ESS, WHOLE, MILK, 0.90"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>2.5, :full_parsed_line=>"HELLMANNS, MAYONNAISE, 2.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5, :full_parsed_line=>"V, LIPTON, ICE, TEA, PEACH, 1.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.25, :full_parsed_line=>"F, /, TRADE, BANANAS, 1.25"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5, :full_parsed_line=>"V, LIPTON, ICE, TEA, LEMON, 1.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0, :full_parsed_line=>"V, RITTER, SPORT, HONEY, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0, :full_parsed_line=>"V, RITTER, SPORT, HONEY, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0, :full_parsed_line=>"V, RITTER, SPORT, HONEY, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0, :full_parsed_line=>"V, RITTER, SPORT, HONEY, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>2.5, :full_parsed_line=>"STARBCKS, HOUSE, BLEND, 2.50"},
-  #         {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>7.33, :full_parsed_line=>"V, VENUS, OLAY, RAZOR, 7.33"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.55, :full_parsed_line=>"WR, ESS, SWEETCORN, 1.55"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.35, :full_parsed_line=>"WR, ESS, LEMON, 0.35"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>0.5, :full_parsed_line=>"SILVER, SPOON, SGR, 0.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.3, :full_parsed_line=>"LEERDAMMER, ORIGINAL, 2.30"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.3, :full_parsed_line=>"LEERDAMMER, ORIGINAL, 2.30"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.55, :full_parsed_line=>"WR, ESS, SWEETCORN, 1.55"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.66, :full_parsed_line=>"BIO, -, TIFUL, KEFIR, 1.66"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"WR, DORG, RADISH, BUNCH, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>2.2, :full_parsed_line=>"WR, 2, HALF, CIABATTAS, 2.20"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"WR, DORG, RADISH, BUNCH, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"WR, PR, AVOCADOS, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.4, :full_parsed_line=>"WR, CLASSIC, VINE, TOMS, 2.40"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>1.12, :full_parsed_line=>"WR, ESS, CHKN, LEGS, 1.12"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.55, :full_parsed_line=>"MIXED, PEPPERS, P, /, P, 1.55"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.0, :full_parsed_line=>"WR, WHITE, FARMHOUSE, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>3.5, :full_parsed_line=>"WR, ESS, K, /, PRAWNS, ASC, 3.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.1, :full_parsed_line=>"V, LINDT, CHILLI, CHOC, 2.10"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>3.95, :full_parsed_line=>"U, /, E, TORCHON, HAM, 3.95"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.7, :full_parsed_line=>"JONGENS, TST, WAFFLES, 1.70"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>2.4, :full_parsed_line=>"ROWSE, RUNNY, HONEY, 2.40"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>2.5, :full_parsed_line=>"STARBCKS, HOUSE, BLEND, 2.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.2, :full_parsed_line=>"WR, POME, DEI, MORO, TMS, 2.20"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"WILD, ROCKET2, 801, B, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.55, :full_parsed_line=>"WR, WATERMELON, 2.55"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95, :full_parsed_line=>"GALBANI, MOZZARELLA, 1.95"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.05, :full_parsed_line=>"GALBANI, MOZZARELLA, 0.05"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"ASPARAGUS, TIPS, 2.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.25, :full_parsed_line=>"V, POM, -, BEAR, ORIGINAL, 1.25"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.5, :full_parsed_line=>"YEO, VALL, DOUB, CREAM, 1.50"}],
-  #        105.2,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1])
-  #   end
-  # end
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>19.99},
+          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.1},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.5},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.9},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>2.5},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.25},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>1.5},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>2.5},
+          {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>7.33},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.55},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.35},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>0.5},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.3},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.3},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.55},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.66},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>2.2},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.4},
+          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>1.12},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.55},
+          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>3.5},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.1},
+          {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>3.95},
+          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.7},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>2.4},
+          {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>2.5},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.2},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.55},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.05},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.25},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.5},
+         105.2,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 
-  # context 'when receipt waitrose modified receipt 1', freezed_time: '2022-10-14T16:15:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out15.jpeg") }
+  context 'when receipt waitrose modified receipt 1', freezed_time: '2022-10-14T16:15:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out15.jpeg") }
 
-  #   it 'return 3 values' do
-  #     result = subject
+    it 'return 3 values' do
+      result = subject
 
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>19.99, :full_parsed_line=>"V, BEEFSTEAK, CLUB, MALBE, 19.99"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.0, :full_parsed_line=>"CRAVENDALE, MILK, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.0, :full_parsed_line=>"CRAVENDALE, MILK, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.5, :full_parsed_line=>"V, WR, ESS, STILL, WATER, 1.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.0, :full_parsed_line=>"V, WR, ESS, CHAM, HAND, WSH, 1.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.25, :full_parsed_line=>"MUTTI, F, /, CHOPPED, TOMS, 1.25"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.9, :full_parsed_line=>"YEO, VALL, DOUB, CREAM, 1.90"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.2, :full_parsed_line=>"WR, ESS, SALTED, BUTTER, 2.20"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.45, :full_parsed_line=>"V, JOHNSON, BATH, WASH, 3.45"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.0, :full_parsed_line=>"WR, ESS, FT, BANANAS, 1.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.4, :full_parsed_line=>"LARGE, ORANGES, 2.40"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.65, :full_parsed_line=>"WR, SWEET, PEPPERS, 1.65"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.1, :full_parsed_line=>"WR, GRANNY, SMITHS, 2.10"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.39, :full_parsed_line=>"WR, BEST, BRIT, APPLES, 1.39"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.5, :full_parsed_line=>"YEO, VALLEY, NAT, YOG, 2.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.2, :full_parsed_line=>"DORG, CARROTS, 1.20"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.4, :full_parsed_line=>"WR, ESS, CHAR, POTS, 1KG, 1.40"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.0, :full_parsed_line=>"WR, ESS, CONFRNS, PEARS, 1.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.0, :full_parsed_line=>"WR, ESS, CONFRNS, PEARS, 1.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.7, :full_parsed_line=>"WR, ESS, RADISH, 0.70"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>3.5, :full_parsed_line=>"WR1, PR, XL, AVOCADOS, 3.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.1, :full_parsed_line=>"WR, GOLDEN, DELICIOUS, R, 2.10"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.15, :full_parsed_line=>"BABYBEL, MINI, ORIGINL, 2.15"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.4, :full_parsed_line=>"2, @, £, 0.70, 1.40"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.05, :full_parsed_line=>"3, @, £, 0.35, TL, 1.05"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.5, :full_parsed_line=>"WR, DORG, PONTD, CABBGE, 1.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.0, :full_parsed_line=>"WR, CRANBERRIES, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>5.25, :full_parsed_line=>"WR, SALMON, FILLETS, 5.25"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>6.53, :full_parsed_line=>"WR, NO1, MSC, COD, LOIN, 6.53"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.5, :full_parsed_line=>"WR, ESS, CHICKN, LIVERS, 1.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.2, :full_parsed_line=>"WR, ESS, STRAWBERRIES, 2.20"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.3, :full_parsed_line=>"NO.1, CHICKEN, DRUM, 3.30"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.5, :full_parsed_line=>"CHERRY, VINE, TOMS, P, /, P, 2.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95, :full_parsed_line=>"GALBANI, MOZZARELLA, 1.95"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95, :full_parsed_line=>"GALBANI, MOZZARELLA, 1.95"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.29, :full_parsed_line=>"WR, DRY, CURED, B, /, BACON, 3.29"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.35, :full_parsed_line=>"WR, SMOKED, SALAMI, 2.35"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.35, :full_parsed_line=>"WR, SMOKED, SALAMI, 2.35"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.09, :full_parsed_line=>"WR, HONEY, ROAST, HAM, 3.09"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.0, :full_parsed_line=>"WR, HONEY, ROAST, HAM, 3.00"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"ASPARAGUS, TIPS, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.5, :full_parsed_line=>"CHERRY, VINE, TOMS, P, /, P, 2.50"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0, :full_parsed_line=>"ASPARAGUS, TIPS, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.95, :full_parsed_line=>"V, WKRS, LESS, SLT, C, &, 0, 1.95"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>5.6, :full_parsed_line=>"4, @, £, 1.40, 5.60"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.0, :full_parsed_line=>"V, NESTLE, SMARTIES, PENG, 2.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.95, :full_parsed_line=>"WR, FR, MIXED, EGGS, 2.95"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.45, :full_parsed_line=>"JACKSON, WHIE, BLOOMER, 1.45"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>3.5, :full_parsed_line=>"V, RITTER, SPORT, MINI, 3.50"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>0.8, :full_parsed_line=>"V, VICKS, TA, LOZENGE, 0.80"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>0.8, :full_parsed_line=>"V, HALLS, ORIGINAL, 0.80"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.0, :full_parsed_line=>"V, BATHTIME, CRAYONS, 3.00"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.35, :full_parsed_line=>"V, CREEPY, PUMPKNS, CHOCS, 1.35"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.6, :full_parsed_line=>"WR, WILD, ROCKET, 1.60"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.65, :full_parsed_line=>"WR, CAVOLO, NERO, 200G, 1.65"}],
-  #        137.65,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1] + 0.09)
-  #   end
-  # end
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>19.99},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.25},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.9},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.2},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.45},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.4},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.65},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.1},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.39},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.2},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.4},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.0},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.7},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>3.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.1},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.15},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.4},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.05},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>5.25},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>6.53},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.2},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.3},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.5},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.29},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.35},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.35},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.09},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.0},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.5},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.95},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>5.6},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.95},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.45},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>3.5},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>0.8},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>0.8},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.0},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.35},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.6},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.65},
+         137.65,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1] + 0.09)
+    end
+  end
 
   # context 'when receipt marks and spencer 1', freezed_time: '2022-09-26T18:55:00+00:00' do
   #   let(:get_telegram_image) { File.read("spec/images/out10.jpeg") }
@@ -338,17 +338,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>41700.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>6900.0},
@@ -381,17 +371,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>61424.0},
          {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>12000.0, },
@@ -440,17 +420,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>12000.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>10650.0, },
@@ -496,17 +466,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>15900.0},
          {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>22000.0},
@@ -529,17 +489,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>15904.0},
          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>115000.0},
@@ -568,17 +518,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>116730.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>41514.0, },
@@ -613,17 +553,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>16500.0},
           {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>16000.0},
@@ -662,17 +592,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>41700.0},
          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>52371.0},
@@ -712,17 +632,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>330000.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>64000.0},
@@ -741,17 +651,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>19289.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>5700.0},
@@ -783,17 +683,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>12000.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>128000.0},
@@ -835,17 +725,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>21000.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>57000.0},
@@ -864,17 +744,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>9000.0},
          {:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>48000.0},
@@ -908,17 +778,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>14500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>149100.0},
@@ -944,17 +804,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>60500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>99400.0},
@@ -972,17 +822,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>15300.0},
          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>66900.0},
@@ -1029,17 +869,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12200.0},
          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>4800.0},
@@ -1061,17 +891,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>40000.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>60900.0},
@@ -1109,17 +929,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>24000.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>60900.0},
@@ -1200,17 +1010,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>44500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>141500.0},
@@ -1247,17 +1047,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>16000.0},
          {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>76400.0},
@@ -1284,17 +1074,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>84500.0},
          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>41200.0},
@@ -1319,17 +1099,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56000.0},
          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>16000.0},
@@ -1358,17 +1128,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>39500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>149100.0},
@@ -1406,17 +1166,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>70000.0},
          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
@@ -1434,17 +1184,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>319000.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>148000.0},
@@ -1464,17 +1204,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>14000.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>111500.0},
@@ -1502,17 +1232,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>85900.0},
@@ -1535,17 +1255,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>42322.0},
@@ -1574,17 +1284,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>27115.0},
          {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>95040.0},
@@ -1605,17 +1305,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56000.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>149100.0},
@@ -1642,17 +1332,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>139500.0},
          {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>21000.0},
@@ -1682,17 +1362,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>107500.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>44500.0},
@@ -1714,17 +1384,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>21000.0},
          {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>32500.0},
@@ -1766,17 +1426,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>59460.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>20000.0},
@@ -1796,17 +1446,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>22000.0},
          {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>33000.0},
@@ -1833,17 +1473,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>84500.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>11730.0},
@@ -1869,17 +1499,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>13800.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>28400.0},
@@ -1898,17 +1518,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>65000.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>68000.0},
@@ -1943,17 +1553,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>40000.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>15900.0},
@@ -1974,17 +1574,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>121500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56000.0},
@@ -2008,17 +1598,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>121500.0},
          {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>71800.0},
@@ -2039,17 +1619,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>17500.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>36300.0},
@@ -2067,17 +1637,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>44000.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>46500.0},
@@ -2115,17 +1675,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>16300.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14000.0},
@@ -2149,17 +1699,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>42500.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>32000.0},
@@ -2180,17 +1720,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>35500.0},
          {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>59300.0},
@@ -2214,17 +1744,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>53700.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>49500.0},
@@ -2255,17 +1775,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>127000.0},
          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>28500.0},
@@ -2296,17 +1806,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>31000.0},
          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
@@ -2344,17 +1844,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>31000.0},
          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>17500.0},
@@ -2373,17 +1863,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>55000.0},
          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>21000.0},
@@ -2411,17 +1891,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>19888.0},
          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>41002.0},
@@ -2447,17 +1917,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12090.0},
          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>72500.0},
@@ -2486,17 +1946,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>45152.0},
          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>43741.0},
@@ -2533,17 +1983,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>249000.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
@@ -2579,17 +2019,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>182600.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
@@ -2621,17 +2051,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>38500.0},
          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>38993.0},
@@ -2675,17 +2095,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>122000.0},
          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>65843.0},
@@ -2704,17 +2114,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>60500.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>15500.0, },
@@ -2733,17 +2133,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>200000.0},
          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>44445.0},
@@ -2770,17 +2160,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>25500.0},
          {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>47000.0, },
@@ -2800,17 +2180,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>4955.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>26000.0, },
@@ -2839,17 +2209,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>22000.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>74347.0},
@@ -2888,17 +2248,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>26000.0},
          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>72500.0},
@@ -2917,17 +2267,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>179000.0},
          {:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>121500.0},
@@ -2962,17 +2302,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>66000.0},
@@ -3008,17 +2338,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>39300.0},
@@ -3057,17 +2377,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>10000.0},
           {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>9500.0},
@@ -3115,17 +2425,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>26000.0},
          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>41700.0},
@@ -3155,17 +2455,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>71000.0},
          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>88500.0},
@@ -3199,17 +2489,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
          {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>26000.0},
@@ -3244,17 +2524,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>32900.0},
          {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>319000.0},
@@ -3285,17 +2555,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>33000.0},
          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>56500.0},
@@ -3333,17 +2593,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>122000.0,},
          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>16400.0,},
@@ -3414,17 +2664,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>64500.0},
          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>65800.0},
@@ -3448,17 +2688,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>8000.0},
          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12978.0},
@@ -3491,17 +2721,7 @@ RSpec.describe PricesFromImage, vcr: true do
     it 'return 3 values' do
       result = subject
 
-      sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-      new_result = result[0].map do |hsh|
-        {
-          category_name: hsh[:category_name],
-          sub_category_name: hsh[:sub_category_name],
-          price: hsh[:price]
-        }
-      end
-      new_result << result[1]
-      new_result << result[2]
-
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
       expect(new_result).to eq(
         [{:category_name=>"Еда", :sub_category_name=>"Вода", :price=>47900.0},
@@ -6387,4 +5607,19 @@ RSpec.describe PricesFromImage, vcr: true do
   #     expect(sum_of_prices).to eq(result[1])
   #   end
   # end
+
+  def new_result_and_sum_of_prices(result)
+    sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
+    new_result = result[0].map do |hsh|
+      {
+        category_name: hsh[:category_name],
+        sub_category_name: hsh[:sub_category_name],
+        price: hsh[:price]
+      }
+    end
+    new_result << result[1]
+    new_result << result[2]
+
+    [new_result, sum_of_prices]
+  end
 end
