@@ -19,6 +19,7 @@ class PricesFromImage
     array_of_texts = parsed_texts
     array_of_texts = prepare_texts_for_waitrose if is_waitrose?
     array_of_texts = prepare_texts_for_polish_shop if is_polish_shop?
+    array_of_texts = prepare_texts_for_comberton_shop if is_comberton_shop?
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
 
@@ -60,7 +61,7 @@ class PricesFromImage
   def end_line_for_shop?(array_of_words)
     sainsbury_end?(array_of_words) ||
       pepito_end?(array_of_words) ||
-      marks_and_spencer_end_or_comberton_shop?(array_of_words) ||
+      polish_or_comberton_shop_end?(array_of_words) ||
       total_end?(array_of_words)
   end
 
@@ -70,10 +71,6 @@ class PricesFromImage
 
   def pepito_end?(array_of_words)
     array_of_words.any? { |word| word.downcase == 'net' } && array_of_words.any? { |word| word.downcase == 'value' }
-  end
-
-  def marks_and_spencer_end_or_comberton_shop?(array_of_words)
-    array_of_words.any? { |word| word.downcase == 'items' }
   end
 
   def total_end?(array_of_words)
@@ -100,6 +97,10 @@ class PricesFromImage
     all_text.downcase.include?('polish') && all_text.downcase.include?('marke')
   end
 
+  def is_comberton_shop?
+    all_text.downcase.include?('comberton') || all_text.downcase.include?('costcutter')
+  end
+
   def all_text
     @all_text ||= parsed_texts.flat_map(&:join).join
   end
@@ -109,7 +110,7 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::Waitrose
     elsif all_text.include?('sainsbury')
       DetectCategoryAndSubcategoryFromLine::Sainsburys
-    elsif all_text.downcase.include?('comberton') && all_text.downcase.include?('costcutter')
+    elsif is_comberton_shop?
       DetectCategoryAndSubcategoryFromLine::CombertonShop
     elsif is_polish_shop?
       DetectCategoryAndSubcategoryFromLine::PolishShop
@@ -376,12 +377,12 @@ class PricesFromImage
   end
 
   def string_to_uk_price(str)
-    str.gsub(",", ".").to_f
+    str.gsub("-", "").gsub(",", ".").to_f
   end
 
   def prepare_texts_for_polish_shop
     grouped_texts = group_texts_for_polish_shop
-    grouped_texts << total_price_array_of_text_polish_shop
+    grouped_texts << total_price_array_of_text_polish_or_comberton_shop
     build_array_of_texts_with_prices_polish_shop(grouped_texts)
   end
 
@@ -392,7 +393,7 @@ class PricesFromImage
     array_with_date_index = parsed_texts.index(array_with_date)
 
     parsed_texts[array_with_date_index..-1].deep_dup.each.with_index do |array_of_text, index|
-      break if polish_shop_end?(array_of_text)
+      break if polish_or_comberton_shop_end?(array_of_text)
 
       next if array_of_text == array_with_date
 
@@ -413,8 +414,8 @@ class PricesFromImage
     grouped_texts
   end
 
-  def total_price_array_of_text_polish_shop
-    parsed_texts.detect { |array_of_text| polish_shop_end?(array_of_text) }
+  def total_price_array_of_text_polish_or_comberton_shop
+    parsed_texts.detect { |array_of_text| polish_or_comberton_shop_end?(array_of_text) }
   end
 
   def build_array_of_texts_with_prices_polish_shop(grouped_texts)
@@ -430,13 +431,36 @@ class PricesFromImage
         price: price,
       }
 
-      break if polish_shop_end?(array_of_text)
+      break if polish_or_comberton_shop_end?(array_of_text)
     end
 
     array_of_texts_with_prices
   end
 
-  def polish_shop_end?(array_of_text)
+  def polish_or_comberton_shop_end?(array_of_text)
     array_of_text.any? { |str| str.downcase.include?('items') }
+  end
+
+  def prepare_texts_for_comberton_shop
+    grouped_texts = group_texts_for_comberton_shop
+    grouped_texts << total_price_array_of_text_polish_or_comberton_shop
+    build_array_of_texts_with_prices_polish_shop(grouped_texts)
+  end
+
+  def group_texts_for_comberton_shop
+    grouped_texts = []
+
+    array_with_pound = parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str == "£" } }
+    array_with_pound_index = parsed_texts.index(array_with_pound)
+
+    parsed_texts[array_with_pound_index..-1].deep_dup.each.with_index do |array_of_text, index|
+      break if polish_or_comberton_shop_end?(array_of_text)
+
+      next if array_of_text == array_with_pound
+
+      grouped_texts << array_of_text
+    end
+
+    grouped_texts
   end
 end

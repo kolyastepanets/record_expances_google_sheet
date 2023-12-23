@@ -85,67 +85,67 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  # context 'when receipt comberton shop 1', freezed_time: '2022-09-21T22:27:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out02.jpg") }
+  context 'when receipt comberton shop 1', freezed_time: '2022-09-21T22:27:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out02.jpg") }
 
-  #   it 'return 3 values' do
-  #     result = subject
+    it 'return 3 values' do
+      result = subject
 
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>nil, :sub_category_name=>nil, :price=>1.99, :full_parsed_line=>"GROCERY, NON, VAT, 1.99"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.79, :full_parsed_line=>"AMOY, LIGHT, SOY, SAUCE, 1.79"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.99, :full_parsed_line=>"GROCERY, NON, VAT, 1.99"}],
-  #        5.77,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1])
-  #   end
-  # end
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>nil, :sub_category_name=>nil, :price=>1.99},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.79},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.99},
+         5.77,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 
-  # context 'when receipt comberton shop 2', freezed_time: '2022-09-21T22:35:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out04.jpeg") }
+  context 'when receipt comberton shop 2', freezed_time: '2022-09-21T22:35:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out04.jpeg") }
 
-  #   it 'return 3 values' do
-  #     result = subject
+    it 'return 3 values' do
+      result = subject
 
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.85, :full_parsed_line=>"WALKERS, CRISPS, CHEESE, &, 1.85"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.45, :full_parsed_line=>"COOP, MOZZARELLA, 1.45"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.67, :full_parsed_line=>"ELMLEA, DOUBLE, 1.67"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.99, :full_parsed_line=>"LURPAK, BUTTER, SLIGHTLY, S, 2.99"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95, :full_parsed_line=>"COOP, 4PT, WHOLE, FRESH, MIL, -1.95"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>9.99, :full_parsed_line=>"BEEFSTK, &, LIBERTY, MALBEC, 9.99"}],
-  #        19.9,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1])
-  #   end
-  # end
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.85},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.45},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.67},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.99},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.95},
+          {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>9.99},
+         19.9,
+         nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 
-  # context 'when receipt comberton shop 4', freezed_time: '2022-10-04T19:21:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out12.jpeg") }
+  context 'when receipt comberton shop 4', freezed_time: '2022-10-04T19:21:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out12.jpeg") }
 
-  #   it 'return 3 values' do
-  #     result = subject
+    it 'return 3 values' do
+      result = subject
 
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>nil, :sub_category_name=>nil, :price=>1.6, :full_parsed_line=>"COOP, 2PT, WHOLE, FRESH, MIL, 1.60"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.25, :full_parsed_line=>"GROCERY, NON, VAT, 1.25"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.85, :full_parsed_line=>"WALKERS, CRISPS, CHEESE, &, 1.85"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.85, :full_parsed_line=>"LIL, -, LETS, NON, APP, REG, *, 1, 1.85"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>3.89, :full_parsed_line=>"ORAL, B, PRO, EXPERT, PROTEC, 3.89"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.4, :full_parsed_line=>"MCDOUGAL, PLAIN, FLOUR, 1.40"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>1.99, :full_parsed_line=>"GROCERY, NON, VAT, 1.99"},
-  #         {:category_name=>nil, :sub_category_name=>nil, :price=>2.55, :full_parsed_line=>"6, Fresh, Free, Range, Eggs, 2.55"}],
-  #        16.38,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1])
-  #   end
-  # end
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.6},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.25},
+          {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.85},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.85},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>3.89},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.4},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.99},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>2.55},
+          16.38,
+          nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
 
   context 'when receipt waitrose modified receipt', freezed_time: '2022-09-22T13:44:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out08.jpeg") }
