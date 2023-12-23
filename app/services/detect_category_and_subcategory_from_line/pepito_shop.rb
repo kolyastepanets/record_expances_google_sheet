@@ -357,7 +357,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ice_cream?
-      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw') || @line.include?('creamy'))
+      @line.include?('walls') && (@line.include?('crnt') || @line.include?('strw') || @line.include?('creamy') || @line.include?('rnbw'))
     end
 
     def truffle_coconut?
@@ -1259,7 +1259,7 @@ module DetectCategoryAndSubcategoryFromLine
     def grocery?
       rice? || barilla? || oats? || peas? || vermicelli? || some_porridge? ||
         rice_noodle? || oats_2? || red_lentils? || conhiglie? || farfalle? ||
-        granola? || cous_cous? || oats_3? || rice_2?
+        granola? || cous_cous? || oats_3? || rice_2? || oats_4?
     end
 
     def rice?
@@ -1323,12 +1323,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('riso') && @line.any? { |word| word.include?('gr') }
     end
 
+    def oats_4?
+      @line.include?('dat') && @line.include?('whole') && @line.include?('rolled')
+    end
+
     ####
 
     def kitchen_stuff?
       paseo? || some_stuff? || sponge? || montis? || soap? || handsoap? || another_soap? ||
         dove? || to_wash_plates? || plastic_bag? || candles_for_cake? || sticks_for_food? ||
-        to_wash_plates_2? || sponge_2? || trash_bag? || to_wash_plates_3?
+        to_wash_plates_2? || sponge_2? || trash_bag? || to_wash_plates_3? || to_wash_plates_4?
     end
 
     def paseo?
@@ -1393,6 +1397,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def to_wash_plates_3?
       @line.include?('dishash') && @line.include?('jeruknipis') && @line.include?('bot')
+    end
+
+    def to_wash_plates_4?
+      @line.include?('lavd') && @line.include?('violet') && @line.include?('ref')
     end
 
     ####
@@ -1487,7 +1495,7 @@ module DetectCategoryAndSubcategoryFromLine
     def home_stuff?
       bataries? || baby_wipes? || another_baby_wipes? || energizer? || baterai? ||
         some_spray? || wet_wipes? || raincoat? || glue? || humidity_gathering? ||
-        for_furniture? || antis?
+        for_furniture? || antis? || for_ants?
     end
 
     def bataries?
@@ -1536,6 +1544,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def antis?
       @line.include?('antis') && @line.include?('spray')
+    end
+
+    def for_ants?
+      @line.include?('hit') && @line.include?('aerosol')
     end
 
     ####
