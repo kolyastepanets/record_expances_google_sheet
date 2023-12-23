@@ -20,7 +20,6 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_waitrose if is_waitrose?
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
-    array_of_texts = prepare_texts_for_bali_direct_store if is_bali_direct_store?
 
     array_of_texts.each do |line|
       if end_line_for_shop?(line[:array_or_words])
@@ -80,10 +79,6 @@ class PricesFromImage
     array_of_words.any? { |word| word.downcase == 'total' }
   end
 
-  def bali_direct_store_subtotal?(line)
-    is_bali_direct_store? && line.any? { |word| word.downcase == 'subtotal' }
-  end
-
   def is_pepito_supermarket?
     all_text.downcase.include?('peptomarket') || all_text.downcase.include?('pepito') || express_berawa?
   end
@@ -94,10 +89,6 @@ class PricesFromImage
 
   def is_frestive_supermarket?
     all_text.downcase.include?('frestive')
-  end
-
-  def is_bali_direct_store?
-    all_text.downcase.include?('bali') && all_text.downcase.include?('direct') && all_text.downcase.include?('store')
   end
 
   def is_waitrose?
@@ -123,8 +114,6 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
     elsif is_pepito_supermarket?
       DetectCategoryAndSubcategoryFromLine::PepitoShop
-    elsif is_bali_direct_store?
-      DetectCategoryAndSubcategoryFromLine::BaliDirectStoreShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
@@ -311,10 +300,6 @@ class PricesFromImage
     end
 
     array_of_texts_with_prices
-  end
-
-  def prepare_texts_for_bali_direct_store
-    parsed_texts.reject { |array_of_text| array_of_text.any? { |word| word.downcase == 'subtotal' } }
   end
 
   def prepare_texts_for_waitrose

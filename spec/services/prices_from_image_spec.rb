@@ -5553,61 +5553,6 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  # context 'when receipt bali direct store 1', freezed_time: '2022-11-15T10:06:00+00:00' do
-  #   let(:get_telegram_image) { File.read("spec/images/out14.png") }
-
-  #   it 'return 3 values' do
-  #     result = subject
-
-  #     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
-  #     expect(result).to eq(
-  #       [[{:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>184500.0, :full_parsed_line=>"Organic, Whole, Chicken, 1, Rp184,500"},
-  #         {:category_name=>"Еда",
-  #          :sub_category_name=>"Молочка",
-  #          :price=>132500.0,
-  #          :full_parsed_line=>"Little, Smokey, Cheese, Sausage, 1, Rp132,500"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>145000.0, :full_parsed_line=>"Gold, Band, Snapper, Fillet, 1, Rp145,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>48000.0, :full_parsed_line=>"Eggs, 16, Rp48,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>46000.0, :full_parsed_line=>"Goat, Kefir, 1, Rp46,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>57500.0, :full_parsed_line=>"Mozzarella, Low, Fat, 1, Rp57,500"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>122000.0, :full_parsed_line=>"Cheese, Alpine, 1, Rp122,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>20000.0, :full_parsed_line=>"Lemon, Certified, Organic, 1, Rp20,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>16000.0, :full_parsed_line=>"Pineapple, 1, Rp16,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15000.0, :full_parsed_line=>"Cucumber, Local, Organic, 1, Rp15,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>12500.0, :full_parsed_line=>"Green, Onion, Organic, 1, Rp12,500"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>26000.0, :full_parsed_line=>"Beetroot, Certified, Organic, 1, Rp26,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>20000.0, :full_parsed_line=>"Arugula, Wild, Organic, 1, Rp20,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>8000.0, :full_parsed_line=>"Sweet, Corn, 1, Rp8,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15000.0, :full_parsed_line=>"Potato, 1, Rp15,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>13500.0, :full_parsed_line=>"Baby, Carrot, Organic, 1, Rp13,500"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>33000.0, :full_parsed_line=>"Cabbage, Green, Large, 1, Rp33,000"},
-  #         {:category_name=>"Еда",
-  #          :sub_category_name=>"Овощи",
-  #          :price=>18000.0,
-  #          :full_parsed_line=>"Mix, Plum, Cherry, Tomato, Certified, 1, Rp18,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>91500.0, :full_parsed_line=>"Beef, Cubes, Organic, 1, Rp91,500"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>14000.0, :full_parsed_line=>"Tomato, 1, Rp14,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>33500.0, :full_parsed_line=>"Tomato, Puree, 1, Rp33,500"},
-  #         {:category_name=>"Еда",
-  #          :sub_category_name=>"Сладости",
-  #          :price=>40000.0,
-  #          :full_parsed_line=>"Cookonuts, Dulce, de, Leche, Cookies, 1, Rp40,000"},
-  #         {:category_name=>"Еда",
-  #          :sub_category_name=>"Полуфабрикаты/морозилка",
-  #          :price=>130000.0,
-  #          :full_parsed_line=>"Syrniki, Classic, 1, Rp130,000"},
-  #         {:category_name=>"Еда",
-  #          :sub_category_name=>"Молочка",
-  #          :price=>75000.0,
-  #          :full_parsed_line=>"Sourdough, Coconut, Milk, Bread, 1, Rp75,000"},
-  #         {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>64500.0, :full_parsed_line=>"Beef, Pastrami, 1, Rp64,500"}],
-  #        1381000.0,
-  #        nil]
-  #     )
-  #     expect(sum_of_prices).to eq(result[1])
-  #   end
-  # end
-
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|
