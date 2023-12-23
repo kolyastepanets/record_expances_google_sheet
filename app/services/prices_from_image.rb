@@ -20,6 +20,8 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_waitrose if is_waitrose?
     array_of_texts = prepare_texts_for_polish_shop if is_polish_shop?
     array_of_texts = prepare_texts_for_comberton_shop if is_comberton_shop?
+    array_of_texts = prepare_texts_for_marks_and_spencer if is_marks_and_spencer?
+    array_of_texts = prepare_texts_for_tesco if is_tesco?
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
 
@@ -101,6 +103,14 @@ class PricesFromImage
     all_text.downcase.include?('comberton') || all_text.downcase.include?('costcutter')
   end
 
+  def is_marks_and_spencer?
+    all_text.downcase.include?('marksandspencer')
+  end
+
+  def is_tesco?
+    all_text.downcase.include?('tesco')
+  end
+
   def all_text
     @all_text ||= parsed_texts.flat_map(&:join).join
   end
@@ -114,7 +124,7 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::CombertonShop
     elsif is_polish_shop?
       DetectCategoryAndSubcategoryFromLine::PolishShop
-    elsif all_text.downcase.include?('marksandspencer')
+    elsif is_marks_and_spencer?
       DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
     elsif is_frestive_supermarket?
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
@@ -241,6 +251,8 @@ class PricesFromImage
     array_of_text_total_price
   end
 
+  # ----------------------------
+
   def prepare_texts_for_frestive
     grouped_texts = group_arrays_by_product_code_frestive
     grouped_texts << total_price_array_of_text_frestive
@@ -308,6 +320,8 @@ class PricesFromImage
     array_of_texts_with_prices
   end
 
+  # ----------------------------
+
   def prepare_texts_for_waitrose
     grouped_texts = group_texts_for_waitrose
     grouped_texts << total_price_array_of_text_waitrose
@@ -318,7 +332,7 @@ class PricesFromImage
     grouped_texts = []
 
     parsed_texts.deep_dup.each.with_index do |array_of_text, index|
-      break if waitrose_end?(array_of_text)
+      break if waitrose_or_marks_and_spencer_end?(array_of_text)
 
       next if array_of_text.any? { |str| str.downcase.include?('items') }
       next if array_of_text[-1].match(/-\d*\.\d*$/) # negative number (discount)
@@ -334,7 +348,7 @@ class PricesFromImage
   end
 
   def total_price_array_of_text_waitrose
-    parsed_texts.detect { |array_of_text| waitrose_end?(array_of_text) }
+    parsed_texts.detect { |array_of_text| waitrose_or_marks_and_spencer_end?(array_of_text) }
   end
 
   def build_array_of_texts_with_prices_waitrose(grouped_texts)
@@ -350,7 +364,7 @@ class PricesFromImage
         price: price,
       }
 
-      break if waitrose_end?(array_of_text)
+      break if waitrose_or_marks_and_spencer_end?(array_of_text)
     end
 
     array_of_texts_with_prices
@@ -372,13 +386,15 @@ class PricesFromImage
     price
   end
 
-  def waitrose_end?(array_of_text)
+  def waitrose_or_marks_and_spencer_end?(array_of_text)
     array_of_text.any? { |str| str.downcase.include?('balance') }
   end
 
   def string_to_uk_price(str)
     str.gsub("-", "").gsub(",", ".").to_f
   end
+
+  # ----------------------------
 
   def prepare_texts_for_polish_shop
     grouped_texts = group_texts_for_polish_shop
@@ -441,6 +457,8 @@ class PricesFromImage
     array_of_text.any? { |str| str.downcase.include?('items') }
   end
 
+  # ----------------------------
+
   def prepare_texts_for_comberton_shop
     grouped_texts = group_texts_for_comberton_shop
     grouped_texts << total_price_array_of_text_polish_or_comberton_shop
@@ -462,5 +480,102 @@ class PricesFromImage
     end
 
     grouped_texts
+  end
+
+  # ----------------------------
+
+  def prepare_texts_for_marks_and_spencer
+    grouped_texts = group_texts_for_marks_and_spencer
+    grouped_texts << total_price_array_of_text_marks_and_spencer
+    build_array_of_texts_with_prices_marks_and_spencer(grouped_texts)
+  end
+
+  def group_texts_for_marks_and_spencer
+    grouped_texts = []
+
+    array_with_company_name = parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str.include?("marksandspencer") } }
+    array_with_company_name_index = parsed_texts.index(array_with_company_name)
+
+    parsed_texts[array_with_company_name_index..-1].deep_dup.each.with_index do |array_of_text, index|
+      break if waitrose_or_marks_and_spencer_end?(array_of_text)
+
+      next if array_of_text == array_with_company_name
+      next if array_of_text.size == 3
+
+      grouped_texts << array_of_text
+    end
+
+    grouped_texts
+  end
+
+  def total_price_array_of_text_marks_and_spencer
+    parsed_texts.detect { |array_of_text| waitrose_or_marks_and_spencer_end?(array_of_text) }
+  end
+
+  def build_array_of_texts_with_prices_marks_and_spencer(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each do |array_of_text|
+      price = buid_uk_price(array_of_text)
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+
+      break if waitrose_or_marks_and_spencer_end?(array_of_text)
+    end
+
+    array_of_texts_with_prices
+  end
+
+  # ----------------------------
+
+  def prepare_texts_for_tesco
+    grouped_texts = group_texts_for_tesco
+    grouped_texts << total_price_array_of_text_tesco
+    build_array_of_texts_with_prices_tesco(grouped_texts)
+  end
+
+  def group_texts_for_tesco
+    grouped_texts = []
+
+    array_with_company_name = parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str.include?("tesco") } }
+    array_with_company_name_index = parsed_texts.index(array_with_company_name)
+
+    parsed_texts[array_with_company_name_index..-1].deep_dup.each.with_index do |array_of_text, index|
+      break if total_end?(array_of_text)
+
+      next if array_of_text == array_with_company_name
+
+      grouped_texts << array_of_text
+    end
+
+    grouped_texts
+  end
+
+  def total_price_array_of_text_tesco
+    parsed_texts.detect { |array_of_text| total_end?(array_of_text) }
+  end
+
+  def build_array_of_texts_with_prices_tesco(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each do |array_of_text|
+      price = buid_uk_price(array_of_text)
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+
+      break if total_end?(array_of_text)
+    end
+
+    array_of_texts_with_prices
   end
 end
