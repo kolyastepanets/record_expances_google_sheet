@@ -36,7 +36,7 @@ class PricesFromImage
         category_name: category_name,
         sub_category_name: sub_category_name,
         price: line[:price],
-        full_parsed_line: line[:array_or_words],
+        full_parsed_line: line[:array_or_words].join(', '),
       }
     end
   end

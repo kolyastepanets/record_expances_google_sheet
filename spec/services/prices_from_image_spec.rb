@@ -10,6 +10,22 @@ RSpec.describe PricesFromImage, vcr: true do
     allow_any_instance_of(described_class).to receive(:get_telegram_image).and_return(get_telegram_image)
   end
 
+  context 'when full_parsed_line', freezed_time: '2023-12-24T05:06:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/out02.jpg") }
+
+    it 'returns it as string' do
+      result = subject
+
+      expect(result).to eq(
+        [[{:category_name=>nil, :sub_category_name=>nil, :price=>1.99, :full_parsed_line=>"GROCERY, NON, VAT, 1.99"},
+          {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.79, :full_parsed_line=>"AMOY, LIGHT, SOY, SAUCE, 1.79"},
+          {:category_name=>nil, :sub_category_name=>nil, :price=>1.99, :full_parsed_line=>"GROCERY, NON, VAT, 1.99"}],
+        5.77,
+        nil]
+      )
+    end
+  end
+
   context 'when receipt polish shop 1', freezed_time: '2022-09-21T21:31:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out01.jpg") }
 
