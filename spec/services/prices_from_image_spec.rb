@@ -380,6 +380,7 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  # I do not want to add hack as end of receipt has total, not net value
   xcontext 'when receipt pepito 2', freezed_time: '2022-11-18T08:56:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/pepito/out07.jpeg") }
 
@@ -3221,6 +3222,40 @@ RSpec.describe PricesFromImage, vcr: true do
           1438023.0,
           nil
         ]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt pepito 93', freezed_time: '2023-12-24T05:21:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/pepito/out115.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>35000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>45000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>73500.0},
+          {:category_name=>"Еда", :sub_category_name=>"Вода", :price=>13000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>53000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>36500.0},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>20825.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>26000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>31600.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>68500.0},
+          {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>9500.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>50000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>9000.0},
+          {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>23868.0},
+          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>10350.0},
+          {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>4216.0},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>24375.0},
+          {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>9100.0},
+          {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>144000.0},
+          687334.0,
+          nil]
       )
       expect(sum_of_prices).to eq(result[1])
     end

@@ -48,7 +48,7 @@ module DetectCategoryAndSubcategoryFromLine
       green_tea? || cherry_juice? || cola? || fruit_juice? || andros_juice? || happy_day_juice? ||
         berri_juice? || bottle_of_water? || mineral_water? || aqua_click? || coconut_drink? ||
         mango_juice? || snake_fruit? || apple_juice? || coconut_drink_2? || ice? ||
-        kombucha? || diamond_juice? || soda_water? || pepsi_cola?
+        kombucha? || diamond_juice? || soda_water? || pepsi_cola? || pomegranate_juice?
     end
 
     def green_tea?
@@ -129,6 +129,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pepsi_cola?
       @line.include?('pepsi') && @line.include?('cola')
+    end
+
+    def pomegranate_juice?
+      @line.include?('pome') && @line.include?('nectar') && @line.any? { |word| word.include?('lt') }
     end
 
     ####
@@ -589,7 +593,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def pepaya?
-      @line.include?('pepaya') && @line.include?('calina')
+      @line.include?('pepaya') && (@line.include?('calina') || @line.include?('red'))
     end
 
     def strawberry?
