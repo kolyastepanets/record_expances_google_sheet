@@ -104,7 +104,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apple_juice?
-      @line.include?('juice') && @line.include?('apl')
+      @line.include?('juice') && (@line.include?('apl') || @line.include?('apple'))
     end
 
     def coconut_drink_2?
@@ -249,7 +249,8 @@ module DetectCategoryAndSubcategoryFromLine
         junglegold_coconut? || healthy_bar? || bar_cashew_2? || tobleron? ||
         condensed_milk? || belgian_chocolate_2? || big_babol? || tougri? || ritter? ||
         chocolate_stick_biscuite? || monggo? || some_chocolate? || popcorn? || jika? ||
-        reeses_nut_bar? || fullo? || milk_stick? || haribo_2? || sweet_seed? || local_sweet?
+        reeses_nut_bar? || fullo? || milk_stick? || haribo_2? || sweet_seed? || local_sweet? ||
+        lolylop? || dark_chocolate?
     end
 
     def magnum_icecream?
@@ -353,7 +354,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def marshmallow?
-      @line.include?('chomp') && (@line.include?('mrsmlw') || @line.include?('mllw'))
+      @line.include?('chomp') && (@line.include?('mrsmlw') || @line.include?('mllw') || @line.include?('mallow'))
     end
 
     def dilan?
@@ -496,6 +497,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('gepuk') && @line.include?('ting')
     end
 
+    def lolylop?
+      @line.include?('lollypop')
+    end
+
+    def dark_chocolate?
+      @line.include?('dark') && @line.include?('choco')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -613,7 +622,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apple?
-      @line.include?('apel') && (@line.include?('grany') || @line.include?('royal') || @line.include?('futi'))
+      @line.include?('apel') && (@line.include?('grany') || @line.include?('royal') || @line.include?('futi') || @line.include?('malang'))
     end
 
     def kiwi?
@@ -808,7 +817,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def greenfields_yog?
-      @line.include?('greenfields') && @line.include?('yog')
+      @line.include?('greenfields') && (@line.include?('yog') || @line.include?('yg'))
     end
 
     def biokul_yog?
