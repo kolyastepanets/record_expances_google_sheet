@@ -657,10 +657,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
     end
 
     # VPN is needed to make request to NBU
-    # No idea for now how to rerecord VCR correctly, because freeze time needs to be 20 of December
-    # but google sheet api token should be valid now
-    # Hope code works :)
-    xcontext 'when swift salary goes to the next year', freezed_time: '2022-12-16T04:32:00+00:00' do
+    context 'when swift salary goes to the next year', freezed_time: '2023-12-30T08:50:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {

@@ -3,9 +3,6 @@ require 'rails_helper'
 RSpec.describe EnterSalaryFromSwift do
   subject{ described_class.call(params) }
 
-  xcontext 'record full integration test on 10th november' do
-  end
-
   context 'when got salary on 10th of month', freezed_time: '2022-11-10' do
     let(:params) do
       { dollars: 1000 }
