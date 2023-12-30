@@ -542,7 +542,7 @@ module DetectCategoryAndSubcategoryFromLine
         corn? || red_apple? || pear? || plum? || orange? || lemon? || blueberries? ||
         green_peas? || pepaya? || strawberry? || yellow_watermelon? || cherries? ||
         mixed_berries? || apple? || kiwi? || raspberry? || melon? || pamelo? ||
-        lime? || pomegranate?
+        lime? || pomegranate? || sweet_apricot?
     end
 
     def pineapple?
@@ -647,6 +647,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pomegranate?
       @line.include?('delima') && @line.include?('import')
+    end
+
+    def sweet_apricot?
+      @line.include?('sweet') && @line.include?('apricot')
     end
 
     ####

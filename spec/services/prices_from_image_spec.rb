@@ -380,8 +380,7 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
-  # I do not want to add hack as end of receipt has total, not net value
-  xcontext 'when receipt pepito 2', freezed_time: '2022-11-18T08:56:00+00:00' do
+  context 'when receipt pepito 2', freezed_time: '2023-12-30T08:32:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/pepito/out07.jpeg") }
 
     it 'return 3 values' do
@@ -389,41 +388,12 @@ RSpec.describe PricesFromImage, vcr: true do
 
       new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
-        [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>61424.0},
-         {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>12000.0, },
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>56500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>33000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>9900.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>9300.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>21200.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>9900.0},
-         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>100500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>9300.0},
-         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>41700.0, },
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>12500.0},
-         {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>37000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>12500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>11000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>40000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Алкоголь", :price=>84500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>33495.0},
-         {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>137500.0},
-         {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>15300.0},
-         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>31812.0},
-         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>15360.0, },
-         {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>85000.0},
-         {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>28500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>24000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>42000.0},
-         {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>42400.0},
-         {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>12500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>28000.0},
-         {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>78210.0},
-         {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>6800.0},
-         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>18500.0},
-         {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>71800.0},
-         {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>79500.0},
-        1312901.0,
+        [{:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>42000.0},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>44500.0},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>4500.0},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>132500.0},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>34350.0},
+        257850.0,
         nil]
       )
       expect(sum_of_prices).to eq(result[1])
