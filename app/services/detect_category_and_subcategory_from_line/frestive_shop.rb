@@ -43,7 +43,7 @@ module DetectCategoryAndSubcategoryFromLine
     def water?
       coca_cola? || rauch_juice? || mixed_juice? || fanta? || jungle_juice? || nestle_water? ||
         aqua_water? || cheers_water? || mango_juice? || peach_juice? || pear_juice? || bottle_of_water? ||
-        water_soda? || diamond_juice?
+        water_soda? || diamond_juice? || coconut_water?
     end
 
     def coca_cola?
@@ -100,6 +100,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def diamond_juice?
       @line.include?('diamnd') && @line.include?('jccrnbrry200m')
+    end
+
+    def coconut_water?
+      @line.include?('fresh') && @line.include?('ccnutwtr')
     end
 
     ####
@@ -558,7 +562,7 @@ module DetectCategoryAndSubcategoryFromLine
       ricotta? || slices? || mozarella? || yummy_chese? || block? || president_gouda? ||
         bel_cheese? || baros_gouda? || ricta? || bega? || smoked_cheese? || kiri? ||
         laughing_cow_cheese? || cottage_cheese? || sweet_cheese? || paysan? || mini_cheese? ||
-        cottage_cheese_2?
+        cottage_cheese_2? || arla?
     end
 
     def ricotta?
@@ -679,6 +683,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def butter_3?
       @line.include?('lurpak') && @line.include?('butter')
+    end
+
+    def arla?
+      @line.include?('arla') && @line.include?('cheese')
     end
 
     ####
@@ -916,7 +924,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      tissue? || kitchen_ware? || sponge? || mitu_blue? || bio?
+      tissue? || kitchen_ware? || sponge? || wet_wipes? || bio?
     end
 
     def tissue?
@@ -931,8 +939,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('bagus') && @line.include?('bilas')
     end
 
-    def mitu_blue?
-      @line.include?('mitu') && @line.include?('blue')
+    def wet_wipes?
+      @line.include?('mitu') && (@line.include?('blue') || @line.include?('white'))
     end
 
     def bio?
@@ -956,7 +964,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bath_stuff?
-      toilet_paper? || crystal? || oralb? || for_clothes?
+      toilet_paper? || crystal? || oralb? || for_clothes? || colgate?
     end
 
     def toilet_paper?
@@ -973,6 +981,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def for_clothes?
       @line.include?('kispray') && @line.include?('gold')
+    end
+
+    def colgate?
+      @line.include?('colgt') && @line.include?('optic')
     end
 
     ####
