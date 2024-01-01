@@ -6,7 +6,7 @@ class ReceiveTotalSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def prepare_request_data
-    @range = "'Статистика накоплений'!A1:F"
+    @range = "'Статистика накоплений'!A1:D"
   end
 
   def parse_response

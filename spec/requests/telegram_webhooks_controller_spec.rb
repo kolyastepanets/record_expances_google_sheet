@@ -11,8 +11,6 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
   include ActiveJob::TestHelper
 
   before do
-    # allow(DeleteAllTodaysMessages).to receive(:call)
-    # allow(DeleteMessagesJob).to receive(:perform_later)
     allow(Telegram.bot).to receive(:delete_message)
   end
 
@@ -3015,7 +3013,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when round in google sheet like in monobank', freezed_time: '2023-02-12T12:58:00+00:00' do
+  context 'when round in google sheet like in monobank', freezed_time: '2024-01-01T02:57:00+00:00' do
     let(:telegram_bot_params_return_round_money) do
       {
           "message" => {

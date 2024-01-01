@@ -7,7 +7,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Total saved money on gsheets'],
     ['Траты в gsheets за текущий день'],
     ['Последние 10 транзакций в моно'],
-    ['Удалить все текущие сообщения'],
     ['Сегодня пришла Komank'],
     ['Получить статистику по Komank за 2 мес'],
     ['Заплатил за мес Komank'],
@@ -313,7 +312,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
-        { text: 'Удалить все текущие сообщения',  method_to_call: 'delete_all_todays_messages' },
         { text: 'Сегодня пришла Komank',  method_to_call: 'komank_came_today' },
         { text: 'Получить статистику по Komank за 2 мес', method_to_call: 'get_statistic_by_komank_for_2_months' },
         { text: 'Заплатил за мес Komank', method_to_call: 'paid_for_month_komank' },
@@ -678,10 +676,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     SaveMessageIdToRedis.call(payload["message_id"].presence || payload.dig("message", "message_id"))
     SaveMessageIdToRedis.call(result["result"]["message_id"])
-  end
-
-  def delete_all_todays_messages
-    DeleteAllTodaysMessages.call
   end
 
   def komank_came_today
