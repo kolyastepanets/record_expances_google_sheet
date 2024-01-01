@@ -13,6 +13,7 @@ class PutExpencesUahWhiteCardJob < ApplicationJob
       params[:sub_category_name],
       price_in_usd_to_put_in_google_sheets,
     )
+    SendNotificationMessageToBot.call(params)
 
     if params[:can_show_final_sum]
       is_usd = false
