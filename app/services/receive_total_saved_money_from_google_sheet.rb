@@ -6,22 +6,16 @@ class ReceiveTotalSavedMoneyFromGoogleSheet < GetOrSetDataInGoogleSheetBase
   end
 
   def prepare_request_data
-    @range = "'Статистика накоплений'!A#{start_line_to_search}:G#{end_line_to_search}"
-  end
-
-  def start_line_to_search
-    45
-  end
-
-  def end_line_to_search
-    50
-  end
-
-  def find_by_word
-    'СУММА мои все'
+    @range = "'Статистика накоплений'!A1:F"
   end
 
   def parse_response
-    "total saved money in google sheet: #{balance_to_return}"
+    saved = @response.values
+                     .drop_while { |arrays| arrays != [Date.today.year.to_s] }
+                     .drop(1)
+                     .detect { |item| item[0] == "СУММА мои все" }
+                     .last
+
+    "total saved money in google sheet: #{saved}"
   end
 end
