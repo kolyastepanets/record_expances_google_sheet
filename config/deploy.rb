@@ -26,7 +26,16 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
-set :rvm_ruby_version, '2.7.0'
+set :rvm_ruby_version, "ruby-2.7.0@teg_bot_rec_exp_google_sheet"
+set :default_env, { rvm_bin_path: "~/.rvm/bin" }
+
+set :default_environment, {
+  'PATH' => "/usr/share/rvm/gems/ruby-2.7.0@teg_bot_rec_exp_google_sheet/bin:/usr/share/rvm/gems/ruby-2.7.0@global/bin:/usr/share/rvm/rubies/ruby-2.7.0/bin:/usr/share/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+  'RUBY_VERSION' => 'ruby-2.7.0',
+  'GEM_HOME'     => '/usr/share/rvm/gems/ruby-2.7.0@teg_bot_rec_exp_google_sheet',
+  'GEM_PATH'     => '/usr/share/rvm/gems/ruby-2.7.0@teg_bot_rec_exp_google_sheet',
+  'BUNDLE_PATH'  => '/usr/share/rvm/gems/ruby-2.7.0@teg_bot_rec_exp_google_sheet/bin/bundle'  # If you are using bundler.
+}
 
 # skip assets:precompile
 set :assets_roles, []
