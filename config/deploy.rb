@@ -50,7 +50,7 @@ set :assets_roles, []
 ## Linked Files & Directories (Default None):
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_files, %w[config/database.yml config/application.yml config/credentials.yml.enc]
+set :linked_files, %w[config/database.yml config/application.yml]
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
