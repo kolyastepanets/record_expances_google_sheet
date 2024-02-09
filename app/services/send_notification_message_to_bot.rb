@@ -12,7 +12,8 @@ class SendNotificationMessageToBot
 
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "Сохраненные данные: #{@params}",
+      text: "```#{BeautifulParamsMessage.call(@params)}```",
+      parse_mode: :MarkdownV2,
       **reply_markup_main_buttons,
     )
   end
