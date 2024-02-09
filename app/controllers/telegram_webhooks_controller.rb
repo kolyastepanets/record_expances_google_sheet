@@ -14,6 +14,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Получить статистику по pool man за 2 мес'],
     ['Заплатил за мес poolman'],
     ['Вернуть часть денег после снятия кэша'],
+    ['Calculate for Viktoriya'],
     ['how much and when can start spending for all categories'],
     ['Выровнять в гугл таблице как в монобанке'],
     ['Enter wise salary'],
@@ -320,6 +321,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Заплатил за мес poolman', method_to_call: 'paid_for_month_poolman' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
+        { text: 'Calculate for Viktoriya', method_to_call: 'ask_to_enter_hours'},
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
@@ -434,6 +436,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     )
 
     respond_with(:message, text: 'Cash has been entered!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
+  end
+
+  def ask_spent_hours!(hours)
+    usd_rate_per_hour = 50
+    uah_to_send = (hours.to_f * usd_rate_per_hour * MonobankCurrencyRates.call('USD', 'UAH')).round
+
+    respond_with(:message, text: "Send to Vikotoriya: #{uah_to_send} uah", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   private
@@ -966,5 +975,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def how_much_and_when_can_start_spending_for_all_categories
     SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(["Еда", "Для дома", "Непредвиденное", "Путешествия", "Развлечения"])
+  end
+
+  def ask_to_enter_hours
+    save_context(:ask_spent_hours!)
+    respond_with(:message, text: 'Enter how much spent hours: "2.5" :')
   end
 end
