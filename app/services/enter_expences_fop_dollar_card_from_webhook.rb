@@ -27,7 +27,7 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
         dollars: @transaction_data[:amount].to_i.abs / 100.0,
       }
     end
-    if @transaction_data[:description].downcase.include?(swift_salary)
+    if @transaction_data[:description].downcase.include?(swift_salary) || @transaction_data[:description].downcase.include?(rippling)
       @params = {
         swift_salary: true,
         dollars: @transaction_data[:amount].to_i.abs / 100.0,
@@ -60,6 +60,10 @@ class EnterExpencesFopDollarCardFromWebhook < CommonExpensesFromWebhook
 
   def swift_salary
     "swift"
+  end
+
+  def rippling
+    "rippling"
   end
 
   def currency_rate
