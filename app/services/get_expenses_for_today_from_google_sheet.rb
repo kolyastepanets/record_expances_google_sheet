@@ -27,7 +27,7 @@ class GetExpensesForTodayFromGoogleSheet < GetOrSetDataInGoogleSheetBase
       return @response_values
     end
 
-    response_values_with_formula = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, { value_render_option: 'FORMULA' }).values
+    response_values_with_formula = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range, value_render_option: 'FORMULA').values
     response_values_without_formula = service_google_sheet.get_spreadsheet_values(ENV['FIN_PLAN_SPREAD_SHEET_ID'], @range).values
     @response_values = []
     response_values_with_formula.each_with_index do |array_of_text, index|
