@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.3.0'
 
 gem 'rails', '~> 7.1.2'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 5.6.8'
 gem "bootsnap", require: false
 gem 'telegram-bot'
 gem 'google-apis-sheets_v4', '= 0.10.0'
