@@ -7,12 +7,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Total saved money on gsheets'],
     ['Траты в gsheets за текущий день'],
     ['Последние 10 транзакций в моно'],
-    ['Сегодня пришла Komank'],
-    ['Получить статистику по Komank за 2 мес'],
-    ['Заплатил за мес Komank'],
-    ['Сегодня пришел pool man'],
-    ['Получить статистику по pool man за 2 мес'],
-    ['Заплатил за мес poolman'],
     ['Вернуть часть денег после снятия кэша'],
     ['Calculate for Viktoriya'],
     ['how much and when can start spending for all categories'],
@@ -88,12 +82,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     when 'previous_day'
       session[:requested_date_to_show_expenses] -= 1.day
       get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: session[:requested_date_to_show_expenses])
-    when 'komank_came_today'
-      Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: redis.get('message_id_ask_if_komank_came_today'))
-      komank_came_today
-    when 'komank_did_not_come_today'
-      Telegram.bot.delete_message(chat_id: ENV['MY_TELEGRAM_ID'], message_id: redis.get('message_id_ask_if_komank_came_today'))
-      respond_with(:message, text: "Komank did not come today", reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
     when -> (input_category) { input_category.include?('category_for_statistic') }
       category_name = data.split(':')[0]
       session[:category_for_statistic] = category_name
@@ -313,12 +301,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
-        { text: 'Сегодня пришла Komank',  method_to_call: 'komank_came_today' },
-        { text: 'Получить статистику по Komank за 2 мес', method_to_call: 'get_statistic_by_komank_for_2_months' },
-        { text: 'Заплатил за мес Komank', method_to_call: 'paid_for_month_komank' },
-        { text: 'Сегодня пришел pool man', method_to_call: 'pool_man_came_today' },
-        { text: 'Получить статистику по pool man за 2 мес', method_to_call: 'get_statistic_by_poolman_for_2_months' },
-        { text: 'Заплатил за мес poolman', method_to_call: 'paid_for_month_poolman' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
         { text: 'Calculate for Viktoriya', method_to_call: 'ask_to_enter_hours'},
@@ -685,76 +667,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     SaveMessageIdToRedis.call(payload["message_id"].presence || payload.dig("message", "message_id"))
     SaveMessageIdToRedis.call(result["result"]["message_id"])
-  end
-
-  def komank_came_today
-    updated_rows = RecordTodayVisitKomankToGoogleSheet.call
-    if updated_rows == 1
-      return respond_with(
-        :message,
-        text: "Дата визита Komank сохранена",
-        reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
-      )
-    end
-    respond_with(
-      :message,
-      text: "Что то случилось, дата визита НЕ сохранена",
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
-    )
-  end
-
-  def get_statistic_by_komank_for_2_months
-    respond_with(
-      :message,
-      text: "```#{GetStatisticByKomankForTwoMonthsFromGoogleSheet.call}```",
-      parse_mode: :MarkdownV2,
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
-    )
-  end
-
-  def paid_for_month_komank
-    MarkPaidForMonthKomank.call
-    respond_with(
-      :message,
-      text: "```#{GetStatisticByKomankForTwoMonthsFromGoogleSheet.call}```",
-      parse_mode: :MarkdownV2,
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
-    )
-  end
-
-  def pool_man_came_today
-    updated_rows = RecordTodayVisitPoolManToGoogleSheet.call
-    if updated_rows == 1
-      return respond_with(
-        :message,
-        text: "Дата визита pool man сохранена",
-        reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
-      )
-    end
-    respond_with(
-      :message,
-      text: "Что то случилось, дата визита НЕ сохранена",
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
-    )
-  end
-
-  def get_statistic_by_poolman_for_2_months
-    respond_with(
-      :message,
-      text: "```#{GetStatisticByPoolmanForTwoMonthsFromGoogleSheet.call}```",
-      parse_mode: :MarkdownV2,
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
-    )
-  end
-
-  def paid_for_month_poolman
-    MarkPaidForMonthPoolman.call
-    respond_with(
-      :message,
-      text: "```#{GetStatisticByPoolmanForTwoMonthsFromGoogleSheet.call}```",
-      parse_mode: :MarkdownV2,
-      reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS,
-    )
   end
 
   def round_in_google_sheet_like_in_monobank
