@@ -36,7 +36,7 @@ class GoogleVisionBase
   end
 
   def parse_response
-    raise NoImplementedError
+    raise NotImplementedError
   end
 
   def service_vision

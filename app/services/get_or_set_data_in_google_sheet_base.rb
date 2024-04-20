@@ -21,11 +21,11 @@ class GetOrSetDataInGoogleSheetBase
   end
 
   def parse_response
-    raise NoImplementedError
+    raise NotImplementedError
   end
 
   def find_by_word
-    raise NoImplementedError
+    raise NotImplementedError
   end
 
   def start_line_to_search

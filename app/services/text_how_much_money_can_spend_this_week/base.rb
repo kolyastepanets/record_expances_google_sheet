@@ -99,11 +99,11 @@ module TextHowMuchMoneyCanSpendThisWeek
     end
 
     def category_name
-      raise NoImplementedError
+      raise NotImplementedError
     end
 
     def week_limit_spend
-      raise NoImplementedError
+      raise NotImplementedError
     end
   end
 end
