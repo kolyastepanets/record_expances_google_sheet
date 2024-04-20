@@ -24,6 +24,7 @@ class PricesFromImage
     array_of_texts = prepare_texts_for_tesco if is_tesco?
     array_of_texts = prepare_texts_for_pepito if is_pepito_supermarket?
     array_of_texts = prepare_texts_for_frestive if is_frestive_supermarket?
+    array_of_texts = prepare_texts_for_sok_turkey if sok_turkey?
 
     array_of_texts.each do |line|
       if end_line_for_shop?(line[:array_or_words])
@@ -64,6 +65,7 @@ class PricesFromImage
     sainsbury_end?(array_of_words) ||
       pepito_end?(array_of_words) ||
       polish_or_comberton_shop_end?(array_of_words) ||
+      sok_turkey_total_price_end?(array_of_words) ||
       total_end?(array_of_words)
   end
 
@@ -111,6 +113,10 @@ class PricesFromImage
     all_text.downcase.include?('tesco')
   end
 
+  def sok_turkey?
+    all_text.downcase.include?('marketler')
+  end
+
   def all_text
     @all_text ||= parsed_texts.flat_map(&:join).join
   end
@@ -130,6 +136,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
     elsif is_pepito_supermarket?
       DetectCategoryAndSubcategoryFromLine::PepitoShop
+    elsif sok_turkey?
+      DetectCategoryAndSubcategoryFromLine::SokTurkey
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
@@ -578,4 +586,82 @@ class PricesFromImage
 
     array_of_texts_with_prices
   end
+
+  # ----------------------------
+
+  def prepare_texts_for_sok_turkey
+    grouped_texts = group_texts_for_sok_turkey
+    grouped_texts << total_price_array_of_text_sok_turkey
+    build_array_of_texts_with_prices_sok_turkey(grouped_texts)
+  end
+
+  def group_texts_for_sok_turkey
+    grouped_texts = []
+
+    parsed_texts.deep_dup.each.with_index do |array_of_text, index|
+      break if sok_turkey_end?(array_of_text)
+
+      if array_of_text.any? { |str| str.length >= 13 && str.start_with?('8') } # product code => means new line
+        grouped_texts << array_of_text
+      else
+        grouped_texts[-1]&.concat(array_of_text)
+      end
+    end
+
+    grouped_texts
+  end
+
+  def total_price_array_of_text_sok_turkey
+    total_price_array_of_text = parsed_texts.detect { |array_of_text| sok_turkey_total_price_end?(array_of_text) }
+
+    if total_price_array_of_text[-1].downcase == "toplam"
+      parsed_texts.each_with_index do |array_of_text, index|
+        break total_price_array_of_text.concat(parsed_texts[index + 1]) if array_of_text == total_price_array_of_text
+      end
+    end
+
+    total_price_array_of_text
+  end
+
+  def build_array_of_texts_with_prices_sok_turkey(grouped_texts)
+    array_of_texts_with_prices = []
+
+    grouped_texts.each do |array_of_text|
+      price = buid_turkey_price(array_of_text)
+
+      next if price.zero?
+
+      array_of_texts_with_prices << {
+        array_or_words: array_of_text,
+        price: price,
+      }
+    end
+
+    array_of_texts_with_prices
+  end
+
+  def buid_turkey_price(array_of_text)
+    price = 0
+
+    reversed_array_of_text = array_of_text.reverse
+    reversed_array_of_text.each do |str|
+      price = string_to_uk_price(str)
+
+      next if price.zero?
+
+      break price
+    end
+
+    price
+  end
+
+  def sok_turkey_end?(array_of_text)
+    array_of_text.any? { |str| str.downcase.include?('topkdv') }
+  end
+
+  def sok_turkey_total_price_end?(array_of_text)
+    array_of_text.any? { |str| str.downcase.include?('toplam') }
+  end
+
+  # ----------------------------
 end
