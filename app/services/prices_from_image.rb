@@ -55,7 +55,7 @@ class PricesFromImage
     sainsbury_end?(array_of_words) ||
       pepito_end?(array_of_words) ||
       polish_or_comberton_shop_end?(array_of_words) ||
-      sok_turkey_total_price_end?(array_of_words) ||
+      turkey_total_price_end?(array_of_words) ||
       total_end?(array_of_words)
   end
 
@@ -107,6 +107,10 @@ class PricesFromImage
     all_text.downcase.include?('marketler')
   end
 
+  def is_bim_turkey?
+    all_text.downcase.include?('bim') && all_text.downcase.include?('bi̇rleşik')
+  end
+
   def waitrose_or_marks_and_spencer_end?(array_of_text)
     array_of_text.any? { |str| str.downcase.include?('balance') }
   end
@@ -115,7 +119,7 @@ class PricesFromImage
     array_of_text.any? { |str| str.downcase.include?('items') }
   end
 
-  def sok_turkey_total_price_end?(array_of_text)
+  def turkey_total_price_end?(array_of_text)
     array_of_text.any? { |str| str.downcase.include?('toplam') }
   end
 
@@ -140,6 +144,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::PepitoShop
     elsif is_sok_turkey?
       DetectCategoryAndSubcategoryFromLine::SokTurkey
+    elsif is_bim_turkey?
+      DetectCategoryAndSubcategoryFromLine::BimTurkey
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
@@ -162,6 +168,8 @@ class PricesFromImage
               BuildArrayOfTextWithPrices::Pepito
             elsif is_sok_turkey?
               BuildArrayOfTextWithPrices::SokTurkey
+            elsif is_bim_turkey?
+              BuildArrayOfTextWithPrices::BimTurkey
             elsif is_tesco?
               BuildArrayOfTextWithPrices::Tesco
             else

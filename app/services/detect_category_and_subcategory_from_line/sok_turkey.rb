@@ -1,9 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
   class SokTurkey < Default
-    def initialize(line_from_receipt)
-      @line = line_from_receipt.map(&:downcase)
-    end
-
     ####
 
     def bath_stuff?

@@ -4978,6 +4978,32 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt bim turkey 1', freezed_time: '2024-04-20T18:38:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/bim_turkey/out01.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>11.0},
+          {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>78.5},
+          {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>44.5},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>6.5},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>19.25},
+          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>28.5},
+          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>19.5},
+          {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>0.5},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>109.0},
+          {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>65.0},
+          {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.0},
+          384.25,
+          nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|

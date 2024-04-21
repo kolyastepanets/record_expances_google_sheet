@@ -1,14 +1,21 @@
 module BuildArrayOfTextWithPrices
-  class SokTurkey < Default
+  class BimTurkey < Default
     private
 
     def group_texts_for_parsed_texts
       grouped_texts = []
+      first_2adx = false
 
-      @parsed_texts.deep_dup.each.with_index do |array_of_text, index|
+      @parsed_texts.deep_dup.each do |array_of_text|
         break if not_product?(array_of_text)
 
-        if array_of_text.any? { |str| str.length >= 13 && str.start_with?('8') } # product code => means new line
+        if array_of_text.join.downcase.include?("2adx")
+          first_2adx = true
+          next
+        end
+        next if !first_2adx
+
+        if array_of_text.length >= 7
           grouped_texts << array_of_text
         else
           grouped_texts[-1]&.concat(array_of_text)
