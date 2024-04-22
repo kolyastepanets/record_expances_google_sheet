@@ -4978,6 +4978,26 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt sok turkey 2', freezed_time: '2024-04-22T18:07:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/sok_turkey/out02.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>38.5},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>9.0},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>59.8},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>39.95},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>26.76},
+        174.01,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt bim turkey 1', freezed_time: '2024-04-20T18:38:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/bim_turkey/out01.jpeg") }
 

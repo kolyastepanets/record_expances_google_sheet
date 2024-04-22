@@ -4,18 +4,28 @@ module BuildArrayOfTextWithPrices
 
     def group_texts_for_parsed_texts
       grouped_texts = []
+      first_2adt = !@parsed_texts.join.include?("2adt")
 
       @parsed_texts.deep_dup.each.with_index do |array_of_text, index|
         break if not_product?(array_of_text)
 
-        if array_of_text.any? { |str| str.length >= 13 && str.start_with?('8') } # product code => means new line
-          grouped_texts << array_of_text
-        else
+        if array_of_text.join.downcase.include?("2adt")
+          first_2adt = true
+          next
+        end
+        next if !first_2adt
+
+        last_two_elements = array_of_text.last(2)
+        if last_two_elements[0] == "*" && last_two_elements[1].include?(",")
           grouped_texts[-1]&.concat(array_of_text)
+        else
+          grouped_texts << array_of_text
         end
       end
 
-      grouped_texts
+      grouped_texts.filter { |array_of_text| array_of_text.length > 1 }
+                   .drop_while { |array_of_text| !array_of_text.include?("FİŞ") || !array_of_text.include?("NO") }
+                   .reject { |array_of_text| array_of_text.include?("FİŞ") && array_of_text.include?("NO") }
     end
 
     def total_price_array_of_text

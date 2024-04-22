@@ -75,11 +75,43 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sweets?
-      like_kinder?
+      like_kinder? || snickers? || cookie_with_chocolate? || cookie?
     end
 
     def like_kinder?
       @line.include?('ozmo') && @line.include?('yumurta') && @line.include?('kafalar')
+    end
+
+    def snickers?
+      @line.include?('snickers')
+    end
+
+    def cookie_with_chocolate?
+      @line.include?('karmen') && @line.include?('beyaz') && @line.include?('çi̇kolat')
+    end
+
+    def cookie?
+      @line.include?('tamköy') && @line.include?('tarsus') && @line.include?('çöreği̇')
+    end
+
+    ####
+
+    def bread?
+      just_bread?
+    end
+
+    def just_bread?
+      @line.include?('ekmek') && @line.include?('odun')
+    end
+
+    ####
+
+    def fruits?
+      golden_apple?
+    end
+
+    def golden_apple?
+      @line.include?('colden') && @line.include?('elma')
     end
   end
 end
