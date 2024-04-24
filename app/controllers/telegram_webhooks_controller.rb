@@ -4,7 +4,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   BUTTONS_INFO = [
     ['UAH and USD all'],
     ['How many taxes to pay in current month'],
-    ['Total saved money on gsheets'],
     ['Траты в gsheets за текущий день'],
     ['Последние 10 транзакций в моно'],
     ['Вернуть часть денег после снятия кэша'],
@@ -298,7 +297,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       mapping = [
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
         { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
-        { text: 'Total saved money on gsheets', method_to_call: 'total_saved_money_from_google_sheet' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
@@ -438,10 +436,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
-  end
-
-  def total_saved_money_from_google_sheet
-    respond_with(:message, text: ReceiveTotalSavedMoneyFromGoogleSheet.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: Date.today)
