@@ -41,7 +41,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || ayran?
+      milk? || ayran? || slice_cheese?
     end
 
     def milk?
@@ -52,14 +52,26 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ayran')
     end
 
+    def slice_cheese?
+      @line.include?('di̇li̇mli̇') && @line.include?('tam') && @line.include?('yağl')
+    end
+
     ####
 
     def sausage_and_sausages?
-      maret?
+      maret? || ham? || ham_2?
     end
 
     def maret?
       @line.include?('maret') && @line.include?('enfes') && @line.include?('macar')
+    end
+
+    def ham?
+      @line.include?("namet") && @line.include?("dana") && @line.include?("maca")
+    end
+
+    def ham_2?
+      @line.include?("namet") && @line.include?("hi̇ndi̇") && @line.include?("füme")
     end
 
     ####
@@ -112,6 +124,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def golden_apple?
       @line.include?('colden') && @line.include?('elma')
+    end
+
+    ####
+
+    def kitchen_stuff?
+      wet_wipes?
+    end
+
+    def wet_wipes?
+      @line.include?("kanz") && @line.include?("islak") && @line.include?("havlu")
     end
   end
 end
