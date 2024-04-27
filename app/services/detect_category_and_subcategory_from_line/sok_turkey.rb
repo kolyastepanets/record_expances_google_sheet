@@ -13,7 +13,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def grocery?
-      piyale? || barilla?
+      piyale? || barilla? || rice?
     end
 
     def piyale?
@@ -22,6 +22,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def barilla?
       @line.include?('barilla') && @line.include?('spaghetti')
+    end
+
+    def rice?
+      @line.include?('anadolu') && @line.include?('mutfaği') && @line.include?('yase')
     end
 
     ####
@@ -41,7 +45,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || ayran? || slice_cheese?
+      milk? || ayran? || slice_cheese? || butter? || milk_2?
     end
 
     def milk?
@@ -56,6 +60,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('di̇li̇mli̇') && @line.include?('tam') && @line.include?('yağl')
     end
 
+    def butter?
+      @line.include?('sütaş') && @line.include?('yayik') && @line.include?('tereyaği')
+    end
+
+    def milk_2?
+      @line.include?('i̇çi̇m') && @line.include?('süt') && @line.include?('yağli')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -63,7 +75,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def maret?
-      @line.include?('maret') && @line.include?('enfes') && @line.include?('macar')
+      @line.include?('maret') && @line.include?('enfes')
     end
 
     def ham?
@@ -71,7 +83,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ham_2?
-      @line.include?("namet") && @line.include?("hi̇ndi̇") && @line.include?("füme")
+      @line.include?("namet") && @line.include?("hi̇ndi̇")
     end
 
     ####
@@ -134,6 +146,12 @@ module DetectCategoryAndSubcategoryFromLine
 
     def wet_wipes?
       @line.include?("kanz") && @line.include?("islak") && @line.include?("havlu")
+    end
+
+    ####
+
+    def eggs?
+      @line.include?("anadolu") && @line.include?("çi̇ftli̇ği̇")
     end
   end
 end

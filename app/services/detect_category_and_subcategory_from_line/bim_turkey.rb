@@ -19,7 +19,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sweets?
-      chocolate_cake? || snickers? || nutella? || biscuit?
+      chocolate_cake? || snickers? || nutella? || biscuit? || kinder_biscuit?
     end
 
     def chocolate_cake?
@@ -36,6 +36,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def biscuit?
       @line.include?("biskuvi") && @line.include?("kak")
+    end
+
+    def kinder_biscuit?
+      @line.include?("kekçi̇k.kap") && @line.include?("pingui")
     end
 
     ####
@@ -69,11 +73,79 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      ayran?
+      ayran? || milk? || yogurt? || cheddar_cheese?
     end
 
     def ayran?
       @line.include?('ayran')
+    end
+
+    def milk?
+      @line.include?('süt') && @line.include?('dost')
+    end
+
+    def yogurt?
+      @line.include?('yoğurt') && @line.include?('dost')
+    end
+
+    def cheddar_cheese?
+      @line.include?('peynir') && @line.include?('cheddar')
+    end
+
+    ####
+
+    def sausage_and_sausages?
+      sausages? || ham? || ham_2? || salami?
+    end
+
+    def sausages?
+      @line.include?('uzun') && @line.include?('sosis') && @line.include?('dana')
+    end
+
+    def ham?
+      @line.include?('salam') && @line.include?('hindi')
+    end
+
+    def ham_2?
+      @line.include?('hindi') && @line.include?('fume')
+    end
+
+    def salami?
+      @line.include?('pilic') && @line.include?('salam')
+    end
+
+    ####
+
+    def spices_and_seasonings?
+      sunflower_oil?
+    end
+
+    def sunflower_oil?
+      @line.include?('ayçiçek') && @line.include?('yaği') && @line.include?('sole')
+    end
+
+    ####
+
+    def bread?
+      just_bread? || baking_powder?
+    end
+
+    def just_bread?
+      @line.include?('ekmek') && @line.include?('kepekli')
+    end
+
+    def baking_powder?
+      @line.include?('kabartma') && @line.include?('tozu')
+    end
+
+    ####
+
+    def for_beer?
+      cashew?
+    end
+
+    def cashew?
+      @line.include?('kavrulmuş') && @line.include?('kaju')
     end
   end
 end

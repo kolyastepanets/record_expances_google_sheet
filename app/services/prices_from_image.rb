@@ -108,7 +108,8 @@ class PricesFromImage
   end
 
   def is_bim_turkey?
-    all_text.downcase.include?('bim') && all_text.downcase.include?('bi̇rleşik')
+    (all_text.downcase.include?('bim') || all_text.downcase.include?('bi̇m')) &&
+      (all_text.downcase.include?('bi̇rleşik') || all_text.downcase.include?('bi̇rleşi̇k'))
   end
 
   def waitrose_or_marks_and_spencer_end?(array_of_text)
