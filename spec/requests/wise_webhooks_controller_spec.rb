@@ -258,7 +258,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
   end
 
   context 'when withdraw usd from wise' do
-    context 'when mark kindergaten', freezed_time: '2023-03-01T09:22:00+00:00' do
+    context 'when mark kindergaten', freezed_time: '2024-05-13T19:50:00+00:00' do
       let(:tranfer_id) { 609876859 }
 
       it 'saves to google sheet' do
@@ -267,7 +267,7 @@ RSpec.describe WiseWebhooksController, type: :request, vcr: true, perform_enqueu
       end
     end
 
-    context 'when unknown category', freezed_time: '2023-03-01T09:23:00+00:00' do
+    context 'when unknown category', freezed_time: '2024-05-13T19:47:00+00:00' do
       let(:tranfer_id) { 609852598 }
 
       it 'asks bot and saves to google sheet' do

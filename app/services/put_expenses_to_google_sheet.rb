@@ -21,7 +21,8 @@ class PutExpensesToGoogleSheet < GetOrSetDataInGoogleSheetBase
       @current_year,
       @date_today.strftime("%d.%m.%Y"),
       MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ","),
-      MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ",")
+      MonobankCurrencyRates.call('EUR', 'USD').to_s.gsub(".", ","),
+      CurrencyRate.call('GBP', 'USD').to_s.gsub(".", ",")
     ]]
     @range = "'Повседневные'!A:J"
   end

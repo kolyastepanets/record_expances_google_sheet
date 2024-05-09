@@ -26,12 +26,12 @@ class MonobankCurrencyRates
   private
 
   def currency_rates
-    currency_rates = @redis.get("currency_rates")
+    currency_rates = @redis.get("mono_currency_rates")
 
     return JSON.parse(currency_rates) if !currency_rates.nil?
 
     currency_rates = JSON.parse(Faraday.new(url: "https://api.monobank.ua/bank/currency").get.body)
-    @redis.set("currency_rates", currency_rates.to_json, ex: 1.day)
+    @redis.set("mono_currency_rates", currency_rates.to_json, ex: 1.day)
 
     currency_rates
   end

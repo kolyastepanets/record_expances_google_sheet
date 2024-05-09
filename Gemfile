@@ -13,7 +13,7 @@ gem 'redis', '= 4.5'
 gem 'rake'
 gem 'figaro'
 gem 'faraday'
-gem 'sidekiq', '= 6.5.10'
+gem 'sidekiq', '~> 7.2.2'
 gem 'rtesseract'
 gem 'whenever', require: false
 
