@@ -38,7 +38,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || butter? || maasdam_cheese?
+      milk? || butter? || maasdam_cheese? || milk_2?
     end
 
     def milk?
@@ -51,6 +51,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def maasdam_cheese?
       @line.include?('slices') && @line.include?('1.89')
+    end
+
+    def milk_2?
+      @line.include?('milk') && @line.include?('whole')
     end
 
     ####
@@ -80,11 +84,23 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      salt_shaker?
+      salt_shaker? || trash_bag? || trash_bag_2? || fairy?
     end
 
     def salt_shaker?
       @line.include?('saltshakercoursesalt')
+    end
+
+    def trash_bag?
+      @line.include?('bio') && @line.include?('caddy') && @line.include?('liners')
+    end
+
+    def trash_bag_2?
+      @line.include?('recrefusesack') && @line.include?('tietop')
+    end
+
+    def fairy?
+      @line.include?('fairy') && @line.include?('liquidoriginal')
     end
 
     ####
@@ -159,11 +175,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      krakauer_sausage?
+      krakauer_sausage? || silesian_sausage?
     end
 
     def krakauer_sausage?
       @line.include?('krakauer') && @line.include?('sausage')
+    end
+
+    def silesian_sausage?
+      @line.include?('silesian') && @line.include?('sausages')
     end
 
     ####
@@ -179,11 +199,29 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      baguette?
+      baguette? || sourdoug?
     end
 
     def baguette?
       @line.include?('baguette')
+    end
+
+    def sourdoug?
+      @line.include?('sourdoug') && @line.include?('white')
+    end
+
+    ####
+
+    def bath_stuff?
+      luquid_soap? || toilet_paper?
+    end
+
+    def luquid_soap?
+      @line.include?('hand') && @line.include?('wash')
+    end
+
+    def toilet_paper?
+      @line.include?('andrex') && @line.include?('coconut') && @line.include?('fresh')
     end
   end
 end
