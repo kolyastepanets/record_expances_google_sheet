@@ -61,6 +61,9 @@ module DetectCategoryAndSubcategoryFromLine
       elsif ready_to_cook?
         category_name = 'Еда'
         sub_category_name = 'Полуфабрикаты/морозилка'
+      elsif ready_to_eat?
+        category_name = 'Еда'
+        sub_category_name = 'Готовая'
       elsif bath_stuff?
         category_name = 'Для дома'
         sub_category_name = 'Ванные принадлежности'
@@ -156,6 +159,9 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def ready_to_cook?
+    end
+
+    def ready_to_eat?
     end
 
     def pampers?

@@ -323,6 +323,26 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt marks and spencer 2', freezed_time: '2024-05-17T20:27:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/m_and_s/out01.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Готовая", :price=>3.75},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.15},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.15},
+        11.05,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt tesco 1', freezed_time: '2022-10-10T20:35:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/out13.jpeg") }
 
