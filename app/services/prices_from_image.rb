@@ -130,9 +130,9 @@ class PricesFromImage
 
   def shop_parse_class
     if is_waitrose?
-      DetectCategoryAndSubcategoryFromLine::Waitrose
+      DetectCategoryAndSubcategoryFromLine::WaitroseShop
     elsif all_text.include?('sainsbury')
-      DetectCategoryAndSubcategoryFromLine::Sainsburys
+      DetectCategoryAndSubcategoryFromLine::SainsburysShop
     elsif is_comberton_shop?
       DetectCategoryAndSubcategoryFromLine::CombertonShop
     elsif is_polish_shop?
@@ -144,9 +144,9 @@ class PricesFromImage
     elsif is_pepito_supermarket?
       DetectCategoryAndSubcategoryFromLine::PepitoShop
     elsif is_sok_turkey?
-      DetectCategoryAndSubcategoryFromLine::SokTurkey
+      DetectCategoryAndSubcategoryFromLine::SokTurkeyShop
     elsif is_bim_turkey?
-      DetectCategoryAndSubcategoryFromLine::BimTurkey
+      DetectCategoryAndSubcategoryFromLine::BimTurkeyShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end

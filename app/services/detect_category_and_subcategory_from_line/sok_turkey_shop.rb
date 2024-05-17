@@ -1,5 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
-  class SokTurkey < Default
+  class SokTurkeyShop < Default
     ####
 
     def bath_stuff?

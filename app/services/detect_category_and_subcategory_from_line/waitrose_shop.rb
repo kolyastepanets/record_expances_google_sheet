@@ -1,5 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
-  class Waitrose < Default
+  class WaitroseShop < Default
     def alcohol?
       wine?
     end

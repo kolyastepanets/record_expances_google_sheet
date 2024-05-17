@@ -1,5 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
-  class BimTurkey < Default
+  class BimTurkeyShop < Default
     ####
 
     def bath_stuff?

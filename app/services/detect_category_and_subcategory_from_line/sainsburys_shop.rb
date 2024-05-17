@@ -1,5 +1,5 @@
 module DetectCategoryAndSubcategoryFromLine
-  class Sainsburys < Default
+  class SainsburysShop < Default
     def initialize(line_from_receipt)
       @line = line_from_receipt.map(&:downcase)
     end
