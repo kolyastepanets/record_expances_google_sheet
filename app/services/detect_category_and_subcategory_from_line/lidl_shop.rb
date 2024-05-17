@@ -19,16 +19,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sweets?
-      choc_cookies?
+      choc_cookies? || doughunt?
     end
 
     def choc_cookies?
       @line.include?('choc') && @line.include?('cookies')
     end
 
-    ####
-
-    def meat?
+    def doughunt?
+      @line.include?('doughnut') && @line.include?('choc')
     end
 
     ####
@@ -39,7 +38,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || butter?
+      milk? || butter? || maasdam_cheese?
     end
 
     def milk?
@@ -48,6 +47,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def butter?
       @line.include?('butter') && @line.any? { |word| word.include?('salted') }
+    end
+
+    def maasdam_cheese?
+      @line.include?('slices') && @line.include?('1.89')
     end
 
     ####
@@ -63,11 +66,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      tomato_sauce?
+      tomato_sauce? || oil?
     end
 
     def tomato_sauce?
       @line.include?('italian') && @line.include?('passata')
+    end
+
+    def oil?
+      @line.include?('oil')
     end
 
     ####
@@ -90,5 +97,93 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('indonesia') && @line.include?('instant')
     end
 
+    ####
+
+    def alcohol?
+      berries_wine?
+    end
+
+    def berries_wine?
+      @line.include?('berries') && @line.include?('wine')
+    end
+
+    ####
+
+    def food_bag_or_delivery?
+      bag?
+    end
+
+    def bag?
+      @line.include?('carrier')
+    end
+
+    ####
+
+    def vegetables?
+      red_onion? || potatoes? || carrots? || piccolo_tomatoes? || cucumbers? || dill? ||
+        cabbage? || beetroot?
+    end
+
+    def red_onion?
+      @line.include?('red') && @line.include?('onions')
+    end
+
+    def potatoes?
+      @line.include?('potatoes')
+    end
+
+    def carrots?
+      @line.include?('carrots')
+    end
+
+    def piccolo_tomatoes?
+      @line.include?('piccolo') && @line.include?('tomatoes')
+    end
+
+    def cucumbers?
+      @line.include?('cucumbers')
+    end
+
+    def dill?
+      @line.include?('d111') && @line.include?('fresh')
+    end
+
+    def cabbage?
+      @line.include?('cabbage')
+    end
+
+    def beetroot?
+      @line.include?('beetroot')
+    end
+
+    ####
+
+    def sausage_and_sausages?
+      krakauer_sausage?
+    end
+
+    def krakauer_sausage?
+      @line.include?('krakauer') && @line.include?('sausage')
+    end
+
+    ####
+
+    def meat?
+      beef_steak?
+    end
+
+    def beef_steak?
+      @line.include?('frying') && @line.include?('stea')
+    end
+
+    ####
+
+    def bread?
+      baguette?
+    end
+
+    def baguette?
+      @line.include?('baguette')
+    end
   end
 end

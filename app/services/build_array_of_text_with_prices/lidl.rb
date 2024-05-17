@@ -12,6 +12,7 @@ module BuildArrayOfTextWithPrices
         break if total_end?(array_of_text)
 
         next if array_of_text == array_with_pound
+        next if array_of_text.include?('@') && array_of_text.include?('kg') && array_of_text.include?('/')
 
         grouped_texts << array_of_text
       end
