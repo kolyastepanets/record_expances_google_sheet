@@ -99,6 +99,10 @@ class PricesFromImage
     all_text.downcase.include?('marksandspencer')
   end
 
+  def is_lidl?
+    all_text.downcase.include?('lidl.co.uk')
+  end
+
   def is_tesco?
     all_text.downcase.include?('tesco')
   end
@@ -139,6 +143,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::PolishShop
     elsif is_marks_and_spencer?
       DetectCategoryAndSubcategoryFromLine::MarksAndSpencerShop
+    elsif is_lidl?
+      DetectCategoryAndSubcategoryFromLine::LidlShop
     elsif is_frestive_supermarket?
       DetectCategoryAndSubcategoryFromLine::FrestiveShop
     elsif is_pepito_supermarket?
@@ -163,6 +169,8 @@ class PricesFromImage
               BuildArrayOfTextWithPrices::PolishShop
             elsif is_marks_and_spencer?
               BuildArrayOfTextWithPrices::MarksAndSpencer
+            elsif is_lidl?
+              BuildArrayOfTextWithPrices::Lidl
             elsif is_frestive_supermarket?
               BuildArrayOfTextWithPrices::Frestive
             elsif is_pepito_supermarket?
