@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def fruits?
-      plums? || mango?
+      plums? || mango? || strawberries?
     end
 
     def plums?
@@ -16,10 +16,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mango') && @line.include?('loose')
     end
 
+    def strawberries?
+      @line.include?('strawberries')
+    end
+
     ####
 
     def sweets?
-      choc_cookies? || doughunt?
+      choc_cookies? || doughunt? || ice_cream?
     end
 
     def choc_cookies?
@@ -28,6 +32,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def doughunt?
       @line.include?('doughnut') && @line.include?('choc')
+    end
+
+    def ice_cream?
+      @line.include?('fruit') && @line.include?('tower') && @line.include?('icecream')
     end
 
     ####
@@ -84,7 +92,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      salt_shaker? || trash_bag? || trash_bag_2? || fairy?
+      salt_shaker? || trash_bag? || trash_bag_2? || fairy? || dishwasher_tablets?
     end
 
     def salt_shaker?
@@ -103,6 +111,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('fairy') && @line.include?('liquidoriginal')
     end
 
+    def dishwasher_tablets?
+      @line.include?('dishwasher') && @line.include?('tablets')
+    end
+
     ####
 
     def tea_or_coffee?
@@ -116,11 +128,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def alcohol?
-      berries_wine?
+      berries_wine? || south_africa_wine?
     end
 
     def berries_wine?
       @line.include?('berries') && @line.include?('wine')
+    end
+
+    def south_africa_wine?
+      @line.include?('south') && @line.include?('african') && @line.include?('shiraz')
     end
 
     ####
@@ -189,17 +205,21 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      beef_steak?
+      beef_steak? || mince?
     end
 
     def beef_steak?
       @line.include?('frying') && @line.include?('stea')
     end
 
+    def mince?
+      @line.include?('mince')
+    end
+
     ####
 
     def bread?
-      baguette? || sourdoug?
+      baguette? || sourdoug? || buns?
     end
 
     def baguette?
@@ -208,6 +228,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sourdoug?
       @line.include?('sourdoug') && @line.include?('white')
+    end
+
+    def buns?
+      @line.include?('buns')
     end
 
     ####
@@ -222,6 +246,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def toilet_paper?
       @line.include?('andrex') && @line.include?('coconut') && @line.include?('fresh')
+    end
+
+    ####
+
+    def home_stuff?
+      flowers?
+    end
+
+    def flowers?
+      @line.include?('quality') && @line.include?('roses')
     end
   end
 end
