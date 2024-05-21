@@ -41,7 +41,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      salt_butter? || philadelphia_cheese? || soured_cream? || cravendale_milk? || cheese_slices?
+      salt_butter? || philadelphia_cheese? || soured_cream? || cravendale_milk? || cheese_slices? ||
+        butter? || double_cream?
     end
 
     def salt_butter?
@@ -62,6 +63,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cheese_slices?
       @line.include?('cheese') && @line.include?('slices')
+    end
+
+    def butter?
+      @line.include?('butter')
+    end
+
+    def double_cream?
+      @line.include?('thick') && @line.include?('dbl') && @line.include?('crm')
     end
 
     ####
@@ -91,11 +100,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def kitchen_stuff?
-      washing_capsules?
+      washing_capsules? || platter?
     end
 
     def washing_capsules?
       @line.include?('washing') && @line.include?('capsules')
+    end
+
+    def platter?
+      @line.include?('platter')
     end
 
     ####
@@ -185,7 +198,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_drumsticks? || meatballs?
+      chicken_drumsticks? || meatballs? || chicken_fillet?
     end
 
     def chicken_drumsticks?
@@ -196,10 +209,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('meatballs')
     end
 
+    def chicken_fillet?
+      @line.include?('chicken') && @line.include?('fillet')
+    end
+
     ####
 
     def bread?
-      wraps? || sliced_bread? || flour?
+      wraps? || sliced_bread? || flour? || bread_1?
     end
 
     def wraps?
@@ -212,6 +229,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def flour?
       @line.include?('flour')
+    end
+
+    def bread_1?
+      @line.include?('bread')
     end
 
     ####
@@ -249,7 +270,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def smoked_salmon?
-      @line.include?('smoked') && @line.include?('salmon')
+      @line.include?('smoked') && @line.any? { |word| word.include?('salmo') }
     end
 
     ####
@@ -279,11 +300,25 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def food_bag_or_delivery?
-      pack_and_delivery?
+      pack_and_delivery? || bag?
     end
 
     def pack_and_delivery?
       @line.include?('pack') && @line.any? { |word| word.include?('deliver') }
+    end
+
+    def bag?
+      @line.include?('bag')
+    end
+
+    ####
+
+    def for_beer?
+      walkers_crisps?
+    end
+
+    def walkers_crisps?
+      @line.include?('walkers') && @line.include?('crisps')
     end
   end
 end

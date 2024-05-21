@@ -351,17 +351,17 @@ RSpec.describe PricesFromImage, vcr: true do
 
       new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
-        [{:category_name=>nil, :sub_category_name=>nil, :price=>2.1},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>2.1},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>2.1},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>4.25},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>1.45},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>2.3},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>2.95},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>1.95},
-          {:category_name=>nil, :sub_category_name=>nil, :price=>0.3},
-         19.5,
-         nil]
+        [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>2.1},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.1},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.1},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>4.25},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>2.3},
+        {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>2.95},
+        {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.95},
+        {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>0.3},
+        19.5,
+        nil]
       )
       expect(sum_of_prices).to eq(result[1])
     end
