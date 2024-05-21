@@ -153,6 +153,8 @@ class PricesFromImage
       DetectCategoryAndSubcategoryFromLine::SokTurkeyShop
     elsif is_bim_turkey?
       DetectCategoryAndSubcategoryFromLine::BimTurkeyShop
+    elsif is_tesco?
+      DetectCategoryAndSubcategoryFromLine::TescoShop
     else
       DetectCategoryAndSubcategoryFromLine::Default
     end
@@ -164,9 +166,9 @@ class PricesFromImage
             elsif all_text.include?('sainsbury')
               BuildArrayOfTextWithPrices::Sainsburys
             elsif is_comberton_shop?
-              BuildArrayOfTextWithPrices::CombertonShop
+              BuildArrayOfTextWithPrices::Comberton
             elsif is_polish_shop?
-              BuildArrayOfTextWithPrices::PolishShop
+              BuildArrayOfTextWithPrices::Polish
             elsif is_marks_and_spencer?
               BuildArrayOfTextWithPrices::MarksAndSpencer
             elsif is_lidl?

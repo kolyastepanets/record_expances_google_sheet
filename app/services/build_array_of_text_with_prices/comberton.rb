@@ -1,5 +1,5 @@
 module BuildArrayOfTextWithPrices
-  class CombertonShop < Default
+  class Comberton < Default
     private
 
     def group_texts_for_parsed_texts

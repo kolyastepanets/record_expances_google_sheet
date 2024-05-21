@@ -1,5 +1,5 @@
 module BuildArrayOfTextWithPrices
-  class PolishShop < Default
+  class Polish < Default
     private
 
     def group_texts_for_parsed_texts

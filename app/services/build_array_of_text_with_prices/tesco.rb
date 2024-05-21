@@ -12,6 +12,7 @@ module BuildArrayOfTextWithPrices
         break if total_end?(array_of_text)
 
         next if array_of_text == array_with_company_name
+        next if array_of_text.size <= 2
 
         grouped_texts << array_of_text
       end
