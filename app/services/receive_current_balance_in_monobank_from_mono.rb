@@ -26,6 +26,8 @@ class ReceiveCurrentBalanceInMonobankFromMono
   end
 
   def parse_response
+    return "mono api error" if !@response.status.in?([200, 201])
+
     res = JSON.parse(@response.body)
     account = res["accounts"].detect { |acc| acc["iban"] == BLACK_MONO_CARD_IBAN }
     total_balance = account["balance"] - account["creditLimit"]
