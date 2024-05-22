@@ -118,11 +118,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def tea_or_coffee?
-      indonesia_coffee?
+      indonesia_coffee? || nesquik?
     end
 
     def indonesia_coffee?
       @line.include?('indonesia') && @line.include?('instant')
+    end
+
+    def nesquik?
+      @line.include?('nesquik') && @line.include?('chocolate')
     end
 
     ####
@@ -205,7 +209,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      beef_steak? || mince?
+      beef_steak? || mince? || chicken_wings?
     end
 
     def beef_steak?
@@ -214,6 +218,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mince?
       @line.include?('mince')
+    end
+
+    def chicken_wings?
+      @line.include?('chicken') && @line.include?('wings')
     end
 
     ####
