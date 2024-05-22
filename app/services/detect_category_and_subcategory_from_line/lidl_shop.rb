@@ -23,7 +23,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sweets?
-      choc_cookies? || doughunt? || ice_cream?
+      choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate?
     end
 
     def choc_cookies?
@@ -36,6 +36,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def ice_cream?
       @line.include?('fruit') && @line.include?('tower') && @line.include?('icecream')
+    end
+
+    def choc_biscuit?
+      @line.include?('choc') && @line.any? { |word| word.include?('bis') }
+    end
+
+    def kit_kat?
+      @line.include?('kitkat')
+    end
+
+    def almond_chocolate?
+      @line.include?('almondmilk') && @line.include?('chocolate')
     end
 
     ####

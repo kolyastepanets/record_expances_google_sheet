@@ -14,11 +14,6 @@ module BuildArrayOfTextWithPrices
         next if array_of_text == array_with_pound
         next if array_of_text.include?('@') && array_of_text.include?('kg') && array_of_text.include?('/')
 
-        if array_of_text[-1].include?('-') && array_of_text[-1].include?('.')
-          grouped_texts.delete_at(-1)
-          next
-        end
-
         grouped_texts << array_of_text
       end
 
@@ -35,6 +30,12 @@ module BuildArrayOfTextWithPrices
       grouped_texts.each do |array_of_text|
         price = buid_price(array_of_text)
 
+        # subtract discount from the previous price
+        if price.positive? && array_of_text[-1].include?('-') && array_of_text[-1].include?('.')
+          array_of_texts_with_prices[-1][:price] -= price
+          next
+        end
+
         next if price.zero?
 
         array_of_texts_with_prices << {
@@ -45,7 +46,7 @@ module BuildArrayOfTextWithPrices
         break if total_end?(array_of_text)
       end
 
-      array_of_texts_with_prices
+      array_of_texts_with_prices.filter { |hash| hash[:price].positive? }
     end
 
     def buid_price(array_of_text)
