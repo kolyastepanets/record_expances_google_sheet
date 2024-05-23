@@ -90,7 +90,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      tomato_sauce? || oil?
+      tomato_sauce? || oil? || sugar?
     end
 
     def tomato_sauce?
@@ -101,10 +101,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('oil')
     end
 
+    def sugar?
+      @line.include?('sugar')
+    end
+
     ####
 
     def kitchen_stuff?
-      salt_shaker? || trash_bag? || trash_bag_2? || fairy? || dishwasher_tablets?
+      salt_shaker? || trash_bag? || trash_bag_2? || fairy? || dishwasher_tablets? || dishwasher_salt? ||
+        microfibre_cloths?
     end
 
     def salt_shaker?
@@ -125,6 +130,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dishwasher_tablets?
       @line.include?('dishwasher') && @line.include?('tablets')
+    end
+
+    def dishwasher_salt?
+      @line.include?('dishwasher') && @line.include?('salt')
+    end
+
+    def microfibre_cloths?
+      @line.include?('microfibre') && @line.include?('cloths')
     end
 
     ####
@@ -221,7 +234,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      beef_steak? || mince? || chicken_wings?
+      beef_steak? || mince? || chicken_wings? || plain_kebabs?
     end
 
     def beef_steak?
@@ -234,6 +247,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_wings?
       @line.include?('chicken') && @line.include?('wings')
+    end
+
+    def plain_kebabs?
+      @line.include?('plain') && @line.include?('kebabs')
     end
 
     ####
@@ -276,6 +293,26 @@ module DetectCategoryAndSubcategoryFromLine
 
     def flowers?
       @line.include?('quality') && @line.include?('roses')
+    end
+
+    ####
+
+    def water?
+      apple_juice?
+    end
+
+    def apple_juice?
+      @line.include?('apple') && @line.include?('juice')
+    end
+
+    ####
+
+    def fish?
+      salmon_fillet?
+    end
+
+    def salmon_fillet?
+      @line.include?('salmon') && @line.include?('fillets')
     end
   end
 end
