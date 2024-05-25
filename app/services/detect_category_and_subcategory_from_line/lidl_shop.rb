@@ -5,7 +5,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def fruits?
-      plums? || mango? || strawberries?
+      plums? || mango? || strawberries? || bananas?
     end
 
     def plums?
@@ -20,10 +20,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('strawberries')
     end
 
+    def bananas?
+      @line.include?('bananas')
+    end
+
     ####
 
     def sweets?
-      choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate?
+      choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
+        kinder_milk_slice?
     end
 
     def choc_cookies?
@@ -50,6 +55,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('almondmilk') && @line.include?('chocolate')
     end
 
+    def kinder_milk_slice?
+      @line.include?('kinder') && @line.include?('milk') && @line.include?('slice')
+    end
+
     ####
 
     def ready_to_eat?
@@ -58,7 +67,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || butter? || maasdam_cheese? || milk_2?
+      milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese?
     end
 
     def milk?
@@ -75,6 +84,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def milk_2?
       @line.include?('milk') && @line.include?('whole')
+    end
+
+    def mozzarella_cheese?
+      @line.include?('mozzarella')
     end
 
     ####
@@ -157,7 +170,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def alcohol?
-      berries_wine? || south_africa_wine?
+      berries_wine? || south_africa_wine? || french_malbec?
     end
 
     def berries_wine?
@@ -166,6 +179,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def south_africa_wine?
       @line.include?('south') && @line.include?('african') && @line.include?('shiraz')
+    end
+
+    def french_malbec?
+      @line.include?('french') && @line.include?('malbec')
     end
 
     ####
@@ -234,7 +251,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      beef_steak? || mince? || chicken_wings? || plain_kebabs?
+      beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? || pork_loinsteaks?
     end
 
     def beef_steak?
@@ -253,10 +270,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('plain') && @line.include?('kebabs')
     end
 
+    def chi_thigh_fillet?
+      @line.include?('chi') && @line.include?('thighfillet')
+    end
+
+    def pork_loinsteaks?
+      @line.include?('pork') && @line.include?('loinsteaks')
+    end
+
     ####
 
     def bread?
-      baguette? || sourdoug? || buns?
+      baguette? || sourdoug? || buns? || palmier_puff_pastry?
     end
 
     def baguette?
@@ -269,6 +294,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def buns?
       @line.include?('buns')
+    end
+
+    def palmier_puff_pastry?
+      @line.include?('palmier') && @line.include?('puff') && @line.include?('pasa')
     end
 
     ####
