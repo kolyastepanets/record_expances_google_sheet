@@ -37,11 +37,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def ready_to_eat?
-      sandwich?
+      sandwich? || sandwich_2?
     end
 
     def sandwich?
       @line.include?('coronation') && @line.include?('chic')
+    end
+
+    def sandwich_2?
+      @line.include?('smply') && @line.include?('ham') && @line.include?('musta')
     end
 
     ####
