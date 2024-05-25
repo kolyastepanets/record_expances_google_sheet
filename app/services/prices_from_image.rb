@@ -17,7 +17,7 @@ class PricesFromImage
 
   def parse_image
     prepare_texts_by_class.each do |line|
-      if end_line_for_shop?(line[:array_or_words])
+      if prepare_texts_by_class[-1] == line
         break @total_sum_in_receipt = line[:price]
       end
 
@@ -49,26 +49,6 @@ class PricesFromImage
 
   def return_result
     [@categories_with_prices, @total_sum_in_receipt.round(2), @unique_file_id]
-  end
-
-  def end_line_for_shop?(array_of_words)
-    sainsbury_end?(array_of_words) ||
-      pepito_end?(array_of_words) ||
-      polish_or_comberton_shop_end?(array_of_words) ||
-      turkey_total_price_end?(array_of_words) ||
-      total_end?(array_of_words)
-  end
-
-  def sainsbury_end?(array_of_words)
-    array_of_words.any? { |word| word.downcase == 'balance' }
-  end
-
-  def pepito_end?(array_of_words)
-    array_of_words.any? { |word| word.downcase == 'net' } && array_of_words.any? { |word| word.downcase == 'value' }
-  end
-
-  def total_end?(array_of_words)
-    array_of_words.any? { |word| word.downcase == 'total' }
   end
 
   def is_pepito_supermarket?
@@ -114,18 +94,6 @@ class PricesFromImage
   def is_bim_turkey?
     (all_text.downcase.include?('bim') || all_text.downcase.include?('bi̇m')) &&
       (all_text.downcase.include?('bi̇rleşik') || all_text.downcase.include?('bi̇rleşi̇k'))
-  end
-
-  def waitrose_or_marks_and_spencer_end?(array_of_text)
-    array_of_text.any? { |str| str.downcase.include?('balance') }
-  end
-
-  def polish_or_comberton_shop_end?(array_of_text)
-    array_of_text.any? { |str| str.downcase.include?('items') }
-  end
-
-  def turkey_total_price_end?(array_of_text)
-    array_of_text.any? { |str| str.downcase.include?('toplam') }
   end
 
   def all_text
