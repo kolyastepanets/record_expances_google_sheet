@@ -5,11 +5,11 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def fruits?
-      plums? || mango? || strawberries? || bananas?
+      plums? || mango? || strawberries? || bananas? || pomegranate?
     end
 
     def plums?
-      @line.include?('plums') && @line.include?('0080414')
+      @line.include?('plums') && (@line.include?('0080414') || @line.include?('0080417'))
     end
 
     def mango?
@@ -22,6 +22,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bananas?
       @line.include?('bananas')
+    end
+
+    def pomegranate?
+      @line.include?('pomegranate')
     end
 
     ####
@@ -199,7 +203,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def vegetables?
       red_onion? || potatoes? || carrots? || piccolo_tomatoes? || cucumbers? || dill? ||
-        cabbage? || beetroot?
+        cabbage? || beetroot? || marvellous_tomatoes? || scarlet_tomatoes? || radish? ||
+        mixed_peppers? || fresh_parsley? || spinach_rocket?
     end
 
     def red_onion?
@@ -223,7 +228,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def dill?
-      @line.include?('d111') && @line.include?('fresh')
+      (@line.include?('d111') || @line.include?('dill')) && @line.include?('fresh')
     end
 
     def cabbage?
@@ -232,6 +237,30 @@ module DetectCategoryAndSubcategoryFromLine
 
     def beetroot?
       @line.include?('beetroot')
+    end
+
+    def marvellous_tomatoes?
+      @line.include?('marvellous') && @line.include?('tomatoes')
+    end
+
+    def scarlet_tomatoes?
+      @line.include?('scarlet') && @line.include?('tomatoes')
+    end
+
+    def radish?
+      @line.include?('radish')
+    end
+
+    def mixed_peppers?
+      @line.include?('mixed') && @line.include?('peppers')
+    end
+
+    def fresh_parsley?
+      @line.include?('fresh') && @line.include?('parsley')
+    end
+
+    def spinach_rocket?
+      @line.include?('wcressspinachrocket')
     end
 
     ####
@@ -327,11 +356,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      apple_juice?
+      apple_juice? || orange_juice?
     end
 
     def apple_juice?
       @line.include?('apple') && @line.include?('juice')
+    end
+
+    def orange_juice?
+      @line.include?('orange') && @line.include?('juice')
     end
 
     ####
