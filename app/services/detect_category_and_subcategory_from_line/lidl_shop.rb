@@ -32,7 +32,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
-        kinder_milk_slice?
+        kinder_milk_slice? || snickers?
     end
 
     def choc_cookies?
@@ -61,6 +61,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kinder_milk_slice?
       @line.include?('kinder') && @line.include?('milk') && @line.include?('slice')
+    end
+
+    def snickers?
+      @line.include?('snickers')
     end
 
     ####
@@ -174,7 +178,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def alcohol?
-      berries_wine? || south_africa_wine? || french_malbec?
+      berries_wine? || south_africa_wine? || french_malbec? || pinot_grigio_terre?
     end
 
     def berries_wine?
@@ -187,6 +191,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def french_malbec?
       @line.include?('french') && @line.include?('malbec')
+    end
+
+    def pinot_grigio_terre?
+      @line.include?('pinot') && @line.include?('grigio') && @line.include?('terre')
     end
 
     ####
@@ -204,7 +212,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       red_onion? || potatoes? || carrots? || piccolo_tomatoes? || cucumbers? || dill? ||
         cabbage? || beetroot? || marvellous_tomatoes? || scarlet_tomatoes? || radish? ||
-        mixed_peppers? || fresh_parsley? || spinach_rocket?
+        mixed_peppers? || fresh_parsley? || spinach_rocket? || garden_salad?
     end
 
     def red_onion?
@@ -263,6 +271,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('wcressspinachrocket')
     end
 
+    def garden_salad?
+      @line.include?('garden') && @line.include?('salad')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -280,7 +292,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? || pork_loinsteaks?
+      beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? || pork_loinsteaks? ||
+        beef_steak_2?
     end
 
     def beef_steak?
@@ -305,6 +318,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pork_loinsteaks?
       @line.include?('pork') && @line.include?('loinsteaks')
+    end
+
+    def beef_steak_2?
+      @line.include?('beef') && @line.include?('steak')
     end
 
     ####
@@ -375,6 +392,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def salmon_fillet?
       @line.include?('salmon') && @line.include?('fillets')
+    end
+
+    ####
+
+    def for_beer?
+      walkers?
+    end
+
+    def walkers?
+      (@line.include?('walkors') || @line.include?('walkers')) && @line.include?('baked')
     end
   end
 end

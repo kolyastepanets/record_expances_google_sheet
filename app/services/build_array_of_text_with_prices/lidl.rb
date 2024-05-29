@@ -14,6 +14,11 @@ module BuildArrayOfTextWithPrices
         next if array_of_text == array_with_pound
         next if array_of_text.include?('@') && array_of_text.include?('kg') && array_of_text.include?('/')
 
+        if array_of_text.size <= 2
+          grouped_texts[-1]&.concat(array_of_text)
+          next
+        end
+
         grouped_texts << array_of_text
       end
 
