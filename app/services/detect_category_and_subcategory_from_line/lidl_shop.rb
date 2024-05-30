@@ -4,32 +4,6 @@ module DetectCategoryAndSubcategoryFromLine
       @line = line_from_receipt.map(&:downcase)
     end
 
-    def fruits?
-      plums? || mango? || strawberries? || bananas? || pomegranate?
-    end
-
-    def plums?
-      @line.include?('plums') && (@line.include?('0080414') || @line.include?('0080417'))
-    end
-
-    def mango?
-      @line.include?('mango') && @line.include?('loose')
-    end
-
-    def strawberries?
-      @line.include?('strawberries')
-    end
-
-    def bananas?
-      @line.include?('bananas')
-    end
-
-    def pomegranate?
-      @line.include?('pomegranate')
-    end
-
-    ####
-
     def sweets?
       choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
         kinder_milk_slice? || snickers?
@@ -327,7 +301,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      baguette? || sourdoug? || buns? || palmier_puff_pastry?
+      baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white?
     end
 
     def baguette?
@@ -344,6 +318,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def palmier_puff_pastry?
       @line.include?('palmier') && @line.include?('puff') && @line.include?('pasa')
+    end
+
+    def medium_loaf_white?
+      @line.include?('medium') && @line.include?('loaf') && @line.include?('white')
     end
 
     ####
@@ -402,6 +380,40 @@ module DetectCategoryAndSubcategoryFromLine
 
     def walkers?
       (@line.include?('walkors') || @line.include?('walkers')) && @line.include?('baked')
+    end
+
+    ####
+
+    def fruits?
+      plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries?
+    end
+
+    def plums?
+      @line.include?('plums') && (@line.include?('0080414') || @line.include?('0080417'))
+    end
+
+    def mango?
+      @line.include?('mango') && @line.include?('loose')
+    end
+
+    def strawberries?
+      @line.include?('strawberries')
+    end
+
+    def bananas?
+      @line.include?('bananas')
+    end
+
+    def pomegranate?
+      @line.include?('pomegranate')
+    end
+
+    def cherries?
+      @line.include?('cherries')
+    end
+
+    def blueberries?
+      @line.include?('blueberries')
     end
   end
 end
