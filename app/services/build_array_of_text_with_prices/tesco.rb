@@ -10,9 +10,12 @@ module BuildArrayOfTextWithPrices
 
       @parsed_texts[array_with_company_name_index..-1].deep_dup.each.with_index do |array_of_text, index|
         break if total_end?(array_of_text)
+        break if subtotal_end?(array_of_text)
 
+        next if array_of_text.any? { |str| str.downcase == 'vat' } && array_of_text.any? { |str| str.downcase == 'number' }
         next if array_of_text == array_with_company_name
         next if array_of_text.size <= 2
+        next if !array_of_text[-1].include?('.')
 
         grouped_texts << array_of_text
       end
@@ -29,6 +32,12 @@ module BuildArrayOfTextWithPrices
 
       grouped_texts.each do |array_of_text|
         price = buid_price(array_of_text)
+
+        # subtract discount from the previous price
+        if price.positive? && array_of_text.any? { |arr| arr == '-' } && array_of_text[-1].include?('.') && array_of_text[0].downcase == "cc"
+          array_of_texts_with_prices[-1][:price] -= price
+          next
+        end
 
         next if price.zero?
 
@@ -61,6 +70,10 @@ module BuildArrayOfTextWithPrices
 
     def total_end?(array_of_words)
       array_of_words.any? { |word| word.downcase == 'total' }
+    end
+
+    def subtotal_end?(array_of_text)
+      array_of_text.any? { |str| str.downcase == 'subtotal' }
     end
   end
 end
