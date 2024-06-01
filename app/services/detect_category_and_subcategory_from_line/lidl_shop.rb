@@ -301,7 +301,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def bread?
-      baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white?
+      baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white? ||
+        chocolate_croissant? || pink_doughnut?
     end
 
     def baguette?
@@ -322,6 +323,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def medium_loaf_white?
       @line.include?('medium') && @line.include?('loaf') && @line.include?('white')
+    end
+
+    def chocolate_croissant?
+      @line.include?('pain') && @line.include?('chocolat')
+    end
+
+    def pink_doughnut?
+      @line.any? { |word| word.include?('pink') } && @line.any? { |word| word.include?('doughnut') }
     end
 
     ####
