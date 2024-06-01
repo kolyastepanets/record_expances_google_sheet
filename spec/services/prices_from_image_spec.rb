@@ -693,7 +693,7 @@ RSpec.describe PricesFromImage, vcr: true do
         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.48},
         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.77},
         {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.89},
-        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.39},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.39},
         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.99},
         28.64,
         nil]
@@ -776,7 +776,7 @@ RSpec.describe PricesFromImage, vcr: true do
 
       new_result, sum_of_prices = new_result_and_sum_of_prices(result)
       expect(new_result).to eq(
-        [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.8099999999999999},
+        [{:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.8099999999999999},
         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.78},
         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.55},
         {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.79},
@@ -917,6 +917,24 @@ RSpec.describe PricesFromImage, vcr: true do
         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.38},
         {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.39},
         3.56,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt lidl 13', freezed_time: '2024-06-01T20:56:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out13.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>3.78},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.79},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.99},
+        6.56,
         nil]
       )
       expect(sum_of_prices).to eq(result[1])

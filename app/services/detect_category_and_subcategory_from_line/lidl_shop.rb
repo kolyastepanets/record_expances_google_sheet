@@ -5,16 +5,12 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweets?
-      choc_cookies? || doughunt? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
-        kinder_milk_slice? || snickers?
+      choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
+        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate?
     end
 
     def choc_cookies?
       @line.include?('choc') && @line.include?('cookies')
-    end
-
-    def doughunt?
-      @line.include?('doughnut') && @line.include?('choc')
     end
 
     def ice_cream?
@@ -39,6 +35,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def snickers?
       @line.include?('snickers')
+    end
+
+    def milk_chocolate?
+      @line.include?('milk') && @line.include?('chocolate')
+    end
+
+    def whole_nut_chocolate?
+      @line.include?('wholenutchocolate')
     end
 
     ####
@@ -302,7 +306,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white? ||
-        chocolate_croissant? || pink_doughnut?
+        chocolate_croissant? || pink_doughnut? || doughunt?
     end
 
     def baguette?
@@ -331,6 +335,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pink_doughnut?
       @line.any? { |word| word.include?('pink') } && @line.any? { |word| word.include?('doughnut') }
+    end
+
+    def doughunt?
+      @line.include?('doughnut') && @line.include?('choc')
     end
 
     ####
