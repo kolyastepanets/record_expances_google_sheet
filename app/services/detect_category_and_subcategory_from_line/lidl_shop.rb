@@ -6,7 +6,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
-        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate?
+        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits?
     end
 
     def choc_cookies?
@@ -45,6 +45,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('wholenutchocolate')
     end
 
+    def shortcrust_biscuits?
+      @line.include?('shortcrust') && @line.include?('biscuits')
+    end
+
     ####
 
     def ready_to_eat?
@@ -53,7 +57,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese?
+      milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices?
     end
 
     def milk?
@@ -61,7 +65,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def butter?
-      @line.include?('butter') && @line.any? { |word| word.include?('salted') }
+      @line.any? { |word| word.include?('butter') } && @line.any? { |word| word.include?('salted') }
     end
 
     def maasdam_cheese?
@@ -74,6 +78,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mozzarella_cheese?
       @line.include?('mozzarella')
+    end
+
+    def maasdam_slices?
+      @line.include?('maasdam') && @line.include?('slices')
     end
 
     ####
@@ -256,7 +264,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      krakauer_sausage? || silesian_sausage?
+      krakauer_sausage? || silesian_sausage? || garlic_sausage?
     end
 
     def krakauer_sausage?
@@ -265,6 +273,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def silesian_sausage?
       @line.include?('silesian') && @line.include?('sausages')
+    end
+
+    def garlic_sausage?
+      @line.include?('garlic') && @line.include?('sausage')
     end
 
     ####
@@ -402,7 +414,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fruits?
-      plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries?
+      plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
+        mixed_grapes? || blackberries?
     end
 
     def plums?
@@ -431,6 +444,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def blueberries?
       @line.include?('blueberries')
+    end
+
+    def mixed_grapes?
+      @line.include?('mixed') && @line.include?('grapes')
+    end
+
+    def blackberries?
+      @line.include?('blackberries')
     end
   end
 end
