@@ -6,7 +6,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
-        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits?
+        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
+        cornish_vanilla? || cadbury_wispa?
     end
 
     def choc_cookies?
@@ -47,6 +48,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def shortcrust_biscuits?
       @line.include?('shortcrust') && @line.include?('biscuits')
+    end
+
+    def cornish_vanilla?
+      @line.include?('cornish') && @line.include?('vanilla')
+    end
+
+    def cadbury_wispa?
+      @line.include?('cadbury') && @line.include?('wispa')
     end
 
     ####
@@ -318,7 +327,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white? ||
-        chocolate_croissant? || pink_doughnut? || doughunt?
+        chocolate_croissant? || pink_doughnut? || doughunt? || belgian_bun? || croissant?
     end
 
     def baguette?
@@ -351,6 +360,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def doughunt?
       @line.include?('doughnut') && @line.include?('choc')
+    end
+
+    def belgian_bun?
+      @line.include?('belgian') && @line.include?('bun')
+    end
+
+    def croissant?
+      @line.any? { |word| word.include?('croissant') }
     end
 
     ####
@@ -415,7 +432,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
-        mixed_grapes? || blackberries?
+        mixed_grapes? || blackberries? || corn_cobettes?
     end
 
     def plums?
@@ -452,6 +469,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def blackberries?
       @line.include?('blackberries')
+    end
+
+    def corn_cobettes?
+      @line.include?('corn') && @line.include?('cobettes')
     end
   end
 end
