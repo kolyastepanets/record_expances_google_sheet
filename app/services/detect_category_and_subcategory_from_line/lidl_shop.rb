@@ -7,7 +7,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
-        cornish_vanilla? || cadbury_wispa?
+        cornish_vanilla? || cadbury_wispa? || choc_fingers?
     end
 
     def choc_cookies?
@@ -56,6 +56,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cadbury_wispa?
       @line.include?('cadbury') && @line.include?('wispa')
+    end
+
+    def choc_fingers?
+      @line.include?('choc') && @line.include?('fingers')
     end
 
     ####
@@ -207,7 +211,7 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       red_onion? || potatoes? || carrots? || piccolo_tomatoes? || cucumbers? || dill? ||
         cabbage? || beetroot? || marvellous_tomatoes? || scarlet_tomatoes? || radish? ||
-        mixed_peppers? || fresh_parsley? || spinach_rocket? || garden_salad?
+        mixed_peppers? || fresh_parsley? || spinach_rocket? || garden_salad? || pepper_red_loose?
     end
 
     def red_onion?
@@ -268,6 +272,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def garden_salad?
       @line.include?('garden') && @line.include?('salad')
+    end
+
+    def pepper_red_loose?
+      @line.include?('pepper') && @line.include?('red') && @line.include?('loose')
     end
 
     ####

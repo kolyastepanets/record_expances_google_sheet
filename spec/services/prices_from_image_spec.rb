@@ -1051,6 +1051,25 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt lidl 16', freezed_time: '2024-06-05T16:35:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out16.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.09},
+        {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>3.15},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.89},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.59},
+        7.72,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|
