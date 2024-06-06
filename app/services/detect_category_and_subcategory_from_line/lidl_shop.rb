@@ -7,7 +7,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
-        cornish_vanilla? || cadbury_wispa? || choc_fingers?
+        cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake?
     end
 
     def choc_cookies?
@@ -60,6 +60,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def choc_fingers?
       @line.include?('choc') && @line.include?('fingers')
+    end
+
+    def vanilla_cupcake?
+      @line.include?('vanilla') && @line.include?('cupcake')
     end
 
     ####
@@ -440,7 +444,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
-        mixed_grapes? || blackberries? || corn_cobettes?
+        mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers?
     end
 
     def plums?
@@ -481,6 +485,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def corn_cobettes?
       @line.include?('corn') && @line.include?('cobettes')
+    end
+
+    def raspberries?
+      @line.include?('raspberries')
+    end
+
+    def sweet_easy_peelers?
+      @line.include?('sweet') && @line.include?('easy') && @line.include?('peelers')
     end
   end
 end
