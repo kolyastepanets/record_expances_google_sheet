@@ -285,7 +285,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def sausage_and_sausages?
-      krakauer_sausage? || silesian_sausage? || garlic_sausage?
+      krakauer_sausage? || silesian_sausage? || garlic_sausage? || chicken_frankfurters? ||
+        smoked_salami? || ham_slices?
     end
 
     def krakauer_sausage?
@@ -298,6 +299,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def garlic_sausage?
       @line.include?('garlic') && @line.include?('sausage')
+    end
+
+    def chicken_frankfurters?
+      @line.include?('chicken') && @line.include?('frankfurters')
+    end
+
+    def smoked_salami?
+      @line.include?('smoked') && @line.include?('salami')
+    end
+
+    def ham_slices?
+      @line.include?('ham') && @line.include?('slices')
     end
 
     ####
