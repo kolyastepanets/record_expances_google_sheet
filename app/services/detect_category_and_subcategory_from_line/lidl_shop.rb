@@ -7,7 +7,8 @@ module DetectCategoryAndSubcategoryFromLine
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
-        cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake?
+        cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
+        micr_popcorn_sweet?
     end
 
     def choc_cookies?
@@ -66,6 +67,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('vanilla') && @line.include?('cupcake')
     end
 
+    def fruit_pastille_lolly?
+      @line.include?('fruit') && @line.include?('pastille') && @line.include?('lolly')
+    end
+
+    def micr_popcorn_sweet?
+      @line.include?('micr') && @line.include?('popcorn') && @line.include?('sweet')
+    end
+
     ####
 
     def ready_to_eat?
@@ -74,7 +83,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def dairy?
-      milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices?
+      milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices? ||
+        petitsfilous_big_pot? || chocolate_pudding? || strawberry_yogurt?
     end
 
     def milk?
@@ -99,6 +109,18 @@ module DetectCategoryAndSubcategoryFromLine
 
     def maasdam_slices?
       @line.include?('maasdam') && @line.include?('slices')
+    end
+
+    def petitsfilous_big_pot?
+      @line.include?('petitsfilous') && @line.include?('big') && @line.include?('pot')
+    end
+
+    def chocolate_pudding?
+      @line.include?('chocolate') && @line.include?('pudding')
+    end
+
+    def strawberry_yogurt?
+      @line.include?('strawberry') && @line.include?('yogurt')
     end
 
     ####
@@ -352,7 +374,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white? ||
-        chocolate_croissant? || pink_doughnut? || doughunt? || belgian_bun? || croissant?
+        chocolate_croissant? || pink_doughnut? || doughunt? || belgian_bun? || croissant? ||
+        jam_football_muffin?
     end
 
     def baguette?
@@ -393,6 +416,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def croissant?
       @line.any? { |word| word.include?('croissant') }
+    end
+
+    def jam_football_muffin?
+      @line.include?('jam') && @line.include?('football') && @line.include?('muffin')
     end
 
     ####
@@ -436,11 +463,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      salmon_fillet?
+      salmon_fillet? || smoked_salmon?
     end
 
     def salmon_fillet?
       @line.include?('salmon') && @line.include?('fillets')
+    end
+
+    def smoked_salmon?
+      @line.include?('smoked') && @line.include?('salmon')
     end
 
     ####
