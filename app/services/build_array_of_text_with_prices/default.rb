@@ -27,7 +27,7 @@ module BuildArrayOfTextWithPrices
     end
 
     def string_price_to_float_price(str)
-      str.gsub("-", "").gsub(",", ".").to_f
+      str.gsub("-", "").gsub(",", ".").gsub(":", ".").to_f
     end
   end
 end

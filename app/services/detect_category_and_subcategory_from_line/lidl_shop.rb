@@ -237,7 +237,8 @@ module DetectCategoryAndSubcategoryFromLine
     def vegetables?
       red_onion? || potatoes? || carrots? || piccolo_tomatoes? || cucumbers? || dill? ||
         cabbage? || beetroot? || marvellous_tomatoes? || scarlet_tomatoes? || radish? ||
-        mixed_peppers? || fresh_parsley? || spinach_rocket? || garden_salad? || pepper_red_loose?
+        mixed_peppers? || fresh_parsley? || spinach_rocket? || garden_salad? || pepper_red_loose? ||
+        avocados?
     end
 
     def red_onion?
@@ -302,6 +303,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pepper_red_loose?
       @line.include?('pepper') && @line.include?('red') && @line.include?('loose')
+    end
+
+    def avocados?
+      @line.include?('avocados')
     end
 
     ####
@@ -488,7 +493,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
-        mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers?
+        mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers? ||
+        funsize_apples? || white_grapes?
     end
 
     def plums?
@@ -537,6 +543,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweet_easy_peelers?
       @line.include?('sweet') && @line.include?('easy') && @line.include?('peelers')
+    end
+
+    def funsize_apples?
+      @line.include?('funsize') && @line.include?('apples')
+    end
+
+    def white_grapes?
+      @line.include?('white') && @line.include?('grapes')
     end
   end
 end

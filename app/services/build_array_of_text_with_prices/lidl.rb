@@ -9,6 +9,7 @@ module BuildArrayOfTextWithPrices
       array_with_pound_index = @parsed_texts.index(array_with_pound)
 
       @parsed_texts[array_with_pound_index..-1].deep_dup.each.with_index do |array_of_text, index|
+        break if total_end_card?(array_of_text)
         break if total_end?(array_of_text)
 
         next if array_of_text == array_with_pound
@@ -26,7 +27,8 @@ module BuildArrayOfTextWithPrices
     end
 
     def total_price_array_of_text
-      @parsed_texts.detect { |array_of_text| total_end?(array_of_text) }
+      @parsed_texts.detect { |array_of_text| total_end_card?(array_of_text) } ||
+        @parsed_texts.detect { |array_of_text| total_end?(array_of_text) }
     end
 
     def build_array_of_texts_with_prices(grouped_texts)
@@ -72,6 +74,10 @@ module BuildArrayOfTextWithPrices
 
     def total_end?(array_of_words)
       array_of_words.any? { |word| word.downcase == 'total' }
+    end
+
+    def total_end_card?(array_of_words)
+      array_of_words.any? { |word| word.downcase == 'card' }
     end
   end
 end
