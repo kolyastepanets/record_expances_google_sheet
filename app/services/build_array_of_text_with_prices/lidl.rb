@@ -8,6 +8,7 @@ module BuildArrayOfTextWithPrices
       array_with_pound = @parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str == "£" } }
       array_with_pound_index = @parsed_texts.index(array_with_pound)
 
+      # binding.pry
       @parsed_texts[array_with_pound_index..-1].deep_dup.each.with_index do |array_of_text, index|
         break if total_end_card?(array_of_text)
         break if total_end?(array_of_text)
@@ -15,7 +16,7 @@ module BuildArrayOfTextWithPrices
         next if array_of_text == array_with_pound
         next if array_of_text.include?('@') && array_of_text.include?('kg') && array_of_text.include?('/')
 
-        if array_of_text.size <= 2
+        if array_of_text.size <= 2 && !discount?(array_of_text[-1])
           grouped_texts[-1]&.concat(array_of_text)
           next
         end
@@ -38,7 +39,7 @@ module BuildArrayOfTextWithPrices
         price = buid_price(array_of_text)
 
         # subtract discount from the previous price
-        if price.positive? && array_of_text[-1].include?('-') && array_of_text[-1].include?('.')
+        if price.positive? && discount?(array_of_text[-1])
           array_of_texts_with_prices[-1][:price] -= price
           next
         end
@@ -54,6 +55,10 @@ module BuildArrayOfTextWithPrices
       end
 
       array_of_texts_with_prices.filter { |hash| hash[:price].positive? }
+    end
+
+    def discount?(element)
+      element.include?('-') && element.include?('.')
     end
 
     def buid_price(array_of_text)

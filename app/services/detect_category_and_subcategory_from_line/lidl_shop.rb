@@ -8,7 +8,7 @@ module DetectCategoryAndSubcategoryFromLine
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
-        micr_popcorn_sweet?
+        micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix?
     end
 
     def choc_cookies?
@@ -73,6 +73,22 @@ module DetectCategoryAndSubcategoryFromLine
 
     def micr_popcorn_sweet?
       @line.include?('micr') && @line.include?('popcorn') && @line.include?('sweet')
+    end
+
+    def nutella?
+      @line.include?('nutella')
+    end
+
+    def caramel_peanut_bars?
+      @line.include?('caramel') && @line.include?('peanut') && @line.include?('bars')
+    end
+
+    def kinder_bueno?
+      @line.include?('kinder') && @line.include?('bueno')
+    end
+
+    def twix?
+      @line.include?('twix')
     end
 
     ####
@@ -189,7 +205,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def tea_or_coffee?
-      indonesia_coffee? || nesquik?
+      indonesia_coffee? || nesquik? || camomile_tea?
     end
 
     def indonesia_coffee?
@@ -198,6 +214,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def nesquik?
       @line.include?('nesquik') && @line.include?('chocolate')
+    end
+
+    def camomile_tea?
+      @line.include?('camomile') && @line.include?('tea')
     end
 
     ####
@@ -494,7 +514,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
         mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers? ||
-        funsize_apples? || white_grapes?
+        funsize_apples? || white_grapes? || peaches?
     end
 
     def plums?
@@ -502,7 +522,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def mango?
-      @line.include?('mango') && @line.include?('loose')
+      @line.include?('mango')
     end
 
     def strawberries?
@@ -551,6 +571,20 @@ module DetectCategoryAndSubcategoryFromLine
 
     def white_grapes?
       @line.include?('white') && @line.include?('grapes')
+    end
+
+    def peaches?
+      @line.include?('peaches')
+    end
+
+    ####
+
+    def pampers?
+      jumbo_pants?
+    end
+
+    def jumbo_pants?
+      @line.include?('jumbo') && @line.include?('pants')
     end
   end
 end

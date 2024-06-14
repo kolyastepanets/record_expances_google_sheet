@@ -1215,6 +1215,55 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt lidl 21', freezed_time: '2024-06-14T17:47:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out21.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.95},
+        {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>0.6},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.39},
+        {:category_name=>"Марк", :sub_category_name=>"Памперсы", :price=>3.59},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.69},
+        8.22,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
+  context 'when receipt lidl 22', freezed_time: '2024-06-14T17:55:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out22.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.19},
+        {:category_name=>"Еда", :sub_category_name=>"Новопочта", :price=>0.6},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>4.69},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.69},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.85},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.39},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.99},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.75},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.69},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.45},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.89},
+        {:category_name=>"Еда", :sub_category_name=>"Кофе, Чай", :price=>1.99},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.78},
+        {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>3.15},
+        29.1,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|
