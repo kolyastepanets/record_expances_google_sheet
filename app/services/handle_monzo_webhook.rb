@@ -6,6 +6,7 @@ class HandleMonzoWebhook
   end
 
   def call
+    SendMessageToBotToAskToEnterExpencesFromMonzo.call(@params)
     TestJob.perform_later(@params)
   end
 end

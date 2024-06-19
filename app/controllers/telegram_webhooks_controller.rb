@@ -131,7 +131,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       _sign, kind_of_transaction, transaction_id, price = data.split(':')
       message_id = FindMessageId.call(transaction_id, price, payload["message"]["message_id"])
       Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: BuildArrayOfCategories.call(kind_of_transaction, transaction_id, price) })
-    when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') }
+    when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') || input_category.include?('m_id') }
       category_name, kind_of_transaction, transaction_id, price = data.split(':')
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:category_name] = category_name
@@ -156,6 +156,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       params[:sub_category_name] = sub_category_name
 
       DecreaseWiseUsdSavedAmountJob.perform_later(params[:price_in_usd])
+      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
+      SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    when -> (input_sub_category) { input_sub_category.include?('m1_id') }
+      short_subcategory_name, _kind_of_transaction, transaction_id, _price = data.split(":")
+      sub_category_name = find_full_sub_category_name(short_subcategory_name)
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:message_ids] << payload["message"]["message_id"]
+      params[:sub_category_name] = sub_category_name
+
+      DecreaseMonzoGbpSavedAmountJob.perform_later(params[:price_in_gbp])
       PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
       SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
