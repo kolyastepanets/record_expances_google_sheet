@@ -77,8 +77,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       session[:is_wise] = true
       start_remember_total_price_of_products
       show_categories_to_choose
-    when 'wise_lend_money'
-      ask_to_enter_wise_amount_to_lend_money
     when 'previous_day'
       session[:requested_date_to_show_expenses] -= 1.day
       get_expenses_for_today_in_google_sheet(requested_date_to_show_expenses: session[:requested_date_to_show_expenses])
@@ -343,16 +341,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with(:message, text: 'Enter how much grivnas and foreign cash, "2635.45 1000000" :')
   end
 
-  def ask_to_enter_wise_amount_to_lend_money
-    save_context(:save_wise_lend_money!)
-    respond_with(:message, text: 'Enter how much to lend:')
-  end
-
-  def save_wise_lend_money!(wise_lend_money, *args)
-    DecreaseWiseUsdSavedAmountJob.perform_later(wise_lend_money)
-    respond_with(:message, text: 'Entered amount has been withdrawn', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
-  end
-
   def ask_grivnas_and_foreign_money_returned!(grivnas_returned, *args)
     grivnas = grivnas_returned
     foreign_cash = args.first
@@ -472,7 +460,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
           [{ text: 'Долларовая карта',  callback_data: 'dollar_card' }],
           [{ text: 'Wise',  callback_data: 'wise' }],
-          [{ text: 'Wise lend money',  callback_data: 'wise_lend_money' }],
         ],
       }
     )
