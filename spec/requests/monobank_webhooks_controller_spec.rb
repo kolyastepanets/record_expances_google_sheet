@@ -227,7 +227,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when uah expenses' do
-    context 'when category present', freezed_time: '2024-05-13T19:26:00+00:00' do
+    context 'when category present', freezed_time: '2024-06-20T20:38:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -261,7 +261,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category cash', freezed_time: '2024-05-13T19:27:00+00:00' do
+    context 'when category cash', freezed_time: '2024-06-20T20:28:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -329,7 +329,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category cash withdraw with commission 1', freezed_time: '2024-05-13T19:29:00+00:00' do
+    context 'when category cash withdraw with commission 1', freezed_time: '2024-06-20T20:29:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -363,7 +363,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category cash withdraw with commission 40000', freezed_time: '2024-05-13T19:33:00+00:00' do
+    context 'when category cash withdraw with commission 40000', freezed_time: '2024-06-20T20:38:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -397,7 +397,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category cash withdraw with commission 40001', freezed_time: '2024-05-13T19:24:00+00:00' do
+    context 'when category cash withdraw with commission 40001', freezed_time: '2024-06-20T20:27:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -431,7 +431,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category blank', freezed_time: '2024-05-13T19:35:00+00:00' do
+    context 'when category blank', freezed_time: '2024-06-20T20:30:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -509,7 +509,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when white card' do
-      context 'when category present', freezed_time: '2024-05-13T19:37:00+00:00' do
+      context 'when category present', freezed_time: '2024-06-20T20:32:00+00:00' do
         let(:monobank_webhook_params) do
           {
             "monobank_webhook" => {
@@ -543,7 +543,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
         end
       end
 
-      context 'when category blank', freezed_time: '2024-05-13T19:39:00+00:00' do
+      context 'when category blank', freezed_time: '2024-06-20T20:34:00+00:00' do
         let(:monobank_webhook_params) do
           {
             "monobank_webhook" => {
@@ -589,7 +589,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
   end
 
   context 'when usd expenses' do
-    context 'when category present', freezed_time: '2024-05-13T19:43:00+00:00' do
+    context 'when category present', freezed_time: '2024-06-20T20:38:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -623,7 +623,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
     end
 
     # VPN is needed to make request to NBU
-    context 'when swift salary', freezed_time: '2023-04-01T08:40:00+00:00' do
+    context 'when swift salary', freezed_time: '2024-06-20T20:38:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {
@@ -756,7 +756,7 @@ RSpec.describe MonobankWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when category blank', freezed_time: '2024-05-13T19:41:00+00:00' do
+    context 'when category blank', freezed_time: '2024-06-20T20:40:00+00:00' do
       let(:monobank_webhook_params) do
         {
           "monobank_webhook" => {

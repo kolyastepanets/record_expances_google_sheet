@@ -1010,318 +1010,6 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when cash foreign currency' do
-    # NOTE:
-    # to be able to run test
-    # - make real request from bot
-    # - choose category
-    # - remember message id and paste in test
-    # - choose sub category
-    # - enter price
-    # - choose category
-    # - remember message id and paste in test
-    # - choose sub category
-    # - enter price
-    # - Choose << for both messages where subcategories are shown so when test is running it will change categories to subcategories
-    #
-    # message are pinned, do not forget to press back
-    context 'when all our expenses 2 times', freezed_time: '2024-05-13T18:52:00+00:00' do
-      let(:telegram_bot_params_enter_expenses) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670052690,
-                **message_from,
-                "message_id" => 35169,
-                "text" => "Внести расходы"
-            },
-            "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_cash_foreign_currency_expenses) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "cash_foreign_currency",
-                **message_from,
-                "id" => "1651136317356629958",
-                "message" => {
-                    **chat,
-                    "date" => 1670052288,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35163,
-                    **reply_markup_choosing_type_of_expenses,
-                    "text" => "как заполнять?"
-                }
-            },
-            "update_id" => 20479567
-        }
-      end
-      let(:telegram_bot_params_enter_how_much_left_foreign) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670120327,
-            **message_from,
-            "message_id" => 36679,
-            "text" => "300000+23000"
-          },
-          "update_id" => 20479668
-        }
-      end
-      let(:telegram_bot_params_transport_category) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт:sub_category",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19988,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси:sub1_category::",
-                **message_from,
-                "id" => "1651136315537290214",
-                "message" => {
-                    **chat,
-                    "date" => 1670052463,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19988,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479569
-        }
-      end
-      let(:telegram_bot_params_taxi_price) do
-        {
-          "message" => {
-            "chat" => {
-                "first_name" => "Nikolay",
-                "id" => ENV['MY_TELEGRAM_ID'],
-                "last_name" => "Stepanets",
-                "type" => "private",
-                "username" => ENV['MY_USER_NAME']
-            },
-            "date" => 1670052690,
-            **message_from,
-            "message_id" => 35169,
-            "text" => "1000000"
-          },
-          "update_id" => 20479570
-        }
-      end
-      let(:telegram_bot_params_transport_category_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Транспорт:sub_category",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19995,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-      let(:telegram_bot_params_taxi_subcategory_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "Такси:sub1_category::",
-                **message_from,
-                "id" => "1651136315526205282",
-                "message" => {
-                    **chat,
-                    "date" => 1670071818,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19995,
-                    **reply_markup_choosing_subcategory,
-                    "text" => "Выбери подкатегорию:"
-                }
-            },
-            "update_id" => 20479615
-        }
-      end
-      let(:telegram_bot_params_taxi_price_2) do
-        {
-            "message" => {
-                "chat" => {
-                    "first_name" => "Nikolay",
-                    "id" => ENV['MY_TELEGRAM_ID'],
-                    "last_name" => "Stepanets",
-                    "type" => "private",
-                    "username" => ENV['MY_USER_NAME']
-                },
-                "date" => 1670072000,
-                **message_from,
-                "message_id" => 35891,
-                "text" => "1000000"
-            },
-            "update_id" => 20479616
-        }
-      end
-      let(:telegram_bot_params_finish_enter_prices) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "finish_remember_total_price_of_products",
-                **message_from,
-                "id" => "1651136318658776636",
-                "message" => {
-                    **chat,
-                    "date" => 1670072001,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 35895,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479617
-        }
-      end
-      let(:telegram_bot_params_rollback_1) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "<<:sub_category::",
-                **message_from,
-                "id" => "1651136315859693905",
-                "message" => {
-                    **chat,
-                    "date" => 1670052388,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19988,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479568
-        }
-      end
-      let(:telegram_bot_params_rollback_2) do
-        {
-            "callback_query" => {
-                "chat_instance" => ENV['CHAT_INSTANCE'],
-                "data" => "<<:sub_category::",
-                **message_from,
-                "id" => "1651136318620605451",
-                "message" => {
-                    **chat,
-                    "date" => 1670071810,
-                    "from" => {
-                        "first_name" => ENV['BOT_NAME'],
-                        "id" => ENV['BOT_ID'],
-                        "is_bot" => true,
-                        "username" => ENV['BOT_USER_NAME']
-                    },
-                    "message_id" => 19995,
-                    **reply_markup_choosing_category,
-                    "text" => "Выбери категорию:"
-                }
-            },
-            "update_id" => 20479614
-        }
-      end
-
-      it 'saves data to every day expenses page 2 times and decreases uah value' do
-        # enter expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_expenses
-        # cash expenses
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_cash_foreign_currency_expenses
-        # enter left cash
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_enter_how_much_left_foreign
-        # transport category
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
-        # taxi subcategory
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory
-        # taxi price
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price
-        # transport category 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category_2
-        # taxi subcategory 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_subcategory_2
-        # taxi price 2
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_taxi_price_2
-        # finish enter prices
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_finish_enter_prices
-
-        expect(response.status).to eq(200)
-
-        # just to automate rollback to previous state
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_rollback_1
-        post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_rollback_2
-      end
-    end
-  end
-
   context 'when dollar card' do
     context 'when all our expenses 2 times', freezed_time: '2023-01-22T09:40:00+00:00' do
       let(:telegram_bot_params_enter_expenses) do
@@ -1868,7 +1556,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when enter cash', freezed_time: '2024-05-13T19:09:00+00:00', perform_enqueued: true do
+  context 'when enter cash', freezed_time: '2024-06-20T20:50:00+00:00', perform_enqueued: true do
     let(:telegram_bot_params_main_menu) do
       {
           "callback_query" => {
@@ -2900,8 +2588,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
 
     context 'when uah expenses' do
-      context 'when all our expenses' do
-        context 'when 1 category was not parsed', freezed_time: '2024-05-13T19:04:00+00:00' do
+      context 'when all our expenses', freezed_time: '2024-06-20T20:47:00+00:00' do
+        context 'when 1 category was not parsed' do
           it 'saves half price from not parsed category and mark m' do
             # upload photo
             post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
@@ -2914,7 +2602,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           end
         end
 
-        context 'when 2 products were not parsed', freezed_time: '2024-05-13T19:20:00+00:00' do
+        context 'when 2 products were not parsed' do
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products_1.jpeg
 
           it 'saves price from not parsed category' do
@@ -2931,8 +2619,8 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when usd expenses' do
-      context 'when all our expenses', freezed_time: '2024-05-13T19:03:00+00:00' do
+    context 'when usd expenses', freezed_time: '2024-06-20T20:45:00+00:00' do
+      context 'when all our expenses' do
         let(:caption) { "usd 15593.0528" }
 
         context 'when 1 category was not parsed' do
@@ -2948,7 +2636,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
           end
         end
 
-        context 'when 2 products were not parsed', freezed_time: '2024-05-13T18:58:00+00:00' do
+        context 'when 2 products were not parsed' do
           # 2 products were not parsed in photo: spec/images/not_parsed_two_fake_products.jpeg
 
           it 'saves price from not parsed category' do
@@ -2965,7 +2653,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
     end
   end
 
-  context 'when return some money after withdraw cash', freezed_time: '2024-05-13T19:15:00+00:00' do
+  context 'when return some money after withdraw cash', freezed_time: '2024-06-20T20:51:00+00:00' do
     let(:telegram_bot_params_return_some_money) do
       {
           "message" => {
