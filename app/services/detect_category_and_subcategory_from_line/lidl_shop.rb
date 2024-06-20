@@ -9,7 +9,7 @@ module DetectCategoryAndSubcategoryFromLine
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
         micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
-        darkchoc_ginger_bisc? || shortbread_rounds?
+        darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams?
     end
 
     def choc_cookies?
@@ -100,6 +100,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('shortbread') && @line.include?('rounds')
     end
 
+    def custard_creams?
+      @line.include?('custard') && @line.include?('creams')
+    end
+
     ####
 
     def ready_to_eat?
@@ -109,7 +113,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices? ||
-        petitsfilous_big_pot? || chocolate_pudding? || strawberry_yogurt?
+        petitsfilous_big_pot? || chocolate_pudding? || strawberry_yogurt? || ricotta? ||
+        mascarpone? || pineapple_cheese? || double_cream?
     end
 
     def milk?
@@ -148,6 +153,22 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('strawberry') && @line.include?('yogurt')
     end
 
+    def ricotta?
+      @line.include?('ricotta')
+    end
+
+    def mascarpone?
+      @line.include?('mascarpone')
+    end
+
+    def pineapple_cheese?
+      @line.include?('pineapple') && @line.include?('cheese')
+    end
+
+    def double_cream?
+      @line.include?('double') && @line.include?('cream')
+    end
+
     ####
 
     def eggs?
@@ -161,7 +182,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def spices_and_seasonings?
-      tomato_sauce? || oil? || sugar?
+      tomato_sauce? || oil? || sugar? || bicarbonate_soda?
     end
 
     def tomato_sauce?
@@ -174,6 +195,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sugar?
       @line.include?('sugar')
+    end
+
+    def bicarbonate_soda?
+      @line.include?('bicarbonate') && @line.include?('soda')
     end
 
     ####
@@ -346,7 +371,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sausage_and_sausages?
       krakauer_sausage? || silesian_sausage? || garlic_sausage? || chicken_frankfurters? ||
-        smoked_salami? || ham_slices?
+        smoked_salami? || ham_slices? || sliced_sausagewiejska? || pork_sausage?
     end
 
     def krakauer_sausage?
@@ -371,6 +396,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def ham_slices?
       @line.include?('ham') && @line.include?('slices')
+    end
+
+    def sliced_sausagewiejska?
+      @line.include?('sliced') && @line.include?('sausagewiejska')
+    end
+
+    def pork_sausage?
+      @line.include?('pork') && @line.include?('sausage')
     end
 
     ####
