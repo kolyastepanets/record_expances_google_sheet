@@ -16,7 +16,7 @@ class BuildPrice
       price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
     end
 
-    if @session_object[:is_british_pounds]
+    if @session_object[:is_gbp_monzo]
       price_to_calculate = current_price
       price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} * #{CurrencyRate.call('GBP', 'USD').to_s.gsub(".", ",")}"
     end

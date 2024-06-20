@@ -62,8 +62,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       ask_to_enter_left_foreign_cash
     when 'dollar_card'
       ask_to_enter_dollar_foreign_currency_exchange_rate
-    when 'is_british_pounds'
-      session[:is_british_pounds] = true
+    when 'is_gbp_monzo'
+      session[:is_gbp_monzo] = true
       start_remember_total_price_of_products
       show_categories_to_choose
     when 'wise'
@@ -212,7 +212,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       DecreaseWiseUsdSavedAmountJob.perform_later(price_to_calculate)
     end
 
-    if session[:is_british_pounds]
+    if session[:is_gbp_monzo]
       DecreaseMonzoGbpSavedAmountJob.perform_later(price_to_calculate)
     end
 
@@ -442,7 +442,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       text: 'как заполнять?',
       reply_markup: {
         inline_keyboard: [
-          [{ text: 'British Pounds',  callback_data: 'is_british_pounds' }],
+          [{ text: 'GBP Monzo',  callback_data: 'is_gbp_monzo' }],
           [{ text: 'Обычные покупки', callback_data: 'common_expenses' }],
           [{ text: 'Чек иностранная валюта',  callback_data: 'receipt_foreign_currency' }],
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
@@ -588,7 +588,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def set_default_values_in_session!
     session[:is_wise] = nil
-    session[:is_british_pounds] = nil
+    session[:is_gbp_monzo] = nil
     session[:is_grivnas] = false
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
