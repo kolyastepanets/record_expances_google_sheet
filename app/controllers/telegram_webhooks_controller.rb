@@ -5,7 +5,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['UAH and USD all'],
     ['How many taxes to pay in current month'],
     ['Траты в gsheets за текущий день'],
-    ['Последние 10 транзакций в моно'],
     ['Вернуть часть денег после снятия кэша'],
     ['how much and when can start spending for all categories'],
     ['Выровнять в гугл таблице как в монобанке'],
@@ -307,7 +306,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
         { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
-        { text: 'Последние 10 транзакций в моно', method_to_call: 'get_last_10_transactions_from_mono' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
@@ -451,10 +449,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         **reply_markup,
       )
     end
-  end
-
-  def get_last_10_transactions_from_mono
-    respond_with(:message, text: GetLastTenTransactionsFromMonobank.call, reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def ask_type_of_expenses
