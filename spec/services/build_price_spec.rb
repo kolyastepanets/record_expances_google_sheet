@@ -12,6 +12,7 @@ RSpec.describe BuildPrice do
 
   before do
     allow(MonobankCurrencyRates).to receive(:call).and_return("37,4995")
+    allow(CurrencyRate).to receive(:call).and_return(1.25)
   end
 
   it 'returns prices' do
@@ -34,16 +35,16 @@ RSpec.describe BuildPrice do
     end
   end
 
-  context 'when is_metro' do
+  context 'when is_gbp_monzo' do
     let(:session_object) do
       {
         foreigh_cash_amount: 0,
-        is_metro: true,
+        is_gbp_monzo: true,
       }
     end
 
     it 'returns prices' do
-      expect(subject).to eq(["=(1,85 + 1,85 * 0,2) / 37,4995", 2.22])
+      expect(subject).to eq(["=1,85 * 1,25", 1.85])
     end
   end
 
