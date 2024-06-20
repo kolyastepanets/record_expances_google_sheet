@@ -9,7 +9,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['Вернуть часть денег после снятия кэша'],
     ['how much and when can start spending for all categories'],
     ['Выровнять в гугл таблице как в монобанке'],
-    ['Enter wise salary'],
     ['Enter cash'],
     ['Получить статистику трат по дням'],
     ['Получить статистику трат по дням сгруппированную по категориям'],
@@ -312,7 +311,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
         { text: 'Выровнять в гугл таблице как в монобанке', method_to_call: 'round_in_google_sheet_like_in_monobank' },
-        { text: 'Enter wise salary', method_to_call: 'ask_to_enter_wise_salary' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику трат по дням', method_to_call: 'get_statistic_by_days' },
         { text: 'Получить статистику трат по дням сгруппированную по категориям', method_to_call: 'get_statistic_by_days_grouped_by_categories' },
@@ -332,16 +330,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleInputPhotoJob.perform_later(message)
     respond_with(:message, text: 'Началась обработка фото...')
-  end
-
-  def ask_to_enter_wise_salary
-    save_context(:save_wise_salary!)
-    respond_with(:message, text: 'Enter wise salary:')
-  end
-
-  def save_wise_salary!(wise_salary, *args)
-    IncreaseWiseUsdSavedAmountJob.perform_later(wise_salary)
-    respond_with(:message, text: 'Wise salary has been saved', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def ask_to_enter_cash
