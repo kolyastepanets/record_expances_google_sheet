@@ -2651,6 +2651,23 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
         end
       end
     end
+
+    context 'when monzo expenses', freezed_time: '2024-06-21T20:36:00+00:00' do
+      let(:caption) { "monzo" }
+
+      context 'when 1 category was not parsed' do
+        it 'saves prices' do
+          # upload photo
+          post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_upload_photo
+          # choose category
+          post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_category
+          # choose sub category
+          post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_choose_sub_category
+
+          expect(response.status).to eq(200)
+        end
+      end
+    end
   end
 
   context 'when return some money after withdraw cash', freezed_time: '2024-06-20T20:51:00+00:00' do

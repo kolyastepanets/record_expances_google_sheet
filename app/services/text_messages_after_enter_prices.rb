@@ -1,12 +1,17 @@
 class TextMessagesAfterEnterPrices
   include CallableService
 
-  def initialize(is_uah, total_sum_of_money_before_save)
+  def initialize(is_gbp, is_uah, total_sum_of_money_before_save)
+    @is_gbp = is_gbp
     @is_uah = is_uah
     @total_sum_of_money_before_save = total_sum_of_money_before_save
   end
 
   def call
+    if @is_gbp
+      total_sum_of_money = ReceiveMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_monzo_formula]
+      total_sum_of_money_after_save = total_sum_of_money
+    end
     if @is_uah
       total_sum_of_money = ReceiveCurrentBalanceInMonobankFromGoogleSheet.call
       total_sum_of_money_after_save = total_sum_of_money.split("uah in google sheet: ")[-1].split("грн")[0].gsub(/[[:space:]]+/, "").gsub(",", ".").to_f

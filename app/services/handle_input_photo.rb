@@ -9,6 +9,7 @@ class HandleInputPhoto
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
     currency_code, currency_rate = @message_params[:caption].split(' ')
+    @currency_to_gbp = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "monzo"
     @currency_to_usd = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
     @params = []
@@ -27,6 +28,7 @@ class HandleInputPhoto
 
     total_sum_usd = 0
     total_sum_uah = 0
+    total_sum_gbp = 0
 
     total_sum_categories = @prices_with_categories.size
     total_sum_auto_entered_categories = 0
@@ -50,6 +52,18 @@ class HandleInputPhoto
           )
 
           total_sum_usd += params_to_save_to_google_sheet[:price_in_usd]
+        end
+
+        if @currency_to_gbp.present?
+          price_to_put_in_sheets = params_to_save_to_google_sheet[:price_in_gbp_to_save_in_google_sheet]
+
+          PutExpensesToGoogleSheet.call(
+            params_to_save_to_google_sheet[:category_name],
+            params_to_save_to_google_sheet[:sub_category_name],
+            price_to_put_in_sheets,
+          )
+
+          total_sum_gbp += params_to_save_to_google_sheet[:price_in_gbp]
         end
 
         if @currency_to_uah.present?
@@ -85,9 +99,22 @@ class HandleInputPhoto
     end
 
     total_sum_usd = total_sum_usd.round(2)
+    total_sum_gbp = total_sum_gbp.round(2)
     total_sum_uah = total_sum_uah.round(2)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
+
+    if @currency_to_gbp.present?
+      # decrease gbp spent amount
+      result = ReceiveMonzoGbpFromGoogleSheet.call
+      price_to_put_in_sheets = "#{result[:gbp_monzo_formula]} - #{total_sum_gbp.to_s.gsub(".", ",")}"
+
+      UpdateCellInGoogleSheet.call(
+        price_to_put_in_sheets,
+        result[:coordinates_of_gbp_monzo_formula],
+        page: 'Статистика накоплений'
+      )
+    end
 
     if @currency_to_uah.present?
       # decrease uah spent amount
@@ -187,6 +214,14 @@ class HandleInputPhoto
       }
     end
 
+    price_in_gbp = {}
+    if @currency_to_gbp.present?
+      price_in_gbp = {
+        price_in_gbp: current_price,
+        price_in_gbp_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_gbp.to_s.gsub(".", ",")}"
+      }
+    end
+
     price_in_uah = {}
     if @currency_to_uah.present?
       price_in_uah = {
@@ -200,16 +235,17 @@ class HandleInputPhoto
       sub_category_name: price_with_category[:sub_category_name],
       operation_amount: current_price,
       **price_in_usd,
+      **price_in_gbp,
       **price_in_uah,
     }
   end
 
   def send_messages_before_enter_prices
-    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah)
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_gbp, !!@currency_to_uah)
   end
 
   def send_messages_after_enter_prices
-    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_uah, @total_sum_of_money_before_save)
+    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_gbp, !!@currency_to_uah, @total_sum_of_money_before_save)
     send_message(data_text[:total_sum_after_money_was_saved])
     send_message(data_text[:difference_of_saved_money], show_reply_markup_main_buttons: true)
   end
@@ -219,6 +255,7 @@ class HandleInputPhoto
   end
 
   def collected_prices_sum_in_uad_or_in_uah
+    return "$#{(collected_prices_sum / @currency_to_gbp).round(2)}" if @currency_to_gbp
     return "$#{(collected_prices_sum / @currency_to_usd).round(2)}" if @currency_to_usd
     return "#{(collected_prices_sum * @currency_to_uah).round(2)} грн" if @currency_to_uah
   end
