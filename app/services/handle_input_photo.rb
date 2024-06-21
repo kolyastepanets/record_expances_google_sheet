@@ -9,7 +9,7 @@ class HandleInputPhoto
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
     currency_code, currency_rate = @message_params[:caption].split(' ')
-    @currency_to_usd = currency_rate.to_f if currency_code.downcase == "usd"
+    @currency_to_usd = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
     @params = []
   end
@@ -88,14 +88,6 @@ class HandleInputPhoto
     total_sum_uah = total_sum_uah.round(2)
 
     calculate_total_spent_usd_and_uah = CalculateTotalSpentUsdAndUah.call
-
-    if @currency_to_usd.present?
-      # decrease usd saved amount
-      UpdateCellInGoogleSheet.call(
-        calculate_total_spent_usd_and_uah[:total_left_usd_money] - total_sum_usd,
-        calculate_total_spent_usd_and_uah[:coordinates_of_total_left_usd_money],
-      )
-    end
 
     if @currency_to_uah.present?
       # decrease uah spent amount
@@ -217,7 +209,7 @@ class HandleInputPhoto
   end
 
   def send_messages_after_enter_prices
-    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, @total_sum_of_money_before_save)
+    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_uah, @total_sum_of_money_before_save)
     send_message(data_text[:total_sum_after_money_was_saved])
     send_message(data_text[:difference_of_saved_money], show_reply_markup_main_buttons: true)
   end
