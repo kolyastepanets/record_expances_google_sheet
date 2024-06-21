@@ -241,11 +241,11 @@ class HandleInputPhoto
   end
 
   def send_messages_before_enter_prices
-    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_gbp, !!@currency_to_uah)
+    @total_sum_of_money_before_save = SendTextMessagesBeforeEnterPrices.call(!!@currency_to_usd, !!@currency_to_uah, !!@currency_to_gbp)
   end
 
   def send_messages_after_enter_prices
-    data_text = TextMessagesAfterEnterPrices.call(!!@currency_to_gbp, !!@currency_to_uah, @total_sum_of_money_before_save)
+    data_text = TextMessagesAfterEnterPrices.call(false, !!@currency_to_uah, @total_sum_of_money_before_save, !!@currency_to_gbp)
     send_message(data_text[:total_sum_after_money_was_saved])
     send_message(data_text[:difference_of_saved_money], show_reply_markup_main_buttons: true)
   end

@@ -8,7 +8,7 @@ class SendMessageTotalSumAfterFinishEnterMoney
   end
 
   def call
-    data_text = TextMessagesAfterEnterPrices.call(@is_usd, @is_uah, @total_sum_of_money_before_save)
+    data_text = TextMessagesAfterEnterPrices.call(@is_usd, @is_uah, @total_sum_of_money_before_save, false)
     Telegram.bot.send_message(chat_id: ENV['MY_TELEGRAM_ID'], text: data_text[:total_sum_after_money_was_saved])
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],

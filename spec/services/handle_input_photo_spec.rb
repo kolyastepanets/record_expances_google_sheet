@@ -19,7 +19,7 @@ RSpec.describe HandleInputPhoto do
         "caption"=>caption
      }
     end
-    let(:caption) { "Usd 15202 m" }
+    let(:caption) { "Usd" }
     let(:collected_prices_with_categories) do
       [
         {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>15000.0},
@@ -62,6 +62,7 @@ RSpec.describe HandleInputPhoto do
       allow(MonobankCurrencyRates).to receive(:call).and_return("37,4406")
       allow(ReceiveCategories).to receive(:call).and_return(categories)
       allow(SendTextMessagesBeforeEnterPrices).to receive(:call)
+      allow(CurrencyRate).to receive(:call).and_return(0.78)
       allow(TextMessagesAfterEnterPrices).to receive(:call).and_return({
         total_sum_after_money_was_saved: "Общая сумма уже сохраненная после заполнения: 123",
         difference_of_saved_money: "Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321",
@@ -74,24 +75,22 @@ RSpec.describe HandleInputPhoto do
           allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $24.8")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $483333.33")
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая сумма уже сохраненная после заполнения: 123")
           expect_any_instance_of(described_class).to receive(:send_message).with("Разница денег на основе сохраненных сумм, сравнить с ценой в чеке: 321", show_reply_markup_main_buttons: true)
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 15202,0")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 15202,0")
-
-          expect(UpdateCellInGoogleSheet).to receive(:call).with(3075.2, "BC81")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 0,78").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 0,78")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "К пиву", "=282500,0 / 0,78")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 0,78")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Сладости", "=16500,0 / 0,78")
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
               :category_name=>"Для дома",
               :operation_amount=>15000.0,
-              :price_in_usd=>0.99,
-              :price_in_usd_to_save_in_google_sheet=>"=15000,0 / 15202,0",
+              :price_in_usd=>19230.77,
+              :price_in_usd_to_save_in_google_sheet=>"=15000,0 / 0,78",
               :sub_category_name=>"Ванные принадлежности"
             }
           )
@@ -99,8 +98,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Еда",
               :operation_amount=>38000.0,
-              :price_in_usd=>2.5,
-              :price_in_usd_to_save_in_google_sheet=>"=38000,0 / 15202,0",
+              :price_in_usd=>48717.95,
+              :price_in_usd_to_save_in_google_sheet=>"=38000,0 / 0,78",
               :sub_category_name=>"Новопочта"
             }
           )
@@ -108,8 +107,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Еда",
               :operation_amount=>282500.0,
-              :price_in_usd=>18.58,
-              :price_in_usd_to_save_in_google_sheet=>"=282500,0 / 15202,0",
+              :price_in_usd=>362179.49,
+              :price_in_usd_to_save_in_google_sheet=>"=282500,0 / 0,78",
               :sub_category_name=>"К пиву"
             }
           )
@@ -117,8 +116,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Для дома",
               :operation_amount=>25000.0,
-              :price_in_usd=>1.64,
-              :price_in_usd_to_save_in_google_sheet=>"=25000,0 / 15202,0",
+              :price_in_usd=>32051.28,
+              :price_in_usd_to_save_in_google_sheet=>"=25000,0 / 0,78",
               :sub_category_name=>"Ванные принадлежности"
             }
           )
@@ -126,8 +125,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Еда",
               :operation_amount=>16500.0,
-              :price_in_usd=>1.09,
-              :price_in_usd_to_save_in_google_sheet=>"=16500,0 / 15202,0",
+              :price_in_usd=>21153.85,
+              :price_in_usd_to_save_in_google_sheet=>"=16500,0 / 0,78",
               :sub_category_name=>"Сладости"
             }
           )
@@ -312,22 +311,20 @@ RSpec.describe HandleInputPhoto do
           allow(CalculateTotalSpentUsdAndUah).to receive(:call).and_return({total_left_usd_money: 3100.0, coordinates_of_total_left_usd_money: "BC81"})
 
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 377000.0")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $24.8")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $483333.33")
 
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 15202,0").and_return(response_after_save_expenses)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 15202,0")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=15000,0 / 0,78").and_return(response_after_save_expenses)
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Еда", "Новопочта", "=38000,0 / 0,78")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>282500.0}, request_params_1).and_return(result1)
-          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 15202,0")
+          expect(PutExpensesToGoogleSheet).to receive(:call).with("Для дома", "Ванные принадлежности", "=25000,0 / 0,78")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>16500.0}, request_params_2).and_return(result2)
-
-          expect(UpdateCellInGoogleSheet).to receive(:call).with(3094.87, "BC81")
 
           expect(SendNotificationMessageToBot).to receive(:call).with(
             {
               :category_name=>"Для дома",
               :operation_amount=>15000.0,
-              :price_in_usd=>0.99,
-              :price_in_usd_to_save_in_google_sheet=>"=15000,0 / 15202,0",
+              :price_in_usd=>19230.77,
+              :price_in_usd_to_save_in_google_sheet=>"=15000,0 / 0,78",
               :sub_category_name=>"Ванные принадлежности"
             }
           )
@@ -335,8 +332,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Еда",
               :operation_amount=>38000.0,
-              :price_in_usd=>2.5,
-              :price_in_usd_to_save_in_google_sheet=>"=38000,0 / 15202,0",
+              :price_in_usd=>48717.95,
+              :price_in_usd_to_save_in_google_sheet=>"=38000,0 / 0,78",
               :sub_category_name=>"Новопочта"
             }
           )
@@ -344,8 +341,8 @@ RSpec.describe HandleInputPhoto do
             {
               :category_name=>"Для дома",
               :operation_amount=>25000.0,
-              :price_in_usd=>1.64,
-              :price_in_usd_to_save_in_google_sheet=>"=25000,0 / 15202,0",
+              :price_in_usd=>32051.28,
+              :price_in_usd_to_save_in_google_sheet=>"=25000,0 / 0,78",
               :sub_category_name=>"Ванные принадлежности"
             }
           )
@@ -529,7 +526,7 @@ RSpec.describe HandleInputPhoto do
 
         it 'sends message to bot with prices and categories' do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 53000.0")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $3.49")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $67948.72")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>15000.0}, request_params_1).and_return(result1)
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>38000.0}, request_params_2).and_return(result2)
 
@@ -542,7 +539,7 @@ RSpec.describe HandleInputPhoto do
 
         it 'sends message to bot with prices and categories' do
           expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке в иностранной валюте: 53000.0")
-          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $3.49")
+          expect_any_instance_of(described_class).to receive(:send_message).with("Общая цена в чеке: $67948.72")
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>15000.0}, request_params_1).and_return(result1)
           expect_any_instance_of(described_class).to receive(:send_message_with_categories).with({:category_name=>nil, :sub_category_name=>nil, :price=>38000.0}, request_params_2).and_return(result2)
 

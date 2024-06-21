@@ -46,13 +46,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       start_remember_total_price_of_products
       is_usd = false
       is_uah = true
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false)
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
       is_usd = false
       is_uah = true
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah)
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false)
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       result = CalculateForeignCurrencyCashExpenses.call
@@ -253,7 +253,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_dollar_foreign_currency_exchange_rate!(exchange_rate, *args)
     session[:receipt_dollar_foreign_currency_exchange_rate] = exchange_rate.to_f
     session[:total_price_of_products_in_foreign_currency] = 0
-    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false)
+    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false, false)
     start_remember_total_price_of_products
     show_categories_to_choose
   end
