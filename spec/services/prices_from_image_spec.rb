@@ -581,6 +581,64 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt tesco 6', freezed_time: '2024-06-21T19:23:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/tesco/out05.png") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.0},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.3},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>7.5},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.3},
+        {:category_name=>"Еда", :sub_category_name=>"Колбаса, сосиски", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>2.8},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>4.0},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.65},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.6},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.0},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.35},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>4.25},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>3.6},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.0},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.1},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.85},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.9},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>6.6},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.75},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>4.0},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>4.0},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>7.0},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.75},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.2},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>2.0},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.49},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.95},
+        {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>2.66},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.25},
+        {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>3.0},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.4},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.89},
+        {:category_name=>"Еда", :sub_category_name=>"Бакалея", :price=>1.6},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.09},
+        {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>2.2},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.6},
+        {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>2.25},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.95},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.4},
+        99.63,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt sok turkey 1', freezed_time: '2024-04-19T19:03:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/sok_turkey/out01.jpeg") }
 
