@@ -3,7 +3,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   BUTTONS_INFO = [
     ['UAH and USD all'],
-    ['How many taxes to pay in current month'],
     ['Траты в gsheets за текущий день'],
     ['Вернуть часть денег после снятия кэша'],
     ['how much and when can start spending for all categories'],
@@ -299,7 +298,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if BUTTONS_INFO.flat_map(&:first).include?(message_text)
       mapping = [
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
-        { text: 'How many taxes to pay in current month', method_to_call: 'how_many_taxes_to_pay_in_current_month' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
@@ -618,10 +616,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     transaction_id = data.split(': ')[1]
     params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
     DeleteMessagesJob.perform_later(params[:message_ids].uniq)
-  end
-
-  def how_many_taxes_to_pay_in_current_month
-    respond_with(:message, text: ReceiveCurrentMonthTaxesToPay.call[:full_text], reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def respond_with(type, *args)

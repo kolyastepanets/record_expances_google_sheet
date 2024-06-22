@@ -1,6 +1,5 @@
 # every 2nd day of month at 09:00 UTC
 every "0 9 2 * *" do
-  runner "SendReminderToPayTaxes.call"
 end
 
 every 2.minutes do
