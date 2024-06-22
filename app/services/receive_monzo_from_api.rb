@@ -14,7 +14,7 @@ class ReceiveMonzoFromApi
       url: "https://api.monzo.com/balance?account_id=#{ENV['MONZO_ACCOUNT_ID']}",
       headers: {
         'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{ENV['MONZO_ACCESS_TOKEN']}"
+        'Authorization' => "Bearer #{ReceiveMonzoFromApiAccessToken.call}"
       }
     )
   end
