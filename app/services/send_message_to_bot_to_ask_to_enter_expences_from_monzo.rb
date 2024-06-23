@@ -2,7 +2,19 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
   include CallableService
 
   def initialize(params)
-    @params_to_display = params
+    @params_to_display = {
+      type: params[:type],
+      id: params[:data][:id],
+      created: params[:data][:created],
+      updated: params[:data][:updated],
+      description: params[:data][:description],
+      amount: params[:data][:amount],
+      currency: params[:data][:currency],
+      local_amount: params[:data][:local_amount],
+      local_currency: params[:data][:local_currency],
+      notes: params[:data][:notes],
+      category: params[:data][:category],
+    }
     @id = Digest::SHA256.hexdigest(params[:data][:id])[0, 5]
     @redis = Redis.new
     @categories = ReceiveCategories.call
