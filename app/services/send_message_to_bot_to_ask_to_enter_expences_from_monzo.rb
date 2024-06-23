@@ -8,14 +8,15 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
       created: params[:data][:created],
       updated: params[:data][:updated],
       description: params[:data][:description],
-      amount: params[:data][:amount],
+      amount: (params[:data][:amount] / 100.0).round(2),
       currency: params[:data][:currency],
-      local_amount: params[:data][:local_amount],
+      local_amount: (params[:data][:local_amount] / 100.0).round(2),
       local_currency: params[:data][:local_currency],
       notes: params[:data][:notes],
       category: params[:data][:category],
     }
     @id = Digest::SHA256.hexdigest(params[:data][:id])[0, 5]
+    @original_id = params[:data][:id]
     @redis = Redis.new
     @categories = ReceiveCategories.call
     price_in_gbp = (params[:data][:amount].to_i / 100.0).round(2)
@@ -27,6 +28,8 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
   end
 
   def call
+    return if @redis.get(@original_id)
+
     response = send_message_with_params
     save_message_id(response["result"]["message_id"])
     response = send_message_with_categories
@@ -53,6 +56,7 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
 
   def save_to_redis
     @redis.set(@id, @params.to_json, ex: 2.weeks)
+    @redis.set(@original_id, @original_id, ex: 3.days)
   end
 
   def categories_to_show
