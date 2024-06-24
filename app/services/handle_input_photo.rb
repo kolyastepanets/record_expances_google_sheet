@@ -92,6 +92,7 @@ class HandleInputPhoto
           price: price_with_category[:price],
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
+          currency_to_gbp: @currency_to_gbp,
           message_ids: [response["result"]["message_id"]],
         }
         total_sum_manually_entered_categories += 1

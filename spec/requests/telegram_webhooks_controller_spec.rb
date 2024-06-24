@@ -2652,7 +2652,7 @@ RSpec.describe TelegramWebhooksController, type: :request, vcr: true, perform_en
       end
     end
 
-    context 'when monzo expenses', freezed_time: '2024-06-21T20:36:00+00:00' do
+    context 'when monzo expenses', freezed_time: '2024-06-24T21:08:00+00:00' do
       let(:caption) { "monzo" }
 
       context 'when 1 category was not parsed' do

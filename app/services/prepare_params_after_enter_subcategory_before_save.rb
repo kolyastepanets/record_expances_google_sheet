@@ -48,11 +48,23 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
     price_in_usd
   end
 
+  def price_in_gbp
+    price_in_gbp = {}
+    if @last_price_to_message["currency_to_gbp"].present?
+      price_in_gbp = {
+        price_in_gbp: @price,
+        price_in_gbp_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} / #{@last_price_to_message["currency_to_gbp"].to_s.gsub(".", ",")}"
+      }
+    end
+    price_in_gbp
+  end
+
   def params_to_save_to_google_sheet
     {
       category_name: @last_price_to_message["category_name"],
       sub_category_name: @sub_category_name,
       operation_amount: @price,
+      **price_in_gbp,
       **price_in_usd,
       **price_in_uah,
     }
