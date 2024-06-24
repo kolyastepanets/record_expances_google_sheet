@@ -40,9 +40,10 @@ class PutExpencesUahBlackCardJob < ApplicationJob
     SendNotificationMessageToBot.call(params)
 
     if params[:can_show_final_sum]
+      is_gbp = false
       is_usd = false
       is_uah = true
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, params[:total_sum_of_money_before_save])
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_gbp, is_usd, is_uah, params[:total_sum_of_money_before_save])
       SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later([params[:category_name]])
     end
   rescue StandardError => e

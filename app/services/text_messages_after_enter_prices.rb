@@ -1,10 +1,10 @@
 class TextMessagesAfterEnterPrices
   include CallableService
 
-  def initialize(is_usd, is_uah, total_sum_of_money_before_save, is_gbp)
+  def initialize(is_gbp, is_usd, is_uah, total_sum_of_money_before_save)
+    @is_gbp = is_gbp
     @is_usd = is_usd
     @is_uah = is_uah
-    @is_gbp = is_gbp
     @total_sum_of_money_before_save = total_sum_of_money_before_save
   end
 

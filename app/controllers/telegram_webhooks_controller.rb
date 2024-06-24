@@ -180,6 +180,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
       PutExpencesUahBlackCardJob.perform_later(updated_params) if updated_params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(updated_params) if updated_params[:price_in_usd]
+      PutExpencesGbpMonzoCardJob.perform_later(updated_params) if updated_params[:price_in_gbp]
       DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
     else
       # return help
@@ -477,7 +478,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if session[:is_grivnas] || !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_uah = session[:is_grivnas]
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_usd, is_uah, session[:total_sum_of_money_before_save])
+      SendMessageTotalSumAfterFinishEnterMoney.call(false, is_usd, is_uah, session[:total_sum_of_money_before_save])
       SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(session[:categories_names])
     end
 
