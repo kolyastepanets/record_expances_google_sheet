@@ -269,11 +269,16 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
     allow(DeleteMessagesJob).to receive(:perform_later)
   end
 
-  context 'when unknown category', freezed_time: '2024-06-19T22:08:00+00:00' do
+  context 'when unknown category', freezed_time: '2024-06-28T12:43:00+00:00' do
     let(:tranfer_id) { "a43d1" }
 
     it 'asks bot and saves to google sheet' do
       post '/monzo_webhooks', params: monzo_webhook_params
+      post '/monzo_webhooks', params: monzo_webhook_params
+
+      # simulate call from schedule
+      SendMessageToBotToAskToEnterExpencesFromMonzoSchedule.call
+
       # choose category
       post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
       # choose sub category

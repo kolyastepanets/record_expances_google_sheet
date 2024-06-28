@@ -28,8 +28,6 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
   end
 
   def call
-    return if @redis.exists?(@original_id)
-
     response = send_message_with_params
     save_message_id(response["result"]["message_id"])
     response = send_message_with_categories
@@ -56,7 +54,6 @@ class SendMessageToBotToAskToEnterExpencesFromMonzo
 
   def save_to_redis
     @redis.set(@id, @params.to_json, ex: 2.weeks)
-    @redis.set(@original_id, @original_id, ex: 1.day)
   end
 
   def categories_to_show
