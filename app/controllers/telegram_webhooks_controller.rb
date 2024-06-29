@@ -65,6 +65,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       session[:is_gbp_monzo] = true
       start_remember_total_price_of_products
       show_categories_to_choose
+    when 'is_gbp_joint_monzo'
+      session[:is_gbp_joint_monzo] = true
+      start_remember_total_price_of_products
+      show_categories_to_choose
     when 'wise'
       session[:is_wise] = true
       start_remember_total_price_of_products
@@ -226,6 +230,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     if session[:is_gbp_monzo]
       DecreaseMonzoGbpSavedAmountJob.perform_later(price_to_calculate)
+    end
+
+    if session[:is_gbp_joint_monzo]
+      DecreaseJointMonzoGbpSavedAmountJob.perform_later(price_to_calculate)
     end
 
     sub_category_name = session[:last_chosen_sub_category]
@@ -456,6 +464,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       reply_markup: {
         inline_keyboard: [
           [{ text: 'GBP Monzo',  callback_data: 'is_gbp_monzo' }],
+          [{ text: 'GBP Joint Monzo',  callback_data: 'is_gbp_joint_monzo' }],
           [{ text: 'Обычные покупки', callback_data: 'common_expenses' }],
           [{ text: 'Чек иностранная валюта',  callback_data: 'receipt_foreign_currency' }],
           [{ text: 'Наличка иностранная валюта',  callback_data: 'cash_foreign_currency' }],
@@ -602,6 +611,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def set_default_values_in_session!
     session[:is_wise] = nil
     session[:is_gbp_monzo] = nil
+    session[:is_gbp_joint_monzo] = nil
     session[:is_grivnas] = false
     session[:last_chosen_category] = nil
     session[:last_chosen_sub_category] = nil
