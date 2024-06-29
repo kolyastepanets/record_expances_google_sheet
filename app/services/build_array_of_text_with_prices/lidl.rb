@@ -8,7 +8,6 @@ module BuildArrayOfTextWithPrices
       array_with_pound = @parsed_texts.detect { |array_of_text| array_of_text.any? { |str| str == "£" } }
       array_with_pound_index = @parsed_texts.index(array_with_pound)
 
-      # binding.pry
       @parsed_texts[array_with_pound_index..-1].deep_dup.each.with_index do |array_of_text, index|
         break if total_end_card?(array_of_text)
         break if total_end?(array_of_text)

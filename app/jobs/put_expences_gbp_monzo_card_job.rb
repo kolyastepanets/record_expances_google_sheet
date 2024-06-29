@@ -27,7 +27,8 @@ class PutExpencesGbpMonzoCardJob < ApplicationJob
       is_gbp = true
       is_usd = false
       is_uah = false
-      SendMessageTotalSumAfterFinishEnterMoney.call(is_gbp, is_usd, is_uah, params[:total_sum_of_money_before_save])
+      is_gbp_joint = false
+      SendMessageTotalSumAfterFinishEnterMoney.call(is_gbp, is_gbp_joint, is_usd, is_uah, params[:total_sum_of_money_before_save])
       SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later([params[:category_name]])
     end
   rescue StandardError => e

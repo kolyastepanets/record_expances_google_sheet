@@ -45,13 +45,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       start_remember_total_price_of_products
       is_usd = false
       is_uah = true
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false)
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false, false)
       show_categories_to_choose
     when 'receipt_foreign_currency'
       session[:is_grivnas] = true
       is_usd = false
       is_uah = true
-      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false)
+      session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(is_usd, is_uah, false, false)
       ask_to_enter_current_exchange_rate
     when 'cash_foreign_currency'
       result = CalculateForeignCurrencyCashExpenses.call
@@ -122,7 +122,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       _sign, kind_of_transaction, transaction_id, price = data.split(':')
       message_id = FindMessageId.call(transaction_id, price, payload["message"]["message_id"])
       Telegram.bot.edit_message_reply_markup(chat_id: ENV['MY_TELEGRAM_ID'], message_id: message_id, reply_markup: { inline_keyboard: BuildArrayOfCategories.call(kind_of_transaction, transaction_id, price) })
-    when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') || input_category.include?('m_id') }
+    when -> (input_category) { input_category.include?('w_id') || input_category.include?('c_id') || input_category.include?('m_id') || input_category.include?('mj_id') }
       category_name, kind_of_transaction, transaction_id, price = data.split(':')
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
       params[:category_name] = category_name
@@ -161,6 +161,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
       SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
+    when -> (input_sub_category) { input_sub_category.include?('mj1_id') }
+      short_subcategory_name, _kind_of_transaction, transaction_id, _price = data.split(":")
+      sub_category_name = find_full_sub_category_name(short_subcategory_name)
+      params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
+      params[:message_ids] << payload["message"]["message_id"]
+      params[:sub_category_name] = sub_category_name
+
+      DecreaseJointMonzoGbpSavedAmountJob.perform_later(params[:price_in_gbp])
+      PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
+      SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
+      DeleteMessagesJob.perform_later(params[:message_ids].uniq)
     when -> (input_category) { input_category.include?('f_id') }
       category_name, kind_of_transaction, transaction_id, price = data.split(':')
       params = JSON.parse(redis.get(transaction_id))
@@ -181,6 +192,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpencesUahBlackCardJob.perform_later(updated_params) if updated_params[:price_in_uah]
       PutExpencesFopDollarCardJob.perform_later(updated_params) if updated_params[:price_in_usd]
       PutExpencesGbpMonzoCardJob.perform_later(updated_params) if updated_params[:price_in_gbp]
+      PutExpencesGbpJointMonzoCardJob.perform_later(updated_params) if updated_params[:price_in_gbp_joint]
       DeleteMessages.call((messages_to_delete + [payload["message"]["message_id"]]).uniq)
     else
       # return help
@@ -253,7 +265,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def save_dollar_foreign_currency_exchange_rate!(exchange_rate, *args)
     session[:receipt_dollar_foreign_currency_exchange_rate] = exchange_rate.to_f
     session[:total_price_of_products_in_foreign_currency] = 0
-    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false, false)
+    session[:total_sum_of_money_before_save] = SendTextMessagesBeforeEnterPrices.call(true, false, false, false)
     start_remember_total_price_of_products
     show_categories_to_choose
   end
@@ -403,11 +415,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     usd_wise_in_google_sheet = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
     usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet.round(2)}"
     gbp_monzo_in_google_sheet = ReceiveMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_monzo_formula]
-    gbp_monzo_in_google_sheet_text = "gbp monzo in google sheet: $#{gbp_monzo_in_google_sheet.round(2)}"
+    gbp_monzo_in_google_sheet_text = "gbp monzo in google sheet: £#{gbp_monzo_in_google_sheet.round(2)}"
+    gbp_joint_monzo_in_google_sheet = ReceiveJointMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_joint_monzo_formula]
+    gbp_joint_monzo_in_google_sheet_text = "gbp joint monzo in google sheet: £#{gbp_joint_monzo_in_google_sheet.round(2)}"
 
     respond_with(
       :message,
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}",
+      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}\n#{gbp_joint_monzo_in_google_sheet_text}\n#{ReceiveJointMonzoFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
@@ -478,7 +492,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if session[:is_grivnas] || !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_uah = session[:is_grivnas]
-      SendMessageTotalSumAfterFinishEnterMoney.call(false, is_usd, is_uah, session[:total_sum_of_money_before_save])
+      SendMessageTotalSumAfterFinishEnterMoney.call(false, false, is_usd, is_uah, session[:total_sum_of_money_before_save])
       SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(session[:categories_names])
     end
 

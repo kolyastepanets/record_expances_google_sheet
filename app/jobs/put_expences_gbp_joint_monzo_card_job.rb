@@ -1,10 +1,10 @@
-class PutExpencesFopDollarCardJob < ApplicationJob
+class PutExpencesGbpJointMonzoCardJob < ApplicationJob
   queue_as :default
 
   def perform(params)
     params = params.deep_symbolize_keys
-    price_in_usd = params[:price_in_usd]
-    price_to_put_in_sheets = params[:price_in_usd_to_save_in_google_sheet] || "=#{price_in_usd.to_s.gsub(".", ",")}"
+    price_in_gbp = params[:price_in_gbp_joint]
+    price_to_put_in_sheets = params[:price_in_gbp_to_save_in_google_sheet]
 
     PutExpensesToGoogleSheet.call(
       params[:category_name],
@@ -12,20 +12,23 @@ class PutExpencesFopDollarCardJob < ApplicationJob
       price_to_put_in_sheets
     )
 
-    # decrease usd saved amount
-    result = CalculateTotalSpentUsdAndUah.call
+    # decrease gbp saved amount
+    result = ReceiveJointMonzoGbpFromGoogleSheet.call
+    price_to_put_in_sheets = "#{result[:gbp_joint_monzo_formula]} - #{price_in_gbp.to_s.gsub(".", ",")}"
+
     UpdateCellInGoogleSheet.call(
-      result[:total_left_usd_money] - price_in_usd,
-      result[:coordinates_of_total_left_usd_money],
+      price_to_put_in_sheets,
+      result[:coordinates_of_joint_gbp_monzo_formula],
+      page: 'Статистика накоплений'
     )
 
     SendNotificationMessageToBot.call(params)
 
     if params[:can_show_final_sum]
       is_gbp = false
-      is_usd = true
+      is_usd = false
       is_uah = false
-      is_gbp_joint = false
+      is_gbp_joint = true
       SendMessageTotalSumAfterFinishEnterMoney.call(is_gbp, is_gbp_joint, is_usd, is_uah, params[:total_sum_of_money_before_save])
       SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later([params[:category_name]])
     end
