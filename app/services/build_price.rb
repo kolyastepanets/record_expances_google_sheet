@@ -21,6 +21,11 @@ class BuildPrice
       price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} * #{CurrencyRate.call('GBP', 'USD').to_s.gsub(".", ",")}"
     end
 
+    if @session_object[:is_gbp_joint_monzo]
+      price_to_calculate = current_price
+      price_to_put_in_sheets = "=#{current_price.to_s.gsub(".", ",")} * #{CurrencyRate.call('GBP', 'USD').to_s.gsub(".", ",")}"
+    end
+
     if !@session_object[:foreigh_cash_amount].zero?
       price_to_calculate = current_price
       price_to_put_in_sheets = BuildCashForeignCurrencyFormulaPrice.call(current_price)

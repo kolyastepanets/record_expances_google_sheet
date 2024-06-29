@@ -48,6 +48,19 @@ RSpec.describe BuildPrice do
     end
   end
 
+  context 'when is_gbp_joint_monzo' do
+    let(:session_object) do
+      {
+        foreigh_cash_amount: 0,
+        is_gbp_joint_monzo: true,
+      }
+    end
+
+    it 'returns prices' do
+      expect(subject).to eq(["=1,85 * 1,25", 1.85])
+    end
+  end
+
   context 'when receipt_foreign_currency_exchange_rate' do
     let(:session_object) do
       {
