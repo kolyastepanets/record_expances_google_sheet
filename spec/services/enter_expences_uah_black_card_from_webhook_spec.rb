@@ -741,7 +741,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         cashbackAmount: 0,
         commissionRate: 0,
         currencyCode: 980,
-        description: "431414******3237",
+        description: "431414****5779",
         hold: true,
         id: "JEMXm-kC9iSZNfGJ",
         mcc: 4829,
@@ -759,7 +759,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
         price_in_uah: 750.0,
         operation_amount: 750.0,
         current_month: Date.today.month,
-        mono_description: "431414******3237",
+        mono_description: "431414****5779",
         currency_rate: 1.0,
         total_sum_of_money_before_save: 0,
       }

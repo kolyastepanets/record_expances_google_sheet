@@ -119,7 +119,7 @@ class CommonExpensesFromWebhook
   end
 
   def kladovka_2
-    "431414******3237"
+    "431414****5779"
   end
 
   def kolya_mama_start_card
