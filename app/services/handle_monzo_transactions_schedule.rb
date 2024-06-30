@@ -38,6 +38,11 @@ class HandleMonzoTransactionsSchedule
       return
     end
 
+    if salary?(params)
+      add_to_personal_account((params[:data][:amount].abs / 100.0).round(2))
+      return
+    end
+
     send_message_to_bot(params)
   end
 
@@ -99,6 +104,14 @@ class HandleMonzoTransactionsSchedule
 
   def transaction_money_from_personal_to_joint?(params)
     params[:data][:account_id] == ENV['MONZO_ACCOUNT_ID'] && params[:data][:description] == ENV['JOINT_MONZO_NAME'] && params[:data][:amount].negative?
+  end
+
+  def salary?(params)
+    params[:data][:account_id] == ENV['MONZO_ACCOUNT_ID'] && salary_description?(params[:data][:description].downcase) && params[:data][:amount].positive?
+  end
+
+  def salary_description?(description)
+    description.include?('hawk') && description.include?('applic') && description.include?('corp')
   end
 
   def send_message_to_bot(params)

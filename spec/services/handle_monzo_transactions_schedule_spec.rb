@@ -108,4 +108,32 @@ RSpec.describe HandleMonzoTransactionsSchedule do
       subject
     end
   end
+
+  context 'when salary', vcr: true, freezed_time: '2024-06-30T13:16:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "P1VEAGEODRH9, HAWK APPLIC, ATIONS CORP",
+          "amount": 5766,
+          "currency": "GBP",
+          "local_amount": 7363,
+          "local_currency": "USD",
+          "account_id": ENV['MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+    end
+
+    it 'adds to personal' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
 end
