@@ -1,5 +1,5 @@
 every 10.minutes do
-  runner "SendMessageToBotToAskToEnterExpencesFromMonzoSchedule.call"
+  runner "HandleMonzoTransactionsSchedule.call"
 end
 
 every 2.minutes do
