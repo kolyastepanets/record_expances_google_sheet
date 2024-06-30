@@ -278,7 +278,7 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
       post '/monzo_webhooks', params: monzo_webhook_params
 
       # simulate call from schedule
-      SendMessageToBotToAskToEnterExpencesFromMonzoSchedule.call
+      HandleMonzoTransactionsSchedule.call
 
       # choose category
       post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
@@ -528,7 +528,7 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
         post '/monzo_webhooks', params: monzo_webhook_params
 
         # simulate call from schedule
-        SendMessageToBotToAskToEnterExpencesFromMonzoSchedule.call
+        HandleMonzoTransactionsSchedule.call
 
         # choose category
         post '/telegram/R3FQNsguWJKThALhQPP_E8yrs-s', params: telegram_bot_params_transport_category
