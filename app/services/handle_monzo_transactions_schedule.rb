@@ -21,6 +21,7 @@ class HandleMonzoTransactionsSchedule
     if money_from_joint_to_personal?(params)
       withdraw_from_joint_account((params[:data][:amount].abs / 100.0).round(2))
       add_to_personal_account((params[:data][:amount].abs / 100.0).round(2))
+      send_notification_to_bot("£#{(params[:data][:amount].abs / 100.0).round(2)} was transferred from Joint Monzo to Personal Monzo account.")
       return
     end
 
@@ -31,6 +32,7 @@ class HandleMonzoTransactionsSchedule
     if money_from_personal_to_joint?(params)
       withdraw_from_personal_account((params[:data][:amount].abs / 100.0).round(2))
       add_to_joint_account((params[:data][:amount].abs / 100.0).round(2))
+      send_notification_to_bot("£#{(params[:data][:amount].abs / 100.0).round(2)} was transferred from Personal Monzo account to Joint Monzo.")
       return
     end
 
@@ -40,10 +42,11 @@ class HandleMonzoTransactionsSchedule
 
     if salary?(params)
       add_to_personal_account((params[:data][:amount].abs / 100.0).round(2))
+      send_notification_to_bot("Salary £#{(params[:data][:amount].abs / 100.0).round(2)} was saved to Personal Monzo account.")
       return
     end
 
-    send_message_to_bot(params)
+    send_ask_message_to_bot(params)
   end
 
   def money_from_joint_to_personal?(params)
@@ -70,6 +73,10 @@ class HandleMonzoTransactionsSchedule
       result[:coordinates_of_gbp_monzo_formula],
       page: 'Статистика накоплений'
     )
+  end
+
+  def send_notification_to_bot(message)
+    SendNotificationMessageToBot.call(message, show_reply_markup_main_buttons: true)
   end
 
   def transaction_money_from_joint_to_personal?(params)
@@ -114,7 +121,7 @@ class HandleMonzoTransactionsSchedule
     description.include?('hawk') && description.include?('applic') && description.include?('corp')
   end
 
-  def send_message_to_bot(params)
+  def send_ask_message_to_bot(params)
     SendMessageToBotToAskToEnterExpencesFromMonzo.call(params)
   end
 
