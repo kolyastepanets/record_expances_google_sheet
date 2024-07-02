@@ -14,7 +14,7 @@ class HandleMonzoWebhook
   private
 
   def save_to_redis
-    @redis.set("monzo_transaction_id_#{@params[:data][:id]}", @params.to_json, ex: 24.hours)
+    @redis.set("monzo_transaction_id_#{@params[:data][:id]}", @params.to_json, ex: 24.hours) if !@redis.exists?("monzo_transaction_id_#{@params[:data][:id]}")
   end
 
   def send_webhook_to_google_sheet
