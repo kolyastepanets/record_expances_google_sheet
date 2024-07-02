@@ -53,7 +53,7 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
     if @last_price_to_message["currency_to_gbp"].present?
       price_in_gbp = {
         price_in_gbp: @price,
-        price_in_gbp_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} / #{@last_price_to_message["currency_to_gbp"].to_s.gsub(".", ",")}"
+        price_in_gbp_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} * #{@last_price_to_message["currency_to_gbp"].to_s.gsub(".", ",")}"
       }
     end
     price_in_gbp
@@ -64,7 +64,7 @@ class PrepareParamsAfterEnterSubcategoryBeforeSave
     if @last_price_to_message["currency_to_gbp_joint"].present?
       price_in_gbp_joint = {
         price_in_gbp_joint: @price,
-        price_in_gbp_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} / #{@last_price_to_message["currency_to_gbp_joint"].to_s.gsub(".", ",")}"
+        price_in_gbp_to_save_in_google_sheet: "=#{@price.to_s.gsub(".", ",")} * #{@last_price_to_message["currency_to_gbp_joint"].to_s.gsub(".", ",")}"
       }
     end
     price_in_gbp_joint

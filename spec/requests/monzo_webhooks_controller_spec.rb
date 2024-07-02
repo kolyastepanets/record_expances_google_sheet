@@ -270,7 +270,7 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
     allow(DeleteMessagesJob).to receive(:perform_later)
   end
 
-  context 'when unknown category', freezed_time: '2024-06-29T20:03:00+00:00' do
+  context 'when unknown category', freezed_time: '2024-07-02T21:40:00+00:00' do
     let(:tranfer_id) { "a43d1" }
 
     it 'asks bot and saves to google sheet' do
@@ -288,7 +288,7 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
       expect(response.status).to eq(200)
     end
 
-    context 'when joint account', freezed_time: '2024-06-29T20:11:00+00:00' do
+    context 'when joint account', freezed_time: '2024-07-02T21:40:00+00:00' do
       let(:tranfer_id) { "a43d1" }
       let(:monzo_webhook_params) do
         {
@@ -430,37 +430,37 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
             "inline_keyboard" => [
               [
                 {
-                  "callback_data" => "Такси: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Такси: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Такси"
                 },
                 {
-                  "callback_data" => "Автобус: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Автобус: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Автобус"
                 }
               ],
               [
                 {
-                  "callback_data" => "Метро: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Метро: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Метро"
                 },
                 {
-                  "callback_data" => "Другой: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Другой: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Другой"
                 }
               ],
               [
                 {
-                  "callback_data" => "Поезд: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Поезд: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Поезд"
                 },
                 {
-                  "callback_data" => "Бензин: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Бензин: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Бензин"
                 }
               ],
               [
                 {
-                  "callback_data" => "Проездной: mj1_id:tk6Ulh_sMFs9e_Zt",
+                  "callback_data" => "Проездной: m1j_id:tk6Ulh_sMFs9e_Zt",
                   "text" => "Проездной"
                 }
               ],
@@ -483,26 +483,26 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
             "id" => "1651136315859693905",
             "message" => {
               **chat,
-              "date" => 1670052388,
+              "date" => 16700523888,
               "from" => {
                 "first_name" => ENV['BOT_NAME'],
                 "id" => ENV['BOT_ID'],
                 "is_bot" => true,
                 "username" => ENV['BOT_USER_NAME']
               },
-              "message_id" => 35165,
+              "message_id" => 42992,
               **reply_markup_choosing_category,
               "text" => "Выбери категорию:"
             }
           },
-          "update_id" => 20479568
+          "update_id" => 654544072
         }
       end
       let(:telegram_bot_params_taxi_subcategory) do
         {
           "callback_query" => {
             "chat_instance" => ENV['CHAT_INSTANCE'],
-            "data" => "Такси: mj1_id:#{tranfer_id}",
+            "data" => "Такси: m1j_id:#{tranfer_id}",
             **message_from,
             "id" => "1651136316175924712",
             "message" => {
@@ -514,12 +514,12 @@ RSpec.describe MonzoWebhooksController, type: :request, vcr: true, perform_enque
                 "is_bot" => true,
                 "username" => ENV['BOT_USER_NAME']
               },
-              "message_id" => 37955,
+              "message_id" => 42992,
               **reply_markup_choosing_subcategory,
               "text" => "Выбери подкатегорию:"
             }
           },
-          "update_id" => 20479686
+          "update_id" => 654544072
         }
       end
 

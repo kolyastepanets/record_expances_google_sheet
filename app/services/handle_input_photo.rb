@@ -9,10 +9,10 @@ class HandleInputPhoto
     @message_params = message_params.deep_symbolize_keys
     @redis = Redis.new
     currency_code, currency_rate = @message_params[:caption].split(' ')
-    @currency_to_gbp = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "monzo"
+    @currency_to_gbp = CurrencyRate.call('GBP', 'USD') if currency_code.downcase == "monzo"
     @currency_to_usd = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "usd"
     @currency_to_uah = currency_rate.to_f if currency_code.downcase == "uah"
-    @currency_to_gbp_joint = CurrencyRate.call('USD', 'GBP') if currency_code.downcase == "joint"
+    @currency_to_gbp_joint = CurrencyRate.call('GBP', 'USD') if currency_code.downcase == "joint"
     @params = []
   end
 
@@ -245,7 +245,7 @@ class HandleInputPhoto
     if @currency_to_gbp.present?
       price_in_gbp = {
         price_in_gbp: current_price,
-        price_in_gbp_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_gbp.to_s.gsub(".", ",")}"
+        price_in_gbp_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_gbp.to_s.gsub(".", ",")}"
       }
     end
 
@@ -253,7 +253,7 @@ class HandleInputPhoto
     if @currency_to_gbp_joint.present?
       currency_in_gbp_joint = {
         currency_in_gbp_joint: current_price,
-        price_in_gbp_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} / #{@currency_to_gbp_joint.to_s.gsub(".", ",")}"
+        price_in_gbp_to_save_in_google_sheet: "=#{current_price.to_s.gsub(".", ",")} * #{@currency_to_gbp_joint.to_s.gsub(".", ",")}"
       }
     end
 

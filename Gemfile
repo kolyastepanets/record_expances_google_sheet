@@ -9,7 +9,7 @@ gem "bootsnap", require: false
 gem 'telegram-bot'
 gem 'google-apis-sheets_v4', '= 0.10.0'
 gem 'google-apis-vision_v1', '= 0.1'
-gem 'redis', '= 4.5'
+gem 'redis', '= 4.8'
 gem 'rake'
 gem 'figaro'
 gem 'faraday'
@@ -39,6 +39,6 @@ group :test do
   gem 'vcr', '6.2.0', require: false
   gem 'webmock', '3.19.1', require: false
   gem 'timecop', '0.9.4', require: false
-  gem "fakeredis", require: "fakeredis/rspec"
+  gem "fakeredis", '0.9.2', require: "fakeredis/rspec"
   gem 'simplecov', require: false
 end
