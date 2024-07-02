@@ -165,7 +165,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       PutExpensesToGoogleSheetJob.perform_later(params[:category_name], params[:sub_category_name], params[:price_in_usd], detect_month)
       SendNotificationMessageToBot.call(params, show_reply_markup_main_buttons: true)
       DeleteMessagesJob.perform_later(params[:message_ids].uniq)
-    when -> (input_sub_category) { input_sub_category.include?('mj1_id') }
+    when -> (input_sub_category) { input_sub_category.include?('m1j_id') }
       short_subcategory_name, _kind_of_transaction, transaction_id, _price = data.split(":")
       sub_category_name = find_full_sub_category_name(short_subcategory_name)
       params = JSON.parse(redis.get(transaction_id)).deep_symbolize_keys
