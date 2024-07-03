@@ -16,6 +16,7 @@ module BuildArrayOfTextWithPrices
         next if array_of_text == array_with_company_name
         next if array_of_text.size <= 2
         next if !array_of_text[-1].include?('.')
+        next if (array_of_text[-1].include?('.') && array_of_text[-1].include?('g'))
 
         grouped_texts << array_of_text
       end

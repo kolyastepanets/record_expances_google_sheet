@@ -5,7 +5,8 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweets?
-      tiramisu? || milk_biscuit? || milka_chocolate?
+      tiramisu? || milk_biscuit? || milka_chocolate? || choco_milk? || kinder? ||
+        chocolate_bar? || bounty? || snickers?
     end
 
     def tiramisu?
@@ -18,6 +19,26 @@ module DetectCategoryAndSubcategoryFromLine
 
     def milka_chocolate?
       @line.include?('milka') && @line.include?('chocolate')
+    end
+
+    def choco_milk?
+      @line.include?('choco') && @line.include?('milk')
+    end
+
+    def kinder?
+      @line.include?('kinder')
+    end
+
+    def chocolate_bar?
+      @line.include?('chocolate') && @line.include?('bar')
+    end
+
+    def bounty?
+      @line.include?('bounty')
+    end
+
+    def snickers?
+      @line.include?('snickers')
     end
 
     ####
@@ -183,7 +204,7 @@ module DetectCategoryAndSubcategoryFromLine
         potatoes? || cucumbers? || peppers? || garlic? || finest_piccobella? || broccoli? ||
         baby_spinach? || fresh_wild_rocket? || white_cabbage? || leaf_parsley? || courgettes_loose? ||
         avocados? || cherry_tomatoes? || romaine_lettuce_hearts? || onions? ||
-        fresh_coriander? || savoy_cabbage? || classic_tomatoes? || celeriac?
+        fresh_coriander? || savoy_cabbage? || classic_tomatoes? || celeriac? || dill?
     end
 
     def asparagus?
@@ -286,6 +307,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('celeriac')
     end
 
+    def dill?
+      @line.include?('dill')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -320,13 +345,13 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def meat?
-      chicken_drumsticks? || meatballs? || chicken_fillet? || chicken_drumsticks_2? || lean_diced_beef? ||
+      chicken? || meatballs? || chicken_fillet? || chicken_drumsticks_2? || lean_diced_beef? ||
         chicken_breast_portions? || pork_ribs? || chicken_legs? || turkey_drumsticks? ||
         chicken_wings? || lamb_chops?
     end
 
-    def chicken_drumsticks?
-      @line.include?('chicken') && @line.include?('drumsticks')
+    def chicken?
+      @line.include?('chicken')
     end
 
     def meatballs?
@@ -373,7 +398,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       wraps? || sliced_bread? || flour? || bread_1? || bake_home_petit? || white_ciabattin_sourdough? ||
-        baking_powder?
+        baking_powder? || grains_seeds?
     end
 
     def wraps?
@@ -402,6 +427,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def baking_powder?
       @line.include?('baking') && @line.include?('powder')
+    end
+
+    def grains_seeds?
+      @line.include?('grains') && @line.include?('seeds')
     end
 
     ####
@@ -513,7 +542,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def ready_to_cook?
-      baked_beans? || french_fries? || itsu_chicken_gyoza? || panini_pack?
+      baked_beans? || french_fries? || panini_pack?
     end
 
     def baked_beans?
@@ -522,10 +551,6 @@ module DetectCategoryAndSubcategoryFromLine
 
     def french_fries?
       @line.include?('french') && @line.include?('fries')
-    end
-
-    def itsu_chicken_gyoza?
-      @line.include?('itsu') && @line.include?('chicken') && @line.include?('gyoza')
     end
 
     def panini_pack?
@@ -560,7 +585,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def fruits?
       blackberries? || strawberries? || pears? || bananas? || apples? || nectarines? || sweetcorn? ||
-        sugarsnap_peas? || blueberries? || raspberries? || large_kiwi?
+        sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries?
     end
 
     def blackberries?
@@ -605,6 +630,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def large_kiwi?
       @line.include?('large') && @line.include?('kiwi')
+    end
+
+    def cherries?
+      @line.include?('cherries')
     end
 
     ####
