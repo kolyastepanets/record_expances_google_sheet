@@ -1,0 +1,1081 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:26 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpocHN3ekIxNmowLUNQ\nQ3lKMDJFZFdVWmtwOEtrN0FRaDgyR0NvLVVBVW02VV9IUjV5bXdiaF9fcmR0\nZkNOS1VuZjNiVU4xVDFtVElHQWc5WXlSMnVDaVVhc05LcmM2QjhTdFZPc244\nQ19mcjR0MU1rVkVtMGNiSmVfNzcyLU9UaTJCUjVHaHlZUlh4bFpNbTZjWnFD\nVEN3UmRlS2Q1bmZnUjhjMjdWd2ZrMkRnUE5FSlJyNFVSQUlCbGFmM0pGek0y\nZzI5UmhoaElmclpkZDJ3TkQwSnJkc0NiemQ2ZElFeTlUc1h6dGNncDhNS19T\nR0VWT01ENXZ6RmhIRVh4bmJ3QkwxM2lpSUY4QUJwTDgxZlFaSVJnMHVKbnp1\ndHo3eFRJMTM3MDJTM2prZFEzYUdnaE9ULXRTa0pRTG9ydUQ0S2lBOUFpenpm\na0NiVUFTM2VRRUtVSElhNVBIaXI4MHphQTY3RDFuc0Vkb0RQZVotVEU1RTM4\nNUFwUVdTaC12UzRKeFM2UmRxaW9sTXlVajRobm93cDJmMTl5VmU0VmFRYXls\nOGwzM0Z3Smt2UTMza21oaFpsU0lVM1dfUTRsY21CcWd0dDkwZnVSMW1xVThV\nSjc2T1FWZjk5LXRuX2NCbTItMkJaNzZrUUZjTzVVX19CN1JzeXdnbmVNZDly\nYVdnU2R4UlhXOXFXT3k1U1NZSTZSNS1TZ3VtU3A4bVFzdGQ0eTJtM254WVcz\nblUtYjU4Yjd2OHFYT1ZacmZtaG1GMkp2NzhoZmJqZWxPXzVTVjJadnF0Z2NZ\neHRubjVraDNkOE9kLVJJZ3JlMzh2Unh5aVFfSUZtV3Zpd0JJVVdtUzZNdFdp\naTZSVVlqM0pKblFlZlp3UV9YNGhaYV9VOTNwU2dvMXJVcjh3VnpGT19ac1pt\nMDVJeEp0Nl9vZnU5OWk1amN4alUtSnZWSjZ4azU1XzdCcWVuc2lzLVpabVlh\nM2Fjdk9SdG5xdkJ0NjJrMmNuRjUwOGkzYzBzbjY0dVFPcTFxVzNmZlNZdVJR\nSVh0YTlfUTc1Um5zbHM5N3R2bHdYWnllVU9RMmxxekJveHZ5VlpKXzJpUmZ0\nVldhRm5jdGh2NHpPYUlwNGVYZ0Z6b1ZKNHhpc0poaTJZTzhRZ2JwNXBNMjAx\nODNpVXNJeXYtX3pJSWJWMTU2anNRZmk3NVh5N2JsZXhacVNray1wd1NpeXNm\nblZxVzUzb09RelJYcXpSV3lRM3BtaFYtcS1jMDlSeC15Zi0yWWlkSXZqaTNv\nUlJaVlFsXy1XaTdfaGhCMFloODBqeGJXU3Y1Yk81LW51eHNvSTZuV2RxRllP\nWGgxQmR3IiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%A1%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9'!A1:G1000?valueRenderOption=FORMULA",
+        "body": {
+          "encoding": "UTF-8",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZhpswzB16j0-CPCyJ02EdWUZkp8Kk7AQh82GCo-UAUm6U_HR5ymwbh__rdtfCNKUnf3bUN1T1mTIGAg9YyR2uCiUasNKrc6B8StVOsn8C_fr4t1MkVEm0cbJe_772-OTi2BR5GhyYRXxlZMm6cZqCTCwRdeKd5nfgR8c27Vwfk2DgPNEJRr4URAIBlaf3JFzM2g29RhhhIfrZdd2wND0JrdsCbzd6dIEy9TsXztcgp8MK_SGEVOMD5vzFhHEXxnbwBL13iiIF8ABpL81fQZIRg0uJnzutz7xTI13702S3jkdQ3aGghOT-tSkJQLoruD4KiA9AizzfkCbUAS3eQEKUHIa5PHir80zaA67D1nsEdoDPeZ-TE5E385ApQWSh-vS4JxS6RdqiolMyUj4hnowp2f19yVe4VaQayl8l33FwJkvQ33kmhhZlSIU3W_Q4lcmBqgtt90fuR1mqU8UJ76OQVf99-tn_cBm2-2BZ76kQFcO5U__B7RsywgneMd9raWgSdxRXW9qWOy5SSYI6R5-SgumSp8mQstd4y2m3nxYW3nU-b58b7v8qXOVZrfmhmF2Jv78hfbjelO_5SV2ZvqtgcYxtnn5kh3d8Od-RIgre38vRxyiQ_IFmWviwBIUWmS6MtWii6RUYj3JJnQefZwQ_X4hZa_U93pSgo1rUr8wVzFO_ZsZm05IxJt6_ofu99i5jcxjU-JvVJ6xk55_7Bqensis-ZZmYa3acvORtnqvBt62k2cnF508i3c0sn64uQOq1qW3ffSYuRQIXta9_Q75Rnsls97tvlwXZyeUOQ2lqzBoxvyVZJ_2iRftVWaFncthv4zOaIp4eXgFzoVJ4xisJhi2YO8Qgbp5pM20183iUsIyv-_zIIbV156jsQfi75Xy7blexZqSkk-pwSiysfnVqW53oOQzRXqzRWyQ3pmhV-q-c09Rx-yf-2YidIvji3oRRZVQl_-Wi7_hhB0Yh80jxbWSv5bO5-nuxsoI6nWdqFYOXh1Bdw"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:27 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"range\": \"'Статистика накоплений'!A1:G1000\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\n      \"доллар/гривна\",\n      \"= GoogleFinance(\\\"Currency:USDUAH\\\")\\n\"\n    ],\n    [\n      \"евро/гривна\",\n      \"= GoogleFinance(\\\"Currency:EURUAH\\\")\\n\"\n    ],\n    [\n      \"доллар/евро\",\n      \"= GoogleFinance(\\\"Currency:USDEUR\\\")\\n\"\n    ],\n    [\n      \"доллар/фунт стерлинг\",\n      \"= GoogleFinance(\\\"Currency:USDGBP\\\")\\n\"\n    ],\n    [\n      \"доллар/рупий шри ланка\",\n      \"= GoogleFinance(\\\"Currency:USDLKR\\\")\\n\"\n    ],\n    [\n      \"доллар/рупий indonesia\",\n      \"= GoogleFinance(\\\"Currency:USDIDR\\\")\\n\"\n    ],\n    [],\n    [\n      2021\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\",\n      \"Кол-во мес отдавать долг\"\n    ],\n    [\n      \"СУММА\",\n      \"\",\n      \"\",\n      \"=SUM(D11:D17)\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=33532\",\n      \"=C11/B1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=10400\",\n      \"=C12/B1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=2500\",\n      \"=C13\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=1000\",\n      \"=C14\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C15/B3\"\n    ],\n    [\n      \"Инвест капитал\",\n      \"агриколь\",\n      \"=6072+670+1832\",\n      \"=C16\"\n    ],\n    [\n      \"Инвест капитал\",\n      \"кэш\",\n      3500,\n      \"=C17\"\n    ],\n    [\n      \"Долг\",\n      \"В инвест с путешествий\",\n      \"=-'2021'!AD89\",\n      \"=C18/B1\",\n      \"=C18/12000\"\n    ],\n    [\n      \"Долг\",\n      \"Машина (большие покупки) в инвест\",\n      21800,\n      \"=C19/B1\",\n      \"=C19/3500\"\n    ],\n    [\n      \"Долг\",\n      \"В ФЗ с путешествий\",\n      16700,\n      \"=C20/B1\",\n      \"=C20/12000\"\n    ],\n    [\n      \"Отложено за год\",\n      \"грн\",\n      \"='2021'!C100+'2021'!F100+'2021'!I100+'2021'!L100+'2021'!O100+'2021'!R100+'2021'!U100+'2021'!X100+'2021'!AA100+'2021'!AD100+'2021'!AG100+'2021'!AJ100\"\n    ],\n    [\n      \"Отложено за год\",\n      \"дол\",\n      \"='2021'!B101+'2021'!E101+'2021'!H101+'2021'!K101+'2021'!N101+'2021'!Q101+'2021'!T101+'2021'!W101+'2021'!Z101+'2021'!AC101+'2021'!AF101+'2021'!AI101\"\n    ],\n    [],\n    [\n      2022\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D30:D44)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D32:D44)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D31+D32\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D30:D31)\"\n    ],\n    [\n      \"ФЗ\",\n      \"деньги папы\",\n      \"=1000+50+50-45\",\n      \"=C30/0,963\"\n    ],\n    [\n      \"ФОП $\",\n      \"деньги папы\",\n      \"=(80072+22000-4283+29500)/29,54\",\n      \"=C31\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"='2022'!W105+'2022'!AE105-C31+'2022'!AM105+'2022'!AU105+'2022'!BC81+'2022'!BJ81+'2022'!BQ81+'2022'!BX81-2084\",\n      \"=C32\"\n    ],\n    [\n      \"in ShipHawk\",\n      \"\",\n      \"=3100+3100-6200\",\n      \"=C33\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=3405+2084-678-1541-717+471-72+3096-1321-65+1499-978-33-1203-100 - 800 + 6274 + 900\",\n      \"=C34\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=33532-67+'2022'!Q105\",\n      \"=C35/36,5686\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=10400+'2022'!E112+450+126\",\n      \"=C36/36,5686\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=4761-26\",\n      \"=C37\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=75+435-275\",\n      \"=C38/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      60,\n      \"=C39/0,826\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=4500+490\",\n      \"=C40/$B$5\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=1000+'2022'!C127+'2022'!F127-22\",\n      \"=C41\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      2054,\n      \"=C42/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C43/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=6072+670+1832+140-101-187-190-190-12-20\",\n      \"=C44\"\n    ],\n    [],\n    [\n      2023\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D52:D70)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D54:D70)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D53+D54\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D52:D53)\"\n    ],\n    [\n      \"ФЗ\",\n      \"деньги папы кэш\",\n      1055,\n      \"=C52/$B$3\"\n    ],\n    [\n      \"ФОП $\",\n      \"деньги папы\",\n      4309,\n      \"=C53\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"=C32+'2023'!B81+3+'2023'!I81+'2023'!P81+'2023'!W81+'2023'!AD81+'2023'!AK81+'2023'!AR81+'2023'!AY81+'2023'!BF81+'2023'!BM81+'2023'!BT81+'2023'!CA81\",\n      \"=C54\"\n    ],\n    [\n      \"in ShipHawk\",\n      \"\",\n      0,\n      \"=C55\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=C34 - 1610 + 805 + 3437 - 997 - 997 - 662 - 1191 + 3312 + 1997,52 + 3312,86 - 210,84 - 112,44 - 33,37 - 1000 - 13677,12 - 200 - 200 + 400 - 68,43 - 1189,14 - 195,89 - 586,67 - 106,66 - 186,93 - 121,71 + 60 - 30,6 - 80,18 + 1300 - 33,73 - 2375,29 + 1300 - 3,89 - 79,52 + 524,47 - 3,73 - 4,19 - 1,25 - 3,13 - 1,94 - 4,71 - 13,41 - 18,09 - 31,12 - 73,05 - 260,1\",\n      \"=C56\"\n    ],\n    [\n      \"S&P 500\",\n      \"Zen\",\n      500,\n      \"=C57\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно депозит\",\n      \"=500*(GoogleFinance(\\\"Currency:EURUSD\\\"))+1000*(GoogleFinance(\\\"Currency:EURUSD\\\"))+1000*(GoogleFinance(\\\"Currency:EURUSD\\\"))\",\n      \"=C58\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      34928,\n      \"=C59/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      11976,\n      \"=C60/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно банка\",\n      140,\n      \"=C61/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      4735,\n      \"=C62\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      235,\n      \"=C63/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      60,\n      \"=C64/$B$4\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      79,\n      \"=0,73*C65\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      4990,\n      \"=C66/$B$5\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=2227+800+2670-62-1359-1360+1250+2671+2671-1-3+1000-88,67-180-500+500\",\n      \"=C67\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=2054+1000-500-3+1100+1000\",\n      \"=C68/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C69/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      8014,\n      \"=C70\"\n    ],\n    [],\n    [\n      2024\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D80:D97)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D82:D97)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D82\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D80:D81)\"\n    ],\n    [\n      \"СУММА FP\",\n      \"\",\n      \"\",\n      \"=SUM(D87:D88)+SUM(D93:D97)\"\n    ],\n    [\n      \"Taxes GBP monzo pot\",\n      \"\",\n      \"=1480+1583,45\",\n      \"=C79/$B$4\"\n    ],\n    [\n      \"деньги папы\",\n      \"кэш\",\n      1000,\n      \"=C80/$B$3\"\n    ],\n    [\n      \"деньги папы\",\n      \"Лиля моно $ депозит\",\n      1827,\n      \"=C81\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"='2024'!B81+'2024'!I81+'2024'!P81+'2024'!W81+'2024'!AD81+'2024'!AK81+'2024'!AR81+'2024'!AY81+'2024'!BF81+'2024'!BM81+'2024'!BT81+'2024'!CA81\",\n      \"=C82\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=190+90-5-140\",\n      \"=C83/$B$4\"\n    ],\n    [\n      \"ФЗ\",\n      \"indonesia\",\n      3000000,\n      \"=C84/$B$6\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      155,\n      \"=C85/$B$3\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=C56 - 96,39 - 3,9 - 12,26 - 5,68 - 17,74 - 21,88 - 52,2 - 32,72 + 50,11 + 400 - 12,98 - 1,51 + 213,76 - 667,94 - 44,39 + 1700 - 1700\",\n      \"=C86\"\n    ],\n    [\n      \"FP EUR Wise Jar\",\n      \"\",\n      6800,\n      \"=C87/$B$3\"\n    ],\n    [\n      \"FP ISA GBP monzo\",\n      \"\",\n      \"=4510\",\n      \"=C88/$B$4\"\n    ],\n    [\n      \"GBP Wise\",\n      \"\",\n      11.51,\n      \"=C89/$B$4\"\n    ],\n    [\n      \"GBP Monzo\",\n      \"\",\n      \"=106,05 + 15 - 14,99\",\n      \"=C90/$B$4\"\n    ],\n    [\n      \"GBP Joint Monzo\",\n      \"\",\n      \"=414,03 - 15 - 2,88\",\n      \"=C91/$B$4\"\n    ],\n    [\n      \"FP\",\n      \"payoneer\",\n      \"=9167-7989,61-25,12-132,23-76,66-11,89-95,17-131,4-11,05-29,14-109,95-29,95-5,22\",\n      \"=C92\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно € депозит\",\n      870,\n      \"=C93/$B$3\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно € банка\",\n      3760,\n      \"=C94/$B$3\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно $ депозит\",\n      \"=1000+1190+610\",\n      \"=C95\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно $ банка\",\n      2220,\n      \"=C96\"\n    ],\n    [\n      \"FP\",\n      \"кэш\",\n      4735,\n      \"=C97\"\n    ]\n  ]\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:27 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFppSi1WSXNZWmhZQ25W\nQmpHWkdCVGRZd193eVFWeHg4M0xHVGhXTWxaNmpZZFN5YlRuaHZudmxmNDB4\nMWVmcy1rTmh5R05NWUUyNUxFNHdidTN2YXRMTkZiMmY3N1JQNVB3VzBzTDFh\neTZNMU5XNmZvOXJnM3FVME5GNkJURE5wMkI3NjFnZ0Z3VXB4alhSa0cxNUha\nZGFuU3RXa0JweUdKNWpkeTYxYnE3RVl0NVFTT1JUcGh0eTU5azZmSXJjeGVr\nTXptQ1ozOUctU2V3b2FMVjBXdFVCQlVta3hvTm5YMkpIU3o0ek9kTzBMNHhx\nVW41TGMwODdwS1JmREJUSGhfTlNkTGJQOTVDM1NWcUFYUmFzMzRSYmc1WTZh\naEVIbE1JemJaMEdlM0p3Wmx2azh4Nk5Qb0ZTaldyaXFpRWc1NEliclJzZDRF\nS0pSX0s1eEgwa2RxNTJJZGpVbXRTdjlfd21OZy12TFpLTGZtUGNIcHVvRzM4\nNURGdVpCcmhZNldrSlFwNFlkLXEzdmVqTVU4NlJTMDZyNVpZM3VSdlhsMy0w\nVVVXc25CVm9nc3pfMTB1Um1lclczMTJrODV5cW81LWQwT2d3OXJXMlk0YXk4\nNUpCUXh4emZhUWVCU2NfeVppakZXTzRZaFJaWGMyaXBYNVl5U21xUmM0bTBt\nNWtqVm9WQlJPbHRSczdyWHFRNzRhdVI2SmtrbTNiSlpkZXV0NDhtNVZiSnRY\nbkpGMDJ1Si1VYmE0LU04bUplcGlnWGtCeDdXVV9pbHRqdmFPMTUwYzk1SS1h\ncVM0LWktNnJ6Ul9zb0ItMW55OFZ1WFd2N3d6b282UTdNd2NsbjdyT2V6WVI2\nbjhGc0paNlNaalNWRmQwalpGZTdzY29abTJlWDZKYVY0NDBGanJ3NGJmUU16\nVjVaMjBzMXI0QmlraFlhZHlkdFdhZlhvTTJtdTE1dHprbmF5UUJYeTR0bHh1\nN3NSU2ZrazdZOVhGVXBfMF8ybmJkZVNZWjgwZllaTXpkUnRvcW9SNnozUWNu\nbE9oVU1YdDhzWHJneS11dWxKVTZfczlYbXd3em5zc2V1WFpyNHVzY25GMk1P\nNXZ5bXpjUWkwUTBRZ2N3eU02alZVbXFaaWY4eWczMDZWcGxTWHhsVVJKdk1k\nekZVOVJvTWFPd1VRNS1Ja1UybnZYT0oxUkJjNXJuUm92NmFjbjh0MlV2X3VJ\nRnZXUTVsOGVqZThoZHkyWTdKWDVNcnVlcGZpN2Jtdk9JODZhSjQ3NC1VSW5t\nZi01eDk1ajc4U2dxX25XVnhZYm5ySllkYnBzZnpaVjE2Mjg5Ny04UXU1WjV4\naG5fNWFuIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "put",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/%D0%A1%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9!C91?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"=414,03 - 15 - 2,88 - 5,0\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZiJ-VIsYZhYCnVBjGZGBTdYw_wyQVxx83LGThWMlZ6jYdSybTnhvnvlf40x1efs-kNhyGNMYE25LE4wbu3vatLNFb2f77RP5PwW0sL1ay6M1NW6fo9rg3qU0NF6BTDNp2B761ggFwUpxjXRkG15HZdanStWkBpyGJ5jdy61bq7EYt5QSORTphty59k6fIrcxekMzmCZ39G-SewoaLV0WtUBBUmkxoNnX2JHSz4zOdO0L4xqUn5Lc087pKRfDBTHh_NSdLbP95C3SVqAXRas34Rbg5Y6ahEHlMIzbZ0Ge3JwZlvk8x6NPoFSjWriqiEg54IbrRsd4EKJR_K5xH0kdq52IdjUmtSv9_wmNg-vLZKLfmPcHpuoG385DFuZBrhY6WkJQp4Yd-q3vejMU86RS06r5ZY3uRvXl3-0UUWsnBVogsz_10uRmerW312k85yqo5-d0Ogw9rW2Y4ay85JBQxxzfaQeBSc_yZijFWO4YhRZXc2ipX5YySmqRc4m0m5kjVoVBROltRs7rXqQ74auR6Jkkm3bJZdeut48m5VbJtXnJF02uJ-Uba4-M8mJepigXkBx7WU_iltjvaO150c95I-aqS4-i-6rzR_soB-1ny8VuXWv7wzoo6Q7Mwcln7rOezYR6n8FsJZ6SZjSVFd0jZFe7scoZm2eX6JaV440Fjrw4bfQMzV5Z20s1r4BikhYadydtWafXoM2mu15tzknayQBXy4tlxu7sRSfkk7Y9XFUp_0_2nbdeSYZ80fYZMzdRtoqoR6z3QcnlOhUMXt8sXrgy-uulJU6_s9XmwwznsseuXZr4uscnF2MO5vymzcQi0Q0QgcwyM6jVUmqZif8yg306VplSXxlURJvMdzFU9RoMaOwUQ5-IkU2nvXOJ1RBc5rnRov6acn8t2Uv_uIFvWQ5l8eje8hdy2Y7JX5Mruepfi7bmvOI86aJ474-UInmf-5x95j78Sgq_nWVxYbnrJYdbpsfzZV162897-8Qu5Z5xhn_5an"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:28 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"updatedRange\": \"'Статистика накоплений'!C91\",\n  \"updatedRows\": 1,\n  \"updatedColumns\": 1,\n  \"updatedCells\": 1\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.transferwise.com/v1/rates?source=GBP&target=USD",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer 85cd177a-9a9c-4491-a014-304607e0ccf6"
+          ],
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:28 GMT"
+          ],
+          "Content-Type": [
+            "application/json;charset=UTF-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Cache-Control": [
+            "no-cache, no-store, max-age=0, must-revalidate"
+          ],
+          "Pragma": [
+            "no-cache"
+          ],
+          "X-Frame-Options": [
+            "DENY"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Expires": [
+            "0"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Trace-Id": [
+            "66a92cc754646912"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "X-Envoy-Upstream-Service-Time": [
+            "18"
+          ],
+          "X-Envoy-Attempt-Count": [
+            "1"
+          ],
+          "Vary": [
+            "origin,access-control-request-method,access-control-request-headers,accept-encoding"
+          ],
+          "Cf-Cache-Status": [
+            "DYNAMIC"
+          ],
+          "Set-Cookie": [
+            "__cf_bm=bOk0CgniqNSuAWOn3fKwSJSczs14fjwjbpYojskLW_k-1720302088-1.0.1.1-C2dD0cEUDjRIaNAbBz9oMDeEU2oxp2IPcAwqxlyi6z_P5a0cI6_t5bDHUADu.Z0Qwe6QTPbN427thOmeSJg.AHV24_fd6DWz3l81vLLMOgg; path=/; expires=Sat, 06-Jul-24 22:11:28 GMT; domain=.transferwise.com; HttpOnly; Secure; SameSite=None"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000"
+          ],
+          "Server": [
+            "cloudflare"
+          ],
+          "Cf-Ray": [
+            "89f2c2546ce993d8-LHR"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=86400"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3sicmF0ZSI6MS4yODE1LCJzb3VyY2UiOiJHQlAiLCJ0YXJnZXQiOiJVU0Qi\nLCJ0aW1lIjoiMjAyNC0wNy0wNlQyMTo0MDozNiswMDAwIn1d\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.monobank.ua/bank/currency",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:28 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "8504"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Server": [
+            "n/a"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Trace-Id": [
+            "0f63224ebab6c5b11c22411c63c4507a"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "[{\"currencyCodeA\":840,\"currencyCodeB\":980,\"date\":1720299673,\"rateBuy\":40.37,\"rateSell\":40.7997},{\"currencyCodeA\":978,\"currencyCodeB\":980,\"date\":1720299673,\"rateBuy\":43.65,\"rateSell\":44.3498},{\"currencyCodeA\":978,\"currencyCodeB\":840,\"date\":1720299673,\"rateBuy\":1.077,\"rateSell\":1.088},{\"currencyCodeA\":826,\"currencyCodeB\":980,\"date\":1720301980,\"rateCross\":52.3126},{\"currencyCodeA\":392,\"currencyCodeB\":980,\"date\":1720301982,\"rateCross\":0.2545},{\"currencyCodeA\":756,\"currencyCodeB\":980,\"date\":1720301920,\"rateCross\":45.6044},{\"currencyCodeA\":156,\"currencyCodeB\":980,\"date\":1720301953,\"rateCross\":5.6157},{\"currencyCodeA\":784,\"currencyCodeB\":980,\"date\":1720301888,\"rateCross\":11.1091},{\"currencyCodeA\":971,\"currencyCodeB\":980,\"date\":1703852583,\"rateCross\":0.5417},{\"currencyCodeA\":8,\"currencyCodeB\":980,\"date\":1720301827,\"rateCross\":0.4429},{\"currencyCodeA\":51,\"currencyCodeB\":980,\"date\":1720301758,\"rateCross\":0.1054},{\"currencyCodeA\":973,\"currencyCodeB\":980,\"date\":1718381375,\"rateCross\":0.0474},{\"currencyCodeA\":32,\"currencyCodeB\":980,\"date\":1720301819,\"rateCross\":0.0311},{\"currencyCodeA\":36,\"currencyCodeB\":980,\"date\":1720301527,\"rateCross\":27.5454},{\"currencyCodeA\":944,\"currencyCodeB\":980,\"date\":1720301920,\"rateCross\":24.0712},{\"currencyCodeA\":50,\"currencyCodeB\":980,\"date\":1720293690,\"rateCross\":0.3484},{\"currencyCodeA\":975,\"currencyCodeB\":980,\"date\":1720302027,\"rateCross\":22.6236},{\"currencyCodeA\":48,\"currencyCodeB\":980,\"date\":1720294615,\"rateCross\":108.4865},{\"currencyCodeA\":108,\"currencyCodeB\":980,\"date\":1715679129,\"rateCross\":0.014},{\"currencyCodeA\":96,\"currencyCodeB\":980,\"date\":1719577686,\"rateCross\":30.0703},{\"currencyCodeA\":68,\"currencyCodeB\":980,\"date\":1720292363,\"rateCross\":5.9482},{\"currencyCodeA\":986,\"currencyCodeB\":980,\"date\":1720301680,\"rateCross\":7.476},{\"currencyCodeA\":72,\"currencyCodeB\":980,\"date\":1720282562,\"rateCross\":3.0088},{\"currencyCodeA\":933,\"currencyCodeB\":980,\"date\":1720284774,\"rateCross\":12.6887},{\"currencyCodeA\":124,\"currencyCodeB\":980,\"date\":1720302012,\"rateCross\":29.9931},{\"currencyCodeA\":976,\"currencyCodeB\":980,\"date\":1709384289,\"rateCross\":0.0141},{\"currencyCodeA\":152,\"currencyCodeB\":980,\"date\":1720301581,\"rateCross\":0.044},{\"currencyCodeA\":170,\"currencyCodeB\":980,\"date\":1720300389,\"rateCross\":0.0099},{\"currencyCodeA\":188,\"currencyCodeB\":980,\"date\":1720301889,\"rateCross\":0.0775},{\"currencyCodeA\":192,\"currencyCodeB\":980,\"date\":1687102850,\"rateCross\":1.5599},{\"currencyCodeA\":203,\"currencyCodeB\":980,\"date\":1720302020,\"rateCross\":1.7597},{\"currencyCodeA\":262,\"currencyCodeB\":980,\"date\":1720105755,\"rateCross\":0.2306},{\"currencyCodeA\":208,\"currencyCodeB\":980,\"date\":1720301983,\"rateCross\":5.9331},{\"currencyCodeA\":12,\"currencyCodeB\":980,\"date\":1720301846,\"rateCross\":0.3036},{\"currencyCodeA\":818,\"currencyCodeB\":980,\"date\":1720301969,\"rateCross\":0.851},{\"currencyCodeA\":230,\"currencyCodeB\":980,\"date\":1719931577,\"rateCross\":0.7145},{\"currencyCodeA\":981,\"currencyCodeB\":980,\"date\":1720302021,\"rateCross\":15.0616},{\"currencyCodeA\":936,\"currencyCodeB\":980,\"date\":1720264246,\"rateCross\":2.6662},{\"currencyCodeA\":270,\"currencyCodeB\":980,\"date\":1720126379,\"rateCross\":0.608},{\"currencyCodeA\":324,\"currencyCodeB\":980,\"date\":1720085239,\"rateCross\":0.0047},{\"currencyCodeA\":344,\"currencyCodeB\":980,\"date\":1720298784,\"rateCross\":5.2259},{\"currencyCodeA\":191,\"currencyCodeB\":980,\"date\":1680625280,\"rateCross\":5.4258},{\"currencyCodeA\":348,\"currencyCodeB\":980,\"date\":1720302029,\"rateCross\":0.1127},{\"currencyCodeA\":360,\"currencyCodeB\":980,\"date\":1720300760,\"rateCross\":0.0025},{\"currencyCodeA\":376,\"currencyCodeB\":980,\"date\":1720301851,\"rateCross\":11.0911},{\"currencyCodeA\":356,\"currencyCodeB\":980,\"date\":1720298511,\"rateCross\":0.4885},{\"currencyCodeA\":368,\"currencyCodeB\":980,\"date\":1720301758,\"rateCross\":0.0311},{\"currencyCodeA\":352,\"currencyCodeB\":980,\"date\":1720299934,\"rateCross\":0.2954},{\"currencyCodeA\":400,\"currencyCodeB\":980,\"date\":1720296726,\"rateCross\":57.7153},{\"currencyCodeA\":404,\"currencyCodeB\":980,\"date\":1720298578,\"rateCross\":0.3192},{\"currencyCodeA\":417,\"currencyCodeB\":980,\"date\":1720295290,\"rateCross\":0.4749},{\"currencyCodeA\":116,\"currencyCodeB\":980,\"date\":1720252798,\"rateCross\":0.0099},{\"currencyCodeA\":410,\"currencyCodeB\":980,\"date\":1720297370,\"rateCross\":0.0296},{\"currencyCodeA\":414,\"currencyCodeB\":980,\"date\":1720291878,\"rateCross\":133.5272},{\"currencyCodeA\":398,\"currencyCodeB\":980,\"date\":1720301856,\"rateCross\":0.0851},{\"currencyCodeA\":418,\"currencyCodeB\":980,\"date\":1720185994,\"rateCross\":0.0019},{\"currencyCodeA\":422,\"currencyCodeB\":980,\"date\":1718215447,\"rateCross\":0.0004},{\"currencyCodeA\":144,\"currencyCodeB\":980,\"date\":1720289895,\"rateCross\":0.1339},{\"currencyCodeA\":434,\"currencyCodeB\":980,\"date\":1710088604,\"rateCross\":8.0008},{\"currencyCodeA\":504,\"currencyCodeB\":980,\"date\":1720301138,\"rateCross\":4.1322},{\"currencyCodeA\":498,\"currencyCodeB\":980,\"date\":1720302029,\"rateCross\":2.3065},{\"currencyCodeA\":969,\"currencyCodeB\":980,\"date\":1719909048,\"rateCross\":0.0091},{\"currencyCodeA\":807,\"currencyCodeB\":980,\"date\":1720299372,\"rateCross\":0.7177},{\"currencyCodeA\":496,\"currencyCodeB\":980,\"date\":1720238726,\"rateCross\":0.0119},{\"currencyCodeA\":480,\"currencyCodeB\":980,\"date\":1720300611,\"rateCross\":0.8609},{\"currencyCodeA\":454,\"currencyCodeB\":980,\"date\":1718795258,\"rateCross\":0.0237},{\"currencyCodeA\":484,\"currencyCodeB\":980,\"date\":1720302003,\"rateCross\":2.2648},{\"currencyCodeA\":458,\"currencyCodeB\":980,\"date\":1720301875,\"rateCross\":8.6723},{\"currencyCodeA\":943,\"currencyCodeB\":980,\"date\":1719056258,\"rateCross\":0.6446},{\"currencyCodeA\":516,\"currencyCodeB\":980,\"date\":1720090410,\"rateCross\":2.238},{\"currencyCodeA\":566,\"currencyCodeB\":980,\"date\":1720219135,\"rateCross\":0.0268},{\"currencyCodeA\":558,\"currencyCodeB\":980,\"date\":1720211718,\"rateCross\":1.1132},{\"currencyCodeA\":578,\"currencyCodeB\":980,\"date\":1720301997,\"rateCross\":3.8804},{\"currencyCodeA\":524,\"currencyCodeB\":980,\"date\":1720276416,\"rateCross\":0.3055},{\"currencyCodeA\":554,\"currencyCodeB\":980,\"date\":1720288522,\"rateCross\":25.0954},{\"currencyCodeA\":512,\"currencyCodeB\":980,\"date\":1720301907,\"rateCross\":105.9254},{\"currencyCodeA\":604,\"currencyCodeB\":980,\"date\":1720301678,\"rateCross\":10.8022},{\"currencyCodeA\":608,\"currencyCodeB\":980,\"date\":1720301217,\"rateCross\":0.697},{\"currencyCodeA\":586,\"currencyCodeB\":980,\"date\":1720299733,\"rateCross\":0.1466},{\"currencyCodeA\":985,\"currencyCodeB\":980,\"date\":1720302028,\"rateCross\":10.3531},{\"currencyCodeA\":600,\"currencyCodeB\":980,\"date\":1720258157,\"rateCross\":0.0054},{\"currencyCodeA\":634,\"currencyCodeB\":980,\"date\":1720290283,\"rateCross\":11.2086},{\"currencyCodeA\":946,\"currencyCodeB\":980,\"date\":1720302016,\"rateCross\":8.9114},{\"currencyCodeA\":941,\"currencyCodeB\":980,\"date\":1720301861,\"rateCross\":0.3782},{\"currencyCodeA\":682,\"currencyCodeB\":980,\"date\":1720301362,\"rateCross\":10.8798},{\"currencyCodeA\":690,\"currencyCodeB\":980,\"date\":1720268702,\"rateCross\":2.8281},{\"currencyCodeA\":938,\"currencyCodeB\":980,\"date\":1680961561,\"rateCross\":0.0627},{\"currencyCodeA\":752,\"currencyCodeB\":980,\"date\":1720302025,\"rateCross\":3.8981},{\"currencyCodeA\":702,\"currencyCodeB\":980,\"date\":1720291793,\"rateCross\":30.26},{\"currencyCodeA\":694,\"currencyCodeB\":980,\"date\":1664217991,\"rateCross\":0.0024},{\"currencyCodeA\":706,\"currencyCodeB\":980,\"date\":1683386099,\"rateCross\":0.0659},{\"currencyCodeA\":968,\"currencyCodeB\":980,\"date\":1719532361,\"rateCross\":1.3118},{\"currencyCodeA\":748,\"currencyCodeB\":980,\"date\":1706459505,\"rateCross\":2.0391},{\"currencyCodeA\":764,\"currencyCodeB\":980,\"date\":1720301741,\"rateCross\":1.1229},{\"currencyCodeA\":972,\"currencyCodeB\":980,\"date\":1720281300,\"rateCross\":3.8216},{\"currencyCodeA\":788,\"currencyCodeB\":980,\"date\":1720298697,\"rateCross\":13.1035},{\"currencyCodeA\":949,\"currencyCodeB\":980,\"date\":1720302001,\"rateCross\":1.2586},{\"currencyCodeA\":901,\"currencyCodeB\":980,\"date\":1720299832,\"rateCross\":1.2586},{\"currencyCodeA\":834,\"currencyCodeB\":980,\"date\":1720298145,\"rateCross\":0.0153},{\"currencyCodeA\":800,\"currencyCodeB\":980,\"date\":1720278629,\"rateCross\":0.011},{\"currencyCodeA\":858,\"currencyCodeB\":980,\"date\":1720293312,\"rateCross\":1.0166},{\"currencyCodeA\":860,\"currencyCodeB\":980,\"date\":1720295444,\"rateCross\":0.0032},{\"currencyCodeA\":704,\"currencyCodeB\":980,\"date\":1720302011,\"rateCross\":0.0016},{\"currencyCodeA\":950,\"currencyCodeB\":980,\"date\":1720193029,\"rateCross\":0.0672},{\"currencyCodeA\":952,\"currencyCodeB\":980,\"date\":1720296014,\"rateCross\":0.0674},{\"currencyCodeA\":886,\"currencyCodeB\":980,\"date\":1702176265,\"rateCross\":0.1496},{\"currencyCodeA\":710,\"currencyCodeB\":980,\"date\":1720301894,\"rateCross\":2.2491}]"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:28 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpnVFl2RVVIenVjSFA2\nbWRabFYtbWxGRHVxdzdNcmc5ZlNHTGtDZURESFk2VWJTZDg4MHRzNlVoNTlw\neG5yX1FXd2JFYTlTX1ZWSWFGQnZyMnBhVGZGdXRlZHhTb0hZWjhpelkwYTdT\nRnhVQk5ORjM4V2cxUEVrYWpxSVhyemJ5NTFHVkxHYmVHd2NURDRuX1E0TVVE\nRkpXX0hiVmREaXB3UzBoUXpUV2lmZmhYNEo1Q1JnMndiUmRxNlhjN25EOHpI\nSzM5cXdUdnBXcEREU2JuQlozYXZSUHFpT3JJVk4tYmRuNU5YUE9BUGZUWks1\nRTBYSjB4TkU2bllQWVVOVmdKY19kSTk4bjhLV0VZclVPSXozVlo5VmZpXzZF\nTktzY3BJUFl1ZGZmUmUzY21KOHNFZzZ2Wng2dzAtVDhMVWU2eWU0M1FWYXpq\nQ28tY0ZLZ3BVQnNTNFFpNWFUTTBWbW1KNmJqOGlObkVkM3N0bHVfdDhMMzg0\nRFdaUmFJcWtTLTZndnlfbk85OFNSeTFSMjMzVjYwbmRzcGhvbHQ4bFdPZzRk\neXJTbjJ5WXp6Uk9jcVZmX3B4eGpGMGdPaHFWNzN5SmUwMWZqYzdjbTNRVzg0\nSTczYWt3TzdyMHI0a3Nkd2M4aE1fZGtfSVlVLTJpeFpaZmlnbGRqN2xKWG9o\nNVU4UWNhN21kLU1lTWJ4YldrSVlwWWwzdHpyRjNjXzZRYnhRNnQ0WjZvbzlk\nVm1JbDV3a1JCbTZqd1phX1FXU1pPbU9laDZ2WFlRMGhxRnMteS14OUJzOU94\ndm9TODg2a3VnZ3piM1U4M2Q5SmRkM1JvYWtxc083OFk0OVYxMThkdE9JdDF2\nbHkwUU9uODU3em5qNHJ3ZVpKYW9pbUZnZG44TW13UjJ2ZGdpMlI3YXlJZ1l1\nYld2MXl1RmFaWTdJN3AyampvM1NGTXZnX0oxRmF4ak82UTBuOTJ4VnFxZEIz\nYkI0bi1scy1Jd3RSMGFzSjhzVWZ6Rmd5OWllbW1vWnRNLTdRMzc4bUZzUWxS\nY2ZwQlJ4NFhaZVdkQmRtb2pYcDJjd24tYWlYbU1PZjRZbG1rVmFaMV94NWo5\nSXE4cmpZNzM5bjdrYW5XUVF4eW96MGtPeUJGUzFNeDZwT0o2UU15bVZiYWcy\nVjZjM09hZ1ZrNTlyLUZiZHQ4Ujh3RnQybTVaRmZJNEptSjlVbWh4U3c5dGNs\nNlozOWxrOGRGZDZhczdtVjU0cXl1UjR2WHIxVXdNbW1VMzlWT2lPdDF4eGQy\nd3VwbmI4WWV3YnFRejNwSmpvbWlZMS1xdTJYZm9lZDJZckJyeXhfZHZKZ2NG\nZjdmanI2IiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D1%8B%D0%B5'!A:J:append?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"Коля\",\"Мобильный\",\"=5,0 * 1,2815\",6,7,2024,\"06.07.2024\",\"40,7997\",\"1,088\",\"1,2815\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZgTYvEUHzucHP6mdZlV-mlFDuqw7Mrg9fSGLkCeDDHY6UbSd880ts6Uh59pxnr_QWwbEa9S_VVIaFBvr2paTfFutedxSoHYZ8izY0a7SFxUBNNF38Wg1PEkajqIXrzby51GVLGbeGwcTD4n_Q4MUDFJW_HbVdDipwS0hQzTWiffhX4J5CRg2wbRdq6Xc7nD8zHK39qwTvpWpDDSbnBZ3avRPqiOrIVN-bdn5NXPOAPfTZK5E0XJ0xNE6nYPYUNVgJc_dI98n8KWEYrUOIz3VZ9Vfi_6ENKscpIPYudffRe3cmJ8sEg6vZx6w0-T8LUe6ye43QVazjCo-cFKgpUBsS4Qi5aTM0VmmJ6bj8iNnEd3stlu_t8L384DWZRaIqkS-6gvy_nO98SRy1R233V60ndspholt8lWOg4dyrSn2yYzzROcqVf_pxxjF0gOhqV73yJe01fjc7cm3QW84I73akwO7r0r4ksdwc8hM_dk_IYU-2ixZZfigldj7lJXoh5U8Qca7md-MeMbxbWkIYpYl3tzrF3c_6QbxQ6t4Z6oo9dVmIl5wkRBm6jwZa_QWSZOmOeh6vXYQ0hqFs-y-x9Bs9OxvoS886kuggzb3U83d9Jdd3RoakqsO78Y49V118dtOIt1vly0QOn857znj4rweZJaoimFgdn8MmwR2vdgi2R7ayIgYubWv1yuFaZY7I7p2jjo3SFMvg_J1FaxjO6Q0n92xVqqdB3bB4n-ls-IwtR0asJ8sUfzFgy9iemmoZtM-7Q378mFsQlRcfpBRx4XZeWdBdmojXp2cwn-aiXmMOf4YlmkVaZ1_x5j9Iq8rjY739n7kanWQQxyoz0kOyBFS1Mx6pOJ6QMymVbag2V6c3OagVk59r-Fbdt8R8wFt2m5ZFfI4JmJ9UmhxSw9tcl6Z39lk8dFd6as7mV54qyuR4vXr1UwMmmU39VOiOt1xxd2wupnb8YewbqQz3pJjomiY1-qu2Xfoed2YrBryx_dvJgcFf7fjr6"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:29 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"tableRange\": \"'Повседневные'!A1:K14461\",\n  \"updates\": {\n    \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n    \"updatedRange\": \"'Повседневные'!A14462:J14462\",\n    \"updatedRows\": 1,\n    \"updatedColumns\": 10,\n    \"updatedCells\": 10\n  }\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:35 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpoTjFXUXdNNUxUd2g4\nWEREM3FYWUhvT1lYTFVNWkhfY1VUNDJxbWtrSW5rVGwybUpXUmxhWExoTndz\nSk84SXU3cWZiVGpnNmEtRmh6Zi1GeFpha0R4NDdKSUt2S1lPVmxCZFRiNWtF\nZWhzRjU1aDdjZnJ2MU8zT2VGTzRQTWZBTHYwbzFSUFVPWkVDbS1IX0RvVDhk\nbUVqbGVZcXNiXzV6bVpWWVRETXhBSENFV3VLa21iSWJQbTFyNG9aX1pMSHZY\nbDBjWWc3RWIwblAzOGZWcnNmZ3VzZk8wcFBhQnc5X1hPQWt1c002TXZUczNV\nRTM3NlF4Mzhsc3oyeDdVNlM1eE1idUlTLTA5NUdmeUw2ZF81a05QZTBWVzZB\nS0RxTmNJcGZkMjdkOFpjb2JoZ09GWmM0Qno3NEFDSGlOV2d3djdnUHVtYWgt\nQ3p1ZXpMV21wZVUtLTJ4Q2JzTGwzajRWdkhHMHpMSGt3QmdLSElZaG9mTDM4\nNUthd3g2UmhfTV9ad19zWnVaSWhuOU9fbXY2dlF1TWY1aldqM3AxWFlra2FJ\nUmNvUWtGVjRXa0oweE1PUlM3SWtWakIwWklKVklJSk1sanczbHRuVXV5OFVY\ncXprX1FrdVhrU2xVMFFSM1IxaTk4VlZtVWJVZGZiWWs3d0JJcW83eVo3WmEx\nM1pKX2o0dzAtbVE4WjN5cFJNNmtRM2pvZ3NicXVtdmY2NllWWTlmemM2N2oy\nMm85d2RtdnZ3aFlnM3VocmxXalZZMTdraF9yZW1KT2FtdEItRjJvcEl4cHc1\ncFZlRjdJcmtYYTdTUzM1cGExaWpjajcxd01zQnI4cjc4N1M5X1ppaWdXVl9y\nZU84ZlpoeHA1azhVYk04clZ2U2NYNmZTV090VlJzYS1raGo0QmdKenB3eU12\nZWNrd09mT3FCcWVzLW9PLXhXd2o1d0ZyYVdYWHlJdDRZbnEtOGg2T0ludllm\nXzB3NWFhZUY3MjhWYmJYRmEyVlVzZlE2NGdoY1E0T1FPMnlsVXNlcDJCSl9v\naHFXWGlacFdmajBXOGQ1dl8yOXozb1NVNjlqN25VRl9yTS0tVUlCUlNYdndi\nZWVZWm9teXNCelNqUzI3cFplOHFsNmQtcUJpNW9XRkpxTVk5ZDdubFFfeHN6\nLTM3dlZXWTgwdW4zNGtjM3I0Mmx6czN5ME84LWJmOTg2N09iSVhhZGVZbXJW\neXZZWDE5OVg4RnpNNHBpb1ozWGo1b09vbW1XNjVyUlNGbHFmNl9oNl9rUmlq\nNHBzXzBxMWlKdWQyYXB0Ulh0ZXE2VTUyUnYtaTRvNjFNUk9uNGJ4Sm0zMVZY\nWndodGlrIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%A1%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9'!A1:G1000?valueRenderOption=FORMULA",
+        "body": {
+          "encoding": "UTF-8",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZhN1WQwM5LTwh8XDD3qXYHoOYXLUMZH_cUT42qmkkInkTl2mJWRlaXLhNwsJO8Iu7qfbTjg6a-Fhzf-FxZakDx47JIKvKYOVlBdTb5kEehsF55h7cfrv1O3OeFO4PMfALv0o1RPUOZECm-H_DoT8dmEjleYqsb_5zmZVYTDMxAHCEWuKkmbIbPm1r4oZ_ZLHvXl0cYg7Eb0nP38fVrsfgusfO0pPaBw9_XOAkusM6MvTs3UE376Qx38lsz2x7U6S5xMbuIS-095GfyL6d_5kNPe0VW6AKDqNcIpfd27d8ZcobhgOFZc4Bz74ACHiNWgwv7gPumah-CzuezLWmpeU--2xCbsLl3j4VvHG0zLHkwBgKHIYhofL385Kawx6Rh_M_Zw_sZuZIhn9O_mv6vQuMf5jWj3p1XYkkaIRcoQkFV4WkJ0xMORS7IkVjB0ZIJVIIJMljw3ltnUuy8UXqzk_QkuXkSlU0QR3R1i98VVmUbUdfbYk7wBIqo7yZ7Za13ZJ_j4w0-mQ8Z3ypRM6kQ3jogsbqumvf66YVY9fzc67j22o9wdmvvwhYg3uhrlWjVY17kh_remJOamtB-F2opIxpw5pVeF7IrkXa7SS35pa1ijcj71wMsBr8r787S9_ZiigWV_reO8fZhxp5k8UbM8rVvScX6fSWOtVRsa-khj4BgJzpwyMveckwOfOqBqes-oO-xWwj5wFraWXXyIt4Ynq-8h6OInvYf_0w5aaeF728VbbXFa2VUsfQ64ghcQ4OQO2ylUsep2BJ_ohqWXiZpWfj0W8d5v_29z3oSU69j7nUF_rM--UIBRSXvwbeeYZomysBzSjS27pZe8ql6d-qBi5oWFJqMY9d7nlQ_xsz-37vVWY80un34kc3r42lzs3y0O8-bf9867ObIXadeYmrVyvYX199X8FzM4pioZ3Xj5oOommW65rRSFlqf6_h6_kRij4ps_0q1iJud2aptRXteq6U52Rv-i4o61MROn4bxJm31VXZwhtik"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:36 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"range\": \"'Статистика накоплений'!A1:G1000\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\n      \"доллар/гривна\",\n      \"= GoogleFinance(\\\"Currency:USDUAH\\\")\\n\"\n    ],\n    [\n      \"евро/гривна\",\n      \"= GoogleFinance(\\\"Currency:EURUAH\\\")\\n\"\n    ],\n    [\n      \"доллар/евро\",\n      \"= GoogleFinance(\\\"Currency:USDEUR\\\")\\n\"\n    ],\n    [\n      \"доллар/фунт стерлинг\",\n      \"= GoogleFinance(\\\"Currency:USDGBP\\\")\\n\"\n    ],\n    [\n      \"доллар/рупий шри ланка\",\n      \"= GoogleFinance(\\\"Currency:USDLKR\\\")\\n\"\n    ],\n    [\n      \"доллар/рупий indonesia\",\n      \"= GoogleFinance(\\\"Currency:USDIDR\\\")\\n\"\n    ],\n    [],\n    [\n      2021\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\",\n      \"Кол-во мес отдавать долг\"\n    ],\n    [\n      \"СУММА\",\n      \"\",\n      \"\",\n      \"=SUM(D11:D17)\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=33532\",\n      \"=C11/B1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=10400\",\n      \"=C12/B1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=2500\",\n      \"=C13\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=1000\",\n      \"=C14\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C15/B3\"\n    ],\n    [\n      \"Инвест капитал\",\n      \"агриколь\",\n      \"=6072+670+1832\",\n      \"=C16\"\n    ],\n    [\n      \"Инвест капитал\",\n      \"кэш\",\n      3500,\n      \"=C17\"\n    ],\n    [\n      \"Долг\",\n      \"В инвест с путешествий\",\n      \"=-'2021'!AD89\",\n      \"=C18/B1\",\n      \"=C18/12000\"\n    ],\n    [\n      \"Долг\",\n      \"Машина (большие покупки) в инвест\",\n      21800,\n      \"=C19/B1\",\n      \"=C19/3500\"\n    ],\n    [\n      \"Долг\",\n      \"В ФЗ с путешествий\",\n      16700,\n      \"=C20/B1\",\n      \"=C20/12000\"\n    ],\n    [\n      \"Отложено за год\",\n      \"грн\",\n      \"='2021'!C100+'2021'!F100+'2021'!I100+'2021'!L100+'2021'!O100+'2021'!R100+'2021'!U100+'2021'!X100+'2021'!AA100+'2021'!AD100+'2021'!AG100+'2021'!AJ100\"\n    ],\n    [\n      \"Отложено за год\",\n      \"дол\",\n      \"='2021'!B101+'2021'!E101+'2021'!H101+'2021'!K101+'2021'!N101+'2021'!Q101+'2021'!T101+'2021'!W101+'2021'!Z101+'2021'!AC101+'2021'!AF101+'2021'!AI101\"\n    ],\n    [],\n    [\n      2022\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D30:D44)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D32:D44)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D31+D32\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D30:D31)\"\n    ],\n    [\n      \"ФЗ\",\n      \"деньги папы\",\n      \"=1000+50+50-45\",\n      \"=C30/0,963\"\n    ],\n    [\n      \"ФОП $\",\n      \"деньги папы\",\n      \"=(80072+22000-4283+29500)/29,54\",\n      \"=C31\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"='2022'!W105+'2022'!AE105-C31+'2022'!AM105+'2022'!AU105+'2022'!BC81+'2022'!BJ81+'2022'!BQ81+'2022'!BX81-2084\",\n      \"=C32\"\n    ],\n    [\n      \"in ShipHawk\",\n      \"\",\n      \"=3100+3100-6200\",\n      \"=C33\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=3405+2084-678-1541-717+471-72+3096-1321-65+1499-978-33-1203-100 - 800 + 6274 + 900\",\n      \"=C34\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=33532-67+'2022'!Q105\",\n      \"=C35/36,5686\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=10400+'2022'!E112+450+126\",\n      \"=C36/36,5686\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=4761-26\",\n      \"=C37\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=75+435-275\",\n      \"=C38/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      60,\n      \"=C39/0,826\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=4500+490\",\n      \"=C40/$B$5\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=1000+'2022'!C127+'2022'!F127-22\",\n      \"=C41\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      2054,\n      \"=C42/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C43/0,963\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      \"=6072+670+1832+140-101-187-190-190-12-20\",\n      \"=C44\"\n    ],\n    [],\n    [\n      2023\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D52:D70)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D54:D70)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D53+D54\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D52:D53)\"\n    ],\n    [\n      \"ФЗ\",\n      \"деньги папы кэш\",\n      1055,\n      \"=C52/$B$3\"\n    ],\n    [\n      \"ФОП $\",\n      \"деньги папы\",\n      4309,\n      \"=C53\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"=C32+'2023'!B81+3+'2023'!I81+'2023'!P81+'2023'!W81+'2023'!AD81+'2023'!AK81+'2023'!AR81+'2023'!AY81+'2023'!BF81+'2023'!BM81+'2023'!BT81+'2023'!CA81\",\n      \"=C54\"\n    ],\n    [\n      \"in ShipHawk\",\n      \"\",\n      0,\n      \"=C55\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=C34 - 1610 + 805 + 3437 - 997 - 997 - 662 - 1191 + 3312 + 1997,52 + 3312,86 - 210,84 - 112,44 - 33,37 - 1000 - 13677,12 - 200 - 200 + 400 - 68,43 - 1189,14 - 195,89 - 586,67 - 106,66 - 186,93 - 121,71 + 60 - 30,6 - 80,18 + 1300 - 33,73 - 2375,29 + 1300 - 3,89 - 79,52 + 524,47 - 3,73 - 4,19 - 1,25 - 3,13 - 1,94 - 4,71 - 13,41 - 18,09 - 31,12 - 73,05 - 260,1\",\n      \"=C56\"\n    ],\n    [\n      \"S&P 500\",\n      \"Zen\",\n      500,\n      \"=C57\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно депозит\",\n      \"=500*(GoogleFinance(\\\"Currency:EURUSD\\\"))+1000*(GoogleFinance(\\\"Currency:EURUSD\\\"))+1000*(GoogleFinance(\\\"Currency:EURUSD\\\"))\",\n      \"=C58\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      34928,\n      \"=C59/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      11976,\n      \"=C60/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно банка\",\n      140,\n      \"=C61/$B$1\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      4735,\n      \"=C62\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      235,\n      \"=C63/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      60,\n      \"=C64/$B$4\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      79,\n      \"=0,73*C65\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      4990,\n      \"=C66/$B$5\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=2227+800+2670-62-1359-1360+1250+2671+2671-1-3+1000-88,67-180-500+500\",\n      \"=C67\"\n    ],\n    [\n      \"ФЗ\",\n      \"моно\",\n      \"=2054+1000-500-3+1100+1000\",\n      \"=C68/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      162,\n      \"=C69/$B$3\"\n    ],\n    [\n      \"ФЗ\",\n      \"агриколь\",\n      8014,\n      \"=C70\"\n    ],\n    [],\n    [\n      2024\n    ],\n    [\n      \"Категория\",\n      \"\",\n      \"\",\n      \"$\"\n    ],\n    [\n      \"СУММА всего\",\n      \"\",\n      \"\",\n      \"=SUM(D80:D97)\"\n    ],\n    [\n      \"СУММА мои все\",\n      \"\",\n      \"\",\n      \"=SUM(D82:D97)\"\n    ],\n    [\n      \"СУММА ФОП\",\n      \"\",\n      \"\",\n      \"=D82\"\n    ],\n    [\n      \"СУММА папы\",\n      \"\",\n      \"\",\n      \"=SUM(D80:D81)\"\n    ],\n    [\n      \"СУММА FP\",\n      \"\",\n      \"\",\n      \"=SUM(D87:D88)+SUM(D93:D97)\"\n    ],\n    [\n      \"Taxes GBP monzo pot\",\n      \"\",\n      \"=1480+1583,45\",\n      \"=C79/$B$4\"\n    ],\n    [\n      \"деньги папы\",\n      \"кэш\",\n      1000,\n      \"=C80/$B$3\"\n    ],\n    [\n      \"деньги папы\",\n      \"Лиля моно $ депозит\",\n      1827,\n      \"=C81\"\n    ],\n    [\n      \"ФОП $\",\n      \"моно\",\n      \"='2024'!B81+'2024'!I81+'2024'!P81+'2024'!W81+'2024'!AD81+'2024'!AK81+'2024'!AR81+'2024'!AY81+'2024'!BF81+'2024'!BM81+'2024'!BT81+'2024'!CA81\",\n      \"=C82\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      \"=190+90-5-140\",\n      \"=C83/$B$4\"\n    ],\n    [\n      \"ФЗ\",\n      \"indonesia\",\n      3000000,\n      \"=C84/$B$6\"\n    ],\n    [\n      \"ФЗ\",\n      \"кэш\",\n      155,\n      \"=C85/$B$3\"\n    ],\n    [\n      \"in Wise\",\n      \"\",\n      \"=C56 - 96,39 - 3,9 - 12,26 - 5,68 - 17,74 - 21,88 - 52,2 - 32,72 + 50,11 + 400 - 12,98 - 1,51 + 213,76 - 667,94 - 44,39 + 1700 - 1700\",\n      \"=C86\"\n    ],\n    [\n      \"FP EUR Wise Jar\",\n      \"\",\n      6800,\n      \"=C87/$B$3\"\n    ],\n    [\n      \"FP ISA GBP monzo\",\n      \"\",\n      \"=4510\",\n      \"=C88/$B$4\"\n    ],\n    [\n      \"GBP Wise\",\n      \"\",\n      11.51,\n      \"=C89/$B$4\"\n    ],\n    [\n      \"GBP Monzo\",\n      \"\",\n      \"=106,05 + 15 - 14,99\",\n      \"=C90/$B$4\"\n    ],\n    [\n      \"GBP Joint Monzo\",\n      \"\",\n      \"=414,03 - 15 - 2,88 - 5\",\n      \"=C91/$B$4\"\n    ],\n    [\n      \"FP\",\n      \"payoneer\",\n      \"=9167-7989,61-25,12-132,23-76,66-11,89-95,17-131,4-11,05-29,14-109,95-29,95-5,22\",\n      \"=C92\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно € депозит\",\n      870,\n      \"=C93/$B$3\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно € банка\",\n      3760,\n      \"=C94/$B$3\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно $ депозит\",\n      \"=1000+1190+610\",\n      \"=C95\"\n    ],\n    [\n      \"FP\",\n      \"Лиля моно $ банка\",\n      2220,\n      \"=C96\"\n    ],\n    [\n      \"FP\",\n      \"кэш\",\n      4735,\n      \"=C97\"\n    ]\n  ]\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:36 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpnczUzRUZlTHpZWVU0\nMkE3d3pMdnJpY011LTRFX1B3NWNZNlEwTEZPUVVKcnc0Q3ZBNklJUVpiWXd0\naWJYWDhrenJQZ0RpYlVDelFZQ0RGMFFBMDBJTEJkbWdRcV9hb0kyVVN5QWVp\neDNBZnd2N1pfcmQwTnVKX1VNSXNYeU1OczhWUmNlNW1vSzRWazQyYVJfZUJO\nZ21jdEFlM3JGZ2twdFU1RHhVY3k0b2luNTVIc2FsRzE5VkRTd0UyY2J4NnAy\nMDRhaHRYZWp6alpnSTlDYUotRVdaU3FiTHA2UE9GOHhEY00zLTk1blJ2NGhM\nYk82NGxtRGhFbUZtOWUyN2hfLW8yUXBHRVJMbjVLSS1GZXB2Mk80UWpBQjVN\nSGo2ZmVEZkJ3a0d4TldTcmcxZF91clIzS0ZXMDBrOVJHcjgtMFU4ZngyZncw\nb0VLRjVtX29xUVpvWTBfU2FDWDJSdENELWttVmR3TzlzWFFwb285cDd1RzM4\nNUtxMzZZOTVhOEJCNmJZMHRyME84cnN6WFg2cy10el9ZaWVWaWEtclo4T3M4\neXRWa2hZanA0NmlXNVpxOWNTY29hWmdkanVJSmo2NWRzZTFnajJGY3hYMk1n\nZmw1NGFPaXN4c3JjbTN0Rnpya09hRkZfRjJCYVJtLTNnZVZua2ZpdVF6TVox\nT1U3RlYwdDl2RnIxQlZVMHNpeGF5b01PM3Ztd1V0UVkyNnhReDN1NkpndEpu\ncF9WejZhX2NYeU9id2dPNnZaOFlxeXdsWGpoeXFTQjRNV3dsb1JaRlJaU3pN\nZU92VzNzZS1PcHZVNTkwVTh6TzhxOEpSUnBVcXk2b2ZwbXQ4YWt1Rmp2U2dT\nNHJyYzQ5bVZnYmo4OHFSUU1XM1pNWkpvcHhPZWI5U3ZhMjg5dC1wZ3hNZElW\nQmhteFlsZWQ4ZGloVm1hV2UyZHVvSmMxNjdSeWYyaklTenpiSW5pbWlTSTU5\ndUk1b2FxSjJZOXAyWW9mYllnU3V2WnVuRmw4ZlpoVnNZcW9jcl9iUWgwY21Z\nU1NCWDZXWWpPeEpzYkJmNlZ2d3RTMWIxcHdwVVVPY1pTZ1JVUVdtc09vcy1C\ndm1VTzJGXzBpLVhGUlZPU3RYaUpxRnZvc3FXcWE0cDVvSm9CVjZqbHBRV3ct\nc3RfUlVZMThpWm5SN3YwTzZCMGQwOUZ4WmNXWlZrcl9RaXU3OGVoT282Ylp2\nMndlUjc1RlJTUjRpekZxVXIwdzdjV000LWliMWVuVnJGV3JoWXFXZDZhVm93\nVTRtT25YYzdkZzJGNVNsN2xSbzRyZDFRSVpVLUI4WDBWbHZrendfQk8tQm9Z\ncy1lYXNmIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "put",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/%D0%A1%D1%82%D0%B0%D1%82%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9!C91?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"=414,03 - 15 - 2,88 - 5 - 5,0\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZgs53EFeLzYYU42A7wzLvricMu-4E_Pw5cY6Q0LFOQUJrw4CvA6IIQZbYwtibXX8kzrPgDibUCzQYCDF0QA00ILBdmgQq_aoI2USyAeix3Afwv7Z_rd0NuJ_UMIsXyMNs8VRce5moK4Vk42aR_eBNgmctAe3rFgkptU5DxUcy4oin55HsalG19VDSwE2cbx6p204ahtXejzjZgI9CaJ-EWZSqbLp6POF8xDcM3-95nRv4hLbO64lmDhEmFm9e27h_-o2QpGERLn5KI-Fepv2O4QjAB5MHj6feDfBwkGxNWSrg1d_urR3KFW00k9RGr8-0U8fx2fw0oEKF5m_oqQZoY0_SaCX2RtCD-kmVdwO9sXQpoo9p7uG385Kq36Y95a8BB6bY0tr0O8rszXX6s-tz_YieVia-rZ8Os8ytVkhYjp46iW5Zq9cScoaZgdjuIJj65dse1gj2FcxX2Mgfl54aOisxsrcm3tFzrkOaFF_F2BaRm-3geVnkfiuQzMZ1OU7FV0t9vFr1BVU0sixayoMO3vmwUtQY26xQx3u6JgtJnp_Vz6a_cXyObwgO6vZ8YqywlXjhyqSB4MWwloRZFRZSzMeOvW3se-OpvU590U8zO8q8JRRpUqy6ofpmt8akuFjvSgS4rrc49mVgbj88qRQMW3ZMZJopxOeb9Sva289t-pgxMdIVBhmxYled8dihVmaWe2duoJc167Ryf2jISzzbInimiSI59uI5oaqJ2Y9p2YofbYgSuvZunFl8fZhVsYqocr_bQh0cmYSSBX6WYjOxJsbBf6VvwtS1b1pwpUUOcZSgRUQWmsOos-BvmUO2F_0i-XFRVOStXiJqFvosqWqa4p5oJoBV6jlpQWw-st_RUY18iZnR7v0O6B0d09FxZcWZVkr_Qiu78ehOo6bZv2weR75FRSR4izFqUr0w7cWM4-ib1enVrFWrhYqWd6aVowU4mOnXc7dg2F5Sl7lRo4rd1QIZU-B8X0Vlvkzw_BO-BoYs-easf"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:37 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"updatedRange\": \"'Статистика накоплений'!C91\",\n  \"updatedRows\": 1,\n  \"updatedColumns\": 1,\n  \"updatedCells\": 1\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://www.googleapis.com/oauth2/v4/token",
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "Z3JhbnRfdHlwZT11cm4lM0FpZXRmJTNBcGFyYW1zJTNBb2F1dGglM0FncmFu\ndC10eXBlJTNBand0LWJlYXJlciZhc3NlcnRpb249ZXlKaGJHY2lPaUpTVXpJ\nMU5pSjkuZXlKcGMzTWlPaUppWVhObExYTmxjblpwWTJVdFlXTmpiM1Z1ZEMx\ndVlXMWxRR1pwYkd3dGFXNHRaWGh3Wlc1elpYTXRkR1ZzWldkeVlXMHRZbTkw\nTG1saGJTNW5jMlZ5ZG1salpXRmpZMjkxYm5RdVkyOXRJaXdpWVhWa0lqb2lh\nSFIwY0hNNkx5OTNkM2N1WjI5dloyeGxZWEJwY3k1amIyMHZiMkYxZEdneUwz\nWTBMM1J2YTJWdUlpd2laWGh3SWpveE56SXdNekF5TVRJd0xDSnBZWFFpT2pF\nM01qQXpNREl3TURBc0luTmpiM0JsSWpvaWFIUjBjSE02THk5M2QzY3VaMjl2\nWjJ4bFlYQnBjeTVqYjIwdllYVjBhQzl6Y0hKbFlXUnphR1ZsZEhNaWZRLkk2\nNXVkbWk4Ym1DLU5TV0NvbXo2ZXhWNl9lZHhpX2RmRkl4T0ctYXJMSG1xSlBi\neXFZWlJPRldzOTRTejRtLUhiWXFQMW5ZVkRUQ0NudmNJWTBhbW1ZY2wzeTJU\nYzYzelVVcGY0WDZUQ0hUQmlNRC0xQ2hZSlBLZTFjNHRJZVZSRGJKUDhDY1dv\nUk56Y2tnT0tMOFplcnFfU1pSZmZCMlZGdDBfX0xjU1diWThtVjNNM0MyY2tY\na3N6eVlCMkV3czhGbmJVXzJvU3BPWXBVcmZuRjJnbEhYeFlfbEFtY181Q3Jn\nejVaV3NYY3E4Z1ZOZjJnMXNSYU5VOHZTTWRYYU9tWWdzdm8xRWo5SThvS1VL\nbXh3V3NHSkF3cWFIRFZrYXN3cGlfc0hDVVdQNHpYRTg2UE52dDZjUkhvbmps\nY1I1R3hmbTh1cXhOTlNzNU5LTXNPWEVDdw==\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.9.0"
+          ],
+          "Content-Type": [
+            "application/x-www-form-urlencoded"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:37 GMT"
+          ],
+          "Server": [
+            "scaffolding on HTTPServer2"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJhY2Nlc3NfdG9rZW4iOiJ5YTI5LmMuYzBBWV9WcFpqS2lVNEhWODlDS1Et\nU2N4ckswcFZvOF9pbEE2Y3JzMng5ZDJieVZYTlJKX2NST0tYdGhfNjBrUjNN\nT1diTWpIVVFKcUhkREpkZXRVQ2RfY0E0ZkE3OXY0NkZsYWJfbU90NXQzWV9W\nbEx3U05sTzRfeEZDTUF2OXZnWkhHdmxMR0ZtaTBoVmM3VEFReUwyNk5Scnd1\ndGI2alRsVnRETktvMTRTYVVvNG9YNU5MTlF0aWNkVXFnM0djbTVRRnFncHc5\nMDBnVktRdTMyemZKdmdKeE95Nl9VSVU1by03azktWGJRZUdIaklyREcyYXlM\nRXkyV3lKWVg5enE4TnNNbFhfMjVKVmttUTgyNk8xZl8zU1JrZnpqZTdnTE9W\nbGkwcllmWVB6TDRmQ1R0Ni1sT0cyQ21PZEw1Z29uYi13cWIwdFhrLTZHc0ZI\nT1U1ZDJMZWFwSzN5RWkwNGJ2UE4yOWRkRi1CcWg2QUViaHhKRzVMRm4xTjM4\nNUN3ZnFPbHZwemdoSklTazRhdmF0UTJ6WGM1aUZkRjRtcDB6NmZaMVVqYnE2\nMFZ6SUloczVrejUwOHJlMzM2dGw3cWQtaGZvLVZoeG42M2I0dzF5bW1tM3NR\nWHVjWVMzYjFkc2dqYmxpb0o2TXFzdGo1cmZpX1JNc1h3NGtjYUpzTzltWDl2\nbF9VY3dmamFfNVVCbk01VVcwazF1RllaSjlkVlMwWVZPTWRVYjk4dkpRVVE3\naVVmX3V6NDFZNmx4enA2dzdTdE8wU0ZKeG5KczJ6dHBTSW1SeWZwbFE1UnRl\nLVJveHM1Zk9GMGVXa2twMTRPb1dSN1NlQm5yMEk1WjM0NTFGcXI0WUZ0cjdP\nazJtaDZydHhuaC1xZHBXLVE2VW55dXFvYnh3Nl9uUTFCMmJRMzY0TWZ6LXVK\nTWtmZlVscG55RlM5UjAtXzB0blVicXlPNVUyZndKLXV3T1JsdWdiVnB3ZFM3\nNlYxekp1aDIzeTY0dnN1UmVuRmg5Z3NjMHRKRmpkSVhxa1dGUjNPdlY3Mk1v\nMklfeTlVak9STW5sSUo0OTR1QnBWeDUzNThRMnJpekJfbm93UTZ2bF9PbV9X\nclNuM3ZPN3hGRlVKempvWXRYWWEzN2JpdHhZZmZiVU9WQnJiNGhYMTlGVlZj\nb0ZTcTZXbDNtUjlzT2N6bmlPc0YtN2ItMWlpbzNteThRcVZWcXBwc25mNnFT\nMzJnenRuMzdtejY5M0o5d210NWtxTzM4ckZGTzNJWmRXdDlxMWxZaXVXcjR2\nNm45U0l5WldyalV5d3BnOWJYRlh6N2ZWenFvQmI2NzRpcl8zaGdsZ3dxUjB1\nNnFwWmRGIiwiZXhwaXJlc19pbiI6MzU5OSwidG9rZW5fdHlwZSI6IkJlYXJl\nciJ9\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    },
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D1%8B%D0%B5'!A:J:append?valueInputOption=USER_ENTERED",
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"values\":[[\"Лиля\",\"Мобильный\",\"=5,0 * 1,2815\",6,7,2024,\"06.07.2024\",\"40,7997\",\"1,088\",\"1,2815\"]]}"
+        },
+        "headers": {
+          "User-Agent": [
+            "unknown/0.0.0 google-apis-sheets_v4/0.10.0 Mac OS X/14.2.1 (gzip)"
+          ],
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:00 GMT"
+          ],
+          "X-Goog-Api-Client": [
+            "gl-ruby/3.3.0 gdcl/1.10.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer ya29.c.c0AY_VpZjKiU4HV89CKQ-ScxrK0pVo8_ilA6crs2x9d2byVXNRJ_cROKXth_60kR3MOWbMjHUQJqHdDJdetUCd_cA4fA79v46Flab_mOt5t3Y_VlLwSNlO4_xFCMAv9vgZHGvlLGFmi0hVc7TAQyL26NRrwutb6jTlVtDNKo14SaUo4oX5NLNQticdUqg3Gcm5QFqgpw900gVKQu32zfJvgJxOy6_UIU5o-7k9-XbQeGHjIrDG2ayLEy2WyJYX9zq8NsMlX_25JVkmQ826O1f_3SRkfzje7gLOVli0rYfYPzL4fCTt6-lOG2CmOdL5gonb-wqb0tXk-6GsFHOU5d2LeapK3yEi04bvPN29ddF-Bqh6AEbhxJG5LFn1N385CwfqOlvpzghJISk4avatQ2zXc5iFdF4mp0z6fZ1Ujbq60VzIIhs5kz508re336tl7qd-hfo-Vhxn63b4w1ymmm3sQXucYS3b1dsgjblioJ6Mqstj5rfi_RMsXw4kcaJsO9mX9vl_Ucwfja_5UBnM5UW0k1uFYZJ9dVS0YVOMdUb98vJQUQ7iUf_uz41Y6lxzp6w7StO0SFJxnJs2ztpSImRyfplQ5Rte-Roxs5fOF0eWkkp14OoWR7SeBnr0I5Z3451Fqr4YFtr7Ok2mh6rtxnh-qdpW-Q6Unyuqobxw6_nQ1B2bQ364Mfz-uJMkffUlpnyFS9R0-_0tnUbqyO5U2fwJ-uwORlugbVpwdS76V1zJuh23y64vsuRenFh9gsc0tJFjdIXqkWFR3OvV72Mo2I_y9UjORMnlIJ494uBpVx5358Q2rizB_nowQ6vl_Om_WrSn3vO7xFFUJzjoYtXYa37bitxYffbUOVBrb4hX19FVVcoFSq6Wl3mR9sOczniOsF-7b-1iio3my8QqVVqppsnf6qS32gztn37mz693J9wmt5kqO38rFFO3IZdWt9q1lYiuWr4v6n9SIyZWrjUywpg9bXFXz7fVzqoBb674ir_3hglgwqR0u6qpZdF"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Type": [
+            "application/json; charset=UTF-8"
+          ],
+          "Vary": [
+            "Origin",
+            "Referer",
+            "X-Origin"
+          ],
+          "Content-Encoding": [
+            "gzip"
+          ],
+          "Date": [
+            "Sat, 06 Jul 2024 21:41:38 GMT"
+          ],
+          "Server": [
+            "ESF"
+          ],
+          "Cache-Control": [
+            "private"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "X-Frame-Options": [
+            "SAMEORIGIN"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "Alt-Svc": [
+            "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+          ],
+          "X-L2-Request-Path": [
+            "l2-managed-6"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\n  \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n  \"tableRange\": \"'Повседневные'!A1:K14462\",\n  \"updates\": {\n    \"spreadsheetId\": \"1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg\",\n    \"updatedRange\": \"'Повседневные'!A14463:J14463\",\n    \"updatedRows\": 1,\n    \"updatedColumns\": 10,\n    \"updatedCells\": 10\n  }\n}\n"
+        }
+      },
+      "recorded_at": "Sat, 06 Jul 2024 21:41:00 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

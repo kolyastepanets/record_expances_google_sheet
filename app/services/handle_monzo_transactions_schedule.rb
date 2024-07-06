@@ -18,10 +18,12 @@ class HandleMonzoTransactionsSchedule
   private
 
   def handle_monzo_transaction(params)
+    amount = (params[:data][:amount].to_i.abs / 100.0).round(2)
+
     if money_from_joint_to_personal?(params)
-      withdraw_from_joint_account((params[:data][:amount].abs / 100.0).round(2))
-      add_to_personal_account((params[:data][:amount].abs / 100.0).round(2))
-      send_notification_to_bot("£#{(params[:data][:amount].abs / 100.0).round(2)} was transferred from Joint Monzo to Personal Monzo account.")
+      withdraw_from_joint_account(amount)
+      add_to_personal_account(amount)
+      send_notification_to_bot("£#{amount} was transferred from Joint Monzo to Personal Monzo account.")
       return
     end
 
@@ -30,9 +32,9 @@ class HandleMonzoTransactionsSchedule
     end
 
     if money_from_personal_to_joint?(params)
-      withdraw_from_personal_account((params[:data][:amount].abs / 100.0).round(2))
-      add_to_joint_account((params[:data][:amount].abs / 100.0).round(2))
-      send_notification_to_bot("£#{(params[:data][:amount].abs / 100.0).round(2)} was transferred from Personal Monzo account to Joint Monzo.")
+      withdraw_from_personal_account(amount)
+      add_to_joint_account(amount)
+      send_notification_to_bot("£#{amount} was transferred from Personal Monzo account to Joint Monzo.")
       return
     end
 
@@ -41,10 +43,58 @@ class HandleMonzoTransactionsSchedule
     end
 
     if salary?(params)
-      add_to_personal_account((params[:data][:amount].abs / 100.0).round(2))
-      send_notification_to_bot("Salary £#{(params[:data][:amount].abs / 100.0).round(2)} was saved to Personal Monzo account.")
+      add_to_personal_account(amount)
+      send_notification_to_bot("Salary £#{amount} was saved to Personal Monzo account.")
       return
     end
+
+    if youtube?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Для дома', 'youtube', amount)
+      send_notification_to_bot("Youtube premium £#{amount} was spent from Joint account.")
+      return
+    end
+
+    if google_storage?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Для дома', 'google', amount)
+      send_notification_to_bot("Google storage £#{amount} was spent from Joint account.")
+      return
+    end
+
+    if digital_ocean?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Для дома', 'Сервак, впн', amount)
+      send_notification_to_bot("Digital Ocean £#{amount} was spent from Joint account.")
+      return
+    end
+
+    if lebara_1?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Коля', 'Мобильный', amount)
+      send_notification_to_bot("Lebara Коля £#{amount} was spent from Joint account.")
+      return
+    end
+
+    if lebara_2?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Лиля', 'Мобильный', amount)
+      send_notification_to_bot("Lebara Лиля £#{amount} was spent from Joint account.")
+      return
+    end
+
+    if rebel_energy?(params)
+      withdraw_from_joint_account(amount)
+      save_to_google_sheet('Для дома', 'комуналка', amount)
+      send_notification_to_bot("Rebel Energy £#{amount} was spent from Joint account.")
+      return
+    end
+
+    # virgin media
+    # ready food
+    # council tax
+    # water
+    # tesco subscription
 
     send_ask_message_to_bot(params)
   end
@@ -119,6 +169,69 @@ class HandleMonzoTransactionsSchedule
 
   def salary_description?(description)
     description.include?('hawk') && description.include?('applic') && description.include?('corp')
+  end
+
+  def youtube?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && description_youtube_premium?(params[:data][:description].downcase) && params[:data][:amount].negative?
+  end
+
+  def description_youtube_premium?(description)
+    description.include?('youtube') && description.include?('premium')
+  end
+
+  def google_storage?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && description_google_storage?(params[:data][:description].downcase) && params[:data][:amount].negative?
+  end
+
+  def description_google_storage?(description)
+    description.include?('google') && description.include?('storage')
+  end
+
+  def digital_ocean?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && description_digital_ocean?(params[:data][:description].downcase) && params[:data][:amount].negative?
+  end
+
+  def description_digital_ocean?(description)
+    description.include?('digital') && description.include?('ocean')
+  end
+
+  def lebara_1?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] &&
+      description_lebara?(params[:data][:description].downcase) &&
+      params[:data][:amount].negative? &&
+      !one_of_two_lebara_transcations_already_saved?
+  end
+
+  def one_of_two_lebara_transcations_already_saved?
+    lebara_params = []
+
+    @redis.scan_each(match: 'monzo_transaction_id_*') do |key|
+      params = JSON.parse(@redis.get(key)).deep_symbolize_keys
+      lebara_params << params if params.dig(:data, :description).downcase.include?('lebara')
+    end
+
+    lebara_params.any? { |params| params[:already_sent_to_bot] }
+  end
+
+  def lebara_2?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && description_lebara?(params[:data][:description].downcase) && params[:data][:amount].negative?
+  end
+
+  def description_lebara?(description)
+    description.include?('lebara')
+  end
+
+  def rebel_energy?(params)
+    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && description_rebel_energy?(params[:data][:description].downcase) && params[:data][:amount].negative?
+  end
+
+  def description_rebel_energy?(description)
+    description.include?('rebel') && description.include?('energy')
+  end
+
+  def save_to_google_sheet(category_name, sub_category_name, amount)
+    price_to_put_in_sheets = "=#{amount.to_s.gsub(".", ",")} * #{CurrencyRate.call('GBP', 'USD').to_s.gsub(".", ",")}"
+    PutExpensesToGoogleSheet.call(category_name, sub_category_name, price_to_put_in_sheets)
   end
 
   def send_ask_message_to_bot(params)

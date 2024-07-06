@@ -136,4 +136,159 @@ RSpec.describe HandleMonzoTransactionsSchedule do
       subject
     end
   end
+
+  context 'when youtube premium', vcr: true, freezed_time: '2024-07-06T20:46:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "GOOGLE *YouTubePremium 650-253-0000  GBR",
+          "amount": -288,
+          "currency": "GBP",
+          "local_amount": -14900,
+          "local_currency": "UAH",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+    end
+
+    it 'saves to google sheet' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
+
+  context 'when google storage', vcr: true, freezed_time: '2024-07-06T20:51:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "GOOGLE *Google Storage 650-253-0000  GBR",
+          "amount": -87,
+          "currency": "GBP",
+          "local_amount": -4500,
+          "local_currency": "UAH",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+    end
+
+    it 'saves to google sheet' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
+
+  context 'when digital ocean', vcr: true, freezed_time: '2024-07-06T20:55:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "DigitalOcean.com",
+          "amount": -87,
+          "currency": "GBP",
+          "local_amount": -4500,
+          "local_currency": "UAH",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+    end
+
+    it 'saves to google sheet' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
+
+  context 'when lebara', vcr: true, freezed_time: '2024-07-06T21:41:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "Lebara Mobile Limited  London        GBR",
+          "amount": -500,
+          "currency": "GBP",
+          "local_amount": -500,
+          "local_currency": "GBP",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+    let(:params_2) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt1",
+          "description": "Lebara Mobile Limited  London        GBR",
+          "amount": -500,
+          "currency": "GBP",
+          "local_amount": -500,
+          "local_currency": "GBP",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt1", params_2.to_json)
+    end
+
+    it 'saves to google sheet' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
+
+  context 'when rebel energy', vcr: true, freezed_time: '2024-07-06T21:45:00+00:00' do
+    let(:params) do
+      {
+        "type": "transaction.updated",
+        "data": {
+          "id": "tx_0000AjNe20ai0jRxWZFUpt",
+          "description": "Rebel Energy Limited",
+          "amount": -10000,
+          "currency": "GBP",
+          "local_amount": -10000,
+          "local_currency": "GBP",
+          "account_id": ENV['JOINT_MONZO_ACCOUNT_ID'],
+        }
+      }
+    end
+
+    before do
+      redis = Redis.new
+      redis.set("monzo_transaction_id_tx_0000AjNe20ai0jRxWZFUpt", params.to_json)
+    end
+
+    it 'saves to google sheet' do
+      expect(SendMessageToBotToAskToEnterExpencesFromMonzo).to_not receive(:call)
+
+      subject
+    end
+  end
 end
