@@ -9,7 +9,8 @@ module DetectCategoryAndSubcategoryFromLine
         kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
         micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
-        darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus?
+        darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus? || fruitastic_mix? ||
+        caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream?
     end
 
     def choc_cookies?
@@ -108,6 +109,26 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('fruit') && @line.include?('drop') && @line.include?('citrus')
     end
 
+    def fruitastic_mix?
+      @line.include?('fruitastic') && @line.include?('mix')
+    end
+
+    def caramel_squares?
+      @line.include?('caramel') && @line.include?('squares')
+    end
+
+    def whitecaramel_squares?
+      @line.include?('whitecaramel') && @line.include?('squares')
+    end
+
+    def milky_way?
+      @line.include?('milky') && @line.include?('way')
+    end
+
+    def mini_milk_cream?
+      @line.include?('mini') && @line.include?('milk') && @line.include?('cream')
+    end
+
     ####
 
     def ready_to_eat?
@@ -118,7 +139,8 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices? ||
         petitsfilous_big_pot? || chocolate_pudding? || yogurt? || ricotta? || mascarpone? ||
-        pineapple_cheese? || double_cream? || parmigiano_reggiano? || soured_cream?
+        pineapple_cheese? || double_cream? || parmigiano_reggiano? || soured_cream? ||
+        cottage_cheese? || elmleadoublecreamsub?
     end
 
     def milk?
@@ -179,6 +201,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def soured_cream?
       @line.include?('soured') && @line.include?('cream')
+    end
+
+    def cottage_cheese?
+      @line.include?('cottage') && @line.include?('cheese')
+    end
+
+    def elmleadoublecreamsub?
+      @line.include?('elmleadoublecreamsub')
     end
 
     ####
@@ -551,7 +581,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       luquid_soap? || toilet_paper? || domestos_Bleach_blue? || dental_sticks? || premium_white_toilet? ||
-        toilet_tissue?
+        toilet_tissue? || cotton_buds?
     end
 
     def luquid_soap?
@@ -576,6 +606,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def toilet_tissue?
       @line.include?('toilet') && @line.include?('tissue')
+    end
+
+    def cotton_buds?
+      @line.include?('cotton') && @line.include?('buds')
     end
 
     ####
@@ -617,11 +651,15 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      salmon?
+      salmon? || prawns?
     end
 
     def salmon?
-      @line.include?('salmon')
+      @line.any? { |word| word.include?('salmon') }
+    end
+
+    def prawns?
+      @line.include?('prawns')
     end
 
     ####
@@ -639,7 +677,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
         mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers? ||
-        funsize_apples? || white_grapes? || peaches? || galia_melon? || pears?
+        funsize_apples? || white_grapes? || peaches? || galia_melon? || pears? || nectarines?
     end
 
     def plums?
@@ -708,6 +746,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pears?
       @line.include?('pears')
+    end
+
+    def nectarines?
+      @line.include?('nectarines')
     end
 
     ####
