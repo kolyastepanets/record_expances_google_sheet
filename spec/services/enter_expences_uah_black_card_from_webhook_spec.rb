@@ -29,7 +29,7 @@ RSpec.describe EnterExpencesUahBlackCardFromWebhook do
       {
         can_show_final_sum: true,
         category_name: 'Для дома',
-        sub_category_name: 'youtube',
+        sub_category_name: 'Онлайн-видео',
         price_in_uah: 149.0,
         operation_amount: 149.0,
         current_month: Date.today.month,

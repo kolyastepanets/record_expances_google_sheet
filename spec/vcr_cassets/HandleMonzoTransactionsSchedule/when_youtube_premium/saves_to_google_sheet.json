@@ -539,7 +539,7 @@
         "uri": "https://sheets.googleapis.com/v4/spreadsheets/1-pLYGFJzcLh9DJHpC0vaP9sEbfAZk5dFZeOP7B9SmAg/values/'%D0%9F%D0%BE%D0%B2%D1%81%D0%B5%D0%B4%D0%BD%D0%B5%D0%B2%D0%BD%D1%8B%D0%B5'!A:J:append?valueInputOption=USER_ENTERED",
         "body": {
           "encoding": "UTF-8",
-          "string": "{\"values\":[[\"Для дома\",\"youtube\",\"=2,88 * 1,2815\",6,7,2024,\"06.07.2024\",\"40,7997\",\"1,088\",\"1,2815\"]]}"
+          "string": "{\"values\":[[\"Для дома\",\"Онлайн-видео\",\"=2,88 * 1,2815\",6,7,2024,\"06.07.2024\",\"40,7997\",\"1,088\",\"1,2815\"]]}"
         },
         "headers": {
           "User-Agent": [

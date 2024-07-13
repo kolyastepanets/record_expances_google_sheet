@@ -50,7 +50,7 @@ class HandleMonzoTransactionsSchedule
 
     if youtube?(params)
       withdraw_from_joint_account(amount)
-      save_to_google_sheet('Для дома', 'youtube', amount)
+      save_to_google_sheet('Для дома', 'Онлайн-видео', amount)
       send_notification_to_bot("Youtube premium £#{amount} was spent from Joint account.")
       return
     end
@@ -95,6 +95,7 @@ class HandleMonzoTransactionsSchedule
     # council tax
     # water
     # tesco subscription
+    # netflix
 
     send_ask_message_to_bot(params)
   end

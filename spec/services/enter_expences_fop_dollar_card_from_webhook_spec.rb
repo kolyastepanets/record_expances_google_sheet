@@ -29,7 +29,7 @@ RSpec.describe EnterExpencesFopDollarCardFromWebhook do
       {
         can_show_final_sum: true,
         category_name: 'Для дома',
-        sub_category_name: 'youtube',
+        sub_category_name: 'Онлайн-видео',
         price_in_usd: 4.0,
         operation_amount: 10.0,
         current_month: Date.today.month,

@@ -25,7 +25,7 @@ class CommonExpensesFromWebhook
     case @transaction_data[:description]
     when youtube
       @params[:category_name] = 'Для дома'
-      @params[:sub_category_name] = 'youtube'
+      @params[:sub_category_name] = 'Онлайн-видео'
     when -> (description) { description == "Лиля ❤️" && Date.today.day == 1 && (@params[:price_in_uah].present? ? (@params[:price_in_uah] > 10000) : false) }
       @params[:category_name] = 'Лиля'
       @params[:sub_category_name] = nil
