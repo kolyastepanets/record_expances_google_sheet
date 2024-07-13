@@ -5,7 +5,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ['UAH and USD all'],
     ['Траты в gsheets за текущий день'],
     ['Вернуть часть денег после снятия кэша'],
-    ['how much and when can start spending for all categories'],
     ['Выровнять в гугл таблице как в монобанке и монзо'],
     ['Enter cash'],
     ['Получить статистику трат по дням'],
@@ -321,7 +320,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
         { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
-        { text: 'how much and when can start spending for all categories', method_to_call: 'how_much_and_when_can_start_spending_for_all_categories'},
         { text: 'Выровнять в гугл таблице как в монобанке и монзо', method_to_call: 'round_in_google_sheet_like_in_monobank' },
         { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику трат по дням', method_to_call: 'get_statistic_by_days' },
@@ -502,7 +500,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       is_usd = !!session[:receipt_dollar_foreign_currency_exchange_rate]
       is_uah = session[:is_grivnas]
       SendMessageTotalSumAfterFinishEnterMoney.call(false, false, is_usd, is_uah, session[:total_sum_of_money_before_save])
-      SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(session[:categories_names])
     end
 
     set_default_values_in_session!
@@ -866,9 +863,5 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def return_part_money_after_withdraw_cash
     save_context(:ask_grivnas_and_foreign_money_returned!)
     respond_with(:message, text: 'Enter how much grivnas and foreign cash were returned, "1468 600000" :')
-  end
-
-  def how_much_and_when_can_start_spending_for_all_categories
-    SendInfoHowMuchMoneyCanSpendThisWeekJob.perform_later(["Еда", "Для дома", "Непредвиденное", "Путешествия", "Развлечения"])
   end
 end
