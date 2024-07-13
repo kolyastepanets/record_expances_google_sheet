@@ -4,9 +4,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   BUTTONS_INFO = [
     ['UAH and USD all'],
     ['Траты в gsheets за текущий день'],
-    ['Вернуть часть денег после снятия кэша'],
     ['Выровнять в гугл таблице как в монобанке и монзо'],
-    ['Enter cash'],
     ['Получить статистику трат по дням'],
     ['Получить статистику трат по дням сгруппированную по категориям'],
     ['Получить статистику по категории за месяц'],
@@ -319,9 +317,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       mapping = [
         { text: 'UAH and USD all', method_to_call: 'uah_and_usd_all' },
         { text: 'Траты в gsheets за текущий день', method_to_call: 'get_expenses_for_today_in_google_sheet' },
-        { text: 'Вернуть часть денег после снятия кэша', method_to_call: 'return_part_money_after_withdraw_cash' },
         { text: 'Выровнять в гугл таблице как в монобанке и монзо', method_to_call: 'round_in_google_sheet_like_in_monobank' },
-        { text: 'Enter cash', method_to_call: 'ask_to_enter_cash' },
         { text: 'Получить статистику трат по дням', method_to_call: 'get_statistic_by_days' },
         { text: 'Получить статистику трат по дням сгруппированную по категориям', method_to_call: 'get_statistic_by_days_grouped_by_categories' },
         { text: 'Получить статистику по категории за месяц', method_to_call: 'get_statistic_by_category_for_month' },
@@ -340,18 +336,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleInputPhotoJob.perform_later(message)
     respond_with(:message, text: 'Началась обработка фото...')
-  end
-
-  def ask_to_enter_cash
-    save_context(:ask_grivnas_and_foreign_money!)
-    respond_with(:message, text: 'Enter how much grivnas and foreign cash, "2635.45 1000000" :')
-  end
-
-  def ask_grivnas_and_foreign_money_returned!(grivnas_returned, *args)
-    grivnas = grivnas_returned
-    foreign_cash = args.first
-    HandleMoneyReturnedCashAndGrivnas.call(grivnas.to_f, foreign_cash.to_f)
-    respond_with(:message, text: 'money has been handled!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   def ask_start_date_and_end_date!(start_date, *args)
@@ -386,33 +370,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         **reply_markup,
       )
     end
-  end
-
-  def ask_grivnas_and_foreign_money!(grivnas_returned, *args)
-    price_in_usd_to_put_in_google_sheets = "=#{grivnas_returned.to_s.gsub(".", ",")} / #{MonobankCurrencyRates.call('USD', 'UAH').to_s.gsub(".", ",")}"
-    foreign_cash = args.first
-
-    PutExpensesToGoogleSheet.call(
-      'Кэш',
-      nil,
-      price_in_usd_to_put_in_google_sheets,
-    )
-
-    params = {
-      category_name: 'Кэш',
-      operation_amount: foreign_cash.to_f,
-      currency_rate: (grivnas_returned.to_f / foreign_cash.to_f).round(6).to_s.gsub(".", ","),
-    }
-    IncreaseCashAmount.call(params)
-
-    # decrease uah spent amount
-    result = CalculateTotalSpentUsdAndUah.call
-    UpdateCellInGoogleSheet.call(
-      result[:total_left_uah_money] - grivnas_returned.to_f,
-      result[:coordinates_of_total_left_uah_money],
-    )
-
-    respond_with(:message, text: 'Cash has been entered!', reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS)
   end
 
   private
@@ -858,10 +815,5 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     )
 
     set_default_values_in_session!
-  end
-
-  def return_part_money_after_withdraw_cash
-    save_context(:ask_grivnas_and_foreign_money_returned!)
-    respond_with(:message, text: 'Enter how much grivnas and foreign cash were returned, "1468 600000" :')
   end
 end
