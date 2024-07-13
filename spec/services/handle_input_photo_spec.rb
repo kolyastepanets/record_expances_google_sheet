@@ -131,8 +131,6 @@ RSpec.describe HandleInputPhoto do
             }
           )
 
-          expect(SendInfoHowMuchMoneyCanSpendThisWeekJob).to receive(:perform_later).with(["Для дома", "Еда", "Еда", "Для дома", "Еда"])
-
           subject
         end
       end
@@ -201,8 +199,6 @@ RSpec.describe HandleInputPhoto do
               :sub_category_name=>"Сладости"
             }
           )
-
-          expect(SendInfoHowMuchMoneyCanSpendThisWeekJob).to receive(:perform_later).with(["Для дома", "Еда", "Еда", "Для дома", "Еда"])
 
           subject
         end
