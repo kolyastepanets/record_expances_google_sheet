@@ -10,7 +10,7 @@ module DetectCategoryAndSubcategoryFromLine
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
         micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
         darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus? || fruitastic_mix? ||
-        caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream?
+        caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream? || rocket_lollies?
     end
 
     def choc_cookies?
@@ -127,6 +127,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mini_milk_cream?
       @line.include?('mini') && @line.include?('milk') && @line.include?('cream')
+    end
+
+    def rocket_lollies?
+      @line.include?('rocket') && @line.include?('lollies')
     end
 
     ####
@@ -615,7 +619,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      flowers? || houseplant_ceramic? || glasses_wipes? || pot_flower?
+      flowers? || houseplant_ceramic? || glasses_wipes? || pot_flower? || sempervivum_mixed?
     end
 
     def flowers?
@@ -632,6 +636,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pot_flower?
       @line.include?('hosta')
+    end
+
+    def sempervivum_mixed?
+      @line.include?('sempervivum') && @line.include?('mixed')
     end
 
     ####
@@ -681,7 +689,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def plums?
-      @line.include?('plums') && (@line.include?('0080414') || @line.include?('0080417'))
+      @line.include?('plums') && (@line.include?('0080414') || @line.include?('0080417') || @line.include?('0080412'))
     end
 
     def mango?
