@@ -241,6 +241,6 @@ class HandleMonzoTransactionsSchedule
 
   def update_redis(key, params)
     params[:already_sent_to_bot] = true
-    @redis.set(key, params.to_json, ex: 24.hours)
+    @redis.set(key, params.to_json, ex: 48.hours)
   end
 end
