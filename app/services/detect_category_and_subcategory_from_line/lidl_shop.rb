@@ -306,7 +306,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def tea_or_coffee?
-      indonesia_coffee? || nesquik? || tea?
+      indonesia_coffee? || nesquik? || tea? || coffee_pod?
     end
 
     def indonesia_coffee?
@@ -319,6 +319,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tea?
       @line.include?('tea')
+    end
+
+    def coffee_pod?
+      @line.include?('coffee') && @line.include?('pod')
     end
 
     ####
@@ -395,7 +399,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def tomatoes?
-      (@line.include?('scarlet') || @line.include?('vine') || @line.include?('marvellous') || @line.include?('piccolo')) && @line.include?('tomatoes')
+      (@line.include?('scarlet') || @line.include?('vine') || @line.include?('marvellous') || @line.include?('piccolo') || @line.include?('baby')) && @line.include?('tomatoes')
     end
 
     def radish?
@@ -585,7 +589,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       luquid_soap? || toilet_paper? || domestos_Bleach_blue? || dental_sticks? || premium_white_toilet? ||
-        toilet_tissue? || cotton_buds?
+        toilet_tissue? || cotton_buds? || kids_toothbrush?
     end
 
     def luquid_soap?
@@ -614,6 +618,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def cotton_buds?
       @line.include?('cotton') && @line.include?('buds')
+    end
+
+    def kids_toothbrush?
+      @line.include?('kids') && @line.include?('toothbrush')
     end
 
     ####
