@@ -97,12 +97,12 @@ class HandleInputPhoto
       else
         categories_to_show = get_categories.keys.each_slice(AllConstants::SHOW_ITEMS_PER_LINE).map do |categories_array|
           categories_array.map do |category|
-            { text: category, callback_data: "#{category}:f_id:#{@file_id}:#{price_with_category[:price]}" }
+            { text: category, callback_data: "#{category}:f_id:#{@file_id}:#{price_with_category[:price].round(2)}" }
           end
         end
         response = send_message_with_categories(price_with_category, categories_to_show)
         @params << {
-          price: price_with_category[:price],
+          price: price_with_category[:price].round(2),
           currency_to_usd: @currency_to_usd,
           currency_to_uah: @currency_to_uah,
           currency_to_gbp: @currency_to_gbp,
@@ -197,7 +197,7 @@ class HandleInputPhoto
   def send_message_with_categories(price_with_category, categories_to_show)
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "Вся строка: #{price_with_category[:full_parsed_line]}\nПоиск в гугле: <a href=\"https://www.google.com/search?q=#{without_first_and_last(price_with_category[:full_parsed_line])}\">ссылка</a>\nВыбери категорию чтобы сохранить для #{price_with_category[:price]}:",
+      text: "Вся строка: #{price_with_category[:full_parsed_line]}\nПоиск в гугле: <a href=\"https://www.google.com/search?q=#{without_first_and_last(price_with_category[:full_parsed_line])}\">ссылка</a>\nВыбери категорию чтобы сохранить для #{price_with_category[:price].round(2)}:",
       parse_mode: :HTML,
       reply_markup: { inline_keyboard:  categories_to_show },
     )
