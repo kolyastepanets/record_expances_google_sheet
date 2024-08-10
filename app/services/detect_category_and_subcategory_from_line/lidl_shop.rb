@@ -10,7 +10,8 @@ module DetectCategoryAndSubcategoryFromLine
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
         micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
         darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus? || fruitastic_mix? ||
-        caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream? || rocket_lollies?
+        caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream? || rocket_lollies? ||
+        fruit_spiral_lollies? || paw_patrol?
     end
 
     def choc_cookies?
@@ -131,6 +132,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def rocket_lollies?
       @line.include?('rocket') && @line.include?('lollies')
+    end
+
+    def fruit_spiral_lollies?
+      @line.include?('fruit') && @line.include?('spiral') && @line.include?('lollies')
+    end
+
+    def paw_patrol?
+      @line.include?('paw') && @line.include?('patrol')
     end
 
     ####
@@ -627,7 +636,8 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def home_stuff?
-      flowers? || houseplant_ceramic? || glasses_wipes? || pot_flower? || sempervivum_mixed?
+      flowers? || houseplant_ceramic? || glasses_wipes? || pot_flower? || sempervivum_mixed? ||
+        green_houseplants?
     end
 
     def flowers?
@@ -648,6 +658,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sempervivum_mixed?
       @line.include?('sempervivum') && @line.include?('mixed')
+    end
+
+    def green_houseplants?
+      @line.include?('green') && @line.include?('houseplants')
     end
 
     ####
