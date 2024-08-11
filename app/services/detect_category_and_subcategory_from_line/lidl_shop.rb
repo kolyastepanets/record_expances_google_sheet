@@ -161,7 +161,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def butter?
-      @line.any? { |word| word.include?('butter') } && @line.any? { |word| word.include?('salted') }
+      @line.any? { |word| word.include?('butter') } && @line.any? { |word| word.include?('salt') }
     end
 
     def maasdam_cheese?
@@ -281,7 +281,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kitchen_stuff?
       salt_shaker? || trash_bag? || trash_bag_2? || fairy? || dishwasher_tablets? || dishwasher_salt? ||
-        microfibre_cloths? || white_facial_tissue?
+        microfibre_cloths? || white_facial_tissue? || dishwasher_tab? || sponge?
     end
 
     def salt_shaker?
@@ -314,6 +314,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def white_facial_tissue?
       @line.include?('white') && @line.include?('facial') && @line.include?('tissue')
+    end
+
+    def dishwasher_tab?
+      @line.include?('dishwasher') && @line.include?('tab')
+    end
+
+    def sponge?
+      @line.include?('sponge')
     end
 
     ####
@@ -376,7 +384,7 @@ module DetectCategoryAndSubcategoryFromLine
       red_onion? || potatoes? || carrots? || cucumbers? || dill? ||
         cabbage? || beetroot? || tomatoes? || radish? || mixed_peppers? || fresh_parsley? ||
         spinach_rocket? || garden_salad? || pepper_red_loose? || avocados? ||
-        iceberg_lettuce? || italian_salad?
+        iceberg_lettuce? || italian_salad? || broccoli?
     end
 
     def red_onion?
@@ -451,12 +459,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('italian') && @line.include?('salad')
     end
 
+    def broccoli?
+      @line.include?('broccoli')
+    end
+
     ####
 
     def sausage_and_sausages?
       krakauer_sausage? || silesian_sausage? || garlic_sausage? || chicken_frankfurters? ||
         smoked_salami? || ham_slices? || sliced_sausagewiejska? || pork_sausage? ||
-        chicken_frankfurters? || polish_sausage? || smoked_ham?
+        chicken_frankfurters? || polish_sausage? || smoked_ham? || thick_bacon? || antipasti_platter?
     end
 
     def krakauer_sausage?
@@ -503,11 +515,20 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('smoked') && @line.include?('ham')
     end
 
+    def thick_bacon?
+      @line.include?('thick') && @line.include?('bacon')
+    end
+
+    def antipasti_platter?
+      @line.include?('antipasti') && @line.include?('platter')
+    end
+
     ####
 
     def meat?
-      beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? || pork_loinsteaks? ||
-        beef_steak_2? || pork_shoulder? || chicken_fillets? || corned_beef? || chicken_meatball_gravy?
+      beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? ||
+        beef_steak_2? || pork? || chicken_fillets? || corned_beef? || chicken_meatball_gravy? ||
+        rind_belly_slices?
     end
 
     def beef_steak?
@@ -530,16 +551,12 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('chi') && @line.include?('thighfillet')
     end
 
-    def pork_loinsteaks?
-      @line.include?('pork') && @line.include?('loinsteaks')
-    end
-
     def beef_steak_2?
       @line.include?('beef') && @line.include?('steak')
     end
 
-    def pork_shoulder?
-      @line.include?('pork') && @line.include?('shoulder')
+    def pork?
+      @line.include?('pork') && (@line.include?('shoulder') || @line.include?('fillet') || @line.include?('loinsteaks'))
     end
 
     def chicken_fillets?
@@ -552,6 +569,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_meatball_gravy?
       @line.include?('chicken') && @line.include?('meatballgravy')
+    end
+
+    def rind_belly_slices?
+      @line.include?('rind') && @line.include?('belly') && @line.include?('slices')
     end
 
     ####
@@ -614,7 +635,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       luquid_soap? || toilet_paper? || domestos_Bleach_blue? || dental_sticks? || premium_white_toilet? ||
-        toilet_tissue? || cotton_buds? || kids_toothbrush?
+        toilet_tissue? || cotton_buds? || kids_toothbrush? || washing_powder?
     end
 
     def luquid_soap?
@@ -647,6 +668,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def kids_toothbrush?
       @line.include?('kids') && @line.include?('toothbrush')
+    end
+
+    def washing_powder?
+      @line.include?('washingpowder')
     end
 
     ####
