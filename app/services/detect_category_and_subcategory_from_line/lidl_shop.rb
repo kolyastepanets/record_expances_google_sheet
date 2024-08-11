@@ -153,7 +153,7 @@ module DetectCategoryAndSubcategoryFromLine
       milk? || butter? || maasdam_cheese? || milk_2? || mozzarella_cheese? || maasdam_slices? ||
         petitsfilous_big_pot? || chocolate_pudding? || yogurt? || ricotta? || mascarpone? ||
         pineapple_cheese? || double_cream? || parmigiano_reggiano? || soured_cream? ||
-        cottage_cheese? || elmleadoublecreamsub?
+        cottage_cheese? || elmleadoublecreamsub? || cheese_slices?
     end
 
     def milk?
@@ -222,6 +222,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def elmleadoublecreamsub?
       @line.include?('elmleadoublecreamsub')
+    end
+
+    def cheese_slices?
+      @line.include?('cheese') && @line.include?('slices')
     end
 
     ####
@@ -452,7 +456,7 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       krakauer_sausage? || silesian_sausage? || garlic_sausage? || chicken_frankfurters? ||
         smoked_salami? || ham_slices? || sliced_sausagewiejska? || pork_sausage? ||
-        chicken_frankfurters?
+        chicken_frankfurters? || polish_sausage? || smoked_ham?
     end
 
     def krakauer_sausage?
@@ -489,6 +493,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chicken_frankfurters?
       @line.include?('chicken') && @line.any? { |word| word.include?('frankfurters') }
+    end
+
+    def polish_sausage?
+      @line.include?('polish') && @line.include?('sausage')
+    end
+
+    def smoked_ham?
+      @line.include?('smoked') && @line.include?('ham')
     end
 
     ####
@@ -547,7 +559,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       baguette? || sourdoug? || buns? || palmier_puff_pastry? || medium_loaf_white? ||
         chocolate_croissant? || pink_doughnut? || doughunt? || belgian_bun? || croissant? ||
-        jam_football_muffin?
+        jam_football_muffin? || sliced_focaccia?
     end
 
     def baguette?
@@ -592,6 +604,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jam_football_muffin?
       @line.include?('jam') && @line.include?('football') && @line.include?('muffin')
+    end
+
+    def sliced_focaccia?
+      @line.include?('sliced') && @line.include?('focaccia')
     end
 
     ####
@@ -667,7 +683,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      apple_juice? || orange_juice?
+      apple_juice? || orange_juice? || mineral_water?
     end
 
     def apple_juice?
@@ -676,6 +692,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def orange_juice?
       @line.include?('orange') && @line.include?('juice')
+    end
+
+    def mineral_water?
+      @line.include?('mineral') && @line.include?('water')
     end
 
     ####
