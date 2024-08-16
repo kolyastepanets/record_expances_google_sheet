@@ -286,10 +286,10 @@ class HandleInputPhoto
   end
 
   def collected_prices_sum_in_uad_or_in_uah
-    return "£#{(collected_prices_sum / @currency_to_gbp).round(2)}" if @currency_to_gbp
+    return "$#{(collected_prices_sum / @currency_to_gbp).round(2)}" if @currency_to_gbp
     return "$#{(collected_prices_sum / @currency_to_usd).round(2)}" if @currency_to_usd
     return "#{(collected_prices_sum * @currency_to_uah).round(2)} грн" if @currency_to_uah
-    return "£#{(collected_prices_sum / @currency_to_gbp_joint).round(2)}" if @currency_to_gbp_joint
+    return "$#{(collected_prices_sum * @currency_to_gbp_joint).round(2)}" if @currency_to_gbp_joint
   end
 
   def without_first_and_last(current_string)
