@@ -332,6 +332,24 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       end
     end
 
+    if message_text.include?('-') || message_text.include?('+')
+      numbers = message_text.split(/[-+]/).map(&:to_d)
+      operators = message_text.scan(/[-+]/)
+
+      result = numbers.shift
+
+      operators.each_with_index do |operator, index|
+        case operator
+        when '+'
+          result += numbers[index]
+        when '-'
+          result -= numbers[index]
+        end
+      end
+
+      return respond_with(:message, text: result)
+    end
+
     return respond_with(:message, text: 'invalid message') if message["photo"].blank? && message["document"].blank?
 
     HandleInputPhotoJob.perform_later(message)
