@@ -292,7 +292,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    message_text = message["text"]
+    message_text = message["text"].to_s
 
     if 'All buttons' == message_text
       return respond_with(
