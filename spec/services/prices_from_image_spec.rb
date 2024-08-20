@@ -1790,6 +1790,30 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt lidl 33', freezed_time: '2024-08-20T13:02:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out33.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>2.39},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>0.55},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.89},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>3.15},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>0.65},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.69},
+        {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>3.99},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.48},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.39},
+        15.18,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|

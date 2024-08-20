@@ -242,7 +242,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       tomato_sauce? || oil? || sugar? || bicarbonate_soda? || squeezy_honey? || squeezy_real_mayo? ||
-        dried_yeast? || lemon_juice?
+        dried_yeast? || lemon_juice? || chicken_cubes? || rice_vinegar?
     end
 
     def tomato_sauce?
@@ -275,6 +275,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def lemon_juice?
       @line.include?('lemon') && @line.include?('juice')
+    end
+
+    def chicken_cubes?
+      @line.include?('chicken') && @line.include?('cubes')
+    end
+
+    def rice_vinegar?
+      @line.include?('rice') && @line.include?('vinegar')
     end
 
     ####
@@ -528,7 +536,7 @@ module DetectCategoryAndSubcategoryFromLine
     def meat?
       beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? ||
         beef_steak_2? || pork? || chicken_fillets? || corned_beef? || chicken_meatball_gravy? ||
-        rind_belly_slices?
+        rind_belly_slices? || range_thigh?
     end
 
     def beef_steak?
@@ -573,6 +581,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def rind_belly_slices?
       @line.include?('rind') && @line.include?('belly') && @line.include?('slices')
+    end
+
+    def range_thigh?
+      @line.include?('range') && @line.include?('thigh')
     end
 
     ####
@@ -635,7 +647,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bath_stuff?
       luquid_soap? || toilet_paper? || domestos_Bleach_blue? || dental_sticks? || premium_white_toilet? ||
-        toilet_tissue? || cotton_buds? || kids_toothbrush? || washing_powder?
+        toilet_tissue? || cotton_buds? || kids_toothbrush? || washing_powder? || always_liners? ||
+        tampax_compak?
     end
 
     def luquid_soap?
@@ -672,6 +685,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def washing_powder?
       @line.include?('washingpowder')
+    end
+
+    def always_liners?
+      @line.include?('always') && @line.include?('liners')
+    end
+
+    def tampax_compak?
+      @line.include?('tampax') && @line.include?('compak')
     end
 
     ####
