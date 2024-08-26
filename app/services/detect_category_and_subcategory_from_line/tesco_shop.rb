@@ -98,7 +98,8 @@ module DetectCategoryAndSubcategoryFromLine
     def dairy?
       salt_butter? || philadelphia_cheese? || soured_cream? || cravendale_milk? || cheese_slices? ||
         butter? || double_cream? || mozzarella? || ricotta_cheese? || yeo_valley_organic? ||
-        cream_double? || mascarpone_cheese? || coconut_milk?
+        cream_double? || mascarpone_cheese? || coconut_milk? || camembert? || cottage_cheese? ||
+        reggiano_cheese?
     end
 
     def salt_butter?
@@ -153,6 +154,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('coconut') && @line.include?('milk')
     end
 
+    def camembert?
+      @line.include?('camembert')
+    end
+
+    def cottage_cheese?
+      @line.include?('cottage') && @line.include?('cheese')
+    end
+
+    def reggiano_cheese?
+      @line.include?('reggiano') && @line.include?('cheese')
+    end
+
     ####
 
     def eggs?
@@ -169,7 +182,8 @@ module DetectCategoryAndSubcategoryFromLine
       mayonnaise? || lime_juice? || sunflower_oil? || olive_oil? || bay_leaves? || soy_sauce? ||
         distilled_vinegar? || sea_salt? || bicarbonate_soda? || oetker_vanilla_extract? ||
         sesame_oil? || ground_turmeric? || schwartz_sesame_seeds? || garam_masala_spice? ||
-        growing_mint_pot? || fish_sauce? || lemongrass? || nori_sushi? || chilli_paste? || lime_leaves?
+        growing_mint_pot? || fish_sauce? || lemongrass? || nori_sushi? || chilli_paste? || lime_leaves? ||
+        dark_cocoa_powder?
     end
 
     def mayonnaise?
@@ -250,6 +264,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def lime_leaves?
       @line.include?('lime') && @line.include?('leaves')
+    end
+
+    def dark_cocoa_powder?
+      @line.include?('dark') && @line.include?('cocoa') && @line.include?('powder')
     end
 
     ####
