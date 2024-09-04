@@ -97,9 +97,9 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dairy?
       salt_butter? || philadelphia_cheese? || soured_cream? || cravendale_milk? || cheese_slices? ||
-        butter? || double_cream? || mozzarella? || ricotta_cheese? || yeo_valley_organic? ||
+        butter? || double_cream? || mozzarella? || ricotta_cheese? || yeo_valley? ||
         cream_double? || mascarpone_cheese? || coconut_milk? || camembert? || cottage_cheese? ||
-        reggiano_cheese?
+        reggiano_cheese? || biotiful_kefir?
     end
 
     def salt_butter?
@@ -138,8 +138,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('ricotta') && @line.include?('cheese')
     end
 
-    def yeo_valley_organic?
-      @line.include?('yeo') && @line.include?('valley') && @line.include?('organic')
+    def yeo_valley?
+      @line.include?('yeo') && @line.include?('valley')
     end
 
     def cream_double?
@@ -166,6 +166,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('reggiano') && @line.include?('cheese')
     end
 
+    def biotiful_kefir?
+      @line.include?('biotiful') && @line.include?('kefir')
+    end
+
     ####
 
     def eggs?
@@ -183,7 +187,7 @@ module DetectCategoryAndSubcategoryFromLine
         distilled_vinegar? || sea_salt? || bicarbonate_soda? || oetker_vanilla_extract? ||
         sesame_oil? || ground_turmeric? || schwartz_sesame_seeds? || garam_masala_spice? ||
         growing_mint_pot? || fish_sauce? || lemongrass? || nori_sushi? || chilli_paste? || lime_leaves? ||
-        dark_cocoa_powder?
+        dark_cocoa_powder? || tomato_ketchup? || white_breadcrumbs? || mustard?
     end
 
     def mayonnaise?
@@ -270,11 +274,23 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('dark') && @line.include?('cocoa') && @line.include?('powder')
     end
 
+    def tomato_ketchup?
+      @line.include?('tomato') && @line.include?('ketchup')
+    end
+
+    def white_breadcrumbs?
+      @line.include?('white') && @line.include?('breadcrumbs')
+    end
+
+    def mustard?
+      @line.include?('mustard')
+    end
+
     ####
 
     def kitchen_stuff?
       washing_capsules? || platter? || kitchen_foil? || baking_paper_sheets? || glass_bowl? ||
-        dishwasher_salt? || plastic_bowl? || pvc_free_cling? || pyramid_grater? || surface_cleaning_wipes? ||
+        for_dishwasher? || plastic_bowl? || pvc_free_cling? || pyramid_grater? || surface_cleaning_wipes? ||
         tissues?
     end
 
@@ -298,8 +314,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('glass') && @line.include?('bowl')
     end
 
-    def dishwasher_salt?
-      @line.include?('dishwasher') && @line.include?('salt')
+    def for_dishwasher?
+      @line.include?('dishwasher')
     end
 
     def plastic_bowl?
@@ -375,7 +391,8 @@ module DetectCategoryAndSubcategoryFromLine
         baby_spinach? || fresh_wild_rocket? || white_cabbage? || parsley? || courgettes_loose? ||
         avocados? || cherry_tomatoes? || romaine_lettuce_hearts? || onions? || fresh_coriander? ||
         savoy_cabbage? || classic_tomatoes? || celeriac? || dill? || coriander? || red_chillies? ||
-        root_ginger? || organic_beetroot? || mushrooms? || basil_pot? || pot_rosemary? || mushroom_cluster?
+        root_ginger? || organic_beetroot? || mushrooms? || basil_pot? || pot_rosemary? || mushroom_cluster? ||
+        thyme_pot?
     end
 
     def asparagus?
@@ -514,6 +531,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('mushroom') && @line.include?('cluster')
     end
 
+    def thyme_pot?
+      @line.include?('thyme') && @line.include?('pot')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -617,7 +638,8 @@ module DetectCategoryAndSubcategoryFromLine
 
     def bread?
       wraps? || sliced_bread? || flour? || bread_1? || bake_home_petit? || white_sourdough? ||
-        baking_powder? || grains_seeds? || sunflower_seeded_protein? || hot_dog_rolls?
+        baking_powder? || grains_seeds? || sunflower_seeded_protein? || hot_dog_rolls? ||
+        dried_yeast?
     end
 
     def wraps?
@@ -658,6 +680,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def hot_dog_rolls?
       @line.include?('hot') && @line.include?('dog') && @line.include?('rolls')
+    end
+
+    def dried_yeast?
+      @line.include?('dried') && @line.include?('yeast')
     end
 
     ####
@@ -756,7 +782,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def grocery?
       basmati_rice? || spaghetti_pasta? || tagliatelle_pasta? || cous_cous? || cecco_fusilli? ||
-        lubella_pasta? || sushi_rice?
+        lubella_pasta? || sushi_rice? || spaghetti?
     end
 
     def basmati_rice?
@@ -785,6 +811,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sushi_rice?
       @line.include?('sushi') && @line.include?('rice')
+    end
+
+    def spaghetti?
+      @line.include?('spaghetti')
     end
 
     ####
@@ -842,7 +872,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       blackberries? || strawberries? || pears? || bananas? || apples? || nectarines? || sweetcorn? ||
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
-        melon?
+        melon? || kiwi?
     end
 
     def blackberries?
@@ -901,10 +931,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('melon')
     end
 
+    def kiwi?
+      @line.include?('kiwi')
+    end
+
     ####
 
     def water?
-      apple_juice? || orange_mango_juice? || coconut_water? || mineral_water?
+      apple_juice? || orange_mango_juice? || coconut_water? || mineral_water? ||
+        still_water?
     end
 
     def apple_juice?
@@ -921,6 +956,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mineral_water?
       @line.include?('mineral') && @line.include?('water')
+    end
+
+    def still_water?
+      @line.include?('still') && @line.include?('water')
     end
   end
 end
