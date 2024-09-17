@@ -11,7 +11,7 @@ module DetectCategoryAndSubcategoryFromLine
         micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
         darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus? || fruitastic_mix? ||
         caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream? || rocket_lollies? ||
-        fruit_spiral_lollies? || paw_patrol?
+        fruit_spiral_lollies? || paw_patrol? || choccoated_peanuts? || quark_bar?
     end
 
     def choc_cookies?
@@ -140,6 +140,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def paw_patrol?
       @line.include?('paw') && @line.include?('patrol')
+    end
+
+    def choccoated_peanuts?
+      @line.include?('choccoated') && @line.include?('peanuts')
+    end
+
+    def quark_bar?
+      @line.include?('quark') && @line.any? { |word| word.include?('bar') }
     end
 
     ####
@@ -536,7 +544,7 @@ module DetectCategoryAndSubcategoryFromLine
     def meat?
       beef_steak? || mince? || chicken_wings? || plain_kebabs? || chi_thigh_fillet? ||
         beef_steak_2? || pork? || chicken_fillets? || corned_beef? || chicken_meatball_gravy? ||
-        rind_belly_slices? || range_thigh?
+        rind_belly_slices? || range_thigh? || sliced_meat?
     end
 
     def beef_steak?
@@ -585,6 +593,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def range_thigh?
       @line.include?('range') && @line.include?('thigh')
+    end
+
+    def sliced_meat?
+      @line.include?('sliced') && @line.include?('meat')
     end
 
     ####
@@ -821,7 +833,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def sweet_easy_peelers?
-      @line.include?('sweet') && @line.include?('easy') && @line.include?('peelers')
+      @line.include?('easy') && @line.include?('peelers')
     end
 
     def funsize_apples?
@@ -866,6 +878,16 @@ module DetectCategoryAndSubcategoryFromLine
 
     def porridge_oats?
       @line.include?('porridge') && @line.include?('oats')
+    end
+
+    ####
+
+    def ready_to_cook?
+      potato_dumplings?
+    end
+
+    def potato_dumplings?
+      @line.include?('potato') && @line.include?('dumplings')
     end
   end
 end

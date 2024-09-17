@@ -1937,6 +1937,37 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt lidl 34', freezed_time: '2024-09-17T17:07:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/lidl/out34.jpeg") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Полуфабрикаты/морозилка", :price=>2.49},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>2.79},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.78},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.19},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.89},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.39},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>1.29},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.09},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.29},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.89},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.29},
+        {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>1.99},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.98},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.94},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>0.98},
+        26.72,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   def new_result_and_sum_of_prices(result)
     sum_of_prices = result[0].sum { |hsh| hsh[:price] }.round(2)
     new_result = result[0].map do |hsh|
