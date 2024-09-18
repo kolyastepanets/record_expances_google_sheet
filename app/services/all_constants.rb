@@ -12,7 +12,6 @@ module AllConstants
     selective: true,
   }.freeze
   SALARY_ON_WISE = 'wise'.freeze
-  SALARY_ON_USD_FOP = 'usd fop mono'.freeze
   SALARY_ON_UAH_BLACK_MONO = 'uah black mono'.freeze
   SHOW_ITEMS_PER_LINE = 2
   SHOW_TRAVEL_SUB_CATEGORIES_PER_LINE = 1

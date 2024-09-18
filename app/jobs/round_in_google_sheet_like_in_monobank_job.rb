@@ -2,7 +2,6 @@ class RoundInGoogleSheetLikeInMonobankJob < ApplicationJob
   queue_as :default
 
   def perform
-    usd_fop_monobank = ReceiveUsdFopFromMonobank.call
     uah_fop_monobank = ReceiveCurrentBalanceInMonobankFromMono.call
     gbp_from_monzo   = ReceiveMonzoFromApi.call
     gbp_monzo_in_google_sheet = ReceiveMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_monzo_formula]
@@ -13,11 +12,11 @@ class RoundInGoogleSheetLikeInMonobankJob < ApplicationJob
 
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{usd_fop_monobank}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}\n#{gbp_from_monzo_google_sheet}\n#{gbp_from_monzo}\n#{gbp_joint_from_monzo_google_sheet}\n#{gbp_joint_from_monzo}",
+      text: "#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}\n#{gbp_from_monzo_google_sheet}\n#{gbp_from_monzo}\n#{gbp_joint_from_monzo_google_sheet}\n#{gbp_joint_from_monzo}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
 
-    RoundInGoogleSheetLikeInMonobank.call(usd_fop_monobank, uah_fop_monobank)
+    RoundInGoogleSheetLikeInMonobank.call(uah_fop_monobank)
     RoundInGoogleSheetLikeInMonzo.call(gbp_from_monzo)
     RoundInGoogleSheetLikeInJointMonzo.call(gbp_joint_from_monzo)
 
@@ -27,7 +26,7 @@ class RoundInGoogleSheetLikeInMonobankJob < ApplicationJob
     gbp_joint_from_monzo_google_sheet = "GBP Joint Monzo google sheet: #{gbp_joint_monzo_in_google_sheet}"
     Telegram.bot.send_message(
       chat_id: ENV['MY_TELEGRAM_ID'],
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{usd_fop_monobank}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}\n#{gbp_from_monzo_google_sheet}\n#{gbp_from_monzo}\n#{gbp_joint_from_monzo_google_sheet}\n#{gbp_joint_from_monzo}",
+      text: "\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{uah_fop_monobank}\n#{gbp_from_monzo_google_sheet}\n#{gbp_from_monzo}\n#{gbp_joint_from_monzo_google_sheet}\n#{gbp_joint_from_monzo}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   rescue StandardError => e

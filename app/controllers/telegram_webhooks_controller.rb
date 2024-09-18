@@ -402,7 +402,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     respond_with(
       :message,
-      text: "#{ReceiveUsdFopFromGoogleSheet.call}\n#{ReceiveUsdFopFromMonobank.call}\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}\n#{gbp_joint_monzo_in_google_sheet_text}\n#{ReceiveJointMonzoFromApi.call}",
+      text: "\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}\n#{gbp_joint_monzo_in_google_sheet_text}\n#{ReceiveJointMonzoFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
