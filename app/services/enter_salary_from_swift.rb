@@ -11,7 +11,7 @@ class EnterSalaryFromSwift
     enter_salary
     enter_nbu_rate
     enter_left_usd_fop
-    put_salary_to_income_page
+    # put_salary_to_income_page
   end
 
   private
