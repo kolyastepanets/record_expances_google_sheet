@@ -741,7 +741,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def water?
-      apple_juice? || orange_juice? || mineral_water?
+      apple_juice? || orange_juice? || mineral_water? || coconut_water?
     end
 
     def apple_juice?
@@ -754,6 +754,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def mineral_water?
       @line.include?('mineral') && @line.include?('water')
+    end
+
+    def coconut_water?
+      @line.include?('coconut') && @line.include?('water')
     end
 
     ####
