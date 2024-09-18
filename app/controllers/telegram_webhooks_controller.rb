@@ -393,8 +393,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   private
 
   def uah_and_usd_all
-    usd_wise_in_google_sheet = ReceiveWiseFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:wise_formula]
-    usd_wise_in_google_sheet_text = "usd wise in google sheet: $#{usd_wise_in_google_sheet.round(2)}"
     gbp_monzo_in_google_sheet = ReceiveMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_monzo_formula]
     gbp_monzo_in_google_sheet_text = "gbp monzo in google sheet: £#{gbp_monzo_in_google_sheet.round(2)}"
     gbp_joint_monzo_in_google_sheet = ReceiveJointMonzoGbpFromGoogleSheet.call(value_render_option: 'UNFORMATTED_VALUE')[:gbp_joint_monzo_formula]
@@ -402,7 +400,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     respond_with(
       :message,
-      text: "\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{usd_wise_in_google_sheet_text}\n#{ReceiveWiseFromApi.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}\n#{gbp_joint_monzo_in_google_sheet_text}\n#{ReceiveJointMonzoFromApi.call}",
+      text: "\n#{ReceiveCurrentBalanceInMonobankFromGoogleSheet.call}\n#{ReceiveCurrentBalanceInMonobankFromMono.call}\n#{gbp_monzo_in_google_sheet_text}\n#{ReceiveMonzoFromApi.call}\n#{gbp_joint_monzo_in_google_sheet_text}\n#{ReceiveJointMonzoFromApi.call}",
       reply_markup: AllConstants::REPLY_MARKUP_MAIN_BUTTONS
     )
   end
