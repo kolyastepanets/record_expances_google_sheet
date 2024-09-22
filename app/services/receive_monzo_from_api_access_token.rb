@@ -46,6 +46,8 @@ class ReceiveMonzoFromApiAccessToken
       http.request(request)
     end
 
+    return if response.body.empty?
+
     access_token  = JSON.parse(response.body)["access_token"]
     refresh_token = JSON.parse(response.body)["refresh_token"]
     @redis.set('monzo_access_token', access_token, ex: EXPIRES_IN)
