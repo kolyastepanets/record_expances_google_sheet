@@ -6,12 +6,13 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sweets?
       choc_cookies? || ice_cream? || choc_biscuit? || kit_kat? || almond_chocolate? ||
-        kinder_milk_slice? || snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
+        snickers? || milk_chocolate? || whole_nut_chocolate? || shortcrust_biscuits? ||
         cornish_vanilla? || cadbury_wispa? || choc_fingers? || vanilla_cupcake? || fruit_pastille_lolly? ||
-        micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || kinder_bueno? || twix? ||
+        micr_popcorn_sweet? || nutella? || caramel_peanut_bars? || twix? ||
         darkchoc_ginger_bisc? || shortbread_rounds? || custard_creams? || fruit_drop_citrus? || fruitastic_mix? ||
         caramel_squares? || whitecaramel_squares? || milky_way? || mini_milk_cream? || rocket_lollies? ||
-        fruit_spiral_lollies? || paw_patrol? || choccoated_peanuts? || quark_bar?
+        fruit_spiral_lollies? || paw_patrol? || choccoated_peanuts? || quark_bar? || kinder? ||
+        celebrations_pouch?
     end
 
     def choc_cookies?
@@ -32,10 +33,6 @@ module DetectCategoryAndSubcategoryFromLine
 
     def almond_chocolate?
       @line.include?('almondmilk') && @line.include?('chocolate')
-    end
-
-    def kinder_milk_slice?
-      @line.include?('kinder') && @line.include?('milk') && @line.include?('slice')
     end
 
     def snickers?
@@ -86,8 +83,8 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('caramel') && @line.include?('peanut') && @line.include?('bars')
     end
 
-    def kinder_bueno?
-      @line.include?('kinder') && @line.include?('bueno')
+    def kinder?
+      @line.include?('kinder') && (@line.include?('milk') || @line.include?('slice') || @line.include?('egg'))
     end
 
     def twix?
@@ -148,6 +145,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def quark_bar?
       @line.include?('quark') && @line.any? { |word| word.include?('bar') }
+    end
+
+    def celebrations_pouch?
+      @line.include?('celebrations') && @line.include?('pouch')
     end
 
     ####
@@ -250,7 +251,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spices_and_seasonings?
       tomato_sauce? || oil? || sugar? || bicarbonate_soda? || squeezy_honey? || squeezy_real_mayo? ||
-        dried_yeast? || lemon_juice? || chicken_cubes? || rice_vinegar?
+        dried_yeast? || lemon_juice? || chicken_cubes? || rice_vinegar? || tapas_pots_jamon?
     end
 
     def tomato_sauce?
@@ -293,11 +294,15 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('rice') && @line.include?('vinegar')
     end
 
+    def tapas_pots_jamon?
+      @line.include?('tapas') && @line.include?('pots') && @line.include?('jamon')
+    end
+
     ####
 
     def kitchen_stuff?
       salt_shaker? || trash_bag? || trash_bag_2? || fairy? || dishwasher_tablets? || dishwasher_salt? ||
-        microfibre_cloths? || white_facial_tissue? || dishwasher_tab? || sponge?
+        microfibre_cloths? || white_facial_tissue? || dishwasher_tab? || sponge? || stairs?
     end
 
     def salt_shaker?
@@ -340,10 +345,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('sponge')
     end
 
+    def stairs?
+      @line.include?('stairs') && @line.include?('0415977')
+    end
+
     ####
 
     def tea_or_coffee?
-      indonesia_coffee? || nesquik? || tea? || coffee_pod?
+      indonesia_coffee? || nesquik? || tea? || coffee_pod? || modena_lungo_capsule?
     end
 
     def indonesia_coffee?
@@ -360,6 +369,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def coffee_pod?
       @line.include?('coffee') && @line.include?('pod')
+    end
+
+    def modena_lungo_capsule?
+      @line.include?('modena') && @line.include?('lungo') && @line.include?('capsule')
     end
 
     ####
@@ -484,7 +497,8 @@ module DetectCategoryAndSubcategoryFromLine
     def sausage_and_sausages?
       krakauer_sausage? || silesian_sausage? || garlic_sausage? || chicken_frankfurters? ||
         smoked_salami? || ham_slices? || sliced_sausagewiejska? || pork_sausage? ||
-        chicken_frankfurters? || polish_sausage? || smoked_ham? || thick_bacon? || antipasti_platter?
+        chicken_frankfurters? || polish_sausage? || smoked_ham? || thick_bacon? || antipasti_platter? ||
+        swojska_ham?
     end
 
     def krakauer_sausage?
@@ -537,6 +551,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def antipasti_platter?
       @line.include?('antipasti') && @line.include?('platter')
+    end
+
+    def swojska_ham?
+      @line.include?('swojska') && @line.include?('ham')
     end
 
     ####
@@ -763,7 +781,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def fish?
-      salmon? || prawns?
+      salmon? || prawns? || smoked_trout?
     end
 
     def salmon?
@@ -772,6 +790,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def prawns?
       @line.include?('prawns')
+    end
+
+    def smoked_trout?
+      @line.include?('smoked') && @line.include?('trout')
     end
 
     ####
@@ -789,7 +811,8 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       plums? || mango? || strawberries? || bananas? || pomegranate? || cherries? || blueberries? ||
         mixed_grapes? || blackberries? || corn_cobettes? || raspberries? || sweet_easy_peelers? ||
-        funsize_apples? || white_grapes? || peaches? || galia_melon? || pears? || nectarines?
+        funsize_apples? || white_grapes? || peaches? || galia_melon? || pears? || nectarines? ||
+        golden_delicious?
     end
 
     def plums?
@@ -862,6 +885,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def nectarines?
       @line.include?('nectarines')
+    end
+
+    def golden_delicious?
+      @line.include?('golden') && @line.include?('delicious')
     end
 
     ####
