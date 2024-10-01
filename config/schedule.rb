@@ -1,4 +1,4 @@
-every 10.minutes do
+every 2.minutes do
   runner "HandleMonzoTransactionsSchedule.call"
 end
 
