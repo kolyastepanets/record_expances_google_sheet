@@ -8,7 +8,7 @@ module DetectCategoryAndSubcategoryFromLine
       tiramisu? || milk_biscuit? || milka_chocolate? || choco_milk? || kinder? ||
         chocolate_bar? || bounty? || snickers? || milk_chocolate_cookie? || sponge_fingers? ||
         white_chocolate? || nutella_chocolate? || oreo? || caramel_cookies? || haribo_marshmallows? ||
-        chocolate_tube?
+        chocolate_tube? || chocolate_cake? || chocolate_milk?
     end
 
     def tiramisu?
@@ -73,6 +73,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chocolate_tube?
       @line.include?('chocolate') && @line.include?('tube')
+    end
+
+    def chocolate_cake?
+      @line.include?('chocolate') && @line.include?('cake')
+    end
+
+    def chocolate_milk?
+      @line.include?('chocolate') && @line.include?('milk')
     end
 
     ####
@@ -192,7 +200,7 @@ module DetectCategoryAndSubcategoryFromLine
         sesame_oil? || ground_turmeric? || schwartz_sesame_seeds? || garam_masala_spice? ||
         growing_mint_pot? || fish_sauce? || lemongrass? || nori_sushi? || chilli_paste? || lime_leaves? ||
         dark_cocoa_powder? || tomato_ketchup? || white_breadcrumbs? || mustard? ||
-        ground_nutmeg? || black_pepper?
+        ground_nutmeg? || black_pepper? || cream_tartar?
     end
 
     def mayonnaise?
@@ -299,12 +307,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('black') && @line.include?('pepper')
     end
 
+    def cream_tartar?
+      @line.include?('cream') && @line.include?('tartar')
+    end
+
     ####
 
     def kitchen_stuff?
       washing_capsules? || platter? || kitchen_foil? || baking_paper_sheets? || glass_bowl? ||
         for_dishwasher? || plastic_bowl? || pvc_free_cling? || pyramid_grater? || surface_cleaning_wipes? ||
-        tissues?
+        tissues? || caddy_liners?
     end
 
     def washing_capsules?
@@ -349,6 +361,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def tissues?
       @line.include?('tissues')
+    end
+
+    def caddy_liners?
+      @line.include?('caddy') && @line.include?('liners')
     end
 
     ####
@@ -405,7 +421,7 @@ module DetectCategoryAndSubcategoryFromLine
         avocados? || cherry_tomatoes? || romaine_lettuce_hearts? || onions? || fresh_coriander? ||
         savoy_cabbage? || classic_tomatoes? || celeriac? || dill? || coriander? || red_chillies? ||
         root_ginger? || organic_beetroot? || mushrooms? || basil_pot? || pot_rosemary? || mushroom_cluster? ||
-        thyme_pot?
+        thyme_pot? || butternut_squash? || diced_onion? || fine_beans? || red_cabbage? || aubergine?
     end
 
     def asparagus?
@@ -548,6 +564,26 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('thyme') && @line.include?('pot')
     end
 
+    def butternut_squash?
+      @line.include?('butternut') && @line.include?('squash')
+    end
+
+    def diced_onion?
+      @line.include?('diced') && @line.include?('onion')
+    end
+
+    def fine_beans?
+      @line.include?('fine') && @line.include?('beans')
+    end
+
+    def red_cabbage?
+      @line.include?('red') && @line.include?('cabbage')
+    end
+
+    def aubergine?
+      @line.include?('aubergine')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -592,7 +628,8 @@ module DetectCategoryAndSubcategoryFromLine
     def meat?
       chicken? || meatballs? || chicken_fillet? || chicken_drumsticks_2? || lean_diced_beef? ||
         chicken_breast_portions? || pork_ribs? || chicken_legs? || turkey_drumsticks? ||
-        chicken_wings? || lamb_chops? || farms_pork_chops? || pork_steak? || duck_fillets?
+        chicken_wings? || lamb_chops? || farms_pork_chops? || pork_steak? || duck_fillets? ||
+        pork_liver? || pork_belly?
     end
 
     def chicken?
@@ -649,6 +686,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def duck_fillets?
       @line.include?('duck') && @line.include?('fillets')
+    end
+
+    def pork_liver?
+      @line.include?('pork') && @line.include?('liver')
+    end
+
+    def pork_belly?
+      @line.include?('pork') && @line.include?('belly')
     end
 
     ####
@@ -761,7 +806,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fish?
       prawns? || smoked_salmon? || sea_food_stick? || cooked_mussels? ||
         graal_sprats_in_tomato_sauce? || tuna_chunks? || sea_bass_fillets? || boneless_fillets? ||
-        raw_scallops? || tuna_steaks? || seafood_selection?
+        raw_scallops? || tuna_steaks? || seafood_selection? || salmon_fillets?
     end
 
     def prawns?
@@ -806,6 +851,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def seafood_selection?
       @line.include?('seafood') && @line.include?('selection')
+    end
+
+    def salmon_fillets?
+      @line.include?('salmon') && @line.include?('fillets')
     end
 
     ####
@@ -902,7 +951,7 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       blackberries? || strawberries? || pears? || bananas? || apples? || nectarines? || sweetcorn? ||
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
-        melon? || kiwi? || watermelon? || grapefruit?
+        melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack?
     end
 
     def blackberries?
@@ -971,6 +1020,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def grapefruit?
       @line.include?('grapefruit')
+    end
+
+    def plums?
+      @line.include?('plums')
+    end
+
+    def jaffa_orange_pack?
+      @line.include?('jaffa') && @line.include?('orange') && @line.include?('pack')
     end
 
     ####
