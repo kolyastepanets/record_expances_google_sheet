@@ -951,7 +951,8 @@ module DetectCategoryAndSubcategoryFromLine
     def fruits?
       blackberries? || strawberries? || pears? || bananas? || apples? || nectarines? || sweetcorn? ||
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
-        melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack?
+        melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack? || grapes? ||
+        figs? || sweet_peeler? || lemons?
     end
 
     def blackberries?
@@ -971,7 +972,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def apples?
-      @line.include?('apple') && @line.include?('golden')
+      @line.include?('apple') && (@line.include?('golden') || @line.include?('pink'))
     end
 
     def nectarines?
@@ -1028,6 +1029,22 @@ module DetectCategoryAndSubcategoryFromLine
 
     def jaffa_orange_pack?
       @line.include?('jaffa') && @line.include?('orange') && @line.include?('pack')
+    end
+
+    def grapes?
+      @line.include?('grapes')
+    end
+
+    def figs?
+      @line.include?('figs')
+    end
+
+    def sweet_peeler?
+      @line.include?('sweet') && @line.include?('peeler')
+    end
+
+    def lemons?
+      @line.include?('lemons')
     end
 
     ####
