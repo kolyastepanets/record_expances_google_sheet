@@ -20,28 +20,6 @@ class HandleMonzoTransactionsSchedule
   def handle_monzo_transaction(params)
     amount = (params[:data][:amount].to_i.abs / 100.0).round(2)
 
-    if money_from_joint_to_personal?(params)
-      withdraw_from_joint_account(amount)
-      add_to_personal_account(amount)
-      send_notification_to_bot("£#{amount} was transferred from Joint Monzo to Personal Monzo account.")
-      return
-    end
-
-    if transaction_money_from_joint_to_personal?(params)
-      return
-    end
-
-    if money_from_personal_to_joint?(params)
-      withdraw_from_personal_account(amount)
-      add_to_joint_account(amount)
-      send_notification_to_bot("£#{amount} was transferred from Personal Monzo account to Joint Monzo.")
-      return
-    end
-
-    if transaction_money_from_personal_to_joint?(params)
-      return
-    end
-
     if salary?(params)
       add_to_personal_account(amount)
       send_notification_to_bot("Salary £#{amount} was saved to Personal Monzo account.")
@@ -100,10 +78,6 @@ class HandleMonzoTransactionsSchedule
     send_ask_message_to_bot(params)
   end
 
-  def money_from_joint_to_personal?(params)
-    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && params[:data][:description] == ENV['MY_MONZO_NAME'] && params[:data][:amount].negative?
-  end
-
   def withdraw_from_joint_account(amount)
     result = ReceiveJointMonzoGbpFromGoogleSheet.call
     price_to_put_in_sheets = "#{result[:gbp_joint_monzo_formula]} - #{amount.to_s.gsub(".", ",")}"
@@ -128,40 +102,6 @@ class HandleMonzoTransactionsSchedule
 
   def send_notification_to_bot(message)
     SendNotificationMessageToBot.call(message, show_reply_markup_main_buttons: true)
-  end
-
-  def transaction_money_from_joint_to_personal?(params)
-    params[:data][:account_id] == ENV['MONZO_ACCOUNT_ID'] && params[:data][:description] == ENV['JOINT_MONZO_NAME'] && params[:data][:amount].positive?
-  end
-
-  def money_from_personal_to_joint?(params)
-    params[:data][:account_id] == ENV['JOINT_MONZO_ACCOUNT_ID'] && params[:data][:description] == ENV['MY_MONZO_NAME'] && params[:data][:amount].positive?
-  end
-
-  def withdraw_from_personal_account(amount)
-    result = ReceiveMonzoGbpFromGoogleSheet.call
-    decreased_price_to_put_in_sheets = "#{result[:gbp_monzo_formula]} - #{amount.to_s.gsub(".", ",")}"
-
-    UpdateCellInGoogleSheet.call(
-      decreased_price_to_put_in_sheets,
-      result[:coordinates_of_gbp_monzo_formula],
-      page: 'Статистика накоплений'
-    )
-  end
-
-  def add_to_joint_account(amount)
-    result = ReceiveJointMonzoGbpFromGoogleSheet.call
-    price_to_put_in_sheets = "#{result[:gbp_joint_monzo_formula]} + #{amount.to_s.gsub(".", ",")}"
-
-    UpdateCellInGoogleSheet.call(
-      price_to_put_in_sheets,
-      result[:coordinates_of_joint_gbp_monzo_formula],
-      page: 'Статистика накоплений'
-    )
-  end
-
-  def transaction_money_from_personal_to_joint?(params)
-    params[:data][:account_id] == ENV['MONZO_ACCOUNT_ID'] && params[:data][:description] == ENV['JOINT_MONZO_NAME'] && params[:data][:amount].negative?
   end
 
   def salary?(params)
