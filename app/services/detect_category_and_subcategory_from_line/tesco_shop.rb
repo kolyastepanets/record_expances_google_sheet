@@ -8,7 +8,7 @@ module DetectCategoryAndSubcategoryFromLine
       tiramisu? || milk_biscuit? || milka_chocolate? || choco_milk? || kinder? ||
         chocolate_bar? || bounty? || snickers? || milk_chocolate_cookie? || sponge_fingers? ||
         white_chocolate? || nutella_chocolate? || oreo? || caramel_cookies? || haribo_marshmallows? ||
-        chocolate_tube? || chocolate_cake? || chocolate_milk?
+        chocolate_tube? || chocolate_cake? || chocolate_milk? || raspberry_jam? || honey?
     end
 
     def tiramisu?
@@ -81,6 +81,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chocolate_milk?
       @line.include?('chocolate') && @line.include?('milk')
+    end
+
+    def raspberry_jam?
+      @line.include?('raspberry') && @line.include?('conserve')
+    end
+
+    def honey?
+      @line.include?('honey') && @line.include?('organic')
     end
 
     ####
@@ -429,7 +437,8 @@ module DetectCategoryAndSubcategoryFromLine
         avocados? || cherry_tomatoes? || romaine_lettuce_hearts? || onions? || fresh_coriander? ||
         savoy_cabbage? || classic_tomatoes? || celeriac? || dill? || coriander? || red_chillies? ||
         root_ginger? || beetroot? || mushrooms? || basil_pot? || pot_rosemary? || mushroom_cluster? ||
-        thyme_pot? || butternut_squash? || diced_onion? || fine_beans? || red_cabbage? || aubergine?
+        thyme_pot? || butternut_squash? || diced_onion? || fine_beans? || red_cabbage? || aubergine? ||
+        mixed_vegetables? || baby_beans? || cannellini_beans?
     end
 
     def asparagus?
@@ -592,6 +601,18 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('aubergine')
     end
 
+    def mixed_vegetables?
+      @line.include?('mixed') && @line.include?('vegetables')
+    end
+
+    def baby_beans?
+      @line.include?('baby') && @line.include?('beans')
+    end
+
+    def cannellini_beans?
+      @line.include?('cannellini') && @line.include?('beans')
+    end
+
     ####
 
     def sausage_and_sausages?
@@ -713,7 +734,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       wraps? || sliced_bread? || flour? || bread_1? || bake_home_petit? || white_sourdough? ||
         baking_powder? || grains_seeds? || sunflower_seeded_protein? || hot_dog_rolls? ||
-        dried_yeast?
+        dried_yeast? || hearty_puddings?
     end
 
     def wraps?
@@ -760,11 +781,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('dried') && @line.include?('yeast')
     end
 
+    def hearty_puddings?
+      @line.include?('hearty') && @line.include?('puddings')
+    end
+
     ####
 
     def bath_stuff?
       shower_gel? || shaving_foam? || oxi_powder_whites? || bathroom_cleaner_cif? || vanish_oxi? ||
-        washing_machine_cleaner? || white_toilet_tissue? || colour_catcher_protection?
+        washing_machine_cleaner? || white_toilet_tissue? || colour_catcher_protection? ||
+        away_foamspray?
     end
 
     def shower_gel?
@@ -797,6 +823,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def colour_catcher_protection?
       @line.include?('colour') && @line.include?('catcher') && @line.include?('protection')
+    end
+
+    def away_foamspray?
+      @line.include?('away') && @line.include?('foamspray')
     end
 
     ####
@@ -956,7 +986,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def for_beer?
-      crisps? || mixed_nuts? || hula_hoops? || cashew?
+      crisps? || mixed_nuts? || hula_hoops? || cashew? || brazil_nuts? || cashews?
     end
 
     def crisps?
@@ -975,13 +1005,21 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('peanuts') && @line.include?('cashews')
     end
 
+    def brazil_nuts?
+      @line.include?('brazil') && @line.include?('nuts')
+    end
+
+    def cashews?
+      @line.include?('cashews')
+    end
+
     ####
 
     def fruits?
       blackberries? || strawberries? || pears? || bananas? || apples? || nectarines? || sweetcorn? ||
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
         melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack? || grapes? ||
-        figs? || sweet_peeler? || lemons? || persimmons?
+        figs? || sweet_peeler? || lemons? || persimmons? || pack_mango?
     end
 
     def blackberries?
@@ -1078,6 +1116,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def persimmons?
       @line.include?('persimmons')
+    end
+
+    def pack_mango?
+      @line.include?('pack') && @line.include?('mango')
     end
 
     ####
