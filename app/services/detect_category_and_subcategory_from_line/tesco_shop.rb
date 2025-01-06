@@ -84,7 +84,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def raspberry_jam?
-      @line.include?('raspberry') && @line.include?('conserve')
+      @line.include?('raspberry') && (@line.include?('conserve') || @line.include?('jam'))
     end
 
     def honey?
@@ -758,7 +758,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       wraps? || sliced_bread? || flour? || bread_1? || bake_home_petit? || white_sourdough? ||
         baking_powder? || grains_seeds? || sunflower_seeded_protein? || hot_dog_rolls? ||
-        dried_yeast? || hearty_puddings?
+        dried_yeast? || hearty_puddings? || chocolate_croissants?
     end
 
     def wraps?
@@ -807,6 +807,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def hearty_puddings?
       @line.include?('hearty') && @line.include?('puddings')
+    end
+
+    def chocolate_croissants?
+      @line.include?('chocolate') && @line.include?('croissants')
     end
 
     ####
@@ -1048,7 +1052,7 @@ module DetectCategoryAndSubcategoryFromLine
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
         melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack? || grapes? ||
         figs? || sweet_peeler? || lemons? || persimmons? || pack_mango? || citrus_box? ||
-        emperor_oranges? || seasonal_apples?
+        emperor_oranges? || seasonal_apples? || ripen_home_plum? || pomegranates_each?
     end
 
     def blackberries?
@@ -1161,6 +1165,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def seasonal_apples?
       @line.include?('seasonal') && @line.include?('apples')
+    end
+
+    def ripen_home_plum?
+      @line.include?('ripen') && @line.include?('home') && @line.include?('plum')
+    end
+
+    def pomegranates_each?
+      @line.include?('pomegranates') && @line.include?('each')
     end
 
     ####
