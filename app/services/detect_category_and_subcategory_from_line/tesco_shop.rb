@@ -332,7 +332,7 @@ module DetectCategoryAndSubcategoryFromLine
     def kitchen_stuff?
       washing_capsules? || platter? || kitchen_foil? || baking_paper_sheets? || glass_bowl? ||
         for_dishwasher? || plastic_bowl? || pvc_free_cling? || pyramid_grater? || surface_cleaning_wipes? ||
-        tissues? || caddy_liners? || sponge?
+        tissues? || caddy_liners? || sponge? || citrus_wipes?
     end
 
     def washing_capsules?
@@ -385,6 +385,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sponge?
       @line.include?('sponge')
+    end
+
+    def citrus_wipes?
+      @line.include?('citrus') && @line.include?('wipes')
     end
 
     ####
@@ -518,7 +522,7 @@ module DetectCategoryAndSubcategoryFromLine
     end
 
     def courgettes_loose?
-      @line.include?('courgettes') && @line.include?('loose')
+      @line.include?('courgettes') && (@line.include?('loose') || @line.include?('organic'))
     end
 
     def avocados?
@@ -633,7 +637,7 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sausage_and_sausages?
       paw_patrol? || unsmoked_bacon? || roast_ham? || cooked_ham? || morliny_wiejska_slices? ||
-        sopocka_pork_slice? || frankfurter_hot_dogs? || chopped_pork_ham?
+        sopocka_pork_slice? || frankfurter_hot_dogs? || chopped_pork_ham? || pigs_in_blankets?
     end
 
     def paw_patrol?
@@ -666,6 +670,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def chopped_pork_ham?
       @line.include?('chopped') && @line.include?('pork') && @line.include?('ham')
+    end
+
+    def pigs_in_blankets?
+      @line.include?('pigs') && @line.include?('in') && @line.include?('blankets')
     end
 
     ####
@@ -758,7 +766,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bread?
       wraps? || sliced_bread? || flour? || bread_1? || bake_home_petit? || white_sourdough? ||
         baking_powder? || grains_seeds? || sunflower_seeded_protein? || hot_dog_rolls? ||
-        dried_yeast? || hearty_puddings? || chocolate_croissants?
+        dried_yeast? || hearty_puddings? || chocolate_croissants? || breadsticks?
     end
 
     def wraps?
@@ -813,12 +821,16 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('chocolate') && @line.include?('croissants')
     end
 
+    def breadsticks?
+      @line.include?('breadsticks')
+    end
+
     ####
 
     def bath_stuff?
       shower_gel? || shaving_foam? || oxi_powder_whites? || bathroom_cleaner_cif? || vanish_oxi? ||
         washing_machine_cleaner? || white_toilet_tissue? || colour_catcher_protection? ||
-        away_foamspray?
+        away_foamspray? || fresh_toilet_block? || toilet_cleaner?
     end
 
     def shower_gel?
@@ -855,6 +867,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def away_foamspray?
       @line.include?('away') && @line.include?('foamspray')
+    end
+
+    def fresh_toilet_block?
+      @line.include?('fresh') && @line.include?('toilet') && @line.include?('block')
+    end
+
+    def toilet_cleaner?
+      @line.include?('toilet') && @line.include?('cleaner')
     end
 
     ####
@@ -986,7 +1006,7 @@ module DetectCategoryAndSubcategoryFromLine
     ####
 
     def ready_to_cook?
-      baked_beans? || french_fries? || panini_pack?
+      baked_beans? || french_fries? || panini_pack? || four_cheese_pizza?
     end
 
     def baked_beans?
@@ -999,6 +1019,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def panini_pack?
       @line.include?('panini') && @line.include?('pack')
+    end
+
+    def four_cheese_pizza?
+      @line.include?('four') && @line.include?('cheese') && @line.include?('pizza')
     end
 
     ####
@@ -1052,7 +1076,7 @@ module DetectCategoryAndSubcategoryFromLine
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
         melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack? || grapes? ||
         figs? || sweet_peeler? || lemons? || persimmons? || pack_mango? || citrus_box? ||
-        emperor_oranges? || seasonal_apples? || ripen_home_plum? || pomegranates_each?
+        emperor_oranges? || seasonal_apples? || ripen_home_plum? || pomegranates_each? || papaya_each?
     end
 
     def blackberries?
@@ -1173,6 +1197,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def pomegranates_each?
       @line.include?('pomegranates') && @line.include?('each')
+    end
+
+    def papaya_each?
+      @line.include?('each') && @line.include?('papaya')
     end
 
     ####
