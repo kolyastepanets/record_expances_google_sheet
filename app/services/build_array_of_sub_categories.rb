@@ -32,6 +32,6 @@ class BuildArrayOfSubCategories
       }
     ]
 
-    prepare_sub_categories.push(category_without_subcategory)
+    prepare_sub_categories.unshift(category_without_subcategory)
   end
 end
