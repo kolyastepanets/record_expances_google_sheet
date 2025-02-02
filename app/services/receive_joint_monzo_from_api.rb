@@ -25,6 +25,8 @@ class ReceiveJointMonzoFromApi
 
   def parse_response
     res = JSON.parse(@response.body)
+    return "invalid response" if res["balance"].blank?
+
     gbp_amount = (res["balance"] / 100.0).round(2)
     "gbp joint in monzo: £#{gbp_amount}"
   end
