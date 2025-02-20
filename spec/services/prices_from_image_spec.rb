@@ -1567,6 +1567,65 @@ RSpec.describe PricesFromImage, vcr: true do
     end
   end
 
+  context 'when receipt tesco 22', freezed_time: '2025-02-20T10:08:00+00:00' do
+    let(:get_telegram_image) { File.read("spec/images/tesco/out22.png") }
+
+    it 'return 3 values' do
+      result = subject
+
+      new_result, sum_of_prices = new_result_and_sum_of_prices(result)
+      expect(new_result).to eq(
+        [{:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.77},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.87},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>0.8},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>2.83},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.93},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>4.32},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>1.25},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>6.24},
+        {:category_name=>"Еда", :sub_category_name=>"Мясо", :price=>11.94},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.83},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>5.56},
+        {:category_name=>"Еда", :sub_category_name=>"Рыба", :price=>9.8},
+        {:category_name=>"Еда", :sub_category_name=>"Молочка", :price=>4.98},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>7.68},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>0.97},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.06},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.84},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.25},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>2.21},
+        {:category_name=>"Еда", :sub_category_name=>"Хлеб и др", :price=>1.06},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.4},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.25},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.3},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.86},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>0.5},
+        {:category_name=>"Для дома", :sub_category_name=>"Ванные принадлежности", :price=>7.93},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>3.84},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.78},
+        {:category_name=>"Еда", :sub_category_name=>"К пиву", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.49},
+        {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>2.21},
+        {:category_name=>"Для дома", :sub_category_name=>"Кухонные принадлежности", :price=>1.21},
+        {:category_name=>"Для дома", :sub_category_name=>"инвентарь", :price=>6.92},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.97},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>0.25},
+        {:category_name=>"Еда", :sub_category_name=>"Овощи", :price=>1.92},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.9},
+        {:category_name=>"Еда", :sub_category_name=>"Фрукты", :price=>1.45},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>2.5},
+        {:category_name=>"Еда", :sub_category_name=>"Яйца", :price=>4.12},
+        {:category_name=>"Еда", :sub_category_name=>"Сладости", :price=>1.25},
+        {:category_name=>"Еда", :sub_category_name=>"Специи, приправы", :price=>1.88},
+        124.47,
+        nil]
+      )
+      expect(sum_of_prices).to eq(result[1])
+    end
+  end
+
   context 'when receipt sainsbury 1', freezed_time: '2024-05-08T17:44:00+00:00' do
     let(:get_telegram_image) { File.read("spec/images/sainsbury/out01.jpeg") }
 

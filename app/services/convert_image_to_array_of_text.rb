@@ -53,6 +53,6 @@ class ConvertImageToArrayOfText < GoogleVisionBase
   end
 
   def sort_words_from_left_to_right(values)
-    values.sort_by { |value| value[:key_x] }.map { |value| value[:text] }
+    values.select { |value| value[:key_x] }.sort_by { |value| value[:key_x] }.map { |value| value[:text] }
   end
 end

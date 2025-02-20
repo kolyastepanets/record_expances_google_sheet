@@ -8,7 +8,8 @@ module DetectCategoryAndSubcategoryFromLine
       tiramisu? || milk_biscuit? || milka_chocolate? || choco_milk? || kinder? ||
         chocolate_bar? || bounty? || snickers? || milk_chocolate_cookie? || sponge_fingers? ||
         white_chocolate? || nutella_chocolate? || oreo? || caramel_cookies? || haribo_marshmallows? ||
-        chocolate_tube? || chocolate_cake? || chocolate_milk? || raspberry_jam? || honey?
+        chocolate_tube? || chocolate_cake? || chocolate_milk? || raspberry_jam? || honey? ||
+        toffee_popcorn? || milka_white?
     end
 
     def tiramisu?
@@ -91,6 +92,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('honey') && @line.include?('organic')
     end
 
+    def toffee_popcorn?
+      @line.include?('toffee') && @line.include?('popcorn')
+    end
+
+    def milka_white?
+      @line.include?('milka') && @line.include?('white')
+    end
+
     ####
 
     def ready_to_eat?
@@ -119,7 +128,7 @@ module DetectCategoryAndSubcategoryFromLine
       salt_butter? || philadelphia_cheese? || soured_cream? || cravendale_milk? || cheese_slices? ||
         butter? || double_cream? || mozzarella? || ricotta_cheese? || yeo_valley? ||
         cream_double? || mascarpone_cheese? || coconut_milk? || camembert? || cottage_cheese? ||
-        reggiano_cheese? || biotiful_kefir? || soft_cheese?
+        reggiano_cheese? || biotiful_kefir? || soft_cheese? || brie_cheese?
     end
 
     def salt_butter?
@@ -194,6 +203,10 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('soft') && @line.include?('cheese')
     end
 
+    def brie_cheese?
+      @line.include?('brie') && @line.include?('cheese')
+    end
+
     ####
 
     def eggs?
@@ -212,7 +225,7 @@ module DetectCategoryAndSubcategoryFromLine
         sesame_oil? || ground_turmeric? || schwartz_sesame_seeds? || garam_masala_spice? ||
         growing_mint_pot? || fish_sauce? || lemongrass? || nori_sushi? || chilli_paste? || lime_leaves? ||
         dark_cocoa_powder? || tomato_ketchup? || white_breadcrumbs? || mustard? ||
-        ground_nutmeg? || black_pepper? || cream_tartar? || sugar?
+        ground_nutmeg? || black_pepper? || cream_tartar? || sugar? || panko_breadcrumbs?
     end
 
     def mayonnaise?
@@ -325,6 +338,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def sugar?
       @line.include?('sugar') && @line.include?('granulated')
+    end
+
+    def panko_breadcrumbs?
+      @line.include?('panko') && @line.include?('breadcrumbs')
     end
 
     ####
@@ -454,7 +471,8 @@ module DetectCategoryAndSubcategoryFromLine
         savoy_cabbage? || classic_tomatoes? || celeriac? || dill? || coriander? || red_chillies? ||
         root_ginger? || beetroot? || mushrooms? || basil_pot? || pot_rosemary? || mushroom_cluster? ||
         thyme_pot? || butternut_squash? || diced_onion? || fine_beans? || red_cabbage? || aubergine? ||
-        mixed_vegetables? || baby_beans? || cannellini_beans? || spinach?
+        mixed_vegetables? || baby_beans? || cannellini_beans? || spinach? || mixed_little_leaves? ||
+        sushi_ginger?
     end
 
     def asparagus?
@@ -631,6 +649,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def spinach?
       @line.include?('spinach')
+    end
+
+    def mixed_little_leaves?
+      @line.include?('mixed') && @line.include?('little') && @line.include?('leaves')
+    end
+
+    def sushi_ginger?
+      @line.include?('sushi') && @line.include?('ginger')
     end
 
     ####
@@ -830,7 +856,7 @@ module DetectCategoryAndSubcategoryFromLine
     def bath_stuff?
       shower_gel? || shaving_foam? || oxi_powder_whites? || bathroom_cleaner_cif? || vanish_oxi? ||
         washing_machine_cleaner? || white_toilet_tissue? || colour_catcher_protection? ||
-        away_foamspray? || fresh_toilet_block? || toilet_cleaner?
+        away_foamspray? || fresh_toilet_block? || toilet_cleaner? || soft_toilet_tissue?
     end
 
     def shower_gel?
@@ -877,10 +903,14 @@ module DetectCategoryAndSubcategoryFromLine
       @line.include?('toilet') && @line.include?('cleaner')
     end
 
+    def soft_toilet_tissue?
+      @line.include?('soft') && @line.include?('toilet') && @line.include?('tissue')
+    end
+
     ####
 
     def home_stuff?
-      cleaning_spray? || peonies? || dust_magnet_duster?
+      cleaning_spray? || peonies? || dust_magnet_duster? || biodegradable_wipes?
     end
 
     def cleaning_spray?
@@ -893,6 +923,10 @@ module DetectCategoryAndSubcategoryFromLine
 
     def dust_magnet_duster?
       @line.include?('dust') && @line.include?('magnet') && @line.include?('duster')
+    end
+
+    def biodegradable_wipes?
+      @line.include?('biodegradable') && @line.include?('wipes')
     end
 
     ####
@@ -1076,7 +1110,8 @@ module DetectCategoryAndSubcategoryFromLine
         sugarsnap_peas? || blueberries? || raspberries? || large_kiwi? || cherries? || limes? ||
         melon? || kiwi? || watermelon? || grapefruit? || plums? || jaffa_orange_pack? || grapes? ||
         figs? || sweet_peeler? || lemons? || persimmons? || pack_mango? || citrus_box? ||
-        emperor_oranges? || seasonal_apples? || ripen_home_plum? || pomegranates_each? || papaya_each?
+        emperor_oranges? || seasonal_apples? || ripen_home_plum? || pomegranates_each? || papaya_each? ||
+        ripe_mango? || coconut_each?
     end
 
     def blackberries?
@@ -1201,6 +1236,14 @@ module DetectCategoryAndSubcategoryFromLine
 
     def papaya_each?
       @line.include?('each') && @line.include?('papaya')
+    end
+
+    def ripe_mango?
+      @line.include?('ripe') && @line.include?('mango')
+    end
+
+    def coconut_each?
+      @line.include?('coconut') && @line.include?('each')
     end
 
     ####
